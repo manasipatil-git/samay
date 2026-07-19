@@ -1144,10 +1144,7 @@ button{
 .board-header h2{
   font-family: var(--font-display);
   font-size: 1.9rem;
-  margin: 4px 0 6px;
-  color: var(--paper);
-}
-.board-hint{
+  ma.board-hint{
   font-family: var(--font-type);
   font-size: 0.8rem;
   color: rgba(236,224,196,0.8);
@@ -1155,31 +1152,58 @@ button{
   margin: 0 auto;
   padding-left: 24px;
 }
+.board-skip-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px dashed rgba(255, 255, 255, 0.4);
+  color: #fdfaf2;
+  font-family: var(--font-type);
+  font-size: 0.72rem;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  padding: 5px 14px;
+  margin-top: 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.board-skip-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+/* Green Chalkboard Investigation Board */
 .board{
   position:relative;
   margin: 10px auto 0;
-  width: min(900px, 94vw);
-  height: 46vh;
-  background:
-    radial-gradient(circle at 12% 18%, rgba(0,0,0,0.18) 0, transparent 3%),
-    radial-gradient(circle at 78% 32%, rgba(0,0,0,0.16) 0, transparent 2.6%),
-    radial-gradient(circle at 34% 74%, rgba(0,0,0,0.16) 0, transparent 2.4%),
-    radial-gradient(circle at 62% 12%, rgba(0,0,0,0.14) 0, transparent 2.2%),
-    radial-gradient(circle at 90% 82%, rgba(0,0,0,0.14) 0, transparent 2.4%),
-    radial-gradient(circle at 20% 92%, rgba(0,0,0,0.14) 0, transparent 2.2%),
-    linear-gradient(160deg, #b8895a 0%, #9c6c40 45%, #8a5c34 100%);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-  border: 14px solid #3c2a1a;
-  border-image: linear-gradient(160deg, #6b4c34, #3c2a1a) 1;
-  border-radius: 2px;
-  box-shadow: inset 0 0 60px rgba(0,0,0,0.45), var(--shadow-soft);
+  width: min(920px, 94vw);
+  height: 48vh;
+  background: linear-gradient(135deg, #1b382b 0%, #11261d 50%, #0d1f18 100%);
+  border: 14px solid #3c2416;
+  border-radius: 4px;
+  box-shadow: 
+    inset 0 0 50px rgba(0,0,0,0.85),
+    0 25px 60px rgba(0,0,0,0.85);
+  overflow: hidden;
+}
+/* White Chalk Scribbles & Annotations Watermark Overlay */
+.board::after {
+  content: "TOP SECRET // ANAND DAIRY MONOPOLY 1946 · ?? · ??? · દૂધ ક્ષેત્ર ઇન્સપેક્શન 🖈";
+  position: absolute;
+  top: 16px; left: 24px; right: 24px;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.15em;
+  pointer-events: none;
+  z-index: 2;
+  text-shadow: 0 0 2px rgba(255,255,255,0.2);
 }
 .board.board-shake {
   animation: shakeBoard 0.4s ease-in-out;
 }
 @keyframes shakeBoard {
   0%, 100% { transform: translate(0, 0); }
-  10%, 90% { transform: translate(-2px, -1px); }
+  100% { transform: translate(-2px, -1px); }
   30%, 70% { transform: translate(2px, 1px); }
   50% { transform: translate(-1px, 2px); }
 }
@@ -1203,78 +1227,85 @@ button{
   color: #a3c993;
 }
 .board::before{
-  /* cork speckle grain */
   content:"";
   position:absolute; inset:0;
-  opacity: 0.35;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.25  0 0 0 0 0.16  0 0 0 0 0.08  0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
   pointer-events:none;
 }
-.board-connections{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible; }
+.board-connections{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible; z-index: 4; }
 .board-connections path{
   fill:none;
-  stroke: #9c2a20;
-  stroke-width: 2.2;
+  stroke: #ff4d4d;
+  stroke-width: 2.5;
   stroke-linecap: round;
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35));
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.7));
   opacity:0;
   animation: stringDraw 0.5s ease forwards;
 }
 @keyframes stringDraw{
   from{ opacity:0; stroke-dasharray: 400; stroke-dashoffset: 400; }
-  to{ opacity:0.92; stroke-dasharray: 400; stroke-dashoffset: 0; }
+  to{ opacity:0.95; stroke-dasharray: 400; stroke-dashoffset: 0; }
 }
 
+/* Varied Paper Node Sizes for Clues */
 .board-node{
   position:absolute;
-  width: 100px;
   display:flex; flex-direction:column; align-items:center; gap:2px;
   padding: 8px 6px 6px;
-  background: linear-gradient(180deg, #fbf6e6 0%, #ecdfb6 100%);
+  background: linear-gradient(180deg, #fdfaf2 0%, #ede0c4 100%);
+  border: 1px solid #c8b998;
   border-radius: 1px;
-  box-shadow: 0 8px 14px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.6);
   cursor: grab;
   touch-action: none;
   user-select:none;
   z-index: 6;
   transition: box-shadow 0.2s, transform 0.1s;
 }
+.board-node[data-clue="receipt"] { width: 92px; }
+.board-node[data-clue="ledger"] { width: 125px; }
+.board-node[data-clue="rejectedLog"] { width: 135px; }
+.board-node[data-clue="manifest"] { width: 105px; }
+.board-node[data-clue="petition"] { width: 128px; }
+
 .board-node.is-dragging{
   cursor:grabbing;
   z-index: 12;
-  box-shadow: 0 16px 26px rgba(0,0,0,0.55);
+  box-shadow: 0 16px 28px rgba(0,0,0,0.75);
   transform: scale(1.05) rotate(1deg) !important;
 }
-.board-node .item-svg{ width:58px; height:70px; pointer-events:none; }
+.board-node .item-svg{ width:58px; height:68px; pointer-events:none; }
 .board-node .pin{
   position:absolute; top:-7px; left:50%; transform: translateX(-50%);
   width:12px; height:12px; border-radius:50%;
-  background: radial-gradient(circle at 35% 30%, #ff8b5c, #a8452f);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.4);
+  background: radial-gradient(circle at 35% 30%, #ff5252, #a80000 80%);
+  box-shadow: 0 3px 5px rgba(0,0,0,0.65), inset 0 1.5px 2px rgba(255,255,255,0.4);
   z-index: 2;
 }
 .board-node .node-label{
-  font-family: var(--font-type);
-  font-size: 0.6rem;
-  color: var(--ink-soft);
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: #2c1a0e;
   text-align:center;
   pointer-events:none;
 }
-.board-node.is-linked{ box-shadow: 0 0 0 2px rgba(156,42,32,0.55), 0 8px 14px rgba(0,0,0,0.4); }
+.board-node.is-linked{ box-shadow: 0 0 0 2px #ff4d4d, 0 8px 14px rgba(0,0,0,0.4); }
 .board-node.is-selected{
-  box-shadow: 0 0 0 3px var(--lantern-bright), 0 8px 14px rgba(0,0,0,0.4);
+  box-shadow: 0 0 0 3px #ffbd59, 0 8px 14px rgba(0,0,0,0.4);
   animation: pulseSelected 1.4s infinite alternate;
 }
 @keyframes pulseSelected {
-  0% { border-color: rgba(255, 216, 148, 0.4); }
-  100% { border-color: rgba(255, 216, 148, 1); box-shadow: 0 0 10px rgba(255, 216, 148, 0.5), 0 8px 14px rgba(0,0,0,0.4); }
+  0% { border-color: rgba(255, 189, 89, 0.4); }
+  100% { border-color: rgba(255, 189, 89, 1); box-shadow: 0 0 12px rgba(255, 189, 89, 0.6), 0 8px 14px rgba(0,0,0,0.4); }
 }
 .board-node[data-tilt="1"]{ rotate: -3.5deg; }
 .board-node[data-tilt="2"]{ rotate: 2.8deg; }
 .board-node[data-tilt="3"]{ rotate: -1.6deg; }
 .board-node[data-tilt="4"]{ rotate: 4deg; }
-.board-node[data-tilt="5"]{ rotate: -2.4deg; }
+.board-node[data-tilt="5"]{ rotate: -2.4deg; }board-node[data-tilt="5"]{ rotate: -2.4deg; }
 
 .board-deductions{
   max-width: 700px;
@@ -2895,25 +2926,24 @@ button{
 /* ============================================================
    PANCHAYAT CLIMAX EVIDENCE SELECTOR DOCK
    ============================================================ */
-.meeting-evidence-dock {
-  background: #fcfaf5;
-  border: 4px solid #5f3a26;
 .meeting-evidence-dock.panchayat-assembly-table {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(780px, 94vw);
+  max-height: 82vh;
+  overflow-y: auto;
   background: 
-    linear-gradient(rgba(10, 6, 3, 0.4), rgba(10, 6, 3, 0.7)),
+    linear-gradient(rgba(10, 6, 3, 0.5), rgba(10, 6, 3, 0.8)),
     repeating-linear-gradient(90deg, #3c2416 0px, #3c2416 140px, #25160c 140px, #25160c 280px);
   border: 8px solid #25160c;
   border-radius: 4px;
-  width: min(680px, 94vw);
-  padding: 30px;
+  padding: 22px 28px;
   box-shadow: 
-    0 30px 60px rgba(0,0,0,0.85),
-    inset 0 0 40px rgba(0,0,0,0.6);
+    0 30px 60px rgba(0,0,0,0.9),
+    inset 0 0 40px rgba(0,0,0,0.7);
   z-index: 100;
-  position: absolute;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: none;
 }
 .meeting-evidence-dock.panchayat-assembly-table.is-active {
@@ -2924,7 +2954,7 @@ button{
 .panchayat-table-header {
   border-bottom: 2px double rgba(221, 147, 73, 0.4);
   padding-bottom: 8px;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   text-align: center;
 }
 .table-eyebrow {
@@ -2945,9 +2975,9 @@ button{
 
 .evidence-dock-grid.table-documents-layout {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
 }
 .evidence-dock-card {
   position: relative;

@@ -645,6 +645,27 @@ class Game {
     this._redrawConnections();
     this._checkFinalDeduction();
     this._updateInsightScore();
+
+    const autoConnectBtn = document.getElementById("btn-auto-connect");
+    if (autoConnectBtn) {
+      autoConnectBtn.onclick = () => {
+        GAME_DATA.board.pairs.forEach(pair => {
+          if (!this.state.connectedPairs.includes(pair.id)) {
+            this.state.connectedPairs.push(pair.id);
+            if (this.boardNodeEls[pair.a]) this.boardNodeEls[pair.a].classList.add("is-linked");
+            if (this.boardNodeEls[pair.b]) this.boardNodeEls[pair.b].classList.add("is-linked");
+            this._renderDeductionCard(pair.id);
+          }
+        });
+        this._redrawConnections();
+        this._checkFinalDeduction();
+        this._updateInsightScore();
+        this._save();
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("stamp");
+        }
+      };
+    }
   }
 
   _scatterPositions(count) {
