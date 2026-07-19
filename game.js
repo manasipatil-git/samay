@@ -894,6 +894,12 @@ class Game {
     this.el.endingTitle.textContent = ending.title;
     this.el.endingBody.innerHTML = ending.body.map(p => `<p>${p}</p>`).join("");
 
+    // Hide the historical card initially for dramatic suspense
+    const histCard = document.getElementById("historical-card");
+    if (histCard) {
+      histCard.classList.remove("is-visible");
+    }
+
     // Dynamically inject the historical archive dispatcher text
     const histTextEl = document.getElementById("historical-text");
     if (histTextEl) {
@@ -929,17 +935,29 @@ class Game {
     if (scoreStamp) {
       scoreStamp.classList.remove("is-visible");
       scoreStamp.innerHTML = `Deduction<br><b>${accuracy}</b><br>${rankTitle}`;
-      
-      // Delay visual stamp reveal so it punches down after the timeline animations complete
-      setTimeout(() => {
-        scoreStamp.classList.add("is-visible");
-        if (window.SAMAY_SOUND) {
-          window.SAMAY_SOUND.play("stamp");
-        }
-      }, 2500);
     }
 
     this._goToScene("ending");
+
+    // Dramatic reveal sequence: Wait 1.5 seconds, then slide up the historical record dossier
+    setTimeout(() => {
+      if (histCard) {
+        histCard.classList.add("is-visible");
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("paper");
+        }
+      }
+      
+      // Stamp the deduction score 1.8 seconds after the timeline reveals
+      setTimeout(() => {
+        if (scoreStamp) {
+          scoreStamp.classList.add("is-visible");
+          if (window.SAMAY_SOUND) {
+            window.SAMAY_SOUND.play("stamp");
+          }
+        }
+      }, 1800);
+    }, 1500);
   }
 }
 
