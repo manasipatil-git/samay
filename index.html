@@ -534,37 +534,29 @@
 
   <!-- ============ SCENE: FINAL DECISION ============ -->
   <section id="scene-decision" class="scene">
-    <div class="hall-bg">
-      <div class="hall-window"><div class="hall-rain"></div></div>
-      <div class="hall-light-beam"></div>
-      <div class="hall-lantern-prop left"></div>
-      <div class="hall-lantern-prop right"></div>
-      <div class="hall-pillar left-pillar"></div>
-      <div class="hall-pillar right-pillar"></div>
-      <div class="hall-villagers">
-        <svg viewBox="0 0 800 200" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block;">
-          <path d="M 0,200 L 0,80 Q 20,60 40,75 T 80,65 T 120,70 T 160,60 T 200,80 T 240,70 T 280,75 T 320,60 Q 340,90 360,110 T 400,130 T 450,140 T 500,120 T 560,135 T 600,110 T 650,90 T 700,75 T 740,65 T 780,75 T 800,90 L 800,200 Z" fill="#0d0906" />
-          <path d="M 0,200 L 0,110 Q 15,90 30,105 T 60,95 T 90,100 T 120,90 T 150,110 T 180,100 T 210,105 T 240,90 Q 260,120 280,140 T 520,150 T 580,145 T 620,120 T 670,100 T 720,85 T 760,95 T 800,120 L 800,200 Z" fill="#050302" opacity="0.9" />
-        </svg>
+    <div class="decision-dossier-folder">
+      <div class="dossier-spine-red"></div>
+      <div class="decision-header-strip">
+        <span class="decision-gov-stamp">KAIRA DISTRICT ASSEMBLY // RESOLUTION FILE 1946</span>
+        <h2 class="decision-title">WHAT DOES THE VILLAGE DO?</h2>
       </div>
-    </div>
-    <header class="board-header">
-      <span class="hud-eyebrow">Tomorrow, at the meeting</span>
-      <h2>What does the village do?</h2>
-    </header>
-    <div class="decision-options" id="decision-options">
-      <button class="decision-card" data-ending="accept">
-        <h3>Accept lower prices</h3>
-        <p>Take what relief is offered. Move on.</p>
-      </button>
-      <button class="decision-card" data-ending="cooling">
-        <h3>Invest in cooling only</h3>
-        <p>Keep the milk fresher. Still sell to the same buyer.</p>
-      </button>
-      <button class="decision-card" data-ending="cooperative">
-        <h3>Form a cooperative</h3>
-        <p>Collect, grade, and sell the milk together.</p>
-      </button>
+      <div class="decision-options" id="decision-options">
+        <button class="decision-card" data-ending="accept">
+          <span class="decision-option-stamp">OPTION A</span>
+          <h3>Accept lower prices</h3>
+          <p>Take what relief is offered. Move on with Polson monopoly.</p>
+        </button>
+        <button class="decision-card" data-ending="cooling">
+          <span class="decision-option-stamp">OPTION B</span>
+          <h3>Invest in cooling only</h3>
+          <p>Keep milk fresher, but remain bound to the private contractor.</p>
+        </button>
+        <button class="decision-card" data-ending="cooperative">
+          <span class="decision-option-stamp">HISTORIC ACTION</span>
+          <h3>Form a cooperative</h3>
+          <p>Collect, grade, and sell milk together — strike against Polson.</p>
+        </button>
+      </div>
     </div>
   </section>
 
