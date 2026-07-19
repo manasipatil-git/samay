@@ -217,10 +217,10 @@ class Game {
     // Mark Case 001 as solved if ending is completed
     const drawerLabel = document.querySelector("#drawer-case1 .drawer-label");
     if (drawerLabel && this.state.ending) {
-      drawerLabel.innerHTML = `✓ CASE 001<br>The Milk Monopoly (Solved)`;
-      drawerLabel.style.color = "#1c4a2a";
-      drawerLabel.style.borderColor = "#7fa88b";
-      drawerLabel.style.background = "#f0faf2";
+      drawerLabel.innerHTML = `CASE 001<br>The Milk Monopoly<br><span class="stamp-archived">ARCHIVED</span>`;
+      drawerLabel.style.color = "#a8452f";
+      drawerLabel.style.borderColor = "#aa7c11";
+      drawerLabel.style.background = "#faf6eb";
     }
   }
 

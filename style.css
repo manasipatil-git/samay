@@ -423,9 +423,12 @@ button{
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  background: none;
-  padding: 0;
+  background: #faf6eb;
+  border: 1.5px solid #d4c5a9;
+  padding: 6px;
   width: 95px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.45);
+  border-radius: 2px;
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   z-index: 15;
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Cpath fill='%23dd9349' stroke='%232b2013' stroke-width='1.2' d='M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E") 10 10, pointer;
@@ -436,14 +439,14 @@ button{
 .loc-marker::after {
   content: "";
   position: absolute;
-  top: 30%;
+  top: -4px;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #ff5252 0%, #a80000 80%);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.5), inset 0 2px 3.5px rgba(255,255,255,0.4);
+  box-shadow: 0 3px 5px rgba(0,0,0,0.5), inset 0 1.5px 2px rgba(255,255,255,0.4);
   z-index: 25;
   pointer-events: none;
   transition: transform 0.25s, box-shadow 0.25s;
@@ -481,12 +484,28 @@ button{
   font-style: italic;
 }
 .loc-marker.is-visited {
-  opacity: 0.8;
+  opacity: 0.95;
+}
+.loc-marker.is-visited::before {
+  content: "VERIFIED";
+  position: absolute;
+  top: 18px;
+  left: 10px;
+  border: 1.5px double #a8452f;
+  color: #a8452f;
+  font-family: var(--font-type);
+  font-size: 0.52rem;
+  font-weight: bold;
+  padding: 1px 4px;
+  rotate: -12deg;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 30;
+  letter-spacing: 0.05em;
+  background: rgba(250, 246, 235, 0.9);
 }
 .loc-marker.is-visited .loc-name::after {
-  content: " ✓";
-  color: #2a5f3e;
-  font-weight: bold;
+  content: "";
 }
 .loc-marker.is-locked {
   opacity: 0.25;
@@ -878,6 +897,38 @@ button{
 .board-header{
   position:relative; text-align:center; padding: 30px 20px 10px; z-index: 5;
 }
+/* Visual brass magnifying glass rim */
+.board-header::before {
+  content: "";
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  transform: translateY(-50%) rotate(-25deg);
+  width: 48px;
+  height: 48px;
+  border: 4px solid #aa7c11;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.15) 100%);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.55), inset 0 2px 4px rgba(255,255,255,0.4);
+  pointer-events: none;
+  z-index: 10;
+}
+/* Visual wooden handle for the magnifying glass */
+.board-header::after {
+  content: "";
+  position: absolute;
+  left: 19%;
+  top: 74%;
+  width: 8px;
+  height: 32px;
+  background: linear-gradient(90deg, #5f3a26, #3c2416);
+  border: 1px solid #1c1109;
+  border-radius: 2px;
+  transform: rotate(-25deg);
+  pointer-events: none;
+  z-index: 9;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.45);
+}
 .board-header h2{
   font-family: var(--font-display);
   font-size: 1.9rem;
@@ -887,7 +938,10 @@ button{
 .board-hint{
   font-family: var(--font-type);
   font-size: 0.8rem;
-  color: rgba(236,224,196,0.6);
+  color: rgba(236,224,196,0.8);
+  max-width: 500px;
+  margin: 0 auto;
+  padding-left: 24px;
 }
 .board{
   position:relative;
@@ -2539,5 +2593,18 @@ button{
 .evidence-dock-submit-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.stamp-archived {
+  display: inline-block;
+  border: 2px double #a8452f;
+  color: #a8452f;
+  font-family: var(--font-type);
+  font-size: 0.65rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  rotate: -6deg;
+  margin-top: 6px;
+  letter-spacing: 1px;
 }
 
