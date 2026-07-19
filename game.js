@@ -968,6 +968,11 @@ class Game {
     }, 1500);
   }
 
+  _findLocationByClue(clueId) {
+    const loc = Object.values(GAME_DATA.locations).find(l => l.clue.id === clueId);
+    return loc ? loc.id : null;
+  }
+
   _showSentencePrompt(pair, node, prevNode) {
     const overlay = document.getElementById("deduction-prompt-overlay");
     const question = document.getElementById("prompt-question");
