@@ -530,7 +530,7 @@ button{
   opacity:0;
   pointer-events:none;
   transition: opacity 0.4s;
-  background: rgba(10,7,4,0.35);
+  background: rgba(10,7,4,0.45);
 }
 .dialogue-overlay.is-active{ opacity:1; pointer-events:auto; }
 
@@ -580,49 +580,57 @@ button{
   100%{ opacity:1; transform: translateY(0) scale(1); }
 }
 
-.dialogue-panel{
-  position:relative;
-  width: min(760px, 92vw);
-  margin-bottom: 26px;
-  padding: 22px 30px 20px 210px;
-  background:
-    radial-gradient(circle at 90% 8%, rgba(255,255,255,0.03), transparent 45%),
-    linear-gradient(180deg, #2c2013 0%, #221909 100%);
-  border: 1px solid rgba(236,224,196,0.18);
-  border-radius: 3px;
-  box-shadow: var(--shadow-soft);
+.dialogue-panel {
+  position: relative;
+  width: min(720px, 92vw);
+  margin-bottom: 30px;
+  padding: 24px 34px 22px 190px;
+  background: #fdfaf2;
+  border: 3px solid #5f3a26;
+  border-radius: 2px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.65), inset 0 0 10px rgba(255,255,255,0.3);
 }
-.dialogue-panel::before{
-  /* red case-file corner stamp */
-  content:"CASE NOTE";
-  position:absolute; top:10px; right:14px;
+.dialogue-panel::before {
+  content: "CASE FILE EVIDENCE";
+  position: absolute;
+  top: 12px;
+  right: 18px;
   font-family: var(--font-type);
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  color: rgba(168,69,47,0.55);
-  border: 1px solid rgba(168,69,47,0.45);
-  padding: 2px 6px;
-  rotate: -3deg;
+  font-size: 0.55rem;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  color: rgba(168, 69, 47, 0.85);
+  border: 1.5px solid rgba(168, 69, 47, 0.85);
+  padding: 2px 8px;
+  rotate: -4deg;
+  opacity: 0.9;
 }
-.dialogue-name{
+.dialogue-name {
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  color: var(--lantern-bright);
-  margin-bottom: 6px;
+  font-size: 1.25rem;
+  color: #8b0000;
+  margin-bottom: 8px;
+  border-bottom: 1.5px dashed rgba(95, 58, 38, 0.22);
+  padding-bottom: 4px;
 }
-.dialogue-text{
-  font-family: var(--font-type);
-  font-size: 0.98rem;
-  line-height: 1.6;
-  color: var(--paper);
+.dialogue-text {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #2c1e12;
   min-height: 3.2em;
 }
-.dialogue-continue{
-  position:absolute; right: 20px; bottom: 14px;
+.dialogue-continue {
+  position: absolute;
+  right: 24px;
+  bottom: 12px;
   font-family: var(--font-type);
   font-size: 0.72rem;
-  color: rgba(236,224,196,0.55);
-  opacity:0;
+  font-weight: bold;
+  color: #b0821b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0;
   animation: bobContinue 1.4s ease-in-out infinite;
 }
 .dialogue-continue.is-visible{ opacity:1; }
@@ -1016,30 +1024,102 @@ button{
   50% { filter: brightness(1.03); }
   75% { filter: brightness(0.97); }
 }
-.hall-bg{
-  position:absolute; inset:0;
-  background: repeating-linear-gradient(90deg, rgba(0,0,0,0.12) 0 40px, transparent 40px 90px);
-  opacity:0.5;
+.hall-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(95, 58, 38, 0.15) 0%, transparent 80%);
+  z-index: 1;
 }
-.hall-bg::after {
+.hall-pillar {
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 100%;
+  background: linear-gradient(90deg, #120b07 0%, #2b1d12 40%, #20150d 70%, #0d0805 100%);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.95);
+  z-index: 5;
+}
+.left-pillar { left: 10%; }
+.right-pillar { right: 10%; }
+
+.hall-lantern-prop {
+  position: absolute;
+  top: 40px;
+  width: 22px;
+  height: 38px;
+  background: radial-gradient(circle at center, #ffd694 0%, #d87e2b 60%, #5f3310 100%);
+  border-radius: 6px;
+  box-shadow: 0 0 35px #dd9349, 0 0 80px rgba(221, 147, 73, 0.45);
+  z-index: 6;
+  animation: lanternFlicker 4s infinite alternate;
+}
+.hall-lantern-prop::before {
   content: "";
   position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 120px;
-  background: 
-    radial-gradient(circle at 10% 120px, #110c08 50px, transparent 52px),
-    radial-gradient(circle at 28% 130px, #18120e 65px, transparent 67px),
-    radial-gradient(circle at 50% 115px, #110c08 70px, transparent 72px),
-    radial-gradient(circle at 72% 140px, #18120e 60px, transparent 62px),
-    radial-gradient(circle at 90% 125px, #110c08 55px, transparent 57px);
-  opacity: 0.9;
-  filter: blur(1.5px);
+  top: -40px;
+  left: 10px;
+  width: 2px;
+  height: 40px;
+  background: #110c08;
+}
+.hall-lantern-prop.left { left: calc(10% + 14px); }
+.hall-lantern-prop.right { right: calc(10% + 14px); }
+
+.hall-light-beam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(253, 218, 148, 0.14) 0%, rgba(253, 218, 148, 0.01) 90%);
+  clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+  z-index: 2;
+  filter: blur(8px);
+}
+.hall-villagers {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 175px;
+  z-index: 8;
   pointer-events: none;
 }
+.hall-window {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 170px;
+  background: radial-gradient(circle at center, #263342 0%, #111820 100%);
+  border: 7px solid #1a120b;
+  border-radius: 40px 40px 0 0;
+  box-shadow: inset 0 6px 12px rgba(0,0,0,0.85);
+  z-index: 1;
+  overflow: hidden;
+}
+.hall-window::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(90deg, transparent 48%, #1a120b 48%, #1a120b 52%, transparent 52%),
+    linear-gradient(0deg, transparent 31%, #1a120b 31%, #1a120b 35%, transparent 35%, transparent 64%, #1a120b 64%, #1a120b 68%, transparent 68%);
+}
+.hall-rain {
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M10,0 L5,20 M30,10 L25,30 M50,5 L45,25 M70,15 L65,35' stroke='rgba(255,255,255,0.18)' stroke-width='1'/%3E%3C/svg%3E");
+  animation: fallRain 0.8s linear infinite;
+}
+
 .meeting-options{
-  position:absolute; left:50%; bottom: 34px; transform: translateX(-50%);
-  display:flex; flex-direction:column; gap:12px;
-  width: min(640px, 92vw);
+  position:absolute; left:50%; bottom: 38px; transform: translateX(-50%);
+  display:flex; flex-direction:column; gap:14px;
+  width: min(520px, 92vw);
   z-index: 30;
   opacity:0;
   pointer-events:none;
@@ -1047,19 +1127,29 @@ button{
 }
 .meeting-options.is-visible{ opacity:1; pointer-events:auto; }
 .meeting-option{
-  text-align:left;
-  padding: 14px 18px;
-  background: rgba(43,32,19,0.7);
-  border: 1px solid rgba(236,224,196,0.22);
+  text-align: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #f4e8cd 0%, #e6d3a4 100%);
+  border: 3px solid #5f3a26;
   border-radius: 4px;
-  color: var(--paper);
-  font-family: var(--font-type);
-  font-size: 0.85rem;
-  line-height: 1.5;
-  transition: background 0.25s, transform 0.2s;
+  color: #2b2013;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.95rem;
+  font-weight: bold;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.55);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-.meeting-option:hover{ background: rgba(221,147,73,0.3); transform: translateX(4px); }
-.meeting-option:disabled{ opacity:0.3; pointer-events:none; }
+.meeting-option:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.65);
+  border-color: var(--lantern);
+  background: linear-gradient(135deg, #f9f0dd 0%, #eddcae 100%);
+}
+.meeting-option:disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
 
 /* ============================================================
    DECISION SCENE
@@ -1895,4 +1985,27 @@ button{
   border-top: 1px dashed rgba(95,58,38,0.2);
   padding-top: 15px;
   margin-top: 15px;
+}
+
+/* Plaque tags for decision headers */
+#scene-decision .board-header {
+  background: linear-gradient(180deg, #b0821b, #78580c);
+  border: 2px solid #5a4005;
+  padding: 8px 32px;
+  border-radius: 2px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+  margin-top: 40px;
+  margin-bottom: 24px;
+  display: inline-block;
+}
+#scene-decision .board-header h2 {
+  color: #ffffff;
+  font-size: 1.35rem;
+  margin: 1px 0 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+#scene-decision .board-header .hud-eyebrow {
+  color: #ebd7a2;
 }
