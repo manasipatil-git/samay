@@ -232,11 +232,20 @@
 ========================================================== -->
 <template id="loc-home">
 <svg viewBox="0 0 120 110" class="loc-svg">
+  <!-- Chimney and animated smoke puffs -->
+  <rect x="84" y="20" width="10" height="18" fill="#4c3324"/>
+  <g class="chimney-smoke">
+    <circle cx="89" cy="14" r="3.5" class="smoke-puff puff-1"/>
+    <circle cx="89" cy="14" r="5" class="smoke-puff puff-2"/>
+    <circle cx="89" cy="14" r="6.5" class="smoke-puff puff-3"/>
+  </g>
   <path d="M60 10 L112 52 H100 V98 H20 V52 H8 Z" fill="url(#roofThatch)"/>
   <rect x="28" y="52" width="64" height="46" fill="url(#woodWall)"/>
   <rect x="50" y="68" width="20" height="30" fill="#241a14"/>
   <rect x="34" y="60" width="14" height="12" fill="#f3e7c8" opacity="0.85"/>
   <rect x="72" y="60" width="14" height="12" fill="#f3e7c8" opacity="0.85"/>
+  <!-- Flickering lantern -->
+  <circle cx="60" cy="62" r="4.5" fill="#f3d58a" class="lantern"/>
 </svg>
 </template>
 
@@ -249,6 +258,8 @@
   <rect x="78" y="52" width="16" height="16" fill="#3a5772"/>
   <rect x="50" y="76" width="20" height="22" fill="#4c3324"/>
   <rect x="10" y="98" width="100" height="6" fill="#5f3a26"/>
+  <!-- Flickering lantern -->
+  <circle cx="60" cy="70" r="4.5" fill="#f3d58a" class="lantern"/>
 </svg>
 </template>
 
@@ -260,11 +271,19 @@
   <rect x="44" y="64" width="14" height="22" rx="3" fill="#8fa2b3"/>
   <rect x="64" y="58" width="14" height="28" rx="3" fill="#8fa2b3"/>
   <rect x="84" y="64" width="14" height="22" rx="3" fill="#8fa2b3"/>
+  <!-- Flickering lantern -->
+  <circle cx="54" cy="40" r="4.5" fill="#f3d58a" class="lantern"/>
 </svg>
 </template>
 
 <template id="loc-railway">
 <svg viewBox="0 0 120 110" class="loc-svg">
+  <!-- Steam stack steam puffs -->
+  <g class="engine-steam">
+    <circle cx="89" cy="42" r="4" class="steam-puff puff-1"/>
+    <circle cx="89" cy="42" r="6" class="steam-puff puff-2"/>
+    <circle cx="89" cy="42" r="8" class="steam-puff puff-3"/>
+  </g>
   <rect x="4" y="70" width="112" height="10" fill="#3a2a1f"/>
   <rect x="10" y="82" width="100" height="6" fill="#5f3a26"/>
   <rect x="20" y="34" width="60" height="36" rx="4" fill="#39506b"/>
@@ -272,6 +291,8 @@
   <circle cx="66" cy="70" r="8" fill="#20242c"/>
   <rect x="20" y="20" width="60" height="10" fill="#2c3d5c"/>
   <rect x="82" y="50" width="14" height="20" fill="#4c6885"/>
+  <!-- Flickering lantern on signal tower -->
+  <circle cx="89" cy="62" r="4.5" fill="#f3d58a" class="lantern"/>
 </svg>
 </template>
 
@@ -283,7 +304,8 @@
   <rect x="44" y="56" width="12" height="30" fill="#5f3a26"/>
   <rect x="64" y="56" width="12" height="30" fill="#5f3a26"/>
   <rect x="84" y="56" width="12" height="30" fill="#5f3a26"/>
-  <circle cx="60" cy="26" r="6" fill="#d9a441"/>
+  <!-- Flickering hall lantern -->
+  <circle cx="60" cy="26" r="6.5" fill="#f3d58a" class="lantern"/>
 </svg>
 </template>
 
@@ -491,23 +513,53 @@
     </div>
   </section>
 
+  <!-- ============ SCENE: CASE CLOSED ============ -->
+  <section id="scene-closed" class="scene">
+    <div class="closed-stamp-container">
+      <span class="closed-case-label">CASE FILE 001</span>
+      <h1 class="closed-stamp-text" id="closed-stamp-text">CLOSED</h1>
+    </div>
+  </section>
+
   <!-- ============ SCENE: ENDING ============ -->
   <section id="scene-ending" class="scene">
     <div class="ending-frame paper-texture">
-      <div class="ending-header-stamp">RECORD CLOSED</div>
+      <span class="ending-header-stamp">ARCHIVE DISPATCH</span>
+      
       <h2 id="ending-title"></h2>
       <div id="ending-body" class="ending-body"></div>
       
-      <!-- Historical Context Card -->
-      <div id="historical-card" class="historical-card">
-        <h4>Archival Dispatch (Anand, 1946)</h4>
-        <p id="historical-text"></p>
-      </div>
-
-      <!-- Investigator Score Stamp -->
+      <!-- Dynamic Score Stamp -->
       <div id="ending-score" class="ending-score-stamp"></div>
 
-      <button class="btn-proceed" id="btn-restart"><span>Access Next Drawer</span></button>
+      <!-- Historical Record Reveal Section -->
+      <div class="historical-card" id="historical-card">
+        <h3 class="hist-title">THE BIRTH OF AMUL</h3>
+        <div class="hist-photo-frame">
+          <img src="assests/amul_history.jpg" alt="Indian dairy cooperative farmers in 1946" class="hist-photo">
+        </div>
+        
+        <!-- Timeline Animation container -->
+        <div class="hist-timeline">
+          <div class="timeline-step step-1">
+            <span class="timeline-year">1946</span>
+            <span class="timeline-desc">Milk strike in Anand bypasses Polson's monopoly</span>
+          </div>
+          <div class="timeline-step step-2">
+            <span class="timeline-year">1948</span>
+            <span class="timeline-desc">Cooperative expands, processing 250 liters daily</span>
+          </div>
+          <div class="timeline-step step-3">
+            <span class="timeline-year">1955</span>
+            <span class="timeline-desc">Brand name Amul registered, White Revolution begins</span>
+          </div>
+        </div>
+
+        <p id="historical-text" class="hist-explanation"></p>
+      </div>
+
+      <!-- Return to Archive Button -->
+      <button class="btn-proceed" id="btn-restart"><span>Return to Archive</span></button>
     </div>
   </section>
 

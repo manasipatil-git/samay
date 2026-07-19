@@ -114,7 +114,18 @@ class Game {
     this.el.btnToDetective.addEventListener("click", () => this._enterDetective());
     this.el.btnToMeeting.addEventListener("click", () => this._enterMeeting());
     this.el.btnRestart.addEventListener("click", () => {
-      localStorage.removeItem(SAVE_KEY);
+      const solvedEnding = this.state.ending;
+      this.state = {
+        scene: "archive",
+        hoursLeft: 5,
+        visited: [],
+        clues: [],
+        connectedPairs: [],
+        meetingSolved: false,
+        ending: solvedEnding,
+        wrongGuesses: 0
+      };
+      this._save();
       location.reload();
     });
 
@@ -202,6 +213,15 @@ class Game {
   _enterArchive() {
     this._goToScene("archive");
     this._startArchiveAmbient();
+
+    // Mark Case 001 as solved if ending is completed
+    const drawerLabel = document.querySelector("#drawer-case1 .drawer-label");
+    if (drawerLabel && this.state.ending) {
+      drawerLabel.innerHTML = `✓ CASE 001<br>The Milk Monopoly (Solved)`;
+      drawerLabel.style.color = "#1c4a2a";
+      drawerLabel.style.borderColor = "#7fa88b";
+      drawerLabel.style.background = "#f0faf2";
+    }
   }
 
   async _playBriefing() {
@@ -432,8 +452,10 @@ class Game {
     const loc = GAME_DATA.locations[id];
     this.dialogue.say(loc.speaker, loc.portrait, loc.lines, () => {
       this.state.visited.push(id);
+      let gotNewClue = false;
       if (loc.clue && !this.state.clues.includes(loc.clue.id)) {
         this.state.clues.push(loc.clue.id);
+        gotNewClue = true;
       }
       this.state.hoursLeft = Math.max(0, this.state.hoursLeft - 1);
       this._renderVillage();
@@ -441,7 +463,37 @@ class Game {
       this._renderNotebook();
       this._renderInventory();
       this._save();
+
+      if (gotNewClue) {
+        this._triggerClueFindAlert(loc.clue);
+      }
     });
+  }
+
+  _triggerClueFindAlert(clue) {
+    // 1. Slide open the notebook panel
+    this._togglePanel("notebook", true);
+    
+    // 2. Identify the new entry element and add stamp effect
+    setTimeout(() => {
+      const entries = this.el.notebookEntries.querySelectorAll(".notebook-entry");
+      const latest = entries[entries.length - 1];
+      if (latest) {
+        latest.classList.add("just-discovered");
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("stamp");
+        }
+        
+        setTimeout(() => {
+          latest.classList.remove("just-discovered");
+        }, 1800);
+      }
+    }, 600);
+    
+    // 3. Auto-close notebook after 3.2 seconds
+    setTimeout(() => {
+      this._togglePanel("notebook", false);
+    }, 3200);
   }
 
   _renderHours() {
@@ -772,7 +824,11 @@ class Game {
     this.dialogue.say(
       GAME_DATA.locations.hall.speaker,
       "elder",
-      [GAME_DATA.meeting.question],
+      [
+        "You have heard every witness.",
+        "The village places its trust in your judgement.",
+        "What should we do?"
+      ],
       () => this._showMeetingOptions()
     );
   }
@@ -810,7 +866,27 @@ class Game {
   _chooseEnding(id) {
     this.state.ending = id;
     this._save();
-    this._showEnding(id);
+    
+    // Step 1: Transition to the Closed Stamp Screen
+    this._goToScene("closed");
+    
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+    
+    (async () => {
+      await wait(400);
+      const stamp = document.getElementById("closed-stamp-text");
+      if (stamp) {
+        stamp.classList.add("is-stamped");
+      }
+      if (window.SAMAY_SOUND) {
+        window.SAMAY_SOUND.play("stamp");
+      }
+      
+      await wait(2400);
+      
+      // Step 2: Show the Historical Record Reveal ending screen!
+      this._showEnding(id);
+    })();
   }
 
   _showEnding(id) {
@@ -830,33 +906,37 @@ class Game {
       }
     }
 
-    // Calculate rank and score stamp
+    // Calculate Deduction Rating & Archivist Rank
     const wrong = this.state.wrongGuesses || 0;
-    let grade = "C";
-    let rankTitle = "Archive Clerk";
+    let accuracy = "100%";
+    let rankTitle = "Master Archivist";
+    
     if (wrong === 0) {
-      grade = "A+";
-      rankTitle = "Archival Inspector";
+      accuracy = "100%";
+      rankTitle = "Master Archivist";
     } else if (wrong <= 2) {
-      grade = "A";
-      rankTitle = "Deduction Expert";
+      accuracy = "85%";
+      rankTitle = "Senior Detective";
     } else if (wrong <= 5) {
-      grade = "B";
-      rankTitle = "Field Detective";
+      accuracy = "60%";
+      rankTitle = "Field Investigator";
+    } else {
+      accuracy = "35%";
+      rankTitle = "Junior Clerk";
     }
 
     const scoreStamp = document.getElementById("ending-score");
     if (scoreStamp) {
       scoreStamp.classList.remove("is-visible");
-      scoreStamp.innerHTML = `Rank<br><b>${grade}</b><br>${rankTitle}`;
+      scoreStamp.innerHTML = `Deduction<br><b>${accuracy}</b><br>${rankTitle}`;
       
-      // Delay visual stamp reveal for dramatic suspense
+      // Delay visual stamp reveal so it punches down after the timeline animations complete
       setTimeout(() => {
         scoreStamp.classList.add("is-visible");
         if (window.SAMAY_SOUND) {
           window.SAMAY_SOUND.play("stamp");
         }
-      }, 1000);
+      }, 2500);
     }
 
     this._goToScene("ending");

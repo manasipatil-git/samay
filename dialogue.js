@@ -77,13 +77,21 @@ class DialogueManager {
     this.continueEl.classList.remove("is-visible");
     clearTimeout(this._typeTimer);
 
-    // Scan for high-tension keywords to trigger a subtle camera shake on the dialogue panel
+    // Scan for high-tension keywords to trigger a subtle camera shake on the dialogue panel and portrait
     const hasTension = /owe|reject|sour|blame|cost|price|depend|exploit|monopoly|starv/i.test(line);
-    if (hasTension && this.panel) {
-      this.panel.classList.add("camera-shake");
-      setTimeout(() => {
-        this.panel.classList.remove("camera-shake");
-      }, 450);
+    if (hasTension) {
+      if (this.panel) {
+        this.panel.classList.add("camera-shake");
+        setTimeout(() => {
+          this.panel.classList.remove("camera-shake");
+        }, 450);
+      }
+      if (this.portraitEl) {
+        this.portraitEl.classList.add("portrait-shake");
+        setTimeout(() => {
+          this.portraitEl.classList.remove("portrait-shake");
+        }, 450);
+      }
     }
 
     const typeNextChar = () => {
