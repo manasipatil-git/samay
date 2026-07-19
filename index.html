@@ -624,12 +624,18 @@
     </div>
   </aside>
 
-  <!-- ============ INVENTORY PANEL ============ -->
-  <aside class="panel" id="panel-inventory">
-    <div class="panel-inner paper-texture">
-      <h3>Inventory</h3>
-      <div id="inventory-items" class="inventory-items"></div>
-      <button class="panel-close" data-close="inventory">close</button>
+  <!-- ============ PHYSICAL EVIDENCE TRAY INVENTORY ============ -->
+  <aside class="panel evidence-tray-box" id="panel-inventory">
+    <div class="tray-bracket top-left"></div>
+    <div class="tray-bracket top-right"></div>
+    <div class="tray-bracket bottom-left"></div>
+    <div class="tray-bracket bottom-right"></div>
+    <div class="panel-inner tray-inner-dossier">
+      <div class="tray-header">
+        <span class="tray-brass-label">PHYSICAL EVIDENCE TRAY // KAIRA DISTRICT BOARD</span>
+      </div>
+      <div id="inventory-items" class="inventory-items tray-grid"></div>
+      <button class="tray-latch-close panel-close" data-close="inventory">Latch Evidence Tray 🔒</button>
     </div>
   </aside>
 
