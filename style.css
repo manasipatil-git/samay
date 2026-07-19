@@ -68,15 +68,9 @@ button{
 }
 .rain-layer{
   position:absolute; inset:0;
-  background-image: repeating-linear-gradient(
-    100deg,
-    transparent 0,
-    transparent 14px,
-    rgba(220,230,240,0.06) 15px,
-    transparent 17px
-  );
-  animation: rainFall 0.35s linear infinite;
-  opacity: 0.55;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M10,0 L5,20 M30,10 L25,30 M50,5 L45,25 M70,15 L65,35' stroke='rgba(255,255,255,0.06)' stroke-width='1'/%3E%3C/svg%3E");
+  animation: rainFall 0.7s linear infinite;
+  opacity: 0.45;
 }
 @keyframes rainFall{
   from{ background-position-y: 0; }
@@ -1458,19 +1452,8 @@ button{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  width: min(640px, 92vw);
-  max-height: 82vh;
-  overflow-y: auto;
-  background: 
-    linear-gradient(rgba(10, 6, 3, 0.5), rgba(10, 6, 3, 0.8)),
-    repeating-linear-gradient(90deg, #3c2416 0px, #3c2416 140px, #25160c 140px, #25160c 280px);
-  border: 8px solid #25160c;
-  border-radius: 4px;
-  padding: 22px 28px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(0,0,0,0.7);
+  width: min(860px, 94vw);
+  max-height: 86vh;
   z-index: 100;
   opacity: 0;
   pointer-events: none;
@@ -2190,24 +2173,29 @@ button{
 }
 .unfold-content {
   font-family: var(--font-type);
-  color: var(--ink);
+  color: #1a0f08;
   text-align: left;
   line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .unfold-content .brief-meta {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   letter-spacing: 0.05em;
-  color: rgba(43,32,19,0.55);
+  color: rgba(43,32,19,0.7);
   margin-bottom: 12px;
   border-bottom: 1px dashed rgba(90,60,30,0.2);
   padding-bottom: 6px;
 }
 .unfold-content .brief-access {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: bold;
-  color: var(--rust);
+  color: #a8452f;
   margin-bottom: 20px;
   letter-spacing: 0.02em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .unfold-content .brief-title {
   font-family: var(--font-display);

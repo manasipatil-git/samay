@@ -649,20 +649,28 @@ class Game {
     const autoConnectBtn = document.getElementById("btn-auto-connect");
     if (autoConnectBtn) {
       autoConnectBtn.onclick = () => {
-        GAME_DATA.board.pairs.forEach(pair => {
-          if (!this.state.connectedPairs.includes(pair.id)) {
-            this.state.connectedPairs.push(pair.id);
-            if (this.boardNodeEls[pair.a]) this.boardNodeEls[pair.a].classList.add("is-linked");
-            if (this.boardNodeEls[pair.b]) this.boardNodeEls[pair.b].classList.add("is-linked");
-            this._renderDeductionCard(pair.id);
+        const uncollected = GAME_DATA.board.pairs.find(p => !this.state.connectedPairs.includes(p.id));
+        if (uncollected) {
+          const nodeA = this.boardNodeEls[uncollected.a];
+          const nodeB = this.boardNodeEls[uncollected.b];
+          if (nodeA) nodeA.classList.add("is-selected");
+          if (nodeB) nodeB.classList.add("is-selected");
+          setTimeout(() => {
+            if (nodeA) nodeA.classList.remove("is-selected");
+            if (nodeB) nodeB.classList.remove("is-selected");
+          }, 2400);
+
+          const hint = document.getElementById("board-hint");
+          if (hint) {
+            const locA = Object.values(GAME_DATA.locations).find(l => l.clue.id === uncollected.a);
+            const locB = Object.values(GAME_DATA.locations).find(l => l.clue.id === uncollected.b);
+            hint.textContent = `Detective Hint: Connect "${locA ? locA.clue.name : uncollected.a}" with "${locB ? locB.clue.name : uncollected.b}"!`;
+            hint.style.color = "#ffbd59";
+            hint.style.fontWeight = "bold";
           }
-        });
-        this._redrawConnections();
-        this._checkFinalDeduction();
-        this._updateInsightScore();
-        this._save();
-        if (window.SAMAY_SOUND) {
-          window.SAMAY_SOUND.play("stamp");
+          if (window.SAMAY_SOUND) {
+            window.SAMAY_SOUND.play("clack");
+          }
         }
       };
     }
@@ -748,17 +756,7 @@ class Game {
     );
 
     if (pair && !this.state.connectedPairs.includes(pair.id)) {
-      this.state.connectedPairs.push(pair.id);
-      node.classList.add("is-linked");
-      prevNode.classList.add("is-linked");
-      this._renderDeductionCard(pair.id);
-      this._redrawConnections();
-      this._updateInsightScore();
-      this._checkFinalDeduction();
-      this._save();
-      if (window.SAMAY_SOUND) {
-        window.SAMAY_SOUND.play("stamp");
-      }
+      this._showSentencePrompt(pair, node, prevNode);
     } else {
       this.state.wrongGuesses = (this.state.wrongGuesses || 0) + 1;
       this._flashWrongGuess();
@@ -767,6 +765,56 @@ class Game {
       }
       this._save();
     }
+  }
+
+  _showSentencePrompt(pair, node, prevNode) {
+    const overlay = document.getElementById("deduction-prompt-overlay");
+    const qEl = document.getElementById("prompt-question");
+    const sentEl = document.getElementById("prompt-sentence-text");
+    const optsEl = document.getElementById("prompt-options");
+    if (!overlay || !qEl || !sentEl || !optsEl) return;
+
+    qEl.textContent = `EXPLAIN CONNECTION // ${pair.a.toUpperCase()} + ${pair.b.toUpperCase()}`;
+    sentEl.textContent = `"${pair.promptTemplate || 'Choose the key deduction linking these two pieces of evidence:'}"`;
+
+    optsEl.innerHTML = "";
+    const options = pair.sentenceChoices || [
+      { text: pair.deduction, correct: true },
+      { text: "This connection is purely accidental.", correct: false },
+      { text: "The contractor has no involvement here.", correct: false }
+    ];
+
+    options.forEach(choice => {
+      const btn = document.createElement("button");
+      btn.className = "prompt-option-btn";
+      btn.textContent = choice.text;
+      btn.onclick = () => {
+        overlay.classList.remove("is-active");
+        if (choice.correct) {
+          this.state.connectedPairs.push(pair.id);
+          node.classList.add("is-linked");
+          prevNode.classList.add("is-linked");
+          this._renderDeductionCard(pair.id);
+          this._redrawConnections();
+          this._updateInsightScore();
+          this._checkFinalDeduction();
+          this._save();
+          if (window.SAMAY_SOUND) {
+            window.SAMAY_SOUND.play("stamp");
+          }
+        } else {
+          this.state.wrongGuesses = (this.state.wrongGuesses || 0) + 1;
+          this._flashWrongGuess();
+          if (window.SAMAY_SOUND) {
+            window.SAMAY_SOUND.play("stamp");
+          }
+          this._save();
+        }
+      };
+      optsEl.appendChild(btn);
+    });
+
+    overlay.classList.add("is-active");
   }
 
   _updateInsightScore() {
@@ -874,13 +922,28 @@ class Game {
 
   _showMeetingOptions() {
     const box = this.el.meetingOptions;
-    box.innerHTML = "";
-    GAME_DATA.meeting.options.forEach(opt => {
+    box.innerHTML = `
+      <div class="decision-dossier-folder">
+        <div class="dossier-spine-red"></div>
+        <div class="decision-header-strip">
+          <span class="decision-gov-stamp">KAIRA VILLAGE ASSEMBLY // POLICY PROPOSAL 1946</span>
+          <h2 class="decision-title">WHAT IS OUR RECOMMENDATION TO THE VILLAGE?</h2>
+        </div>
+        <div class="decision-options" id="meeting-options-grid"></div>
+      </div>
+    `;
+    const grid = box.querySelector("#meeting-options-grid");
+    GAME_DATA.meeting.options.forEach((opt, idx) => {
       const btn = document.createElement("button");
-      btn.className = "meeting-option";
-      btn.textContent = opt.text;
+      btn.className = "decision-card";
+      const stamps = ["PROPOSAL A", "PROPOSAL B", "HISTORIC ACTION"];
+      btn.innerHTML = `
+        <span class="decision-option-stamp">${stamps[idx] || 'PROPOSAL'}</span>
+        <h3>${opt.text}</h3>
+        <p>Present this policy recommendation to the assembled elders.</p>
+      `;
       btn.addEventListener("click", () => this._chooseMeetingOption(opt, btn));
-      box.appendChild(btn);
+      grid.appendChild(btn);
     });
     box.classList.add("is-visible");
   }
