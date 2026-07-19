@@ -7,7 +7,7 @@ const SAVE_KEY = "samay_milk_monopoly_save_v1";
 class Game {
   constructor() {
     this.state = {
-      scene: "archive",
+      scene: "splash",
       hoursLeft: 5,
       visited: [],
       clues: [],
@@ -50,7 +50,7 @@ class Game {
     if (this._loadSave()) {
       this._resumeFromSave();
     } else {
-      this._enterArchive();
+      this._playSplash();
     }
   }
 
@@ -92,9 +92,8 @@ class Game {
       this._enterDetective();
     } else if (this.state.scene === "archive") {
       this._enterArchive();
-    } else if (this.state.scene === "intro") {
-      this._goToScene("intro");
-      this._playIntro();
+    } else if (this.state.scene === "splash") {
+      this._playSplash();
     } else {
       this._goToScene("village");
     }
@@ -146,15 +145,19 @@ class Game {
           window.SAMAY_SOUND.play("stamp");
         }
         setTimeout(() => {
-          this._goToScene("intro");
-          this._playIntro();
+          this._playBriefing();
         }, 900);
       });
     }
-  }
 
-  _enterArchive() {
-    this._goToScene("archive");
+    // Skip briefing action
+    const skipBriefing = document.getElementById("btn-skip-briefing");
+    if (skipBriefing) {
+      skipBriefing.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this._skipBriefing();
+      });
+    }
   }
 
   _togglePanel(name, force) {
@@ -176,30 +179,208 @@ class Game {
   }
 
   /* -------------------------------------------------------
-     ACT 1 — INTRO
+     ACT 1 — SPLASH & BRIEFING
   ------------------------------------------------------- */
-  _playIntro() {
-    const lines = GAME_DATA.intro.map(item => {
-      if (item.type === "place") return `${GAME_DATA.meta.place}\n${GAME_DATA.meta.year}`;
-      return item.text;
-    });
+  async _playSplash() {
+    this._goToScene("splash");
+    if (window.SAMAY_SOUND) {
+      window.SAMAY_SOUND.unlock();
+    }
+    
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+    
+    await wait(800);
+    await this._typeTo("splash-title", "SAMAY", 180);
+    await wait(400);
+    await this._typeTo("splash-tagline", "Every moment in history hides a mystery.", 45);
+    await wait(2800);
+    
+    // Transition to Archive
+    this._enterArchive();
+  }
 
-    let i = 0;
-    const showNext = () => {
-      if (i >= lines.length) { this._endIntro(); return; }
-      const el = this.el.introLine;
-      el.classList.remove("is-visible");
-      void el.offsetWidth;
-      el.innerHTML = lines[i].replace("\n", "<br>");
-      el.classList.add("is-visible");
-      i++;
-      this._introTimer = setTimeout(showNext, 3600);
+  _enterArchive() {
+    this._goToScene("archive");
+    this._startArchiveAmbient();
+  }
+
+  async _playBriefing() {
+    const sheet = document.getElementById("folder-unfold-sheet");
+    const container = document.getElementById("briefing-content");
+    if (!sheet || !container) {
+      this._endIntro();
+      return;
+    }
+
+    container.innerHTML = "";
+    sheet.classList.add("is-unfolded");
+    
+    if (window.SAMAY_SOUND) {
+      window.SAMAY_SOUND.play("paper");
+    }
+
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+    this._briefingActive = true;
+
+    await wait(1200);
+    if (!this._briefingActive) return;
+
+    // Line 1: NAI Meta
+    const p1 = document.createElement("p");
+    p1.className = "brief-meta";
+    container.appendChild(p1);
+    await this._typeTo(p1, "RECOVERED FROM THE NATIONAL ARCHIVES OF INDIA", 30);
+    await wait(1500);
+    if (!this._briefingActive) return;
+
+    // Line 2: Access Granted
+    const p2 = document.createElement("p");
+    p2.className = "brief-access";
+    container.appendChild(p2);
+    await this._typeTo(p2, "ACCESS GRANTED // CASE FILE 001 // THE MILK MONOPOLY // 1946", 25);
+    if (window.SAMAY_SOUND) {
+      window.SAMAY_SOUND.play("bell");
+    }
+    await wait(1500);
+    if (!this._briefingActive) return;
+
+    // Line 3: Case Title
+    const p3 = document.createElement("h3");
+    p3.className = "brief-title";
+    container.appendChild(p3);
+    await this._typeTo(p3, "THE MILK MONOPOLY", 40);
+    await wait(1200);
+    if (!this._briefingActive) return;
+
+    // Line 4: Core Quote
+    const p4 = document.createElement("blockquote");
+    p4.className = "brief-quote";
+    container.appendChild(p4);
+    await this._typeTo(p4, "“Milk is plentiful. Yet every family grows poorer.”", 45);
+    await wait(1800);
+    if (!this._briefingActive) return;
+
+    // Line 5: Objective Statement
+    const p5 = document.createElement("p");
+    p5.className = "brief-objective";
+    container.appendChild(p5);
+    await this._typeTo(p5, "Tomorrow the village gathers. Tonight you must discover why.", 35);
+    if (window.SAMAY_SOUND) {
+      window.SAMAY_SOUND.play("bell");
+    }
+    await wait(3500);
+    if (!this._briefingActive) return;
+
+    // Fade out fold sheet and end Act 1
+    sheet.classList.remove("is-unfolded");
+    await wait(850);
+    this._endIntro();
+  }
+
+  _skipBriefing() {
+    this._briefingActive = false;
+    const sheet = document.getElementById("folder-unfold-sheet");
+    if (sheet) {
+      sheet.classList.remove("is-unfolded");
+    }
+    this._endIntro();
+  }
+
+  _typeTo(elOrId, text, speed) {
+    return new Promise(resolve => {
+      const el = typeof elOrId === "string" ? document.getElementById(elOrId) : elOrId;
+      if (!el) { resolve(); return; }
+      el.textContent = "";
+      let i = 0;
+      
+      const typeChar = () => {
+        if (!this._briefingActive && el.id !== "splash-title" && el.id !== "splash-tagline") {
+          resolve();
+          return;
+        }
+        if (i >= text.length) {
+          resolve();
+          return;
+        }
+        el.textContent += text[i];
+        if (text[i] !== " " && window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("clack");
+        }
+        i++;
+        
+        // Slight pause on punctuation
+        let delay = speed;
+        if (text[i-1] === "." || text[i-1] === "?" || text[i-1] === "!") {
+          delay += 250;
+        } else if (text[i-1] === ",") {
+          delay += 100;
+        }
+        
+        this._typeTimer = setTimeout(typeChar, delay);
+      };
+      typeChar();
+    });
+  }
+
+  _startArchiveAmbient() {
+    const canvas = document.getElementById("archive-dust");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    
+    const resize = () => {
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
     };
-    showNext();
+    resize();
+    window.addEventListener("resize", resize);
+    
+    const particles = [];
+    for (let i = 0; i < 35; i++) {
+      particles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 1.5 + 0.5,
+        d: Math.random() * 0.3 + 0.08,
+        alpha: Math.random() * 0.4 + 0.1,
+        angle: Math.random() * Math.PI * 2
+      });
+    }
+    
+    let active = true;
+    const draw = () => {
+      if (this.state.scene !== "archive" || !active) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(236, 224, 196, ${p.alpha})`;
+        ctx.fill();
+        
+        p.y -= p.d;
+        p.x += Math.sin(p.angle) * 0.15;
+        p.angle += 0.01;
+        
+        if (p.y < 0) {
+          p.y = canvas.height;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(draw);
+    };
+    draw();
+    
+    this._stopArchiveAmbient = () => {
+      active = false;
+      window.removeEventListener("resize", resize);
+    };
   }
 
   _endIntro() {
-    clearTimeout(this._introTimer);
+    if (this._stopArchiveAmbient) {
+      this._stopArchiveAmbient();
+    }
+    clearTimeout(this._typeTimer);
     this._renderVillage();
     this._renderHours();
     this._goToScene("village");

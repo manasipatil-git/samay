@@ -299,8 +299,17 @@
     <div class="grain"></div>
   </div>
 
+  <!-- ============ SCENE: SPLASH ============ -->
+  <section id="scene-splash" class="scene is-active">
+    <div class="splash-room">
+      <h1 id="splash-title" class="splash-title"></h1>
+      <p id="splash-tagline" class="splash-tagline"></p>
+    </div>
+  </section>
+
   <!-- ============ SCENE: ARCHIVE ============ -->
-  <section id="scene-archive" class="scene is-active">
+  <section id="scene-archive" class="scene">
+    <canvas id="archive-dust" class="archive-dust-layer"></canvas>
     <div class="archive-room">
       <div class="archive-glow"></div>
       <header class="archive-header">
@@ -360,6 +369,13 @@
           <div class="drawer-label">CASE 006<br>The Partition Train</div>
           <div class="lock-icon">🔒</div>
         </div>
+      </div>
+      
+      <!-- Folder Unfolding Overlay Sheet -->
+      <div id="folder-unfold-sheet" class="folder-unfold-sheet paper-texture">
+        <div class="unfold-seal">SECRET</div>
+        <div class="unfold-content" id="briefing-content"></div>
+        <button class="intro-skip" id="btn-skip-briefing">skip ›</button>
       </div>
     </div>
   </section>
