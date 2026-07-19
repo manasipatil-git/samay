@@ -493,8 +493,16 @@
     <!-- Deduction Board Sentence Reconstruction Modal -->
     <div class="deduction-prompt-overlay" id="deduction-prompt-overlay">
       <div class="deduction-prompt-card">
-        <span class="prompt-title">EVIDENCE ANALYSIS</span>
+        <button class="prompt-close-btn" onclick="document.getElementById('deduction-prompt-overlay').classList.remove('is-active')">✕</button>
+        <span class="prompt-title">CONFIDENTIAL DEDUCTION RECORD // 1946</span>
         <h3 id="prompt-question">Explain the connection...</h3>
+        
+        <!-- Detective Field Note Hint Box -->
+        <div class="prompt-field-note" id="prompt-field-note">
+          <span class="field-note-label">💡 DETECTIVE FIELD NOTE:</span>
+          <p id="prompt-hint-text">Compare the timestamps and price figures on both documents.</p>
+        </div>
+
         <p class="prompt-sentence-text" id="prompt-sentence-text"></p>
         <div class="prompt-options" id="prompt-options"></div>
       </div>

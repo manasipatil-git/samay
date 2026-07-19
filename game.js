@@ -640,6 +640,24 @@ class Game {
       this.boardNodeEls[clueId] = node;
     });
 
+    // Append random physical paper chits and chalk notes to chalkboard
+    const chitsData = [
+      { text: "Why is 4 AM milk rejected? ❓", left: 74, top: 10, rotate: 4, class: "sticky-yellow" },
+      { text: "BOMBAY MILK SCHEME // EXPIRING 1946 🗞️", left: 5, top: 70, rotate: -3, class: "news-scrap" },
+      { text: "POLSON ➔ BOMBAY FREIGHT YARD 🚆", left: 42, top: 80, rotate: 2, class: "tape-slip" },
+      { text: "દૂધ ખરીદ દર: ૪ આના / ૧૨ આના 🖈", left: 80, top: 76, rotate: -5, class: "torn-memo" }
+    ];
+
+    chitsData.forEach(c => {
+      const chit = document.createElement("div");
+      chit.className = `board-chit-prop ${c.class}`;
+      chit.style.left = c.left + "%";
+      chit.style.top = c.top + "%";
+      chit.style.transform = `rotate(${c.rotate}deg)`;
+      chit.textContent = c.text;
+      board.appendChild(chit);
+    });
+
     this.el.boardDeductions.innerHTML = "";
     this.state.connectedPairs.forEach(pairId => this._renderDeductionCard(pairId));
     this._redrawConnections();
@@ -770,11 +788,24 @@ class Game {
   _showSentencePrompt(pair, node, prevNode) {
     const overlay = document.getElementById("deduction-prompt-overlay");
     const qEl = document.getElementById("prompt-question");
+    const hintEl = document.getElementById("prompt-hint-text");
     const sentEl = document.getElementById("prompt-sentence-text");
     const optsEl = document.getElementById("prompt-options");
     if (!overlay || !qEl || !sentEl || !optsEl) return;
 
     qEl.textContent = `EXPLAIN CONNECTION // ${pair.a.toUpperCase()} + ${pair.b.toUpperCase()}`;
+    
+    // Custom Detective Field Note Hints per pair
+    const fieldHints = {
+      p1: "Notice how the Milk Receipt shows low payout rates to local farmers while the Price Ledger lists high wholesale prices in Bombay!",
+      p2: "Compare the timestamps of 'rejected' milk at the Collection Centre with the night freight dispatches on the Railway Manifest!",
+      p3: "Connect the grievances signed by villagers in the Petition with the actual financial records in the Price Ledger!"
+    };
+
+    if (hintEl) {
+      hintEl.textContent = fieldHints[pair.id] || "Compare the timestamps, prices, and signatures across both evidence items.";
+    }
+
     sentEl.textContent = `"${pair.promptTemplate || 'Choose the key deduction linking these two pieces of evidence:'}"`;
 
     optsEl.innerHTML = "";
