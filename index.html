@@ -482,6 +482,16 @@
     <button class="btn-proceed" id="btn-to-meeting" disabled>
       <span>Bring it all to the village</span>
     </button>
+
+    <!-- Deduction Board Sentence Reconstruction Modal -->
+    <div class="deduction-prompt-overlay" id="deduction-prompt-overlay">
+      <div class="deduction-prompt-card">
+        <span class="prompt-title">EVIDENCE ANALYSIS</span>
+        <h3 id="prompt-question">Explain the connection...</h3>
+        <p class="prompt-sentence-text" id="prompt-sentence-text"></p>
+        <div class="prompt-options" id="prompt-options"></div>
+      </div>
+    </div>
   </section>
 
   <!-- ============ SCENE: MEETING ============ -->
@@ -500,6 +510,14 @@
         </svg>
       </div>
     </div>
+
+    <!-- Panchayat Climax Evidence Dock -->
+    <div class="meeting-evidence-dock" id="meeting-evidence-dock">
+      <h3>Select 3 pieces of evidence to present to the Panchayat:</h3>
+      <div class="evidence-dock-grid" id="evidence-dock-grid"></div>
+      <button class="evidence-dock-submit-btn" id="btn-submit-evidence" disabled>Present Selected Evidence</button>
+    </div>
+
     <div id="meeting-dialogue-anchor"></div>
     <div class="meeting-options" id="meeting-options"></div>
   </section>
@@ -607,6 +625,18 @@
       <button class="panel-close" data-close="inventory">close</button>
     </div>
   </aside>
+
+  <!-- ============ EVIDENCE INSPECTOR MODAL ============ -->
+  <div class="evidence-inspect-overlay" id="modal-evidence-inspect">
+    <div class="evidence-inspect-card" id="evidence-inspect-card">
+      <span class="inspect-warning-label" id="inspect-warning-label">HISTORICALLY RECONSTRUCTED DOCUMENT</span>
+      <div class="inspect-document-body" id="inspect-document-body"></div>
+      <div class="inspect-footer-buttons">
+        <button class="inspect-action-btn" id="btn-inspect-flip" style="display:none;">Flip Document</button>
+        <button class="inspect-close-btn" id="btn-inspect-close">Close Dossier</button>
+      </div>
+    </div>
+  </div>
 
 </div>
 

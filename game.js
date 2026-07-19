@@ -409,6 +409,21 @@ class Game {
   /* -------------------------------------------------------
      ACT 2 — VILLAGE
   ------------------------------------------------------- */
+  _isLocationUnlocked(id) {
+    if (id === "home") return true;
+    const visited = this.state.visited;
+    if (id === "collection") {
+      return visited.includes("home");
+    }
+    if (id === "railway" || id === "buyer") {
+      return visited.includes("collection");
+    }
+    if (id === "hall") {
+      return visited.includes("railway") && visited.includes("buyer");
+    }
+    return false;
+  }
+
   _renderVillage() {
     this.el.villageMap.querySelectorAll(".loc-marker").forEach(n => n.remove());
 
@@ -419,9 +434,15 @@ class Game {
       btn.style.top = loc.y + "%";
 
       const visited = this.state.visited.includes(loc.id);
-      const locked = !visited && this.state.hoursLeft <= 0;
+      const narrativeLocked = !this._isLocationUnlocked(loc.id);
+      const timeLocked = !visited && this.state.hoursLeft <= 0;
+      const locked = narrativeLocked || timeLocked;
+
       if (visited) btn.classList.add("is-visited");
-      if (locked) btn.classList.add("is-locked");
+      if (locked) {
+        btn.classList.add("is-locked");
+        btn.disabled = true;
+      }
 
       const tpl = document.getElementById(`loc-${loc.id}`);
       const svgWrap = document.createElement("div");
@@ -529,8 +550,10 @@ class Game {
     this.state.clues.forEach(clueId => {
       const loc = Object.values(GAME_DATA.locations).find(l => l.clue.id === clueId);
       const entry = document.createElement("div");
-      entry.className = "notebook-entry";
-      entry.innerHTML = `<b>${loc.clue.name}</b>${GAME_DATA.notebook[clueId]}`;
+      entry.className = "notebook-entry clickable-evidence";
+      entry.style.cursor = "pointer";
+      entry.innerHTML = `<b>${loc.clue.name}</b>${GAME_DATA.notebook[clueId]}<div style="font-size:0.7rem; color:#8b0000; margin-top:8px; font-weight:bold; letter-spacing:0.05em; text-transform:uppercase;">Click to inspect document</div>`;
+      entry.addEventListener("click", () => this._inspectEvidence(clueId));
       box.appendChild(entry);
     });
   }
@@ -545,13 +568,15 @@ class Game {
     this.state.clues.forEach(clueId => {
       const loc = Object.values(GAME_DATA.locations).find(l => l.clue.id === clueId);
       const card = document.createElement("div");
-      card.className = "inventory-item";
+      card.className = "inventory-item clickable-evidence";
+      card.style.cursor = "pointer";
       const tpl = document.getElementById(`item-${clueId}`);
       if (tpl) card.appendChild(tpl.content.cloneNode(true));
       const label = document.createElement("div");
       label.className = "item-name";
       label.textContent = loc.clue.name;
       card.appendChild(label);
+      card.addEventListener("click", () => this._inspectEvidence(clueId));
       box.appendChild(card);
     });
   }
@@ -702,24 +727,7 @@ class Game {
     );
 
     if (pair && !this.state.connectedPairs.includes(pair.id)) {
-      this.state.connectedPairs.push(pair.id);
-      node.classList.add("is-linked");
-      prevNode.classList.add("is-linked");
-      this._renderDeductionCard(pair.id);
-      this._redrawConnections();
-      this._checkFinalDeduction();
-      this._updateInsightScore();
-
-      // Audio & haptic board feedback
-      if (window.SAMAY_SOUND) {
-        window.SAMAY_SOUND.play("pluck");
-      }
-      if (this.el.board) {
-        this.el.board.classList.add("board-shake");
-        setTimeout(() => this.el.board.classList.remove("board-shake"), 450);
-      }
-
-      this._save();
+      this._showSentencePrompt(pair, node, prevNode);
     } else {
       this.state.wrongGuesses = (this.state.wrongGuesses || 0) + 1;
       this._flashWrongGuess();
@@ -827,9 +835,9 @@ class Game {
       [
         "You have heard every witness.",
         "The village places its trust in your judgement.",
-        "What should we do?"
+        "Show us what evidence supports your recommendation."
       ],
-      () => this._showMeetingOptions()
+      () => this._showEvidenceDock()
     );
   }
 
@@ -958,6 +966,365 @@ class Game {
         }
       }, 1800);
     }, 1500);
+  }
+
+  _showSentencePrompt(pair, node, prevNode) {
+    const overlay = document.getElementById("deduction-prompt-overlay");
+    const question = document.getElementById("prompt-question");
+    const sentenceText = document.getElementById("prompt-sentence-text");
+    const optionsBox = document.getElementById("prompt-options");
+
+    overlay.classList.add("is-active");
+    question.textContent = `Correlation: ${GAME_DATA.locations[this._findLocationByClue(pair.a)].clue.name} & ${GAME_DATA.locations[this._findLocationByClue(pair.b)].clue.name}`;
+
+    let tempText = pair.sentence.text;
+    let blankIndex = 0;
+    while (tempText.includes("[ _____ ]")) {
+      tempText = tempText.replace("[ _____ ]", `<span class="blank-slot" id="blank-${blankIndex}">[ Slot ]</span>`);
+      blankIndex++;
+    }
+    sentenceText.innerHTML = tempText;
+
+    const selectedAnswers = Array(pair.sentence.blanks.length).fill(null);
+    let currentBlank = 0;
+
+    const renderBlankOptions = () => {
+      optionsBox.innerHTML = "";
+      if (currentBlank < pair.sentence.blanks.length) {
+        const blankData = pair.sentence.blanks[currentBlank];
+        const label = document.createElement("div");
+        label.className = "prompt-blank-label";
+        label.style.fontWeight = "bold";
+        label.style.fontSize = "0.75rem";
+        label.style.color = "#7d6542";
+        label.style.marginBottom = "8px";
+        label.textContent = `CHOOSE TERM FOR SLOT ${currentBlank + 1}:`;
+        optionsBox.appendChild(label);
+
+        const choices = [...blankData.choices].sort(() => Math.random() - 0.5);
+
+        choices.forEach(choice => {
+          const btn = document.createElement("button");
+          btn.className = "prompt-option-btn";
+          btn.textContent = choice;
+          btn.addEventListener("click", () => {
+            selectedAnswers[currentBlank] = choice;
+            const slotEl = document.getElementById(`blank-${currentBlank}`);
+            if (slotEl) {
+              slotEl.textContent = choice;
+              slotEl.style.color = "#4e8068";
+            }
+            if (window.SAMAY_SOUND) {
+              window.SAMAY_SOUND.play("clack");
+            }
+            currentBlank++;
+            renderBlankOptions();
+          });
+          optionsBox.appendChild(btn);
+        });
+      } else {
+        const isCorrect = pair.sentence.blanks.every((b, idx) => selectedAnswers[idx] === b.answer);
+        if (isCorrect) {
+          setTimeout(() => {
+            overlay.classList.remove("is-active");
+            
+            this.state.connectedPairs.push(pair.id);
+            node.classList.add("is-linked");
+            prevNode.classList.add("is-linked");
+            this._renderDeductionCard(pair.id);
+            this._redrawConnections();
+            this._checkFinalDeduction();
+            this._updateInsightScore();
+
+            if (window.SAMAY_SOUND) {
+              window.SAMAY_SOUND.play("pluck");
+            }
+            if (this.el.board) {
+              this.el.board.classList.add("board-shake");
+              setTimeout(() => this.el.board.classList.remove("board-shake"), 450);
+            }
+            this._save();
+          }, 600);
+        } else {
+          setTimeout(() => {
+            overlay.classList.remove("is-active");
+            this.state.wrongGuesses = (this.state.wrongGuesses || 0) + 1;
+            this._flashWrongGuess();
+            if (window.SAMAY_SOUND) {
+              window.SAMAY_SOUND.play("stamp");
+            }
+            this._save();
+          }, 800);
+        }
+      }
+    };
+
+    renderBlankOptions();
+  }
+
+  _inspectEvidence(clueId) {
+    const modal = document.getElementById("modal-evidence-inspect");
+    const label = document.getElementById("inspect-warning-label");
+    const body = document.getElementById("inspect-document-body");
+    const flipBtn = document.getElementById("btn-inspect-flip");
+    const closeBtn = document.getElementById("btn-inspect-close");
+
+    if (window.SAMAY_SOUND) {
+      window.SAMAY_SOUND.play("page");
+    }
+
+    modal.classList.remove("is-flipped");
+    flipBtn.style.display = clueId === "petition" ? "block" : "none";
+
+    let warningText = "HISTORICALLY RECONSTRUCTED DOCUMENT";
+    if (clueId === "ledger") {
+      warningText = "HISTORICALLY DOCUMENTED RATES AND CONFLICTS";
+    } else if (clueId === "petition") {
+      warningText = "HISTORICALLY DOCUMENTED RESOLUTION AND ADVICE";
+    }
+    label.textContent = warningText;
+
+    let html = "";
+    if (clueId === "receipt") {
+      html = `
+        <div class="inspect-receipt">
+          <h4>POLSON'S MODEL DAIRY</h4>
+          <div class="receipt-sub">AUTHORIZED PROCUREMENT DEPOT — ANAND</div>
+          <div class="receipt-row"><strong>Receipt No:</strong> A-4029</div>
+          <div class="receipt-row"><strong>Date:</strong> 3 Jan 1946</div>
+          <div class="receipt-row"><strong>Producer:</strong> D. Patel (Samarkha)</div>
+          <table class="receipt-table">
+            <thead>
+              <tr><th>Particulars</th><th>Qty / fat</th><th>Amount</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Milk Delivered</td><td>14 Seers (Fat: 4.8%)</td><td>—</td></tr>
+              <tr><td>Milk Credited</td><td>8 Seers (Fat: 3.8% Base)</td><td>Re. 2 / 0 / 0</td></tr>
+              <tr><td>Fat Variance Penalty</td><td>-6 Seers (Deducted)</td><td>—</td></tr>
+              <tr><td>Agent Freight Charge</td><td>6 Pice/Seer Levy</td><td>Rs. 0 / 10 / 0</td></tr>
+            </tbody>
+          </table>
+          <div class="receipt-row" style="margin-top: 16px; border-top: 1px dashed #555; padding-top: 10px;">
+            <strong>NET PAYOUT:</strong> <strong>Rs. 1 / 6 / 0</strong>
+          </div>
+          <div class="stamp-red">POLSON AGENT<br>3-JAN-1946</div>
+        </div>
+      `;
+    } else if (clueId === "ledger") {
+      html = `
+        <div class="inspect-ledger">
+          <div class="ledger-folio-num">Folio: 92 (Bombay Scheme Accounts)</div>
+          <h4>POLSON LIMITED — ANAND FACTORY</h4>
+          <div class="receipt-sub">LEDGER ACCOUNTS — BOMBAY MILK SUPPLY CONTRACT</div>
+          <table class="ledger-table">
+            <thead>
+              <tr><th>Particulars</th><th>Debit (Procurement)</th><th>Credit (Sales)</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Government Contract Price (Bombay Municipal Milk Scheme)</td>
+                <td>—</td>
+                <td>12 Annas / Seer</td>
+              </tr>
+              <tr>
+                <td>Kaira District Local Agent Base Purchase Rate</td>
+                <td>3 Annas / Seer</td>
+                <td>—</td>
+              </tr>
+              <tr class="ledger-row-red">
+                <td>Surplus Margin (Contractor Retained)</td>
+                <td>—</td>
+                <td>9 Annas / Seer</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="log-note" style="margin-top: 16px;">
+            *Note: Local agent commission and handling costs to be subtracted from farmer's base rate.
+          </div>
+        </div>
+      `;
+    } else if (clueId === "rejectedLog") {
+      html = `
+        <div class="inspect-log">
+          <h4>POLSON DAIRY CO. — RECEIVING LOG</h4>
+          <div class="receipt-sub">ANAND PASTEURISING FACTORY</div>
+          <table class="log-table">
+            <thead>
+              <tr><th>Time</th><th>Batch No</th><th>Producer</th><th>Qty</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>08:10 AM</td><td>B-110</td><td>R. Patel</td><td>18 Seers</td><td>ACCEPT</td></tr>
+              <tr><td>08:15 AM</td><td>B-111</td><td>K. Solanki</td><td>12 Seers</td><td class="log-status-reject">REJECT (Sour)</td></tr>
+              <tr><td>08:15 AM</td><td>B-112</td><td>D. Parmar</td><td>15 Seers</td><td class="log-status-reject">REJECT (Sour)</td></tr>
+              <tr><td>08:15 AM</td><td>B-113</td><td>M. Vaghela</td><td>20 Seers</td><td class="log-status-reject">REJECT (Sour)</td></tr>
+            </tbody>
+          </table>
+          <div class="log-note">
+            *Plant Manager Directive: Pasteuriser Tank #1 capacity limit reached. Reject subsequent batches. — Plant Mgr.
+          </div>
+        </div>
+      `;
+    } else if (clueId === "manifest") {
+      html = `
+        <div class="inspect-waybill">
+          <h4>BOMBAY, BARODA & CENTRAL INDIA RY.</h4>
+          <div class="receipt-sub">GOODS CARRIAGE RECEIPT (WAYBILL)</div>
+          <div class="waybill-grid">
+            <div><strong>Waybill No:</strong> W-90821</div>
+            <div><strong>Date:</strong> 3 Jan 1946</div>
+            <div><strong>Consignor:</strong> Polson Ltd.</div>
+            <div><strong>Consignee:</strong> Milk Comm., Bombay Scheme</div>
+          </div>
+          <div class="waybill-grid" style="border-top: 1px dashed #8fa89b; padding-top: 8px;">
+            <div><strong>Carriage:</strong> Wagon #428</div>
+            <div><strong>Route:</strong> Anand to Bombay Central</div>
+            <div><strong>Load Weight:</strong> 112 Maunds</div>
+            <div><strong>Freight:</strong> Rs. 42 / 8 / 0 (Prepaid)</div>
+          </div>
+          <div class="waybill-gauge">
+            <strong>CARRIAGE CAPACITY UTILISATION:</strong>
+            <div class="gauge-bar-outer">
+              <div class="gauge-bar-inner" style="width: 45%;"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem;">
+              <span>Loaded: 45% (48 Maunds)</span>
+              <span>Empty Space: 55% (64 Maunds)</span>
+            </div>
+          </div>
+        </div>
+      `;
+    } else if (clueId === "petition") {
+      html = `
+        <div class="inspect-petition">
+          <div class="inspect-petition-front" id="petition-front">
+            <h4>KAIRA DISTRICT FARMERS RESOLUTION</h4>
+            <div class="receipt-sub">SAMARKHA VILLAGE COUNCIL MEETING</div>
+            <p>We, the dairy producers of Kaira District, resolve to bypass the Polson monopoly agents and bargain directly with the Bombay Municipal Milk Scheme under our own Cooperative Union.</p>
+            <div style="margin-top: 24px; font-size: 0.75rem;">
+              <strong>Representatives:</strong> Tribhuvandas K. Patel <span class="inspect-petition-thumbprint"></span>
+            </div>
+          </div>
+          <div class="inspect-petition-back" id="petition-back" style="display:none;">
+            <h4>SARDAR PATEL'S GUIDANCE (SUMMARY)</h4>
+            <div class="receipt-sub">WRITTEN MEMORANDUM TO ANAND FARMERS</div>
+            <p style="color: #8b0000; font-family: 'Special Elite', Courier, monospace;">
+              Sardar Vallabhbhai Patel advised the farmers to establish their own cooperative pasteurisation plant. If the Bombay Government refused to purchase direct, the farmers must go on a strike and refuse to sell a single drop of milk.
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    body.innerHTML = html;
+    modal.classList.add("is-active");
+
+    const flipAction = (e) => {
+      e.preventDefault();
+      const front = document.getElementById("petition-front");
+      const back = document.getElementById("petition-back");
+      if (front && back) {
+        if (front.style.display === "none") {
+          front.style.display = "block";
+          back.style.display = "none";
+        } else {
+          front.style.display = "none";
+          back.style.display = "block";
+        }
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("page");
+        }
+      }
+    };
+
+    const closeAction = (e) => {
+      e.preventDefault();
+      modal.classList.remove("is-active");
+      flipBtn.removeEventListener("click", flipAction);
+      closeBtn.removeEventListener("click", closeAction);
+      if (window.SAMAY_SOUND) {
+        window.SAMAY_SOUND.play("clack");
+      }
+    };
+
+    flipBtn.addEventListener("click", flipAction);
+    closeBtn.addEventListener("click", closeAction);
+  }
+
+  _showEvidenceDock() {
+    const dock = document.getElementById("meeting-evidence-dock");
+    const grid = document.getElementById("evidence-dock-grid");
+    const submitBtn = document.getElementById("btn-submit-evidence");
+
+    grid.innerHTML = "";
+    dock.classList.add("is-active");
+
+    const selectedClues = [];
+
+    this.state.clues.forEach(clueId => {
+      const loc = Object.values(GAME_DATA.locations).find(l => l.clue.id === clueId);
+      const card = document.createElement("div");
+      card.className = "evidence-dock-card";
+      card.innerHTML = `
+        <div class="evidence-dock-checkbox"></div>
+        <span>${loc.clue.name}</span>
+      `;
+      card.addEventListener("click", () => {
+        if (card.classList.contains("is-selected")) {
+          card.classList.remove("is-selected");
+          const idx = selectedClues.indexOf(clueId);
+          if (idx > -1) selectedClues.splice(idx, 1);
+        } else {
+          card.classList.add("is-selected");
+          selectedClues.push(clueId);
+        }
+        submitBtn.disabled = selectedClues.length !== 3;
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("clack");
+        }
+      });
+      grid.appendChild(card);
+    });
+
+    const submitAction = () => {
+      const correct = selectedClues.includes("ledger") && 
+                      selectedClues.includes("rejectedLog") && 
+                      selectedClues.includes("petition");
+
+      if (correct) {
+        dock.classList.remove("is-active");
+        submitBtn.removeEventListener("click", submitAction);
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("stamp");
+        }
+        this.dialogue.say(
+          GAME_DATA.locations.hall.speaker,
+          "elder",
+          [
+            "The proof is clear.",
+            "Polson charges 12 Annas in Bombay while paying us 3 Annas, rejects our milk arbitrarily at 08:15 AM, and Sardar Patel advises us to bypass the middlemen.",
+            "What is our final recommendation?"
+          ],
+          () => this._showMeetingOptions()
+        );
+      } else {
+        dock.classList.remove("is-active");
+        submitBtn.removeEventListener("click", submitAction);
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("stamp");
+        }
+        this.dialogue.say(
+          GAME_DATA.locations.hall.speaker,
+          "elder",
+          [
+            "These documents do not form a complete proof of the economic forces.",
+            "We need to show the price margin ledger, the arbitrary rejection log, and the union petition."
+          ],
+          () => this._showEvidenceDock()
+        );
+      }
+    };
+
+    submitBtn.addEventListener("click", submitAction);
   }
 }
 

@@ -26,10 +26,10 @@ const GAME_DATA = {
       speaker: "Mother",
       portrait: "mother",
       lines: [
-        "The milk came back again.",
-        "We worked all week...",
-        "Yet we still owe money.",
-        "Something isn't right."
+        "The milk came back again from the depot today.",
+        "We sent 14 seers of fresh milk...",
+        "Yet they only credited us for 8 seers, claiming variance.",
+        "Go to the Collection Centre. Ask why our payout is only 1 Rupee 6 Annas."
       ],
       clue: {
         id: "receipt",
@@ -46,9 +46,10 @@ const GAME_DATA = {
       speaker: "Buyer",
       portrait: "buyer",
       lines: [
-        "Transportation is expensive.",
-        "Prices cannot increase.",
-        "You villagers simply don't understand the costs."
+        "We pasteurise the milk here and ship it to the Bombay Municipal Milk Scheme.",
+        "The government pays us a contract rate of 12 Annas per seer.",
+        "But local transport and handling are extremely expensive for us.",
+        "We pay what we can. Take your complaints to the Village Hall if you must."
       ],
       clue: {
         id: "ledger",
@@ -65,9 +66,9 @@ const GAME_DATA = {
       speaker: "Collection Worker",
       portrait: "worker",
       lines: [
-        "Keep your voice down.",
-        "Some cans are rejected before they're even opened.",
-        "No one asks why."
+        "Keep your voice down. We only log what the agent tells us.",
+        "Look at the Receiving Log. We turn away cans once the quota is hit.",
+        "The contractor blames transport limits. Go ask the Station master, or visit the Buyer's Office."
       ],
       clue: {
         id: "rejectedLog",
@@ -84,9 +85,9 @@ const GAME_DATA = {
       speaker: "Railway Worker",
       portrait: "worker2",
       lines: [
-        "Funny thing...",
-        "Half the trains leave with empty space.",
-        "So why do they keep blaming transport?"
+        "The contractor keeps claiming they lack rail space for Kaira milk.",
+        "But look at our waybills. Wagon #428 is dispatched half-empty to Bombay.",
+        "They have plenty of carriage space. Why lie to the farmers?"
       ],
       clue: {
         id: "manifest",
@@ -103,8 +104,8 @@ const GAME_DATA = {
       speaker: "Village Elder",
       portrait: "elder",
       lines: [
-        "Tomorrow we decide our future.",
-        "Come only when you understand the truth."
+        "Tomorrow, on January 4, we decide our future here in the council.",
+        "Bring the evidence from your desk. We must show the village why we are in debt."
       ],
       clue: {
         id: "petition",
@@ -115,19 +116,19 @@ const GAME_DATA = {
 
   notebook: {
     receipt:
-      "<br><br>The family sold plenty of milk, but payment was unexpectedly low.",
+      "<br><br>[Historically Reconstructed]<br>A receipt showing a payout of Rs. 1/6/0 for 8 seers credited, charging 6 Pice handling levy per seer.",
 
     ledger:
-      "<br><br>The buyer insists transport costs are the reason for low prices.",
+      "<br><br>[Historically Documented Rates]<br>A Polson Anand factory ledger sheet showing a purchase rate of 12 Annas/seer from Bombay vs. 3 Annas/seer paid to Kaira farmers.",
 
     rejectedLog:
-      "<br><br>Milk is being rejected before inspection. Someone controls what reaches the market.",
+      "<br><br>[Historically Reconstructed]<br>A receiving log showing multiple milk batches rejected as 'sour' at exactly 08:15 AM due to plant intake limits.",
 
     manifest:
-      "<br><br>The railway records show many freight wagons leave partly empty.",
+      "<br><br>[Historically Reconstructed]<br>A BB&CI freight waybill listing Wagon #428 carrying milk to Bombay at only 45% loaded capacity.",
 
     petition:
-      "<br><br>The village is ready for change—but no one yet knows the answer."
+      "<br><br>[Historically Documented Resolution]<br>A signed farmer petition. The reverse contains Sardar Patel's advice to form a cooperative union and strike."
   },
 
   board: {
@@ -144,103 +145,143 @@ const GAME_DATA = {
         id: "p1",
         a: "receipt",
         b: "ledger",
-        deduction:
-          "Low payments don't match the buyer's explanation."
+        deduction: "The buyer takes a massive 9-Anna margin while charging farmers handling fees.",
+        sentence: {
+          text: "The contractor is utilising [ _____ ] to pay local farmers only [ _____ ] of the price paid by the Bombay Government.",
+          blanks: [
+            {
+              answer: "handling deductions",
+              choices: ["handling deductions", "transport losses", "poor fat content"]
+            },
+            {
+              answer: "a quarter",
+              choices: ["a quarter", "half", "one-tenth"]
+            }
+          ]
+        }
       },
 
       {
         id: "p2",
         a: "ledger",
         b: "manifest",
-        deduction:
-          "Transport is not as expensive as claimed."
+        deduction: "Transport space is not scarce; the bottleneck is an excuse to maintain low rates.",
+        sentence: {
+          text: "Although Polson claims shipping is full and scarce, railway logs show freight wagons are leaving [ _____ ], revealing the transport bottleneck is [ _____ ].",
+          blanks: [
+            {
+              answer: "half empty",
+              choices: ["half empty", "fully loaded", "delayed"]
+            },
+            {
+              answer: "a fabrication",
+              choices: ["a fabrication", "accurate", "temporary"]
+            }
+          ]
+        }
       },
 
       {
         id: "p3",
         a: "rejectedLog",
         b: "ledger",
-        deduction:
-          "The buyer controls which milk reaches the market."
+        deduction: "Arbitrary rejections at 08:15 AM protect Polson's daily pasteurizer capacity.",
+        sentence: {
+          text: "The receiving log reveals that milk is being rejected [ _____ ] to enforce a daily [ _____ ] rather than based on actual quality tests.",
+          blanks: [
+            {
+              answer: "at exactly 08:15 AM",
+              choices: ["at exactly 08:15 AM", "after three hours", "due to souring"]
+            },
+            {
+              answer: "procurement quota",
+              choices: ["procurement quota", "railway schedule", "price discount"]
+            }
+          ]
+        }
       },
 
       {
         id: "p4",
         a: "petition",
         b: "receipt",
-        deduction:
-          "The village needs a different system—not better production."
+        deduction: "Sardar Patel's guidance: bypass the middlemen and establish collective ownership.",
+        sentence: {
+          text: "Sardar Patel's advice suggests that to end poverty, farmers must not beg for better rates, but establish their own [ _____ ] to control [ _____ ].",
+          blanks: [
+            {
+              answer: "cooperative union",
+              choices: ["cooperative union", "railway wagon", "private depot"]
+            },
+            {
+              answer: "distribution and sales",
+              choices: ["distribution and sales", "cattle feed quality", "government regulations"]
+            }
+          ]
+        }
       }
     ],
 
     wrongDeductions: [
-      "Those clues don't support each other.",
-      "There isn't enough evidence yet.",
-      "That connection doesn't explain the problem.",
-      "Try comparing economic evidence instead.",
-      "Look for contradictions."
+      "Those facts don't match the historical records.",
+      "The dates or numbers contradict this hypothesis.",
+      "That connection doesn't explain the economic forces.",
+      "Look closely at the document measurements."
     ],
 
     finalDeduction:
-      "The problem isn't milk production. The problem is market control."
+      "The monopoly relies on arbitrary quotas, double-billing, and price margin suppression. Collective ownership is the only path to independence."
   },
 
   meeting: {
-  question:
-    "You've gathered every clue. What should the village do?",
-
-  options: [
-    {
-      id: "accept",
-      text: "Accept the buyer's prices.",
-      response:
-        "Nothing changes. Farmers remain dependent on the middleman.",
-      correct: false
-    },
-
-    {
-      id: "cooling",
-      text: "Improve storage and transport.",
-      response:
-        "Better storage helps, but it doesn't solve who controls the prices.",
-      correct: false
-    },
-
-    {
-      id: "cooperative",
-      text: "Form a farmer-owned cooperative.",
-      response:
-        "Exactly. If the farmers own collection, processing and sales together, no middleman can exploit them.",
-      correct: true
-    }
-  ]
-},
+    question: "The village council is waiting. Present your evidence and make your recommendation.",
+    options: [
+      {
+        id: "accept",
+        text: "Accept the contractor's rates.",
+        response: "The monopoly remains. The village remains in debt while Polson profits.",
+        correct: false
+      },
+      {
+        id: "cooling",
+        text: "Invest in local storage only.",
+        response: "Storage helps reduce waste, but Polson still controls the price at the gate.",
+        correct: false
+      },
+      {
+        id: "cooperative",
+        text: "Establish a cooperative and strike.",
+        response: "Exactly. By setting up a cooperative to pasteurize and sell direct, you bypass Polson entirely.",
+        correct: true
+      }
+    ]
+  },
 
   endings: {
     accept: {
       title: "Ending I — Acceptance",
       body: [
-        "The villagers reluctantly accept the lower prices.",
-        "For a while, life continues exactly as before.",
-        "Milk flows. Prosperity never does."
+        "The farmers continue selling through Polson's agents.",
+        "Anand remains a passive procurement depot.",
+        "Prosperity never reaches the producers."
       ]
     },
 
     cooling: {
-      title: "Ending II — Better Storage",
+      title: "Ending II — Partial Relief",
       body: [
-        "Cooling helps reduce waste.",
-        "But the buyer still controls prices.",
-        "The real problem remains unsolved."
+        "Storage tanks reduce immediate spoilage.",
+        "But without price control, the economic model is unchanged.",
+        "The farmers remain dependent on private middlemen."
       ]
     },
 
     cooperative: {
-      title: "Ending III — A New Beginning",
+      title: "Ending III — The Birth of AMUL",
       body: [
-        "The villagers decide to work together.",
-        "Instead of selling through middlemen, they create a cooperative owned by farmers themselves.",
-        "This decision marks the beginning of the movement that would eventually become AMUL."
+        "In late 1946, Anand's farmers establish the Kaira Co-operative Union.",
+        "They refuse to sell milk to Polson, initiating a historic strike.",
+        "This cooperative action marks the foundation of the movement that would become AMUL."
       ]
     }
   }
