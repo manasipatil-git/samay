@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SAMAY — The Milk Monopoly</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Vesper+Libre:wght@400;500;700;900&family=Special+Elite&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- =========================================================
+     GLOBAL SVG DEFS — gradients, filters, reusable symbols.
+     Nothing here renders on its own.
+========================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+
+  <filter id="paperGrain" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
+    <feColorMatrix in="noise" type="matrix"
+      values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.045 0"/>
+    <feComposite operator="over" in2="SourceGraphic"/>
+  </filter>
+
+  <filter id="softBlur"><feGaussianBlur stdDeviation="3"/></filter>
+  <filter id="smokeBlur"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="inkWobble" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="w" seed="3"/>
+    <feDisplacementMap in="SourceGraphic" in2="w" scale="4"/>
+  </filter>
+
+  <linearGradient id="duskSky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1c2436"/>
+    <stop offset="45%" stop-color="#2c3350"/>
+    <stop offset="75%" stop-color="#4a3f4d"/>
+    <stop offset="100%" stop-color="#6b4e42"/>
+  </linearGradient>
+
+  <linearGradient id="fieldGround" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#3c4a3a"/>
+    <stop offset="100%" stop-color="#22301f"/>
+  </linearGradient>
+
+  <radialGradient id="lanternGlow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#ffd899" stop-opacity="0.9"/>
+    <stop offset="60%" stop-color="#e0954f" stop-opacity="0.35"/>
+    <stop offset="100%" stop-color="#e0954f" stop-opacity="0"/>
+  </radialGradient>
+
+  <linearGradient id="skinLight" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#e8b98d"/>
+    <stop offset="100%" stop-color="#c98f61"/>
+  </linearGradient>
+
+  <linearGradient id="skinDeep" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#c68f5f"/>
+    <stop offset="100%" stop-color="#9c6640"/>
+  </linearGradient>
+
+  <linearGradient id="roofThatch" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#a9834a"/>
+    <stop offset="100%" stop-color="#7a5c30"/>
+  </linearGradient>
+
+  <linearGradient id="woodWall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#8a5a3c"/>
+    <stop offset="100%" stop-color="#5f3a26"/>
+  </linearGradient>
+
+  <linearGradient id="paperCream" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#f3e7c8"/>
+    <stop offset="100%" stop-color="#e6d3a4"/>
+  </linearGradient>
+
+</defs>
+</svg>
+
+<!-- =========================================================
+     PORTRAIT TEMPLATES — cloned into the dialogue box.
+========================================================== -->
+
+<template id="portrait-mother">
+<svg viewBox="0 0 220 260" class="portrait-svg">
+  <ellipse cx="110" cy="248" rx="95" ry="14" fill="#000" opacity="0.25"/>
+  <path d="M20 260 C20 150 45 90 110 90 C175 90 200 150 200 260 Z" fill="#8a3b34"/>
+  <path d="M35 260 C40 175 55 120 110 118 C165 120 180 175 185 260 Z" fill="#b1523f"/>
+  <circle cx="110" cy="98" r="52" fill="url(#skinLight)"/>
+  <path d="M58 90 C58 40 162 40 162 90 C162 60 145 42 110 42 C75 42 58 60 58 90 Z" fill="#241a14"/>
+  <path d="M60 96 C55 60 80 38 110 38 C140 38 165 60 160 96 C158 70 138 52 110 52 C82 52 62 70 60 96Z" fill="#2c211a"/>
+  <path d="M84 108 q26 18 52 0" stroke="#5c3320" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="88" cy="92" r="5" fill="#291c14"/>
+  <circle cx="132" cy="92" r="5" fill="#291c14"/>
+  <path d="M78 78 q10 -6 20 0" stroke="#291c14" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M122 78 q10 -6 20 0" stroke="#291c14" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="110" cy="66" r="3" fill="#c0392b"/>
+  <path d="M60 130 q50 26 100 0 l6 18 q-56 30 -112 0 Z" fill="#d9a441"/>
+</svg>
+</template>
+
+<template id="portrait-buyer">
+<svg viewBox="0 0 220 260" class="portrait-svg">
+  <ellipse cx="110" cy="248" rx="95" ry="14" fill="#000" opacity="0.25"/>
+  <path d="M18 260 C18 165 50 108 110 108 C170 108 202 165 202 260 Z" fill="#e9e2ce"/>
+  <path d="M18 260 C18 190 40 140 70 118 L86 150 L74 260 Z" fill="#c9bfa0"/>
+  <path d="M202 260 C202 190 180 140 150 118 L134 150 L146 260 Z" fill="#c9bfa0"/>
+  <rect x="98" y="150" width="24" height="30" fill="#2c2620"/>
+  <circle cx="110" cy="98" r="50" fill="url(#skinDeep)"/>
+  <path d="M62 92 C62 55 158 55 158 92 C158 68 142 50 110 50 C78 50 62 68 62 92Z" fill="#171310"/>
+  <path d="M84 116 q26 14 52 0" stroke="#2a1a10" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <circle cx="90" cy="92" r="5" fill="#171310"/>
+  <circle cx="130" cy="92" r="5" fill="#171310"/>
+  <path d="M80 80 q10 -5 18 0" stroke="#171310" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M122 80 q10 -5 18 0" stroke="#171310" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M78 108 q32 10 64 0" stroke="#171310" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>
+</template>
+
+<template id="portrait-worker">
+<svg viewBox="0 0 220 260" class="portrait-svg">
+  <ellipse cx="110" cy="248" rx="95" ry="14" fill="#000" opacity="0.25"/>
+  <path d="M20 260 C20 160 48 104 110 104 C172 104 200 160 200 260 Z" fill="#5f7161"/>
+  <path d="M40 260 C46 185 62 138 110 134 C158 138 174 185 180 260 Z" fill="#748a71"/>
+  <circle cx="110" cy="96" r="50" fill="url(#skinDeep)"/>
+  <path d="M58 96 C50 60 74 40 110 38 C150 40 172 62 162 98 C168 78 158 46 110 46 C64 46 54 76 58 96Z" fill="#d9a441"/>
+  <path d="M60 70 Q110 30 160 70" fill="none" stroke="#c98d33" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="90" cy="94" r="5" fill="#171310"/>
+  <circle cx="130" cy="94" r="5" fill="#171310"/>
+  <path d="M86 116 q24 12 48 0" stroke="#2a1a10" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>
+</template>
+
+<template id="portrait-worker2">
+<svg viewBox="0 0 220 260" class="portrait-svg">
+  <ellipse cx="110" cy="248" rx="95" ry="14" fill="#000" opacity="0.25"/>
+  <path d="M20 260 C20 160 48 104 110 104 C172 104 200 160 200 260 Z" fill="#39506b"/>
+  <path d="M40 260 C46 185 62 148 110 144 C158 148 174 185 180 260 Z" fill="#4c6885"/>
+  <circle cx="110" cy="98" r="50" fill="url(#skinLight)"/>
+  <path d="M58 88 C58 55 162 55 162 88 L162 78 Q110 58 58 78 Z" fill="#22314a"/>
+  <path d="M56 78 Q110 52 164 78 L168 92 Q110 66 52 92 Z" fill="#2c3d5c"/>
+  <circle cx="90" cy="96" r="5" fill="#171310"/>
+  <circle cx="130" cy="96" r="5" fill="#171310"/>
+  <path d="M86 118 q24 12 48 0" stroke="#2a1a10" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M78 80 q10 -5 18 0" stroke="#171310" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M122 80 q10 -5 18 0" stroke="#171310" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>
+</template>
+
+<template id="portrait-elder">
+<svg viewBox="0 0 220 260" class="portrait-svg">
+  <ellipse cx="110" cy="248" rx="95" ry="14" fill="#000" opacity="0.25"/>
+  <path d="M18 260 C18 158 48 100 110 100 C172 100 202 158 202 260 Z" fill="#e4ddc6"/>
+  <path d="M40 260 C46 180 62 132 110 128 C158 132 174 180 180 260 Z" fill="#f2ecd8"/>
+  <circle cx="110" cy="94" r="48" fill="url(#skinDeep)"/>
+  <path d="M60 88 C56 52 80 34 110 34 C140 34 164 52 160 88 C168 66 158 30 110 28 C62 30 52 66 60 88Z" fill="#f4f1ea"/>
+  <path d="M70 130 Q110 168 150 130 L154 168 Q110 200 66 168 Z" fill="#f4f1ea"/>
+  <circle cx="90" cy="92" r="4.5" fill="#171310"/>
+  <circle cx="130" cy="92" r="4.5" fill="#171310"/>
+  <path d="M78 82 q10 -5 18 0" stroke="#4a4238" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M122 82 q10 -5 18 0" stroke="#4a4238" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M64 76 Q84 58 110 60" stroke="#e8e3d2" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M156 76 Q136 58 110 60" stroke="#e8e3d2" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>
+</template>
+
+<!-- =========================================================
+     ITEM ICON TEMPLATES — cloned into inventory/board.
+========================================================== -->
+<template id="item-receipt">
+<svg viewBox="0 0 100 120" class="item-svg">
+  <path d="M14 6 h72 v106 l-9 -7 -9 7 -9 -7 -9 7 -9 -7 -9 7 -9 -7 -9 7 Z" fill="url(#paperCream)" stroke="#8a7346" stroke-width="1.5"/>
+  <line x1="26" y1="28" x2="74" y2="28" stroke="#8a7346" stroke-width="2"/>
+  <line x1="26" y1="42" x2="74" y2="42" stroke="#8a7346" stroke-width="2"/>
+  <line x1="26" y1="56" x2="60" y2="56" stroke="#8a7346" stroke-width="2"/>
+  <line x1="26" y1="74" x2="66" y2="74" stroke="#c0392b" stroke-width="2.5"/>
+</svg>
+</template>
+
+<template id="item-ledger">
+<svg viewBox="0 0 100 120" class="item-svg">
+  <rect x="10" y="10" width="80" height="100" rx="3" fill="#4c3324"/>
+  <rect x="16" y="16" width="68" height="88" rx="2" fill="url(#paperCream)"/>
+  <line x1="26" y1="32" x2="74" y2="32" stroke="#8a7346" stroke-width="2"/>
+  <line x1="26" y1="46" x2="74" y2="46" stroke="#8a7346" stroke-width="2"/>
+  <line x1="26" y1="60" x2="74" y2="60" stroke="#8a7346" stroke-width="2"/>
+  <line x1="26" y1="74" x2="74" y2="74" stroke="#8a7346" stroke-width="2"/>
+  <line x1="26" y1="88" x2="56" y2="88" stroke="#8a7346" stroke-width="2"/>
+</svg>
+</template>
+
+<template id="item-rejectedLog">
+<svg viewBox="0 0 100 120" class="item-svg">
+  <rect x="10" y="14" width="80" height="94" rx="3" fill="#2f3a2e"/>
+  <rect x="16" y="20" width="68" height="82" rx="2" fill="url(#paperCream)"/>
+  <line x1="24" y1="36" x2="76" y2="36" stroke="#8a7346" stroke-width="2"/>
+  <line x1="24" y1="50" x2="76" y2="50" stroke="#8a7346" stroke-width="2"/>
+  <line x1="24" y1="64" x2="76" y2="64" stroke="#8a7346" stroke-width="2"/>
+  <circle cx="66" cy="80" r="16" fill="none" stroke="#a8452f" stroke-width="3" opacity="0.85"/>
+  <line x1="55" y1="80" x2="77" y2="80" stroke="#a8452f" stroke-width="3" opacity="0.85"/>
+</svg>
+</template>
+
+<template id="item-manifest">
+<svg viewBox="0 0 100 120" class="item-svg">
+  <path d="M14 6 h72 v106 l-9 -7 -9 7 -9 -7 -9 7 -9 -7 -9 7 -9 -7 -9 7 Z" fill="url(#paperCream)" stroke="#8a7346" stroke-width="1.5"/>
+  <path d="M24 30 h20 l6 8 h20" fill="none" stroke="#3a5772" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="30" cy="46" r="5" fill="#3a5772"/>
+  <circle cx="48" cy="46" r="5" fill="#3a5772"/>
+  <line x1="24" y1="46" x2="66" y2="46" stroke="#3a5772" stroke-width="3"/>
+  <line x1="26" y1="66" x2="74" y2="66" stroke="#8a7346" stroke-width="2"/>
+  <line x1="26" y1="80" x2="60" y2="80" stroke="#8a7346" stroke-width="2"/>
+</svg>
+</template>
+
+<template id="item-petition">
+<svg viewBox="0 0 100 120" class="item-svg">
+  <rect x="20" y="14" width="60" height="92" rx="30" fill="url(#paperCream)" stroke="#8a7346" stroke-width="1.5"/>
+  <line x1="32" y1="34" x2="68" y2="34" stroke="#8a7346" stroke-width="2"/>
+  <line x1="32" y1="46" x2="68" y2="46" stroke="#8a7346" stroke-width="2"/>
+  <line x1="32" y1="58" x2="68" y2="58" stroke="#8a7346" stroke-width="2"/>
+  <line x1="32" y1="70" x2="60" y2="70" stroke="#8a7346" stroke-width="2"/>
+  <circle cx="66" cy="86" r="10" fill="#a8452f" opacity="0.85"/>
+</svg>
+</template>
+
+<!-- =========================================================
+     LOCATION MARKER ICONS
+========================================================== -->
+<template id="loc-home">
+<svg viewBox="0 0 120 110" class="loc-svg">
+  <path d="M60 10 L112 52 H100 V98 H20 V52 H8 Z" fill="url(#roofThatch)"/>
+  <rect x="28" y="52" width="64" height="46" fill="url(#woodWall)"/>
+  <rect x="50" y="68" width="20" height="30" fill="#241a14"/>
+  <rect x="34" y="60" width="14" height="12" fill="#f3e7c8" opacity="0.85"/>
+  <rect x="72" y="60" width="14" height="12" fill="#f3e7c8" opacity="0.85"/>
+</svg>
+</template>
+
+<template id="loc-buyer">
+<svg viewBox="0 0 120 110" class="loc-svg">
+  <rect x="16" y="40" width="88" height="58" fill="#c9bfa0"/>
+  <path d="M8 42 L60 12 L112 42 Z" fill="#8a5a3c"/>
+  <rect x="26" y="52" width="16" height="16" fill="#3a5772"/>
+  <rect x="50" y="52" width="16" height="16" fill="#3a5772"/>
+  <rect x="78" y="52" width="16" height="16" fill="#3a5772"/>
+  <rect x="50" y="76" width="20" height="22" fill="#4c3324"/>
+  <rect x="10" y="98" width="100" height="6" fill="#5f3a26"/>
+</svg>
+</template>
+
+<template id="loc-collection">
+<svg viewBox="0 0 120 110" class="loc-svg">
+  <rect x="14" y="46" width="92" height="52" fill="#6f7b63"/>
+  <path d="M6 48 L60 20 L114 48 Z" fill="#4c3324"/>
+  <rect x="24" y="60" width="14" height="26" rx="3" fill="#8fa2b3"/>
+  <rect x="44" y="64" width="14" height="22" rx="3" fill="#8fa2b3"/>
+  <rect x="64" y="58" width="14" height="28" rx="3" fill="#8fa2b3"/>
+  <rect x="84" y="64" width="14" height="22" rx="3" fill="#8fa2b3"/>
+</svg>
+</template>
+
+<template id="loc-railway">
+<svg viewBox="0 0 120 110" class="loc-svg">
+  <rect x="4" y="70" width="112" height="10" fill="#3a2a1f"/>
+  <rect x="10" y="82" width="100" height="6" fill="#5f3a26"/>
+  <rect x="20" y="34" width="60" height="36" rx="4" fill="#39506b"/>
+  <circle cx="34" cy="70" r="8" fill="#20242c"/>
+  <circle cx="66" cy="70" r="8" fill="#20242c"/>
+  <rect x="20" y="20" width="60" height="10" fill="#2c3d5c"/>
+  <rect x="82" y="50" width="14" height="20" fill="#4c6885"/>
+</svg>
+</template>
+
+<template id="loc-hall">
+<svg viewBox="0 0 120 110" class="loc-svg">
+  <rect x="12" y="42" width="96" height="56" fill="#e4ddc6"/>
+  <path d="M4 44 L60 10 L116 44 Z" fill="#8a5a3c"/>
+  <rect x="24" y="56" width="12" height="30" fill="#5f3a26"/>
+  <rect x="44" y="56" width="12" height="30" fill="#5f3a26"/>
+  <rect x="64" y="56" width="12" height="30" fill="#5f3a26"/>
+  <rect x="84" y="56" width="12" height="30" fill="#5f3a26"/>
+  <circle cx="60" cy="26" r="6" fill="#d9a441"/>
+</svg>
+</template>
+
+<!-- =========================================================
+     APP ROOT
+========================================================== -->
+<div id="app">
+
+  <!-- Rain + atmosphere overlay, persistent -->
+  <div class="atmosphere" id="atmosphere">
+    <div class="rain-layer"></div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+  </div>
+
+  <!-- ============ SCENE: ARCHIVE ============ -->
+  <section id="scene-archive" class="scene is-active">
+    <div class="archive-room">
+      <div class="archive-glow"></div>
+      <header class="archive-header">
+        <span class="hud-eyebrow">National Archives · Historical Records</span>
+        <h2>Select a Confidential Case</h2>
+        <p class="archive-hint">Open a cabinet drawer to begin your investigation</p>
+      </header>
+      
+      <div class="cabinet">
+        <!-- Drawer 1: Active Case -->
+        <div class="drawer active-drawer" id="drawer-case1">
+          <div class="drawer-handle"></div>
+          <div class="drawer-label">CASE 001<br>The Milk Monopoly (1946)</div>
+          <div class="drawer-contents" id="drawer-contents-1">
+            <div class="case-folder" id="case-folder-1">
+              <div class="folder-cover">
+                <span class="folder-stamp">CONFIDENTIAL</span>
+                <span class="folder-title">CASE 001: ANAND (1946)</span>
+                <div class="wax-seal-wrapper">
+                  <div class="wax-seal" id="wax-seal-1">
+                    <span class="seal-logo">S</span>
+                  </div>
+                  <div class="seal-hint">Click seal to break & open</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Locked Drawers -->
+        <div class="drawer locked-drawer">
+          <div class="drawer-handle"></div>
+          <div class="drawer-label">CASE 002<br>The Salt Conspiracy (1930)</div>
+          <div class="lock-icon">🔒</div>
+        </div>
+        
+        <div class="drawer locked-drawer">
+          <div class="drawer-handle"></div>
+          <div class="drawer-label">CASE 003<br>The Missing Emperor</div>
+          <div class="lock-icon">🔒</div>
+        </div>
+        
+        <div class="drawer locked-drawer">
+          <div class="drawer-handle"></div>
+          <div class="drawer-label">CASE 004<br>The Forgotten Revolution</div>
+          <div class="lock-icon">🔒</div>
+        </div>
+
+        <div class="drawer locked-drawer">
+          <div class="drawer-handle"></div>
+          <div class="drawer-label">CASE 005<br>The Lost University</div>
+          <div class="lock-icon">🔒</div>
+        </div>
+
+        <div class="drawer locked-drawer">
+          <div class="drawer-handle"></div>
+          <div class="drawer-label">CASE 006<br>The Partition Train</div>
+          <div class="lock-icon">🔒</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE: INTRO ============ -->
+  <section id="scene-intro" class="scene">
+    <div class="intro-sky"></div>
+    <div class="intro-card">
+      <p class="intro-line" id="intro-line"></p>
+    </div>
+    <button class="intro-skip" id="btn-skip-intro">skip ›</button>
+  </section>
+
+  <!-- ============ SCENE: VILLAGE ============ -->
+  <section id="scene-village" class="scene">
+
+    <div class="sky-village">
+      <div class="cloud cloud-a"></div>
+      <div class="cloud cloud-b"></div>
+      <div class="cloud cloud-c"></div>
+    </div>
+
+    <div class="hud">
+      <div class="hud-title">
+        <span class="hud-eyebrow">Anand · 1946</span>
+        <h1 class="hud-heading">Samay</h1>
+      </div>
+
+      <div class="hud-hours" id="hud-hours" aria-label="Hours remaining">
+        <span class="hud-hours-label">Hours left</span>
+        <div class="hour-lanterns" id="hour-lanterns"></div>
+      </div>
+
+      <div class="hud-buttons">
+        <button class="hud-btn" id="btn-notebook">
+          <svg viewBox="0 0 40 40" class="hud-icon"><rect x="8" y="6" width="24" height="30" rx="2" fill="#e6d3a4" stroke="#5f3a26" stroke-width="2"/><line x1="14" y1="14" x2="26" y2="14" stroke="#5f3a26" stroke-width="1.6"/><line x1="14" y1="20" x2="26" y2="20" stroke="#5f3a26" stroke-width="1.6"/><line x1="14" y1="26" x2="22" y2="26" stroke="#5f3a26" stroke-width="1.6"/></svg>
+          Notebook
+        </button>
+        <button class="hud-btn" id="btn-inventory">
+          <svg viewBox="0 0 40 40" class="hud-icon"><path d="M8 16 L14 8 H26 L32 16 Z" fill="none" stroke="#5f3a26" stroke-width="2"/><rect x="8" y="16" width="24" height="16" rx="2" fill="#e6d3a4" stroke="#5f3a26" stroke-width="2"/></svg>
+          Inventory
+        </button>
+      </div>
+    </div>
+
+    <div class="village-map" id="village-map">
+      <svg class="road-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M18 62 Q30 50 30 40 Q30 50 40 78 Q55 70 62 30 Q70 55 82 60" class="road-path"/>
+      </svg>
+      <!-- location buttons injected by game.js -->
+    </div>
+
+    <button class="btn-proceed" id="btn-to-detective">
+      <span>Head home — it's time to think</span>
+    </button>
+  </section>
+
+  <!-- ============ DIALOGUE OVERLAY (shared) ============ -->
+  <div id="dialogue-overlay" class="dialogue-overlay">
+    <div class="dialogue-portrait"></div>
+    <div class="dialogue-panel">
+      <div class="dialogue-name"></div>
+      <div class="dialogue-text"></div>
+      <div class="dialogue-continue">continue ▸</div>
+    </div>
+  </div>
+
+  <!-- ============ SCENE: DETECTIVE ROOM ============ -->
+  <section id="scene-detective" class="scene">
+    <div class="desk-glow"></div>
+    <header class="board-header">
+      <span class="hud-eyebrow">Late that night</span>
+      <h2>The Evidence Board</h2>
+      <div class="board-score" id="board-score">Insight: 0%</div>
+      <p class="board-hint" id="board-hint">Drag a clue onto another to connect what you've found.</p>
+    </header>
+
+    <div class="board" id="board"></div>
+
+    <div class="board-deductions" id="board-deductions"></div>
+
+    <button class="btn-proceed" id="btn-to-meeting" disabled>
+      <span>Bring it all to the village</span>
+    </button>
+  </section>
+
+  <!-- ============ SCENE: MEETING ============ -->
+  <section id="scene-meeting" class="scene">
+    <div class="hall-bg"></div>
+    <div id="meeting-dialogue-anchor"></div>
+    <div class="meeting-options" id="meeting-options"></div>
+  </section>
+
+  <!-- ============ SCENE: FINAL DECISION ============ -->
+  <section id="scene-decision" class="scene">
+    <header class="board-header">
+      <span class="hud-eyebrow">Tomorrow, at the meeting</span>
+      <h2>What does the village do?</h2>
+    </header>
+    <div class="decision-options" id="decision-options">
+      <button class="decision-card" data-ending="accept">
+        <h3>Accept lower prices</h3>
+        <p>Take what relief is offered. Move on.</p>
+      </button>
+      <button class="decision-card" data-ending="cooling">
+        <h3>Invest in cooling only</h3>
+        <p>Keep the milk fresher. Still sell to the same buyer.</p>
+      </button>
+      <button class="decision-card" data-ending="cooperative">
+        <h3>Form a cooperative</h3>
+        <p>Collect, grade, and sell the milk together.</p>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SCENE: ENDING ============ -->
+  <section id="scene-ending" class="scene">
+    <div class="ending-frame paper-texture">
+      <div class="ending-header-stamp">RECORD CLOSED</div>
+      <h2 id="ending-title"></h2>
+      <div id="ending-body" class="ending-body"></div>
+      
+      <!-- Historical Context Card -->
+      <div id="historical-card" class="historical-card">
+        <h4>Archival Dispatch (Anand, 1946)</h4>
+        <p id="historical-text"></p>
+      </div>
+
+      <!-- Investigator Score Stamp -->
+      <div id="ending-score" class="ending-score-stamp"></div>
+
+      <button class="btn-proceed" id="btn-restart"><span>Access Next Drawer</span></button>
+    </div>
+  </section>
+
+  <!-- ============ NOTEBOOK PANEL ============ -->
+  <aside class="panel" id="panel-notebook">
+    <div class="panel-inner paper-texture">
+      <h3>Notebook</h3>
+      <div id="notebook-entries" class="notebook-entries"></div>
+      <button class="panel-close" data-close="notebook">close</button>
+    </div>
+  </aside>
+
+  <!-- ============ INVENTORY PANEL ============ -->
+  <aside class="panel" id="panel-inventory">
+    <div class="panel-inner paper-texture">
+      <h3>Inventory</h3>
+      <div id="inventory-items" class="inventory-items"></div>
+      <button class="panel-close" data-close="inventory">close</button>
+    </div>
+  </aside>
+
+</div>
+
+<script src="sound.js"></script>
+<script src="data.js"></script>
+<script src="dialogue.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
