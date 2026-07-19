@@ -727,7 +727,17 @@ class Game {
     );
 
     if (pair && !this.state.connectedPairs.includes(pair.id)) {
-      this._showSentencePrompt(pair, node, prevNode);
+      this.state.connectedPairs.push(pair.id);
+      node.classList.add("is-linked");
+      prevNode.classList.add("is-linked");
+      this._renderDeductionCard(pair.id);
+      this._redrawConnections();
+      this._updateInsightScore();
+      this._checkFinalDeduction();
+      this._save();
+      if (window.SAMAY_SOUND) {
+        window.SAMAY_SOUND.play("stamp");
+      }
     } else {
       this.state.wrongGuesses = (this.state.wrongGuesses || 0) + 1;
       this._flashWrongGuess();

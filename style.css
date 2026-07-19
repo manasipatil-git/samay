@@ -32,9 +32,7 @@
 html, body{
   margin:0; padding:0;
   width:100%; height:100%;
-  background: 
-    linear-gradient(rgba(10, 6, 3, 0.65), rgba(10, 6, 3, 0.82)),
-    repeating-linear-gradient(90deg, #2b1a11 0px, #2b1a11 120px, #1f1109 120px, #1f1109 240px);
+  background: #0f0905;
   color: var(--paper);
   font-family: var(--font-body);
   overflow: hidden;
@@ -55,8 +53,9 @@ button{
   height: 100vh;
   overflow: hidden;
   background: 
-    radial-gradient(circle at 50% 35%, rgba(255, 190, 110, 0.14) 0%, transparent 65%),
-    repeating-linear-gradient(0deg, rgba(0,0,0,0.04) 0px, transparent 2px, transparent 4px);
+    radial-gradient(ellipse at 50% 42%, rgba(255, 190, 110, 0.16) 0%, rgba(35, 20, 10, 0.65) 55%, rgba(8, 4, 2, 0.98) 95%),
+    linear-gradient(135deg, #2a180d 0%, #1c0e06 50%, #110703 100%);
+  box-shadow: inset 0 0 120px rgba(0,0,0,0.9);
 }
 
 /* ---------------------------------------------------------
@@ -803,6 +802,9 @@ button{
   position:relative;
 }
 
+#panel-notebook.bahi-khata-book {
+  overflow: visible;
+}
 #panel-notebook.bahi-khata-book .bahi-pages {
   background: 
     radial-gradient(circle at 10% 10%, rgba(255,255,255,0.4) 0%, transparent 40%),
@@ -812,8 +814,10 @@ button{
   box-shadow: 
     inset 0 0 35px rgba(90, 60, 30, 0.22),
     0 25px 50px rgba(0, 0, 0, 0.85);
-  padding: 34px 44px;
+  padding: 30px 36px 36px;
   position: relative;
+  height: 100%;
+  overflow-y: auto;
 }
 /* Stitched Center Spine Seam dividing left and right pages */
 .bahi-spine-seam {
@@ -830,7 +834,7 @@ button{
 .bahi-page-header {
   border-bottom: 2px double rgba(139, 0, 0, 0.3);
   padding-bottom: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   text-align: center;
 }
 .bahi-stamp {
@@ -844,30 +848,35 @@ button{
 /* Red Ribbon Bookmark Close Control */
 .bahi-ribbon-close {
   position: absolute;
-  bottom: -18px;
-  right: 40px;
+  top: 14px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   background: #a8452f;
   color: #fdfaf2;
   font-family: var(--font-type);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: bold;
-  letter-spacing: 0.06em;
-  padding: 6px 14px 10px;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
   border: 1px solid #6d2314;
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
   cursor: pointer;
-  z-index: 25;
+  z-index: 30;
+  white-space: nowrap;
+  width: auto;
+  height: auto;
   transition: transform 0.2s, background 0.2s;
 }
 .bahi-ribbon-close:hover {
-  transform: translateY(3px);
+  transform: translateY(-1px);
   background: #bd4e37;
 }
 #panel-notebook .notebook-entries {
   column-count: 2;
-  column-gap: 50px;
+  column-gap: 40px;
   column-rule: 1px dashed rgba(139, 0, 0, 0.18);
 }
 #panel-inventory.evidence-tray-box {
@@ -1275,31 +1284,34 @@ button{
 }
 .deduction-card{
   position:relative;
-  font-family: var(--font-type);
-  font-size: 0.85rem;
-  line-height: 1.5;
-  background: rgba(236,224,196,0.08);
-  border-left: 3px solid var(--lantern-bright);
-  padding: 10px 14px 10px 30px;
-  color: var(--paper);
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  background: #fdfaf2;
+  border: 1.5px solid #d4c5a9;
+  border-left: 4px solid #8b0000;
+  padding: 12px 16px 12px 34px;
+  color: #1f140a;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.45);
+  border-radius: 2px;
   opacity:0;
-  transform: translateY(6px);
+  transform: translateY(8px) rotate(-0.5deg);
   animation: cardIn 0.6s ease forwards;
 }
 .deduction-card::before{
   content:"";
-  position:absolute; left:10px; top:50%; margin-top:-4px;
-  width:8px; height:8px; border-radius:50%;
+  position:absolute; left:12px; top:50%;
+  transform: translateY(-50%);
+  width:10px; height:10px; border-radius:50%;
   background: radial-gradient(circle at 35% 30%, #ff8b5c, #9c2a20);
-  box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 .deduction-card.is-final{
-  border-left-color: var(--rust);
-  background: rgba(168,69,47,0.15);
-  font-family: var(--font-body);
-  font-size: 0.98rem;
+  border-left-color: #aa7c11;
+  background: #fcf6e6;
+  font-weight: bold;
 }
-.deduction-card.is-final::before{ background: radial-gradient(circle at 35% 30%, #ffd894, #a8452f); }
+.deduction-card.is-final::before{ background: radial-gradient(circle at 35% 30%, #ebd7a2, #aa7c11); }
 @keyframes cardIn{ to{ opacity:1; transform:none; } }
 
 /* ============================================================
@@ -2581,7 +2593,7 @@ button{
 .evidence-inspect-card {
   width: min(650px, 95vw);
   max-height: 90vh;
-  background: #fbf8f0;
+  background: #fdfbf5;
   border: 4px solid #4a2e1b;
   box-shadow: 0 25px 60px rgba(0,0,0,0.9);
   padding: 24px;
@@ -2590,13 +2602,14 @@ button{
   position: relative;
   overflow-y: auto;
   border-radius: 4px;
+  color: #1a0f08;
 }
 .inspect-warning-label {
   font-family: var(--font-type);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   letter-spacing: 0.12em;
-  color: #7d6542;
-  border-bottom: 1px dashed rgba(95, 58, 38, 0.2);
+  color: #8b0000;
+  border-bottom: 1.5px dashed rgba(139, 0, 0, 0.3);
   padding-bottom: 8px;
   margin-bottom: 16px;
   display: block;
@@ -2606,6 +2619,7 @@ button{
 .inspect-document-body {
   flex-grow: 1;
   margin-bottom: 20px;
+  color: #1a0f08;
 }
 .inspect-footer-buttons {
   display: flex;
@@ -2626,7 +2640,7 @@ button{
 .inspect-close-btn {
   background: #eae2cf;
   border: 1px solid #c5baa3;
-  color: #4a3e2e;
+  color: #2c1a0e;
 }
 .inspect-close-btn:hover {
   background: #dfd6c0;
@@ -2643,43 +2657,50 @@ button{
 /* Document layout: Milk Receipt */
 .inspect-receipt {
   padding: 16px;
-  border: 1px solid #d4c5a9;
-  background: #fdfbf7;
+  border: 1.5px solid #a89467;
+  background: #fdfaf2;
   font-family: 'Special Elite', Courier, monospace;
   position: relative;
+  color: #1a0f08;
 }
 .inspect-receipt h4 {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   text-align: center;
-  color: #4a2e1b;
+  color: #2c1a0e;
   margin-bottom: 4px;
 }
 .receipt-sub {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   text-align: center;
-  color: #7d6542;
+  color: #5a4005;
   margin-bottom: 16px;
   letter-spacing: 0.05em;
+  font-weight: bold;
 }
 .receipt-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 12px;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
+  color: #1a0f08;
 }
 .receipt-table {
   width: 100%;
   border-collapse: collapse;
   margin: 16px 0;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  color: #1a0f08;
 }
 .receipt-table th, .receipt-table td {
-  border: 1px solid #c5baa3;
-  padding: 8px;
+  border: 1.5px solid #a89467;
+  padding: 8px 10px;
   text-align: left;
+  color: #1a0f08 !important;
 }
 .receipt-table th {
-  background: #f3eedf;
+  background: #e8ded0;
+  font-weight: bold;
+  color: #2c1a0e !important;
 }
 .stamp-red {
   position: absolute;
@@ -2691,22 +2712,24 @@ button{
   padding: 6px 12px;
   rotate: -12deg;
   font-size: 0.8rem;
-  opacity: 0.85;
+  opacity: 0.9;
+  background: rgba(253, 250, 242, 0.9);
 }
 
 /* Document layout: Goods Waybill */
 .inspect-waybill {
   padding: 16px;
-  background: #f0f7f4; /* light railway blue-green grid background */
-  background-image: linear-gradient(rgba(180, 205, 195, 0.15) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(180, 205, 195, 0.15) 1px, transparent 1px);
+  background: #eaf3ee;
+  background-image: linear-gradient(rgba(140, 175, 160, 0.2) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(140, 175, 160, 0.2) 1px, transparent 1px);
   background-size: 20px 20px;
-  border: 2px solid #8fa89b;
+  border: 2px solid #5a7567;
   font-family: 'Special Elite', Courier, monospace;
+  color: #122119;
 }
 .inspect-waybill h4 {
-  font-size: 1.15rem;
-  color: #2b3d33;
+  font-size: 1.18rem;
+  color: #122119;
   text-align: center;
   margin-bottom: 12px;
   letter-spacing: 1px;
@@ -2715,91 +2738,108 @@ button{
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   margin-bottom: 16px;
+  color: #122119 !important;
+}
+.waybill-grid div {
+  color: #122119 !important;
 }
 .waybill-gauge {
-  background: #e1ede8;
-  border: 1px solid #b2c9be;
+  background: #d4e5dd;
+  border: 1.5px solid #5a7567;
   padding: 12px;
   border-radius: 4px;
   margin-top: 16px;
+  color: #122119;
 }
 .gauge-bar-outer {
-  background: #c5dcd1;
+  background: #acc9bd;
   height: 16px;
   border-radius: 8px;
   overflow: hidden;
   margin: 6px 0;
 }
 .gauge-bar-inner {
-  background: #4e8068;
+  background: #2b5743;
   height: 100%;
 }
 
 /* Document layout: Ledger Folio */
 .inspect-ledger {
   padding: 20px;
-  background: #fdfcf9;
-  border: 2px solid #5a4738;
+  background: #fdfbf7;
+  border: 2px solid #3c2416;
   box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
   font-family: var(--font-type);
+  color: #1a0f08;
 }
 .inspect-ledger h4 {
   text-align: center;
-  color: #5a4738;
+  color: #3c2416;
   margin-bottom: 4px;
+  font-size: 1.2rem;
 }
 .ledger-folio-num {
   text-align: right;
   font-size: 0.75rem;
-  color: #887462;
+  color: #5a4005;
   margin-bottom: 12px;
+  font-weight: bold;
 }
 .ledger-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
+  color: #1a0f08;
 }
 .ledger-table th, .ledger-table td {
   padding: 10px;
-  border: 1px solid rgba(90, 71, 56, 0.2);
+  border: 1.5px solid #a89467;
+  color: #1a0f08 !important;
 }
 .ledger-table th {
-  background: #f7f3eb;
-  border-bottom: 2px solid #5a4738;
+  background: #e8ded0;
+  border-bottom: 2px solid #3c2416;
+  color: #2c1a0e !important;
+  font-weight: bold;
 }
 .ledger-row-red td {
-  color: #a8452f;
+  color: #a8452f !important;
   font-weight: bold;
 }
 
 /* Document layout: Receiving Log */
 .inspect-log {
-  padding: 16px;
-  border: 1px solid #d4c5a9;
-  background: #fdfbf7;
-  font-family: monospace;
-  font-size: 0.8rem;
+  padding: 18px;
+  border: 1.5px solid #a89467;
+  background: #fdfaf2;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.85rem;
+  color: #1a0f08;
 }
 .inspect-log h4 {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   text-align: center;
   margin-bottom: 12px;
-  color: #2b1f13;
+  color: #1a0f08;
 }
 .log-table {
   width: 100%;
   border-collapse: collapse;
+  color: #1a0f08;
 }
 .log-table th, .log-table td {
-  border: 1px solid #c5baa3;
-  padding: 6px 8px;
+  border: 1.5px solid #a89467;
+  padding: 8px 10px;
   text-align: left;
+  color: #1a0f08 !important;
 }
 .log-table th {
-  background: #f3eedf;
+  background: #e8ded0;
+  color: #2c1a0e !important;
+  font-weight: bold;
 }
 .log-status-reject {
   color: #a8452f;
