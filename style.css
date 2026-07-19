@@ -1805,23 +1805,71 @@ button{
 /* ============================================================
    FOLDER UNFOLD OVERLAY SHEET (BRIEFING)
 ============================================================ */
-.folder-unfold-sheet {
+.folder-unfold-sheet.physical-dossier {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.1) rotate(-15deg);
-  opacity: 0;
-  width: min(580px, 92vw);
-  max-height: 85vh;
+  transform: translate(-50%, -50%) rotate(-1deg) scale(0.92);
+  width: min(720px, 94vw);
+  min-height: 460px;
+  max-height: 82vh;
   overflow-y: auto;
   background: #fdfaf2;
-  border: 8px solid #a8452f;
-  border-radius: 4px;
-  box-shadow: 0 35px 70px rgba(0,0,0,0.85);
-  padding: 40px;
+  border: 2px solid #c8b998;
+  border-left: 14px solid #8b0000;
+  border-radius: 2px;
+  box-shadow: 
+    0 30px 65px rgba(0,0,0,0.85),
+    inset 0 0 30px rgba(120,90,40,0.08);
+  padding: 40px 48px;
   z-index: 150;
+  opacity: 0;
   pointer-events: none;
-  transition: transform 1.1s cubic-bezier(0.18, 0.89, 0.32, 1.15), opacity 0.8s ease;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+}
+.folder-unfold-sheet.physical-dossier.is-unfolded {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+.dossier-binding-spine {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 14px;
+  background: repeating-linear-gradient(0deg, #6b0000 0px, #6b0000 8px, #8b0000 8px, #8b0000 16px);
+  border-right: 1px dashed rgba(255,255,255,0.4);
+  pointer-events: none;
+}
+.dossier-header-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  border-bottom: 1.5px double rgba(139, 0, 0, 0.25);
+  padding-bottom: 10px;
+}
+.dossier-bookmark-skip {
+  position: absolute;
+  top: -14px;
+  right: 30px;
+  background: #aa7c11;
+  color: #fdfaf2;
+  font-family: var(--font-type);
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  padding: 4px 14px;
+  border: 1px solid #5a4005;
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 60;
+  transition: transform 0.2s, background 0.2s;
+}
+.dossier-bookmark-skip:hover {
+  transform: translateY(-2px);
+  background: #c49418;
 }
 .folder-unfold-sheet::before {
   content: "";
