@@ -571,101 +571,160 @@ button{
 /* ============================================================
    DIALOGUE OVERLAY
 ============================================================ */
-.dialogue-overlay{
-  position:absolute; inset:0;
-  display:flex; align-items:flex-end; justify-content:center;
+.dialogue-overlay.statement-desk-scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 60;
-  opacity:0;
-  pointer-events:none;
-  transition: opacity 0.4s;
-  background: rgba(10,7,4,0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(circle at 50% 50%, rgba(20, 12, 6, 0.2) 0%, rgba(10, 6, 3, 0.65) 100%);
 }
-.dialogue-overlay.is-active{ opacity:1; pointer-events:auto; }
-
-.dialogue-portrait{
-  position:absolute;
-  left: 50%;
-  bottom: 196px;
-  margin-left: -178px;
-  width: 172px; height: 206px;
-  padding: 9px 9px 30px;
-  background: linear-gradient(165deg, #f6efdc 0%, #e6d7ab 100%);
-  border-radius: 2px;
-  rotate: -3.2deg;
-  box-shadow: 0 16px 26px rgba(0,0,0,0.55), 0 0 0 1px rgba(20,14,8,0.15);
-  z-index: 2;
-}
-.dialogue-portrait::before{
-  /* strip of tape holding the photo to the board */
-  content:"";
-  position:absolute; top:-11px; left:50%;
-  width:58px; height:22px;
-  margin-left:-29px;
-  rotate: -4deg;
-  background: linear-gradient(100deg, rgba(255,255,255,0.15), rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.15));
-  border: 1px solid rgba(255,255,255,0.35);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
-}
-.dialogue-portrait::after{
-  /* pencilled caption line under the photo */
-  content:"witness";
-  position:absolute; left:0; right:0; bottom:8px;
-  text-align:center;
-  font-family: var(--font-type);
-  font-size: 0.62rem;
-  letter-spacing: 0.06em;
-  color: rgba(43,32,19,0.4);
-  text-transform: uppercase;
-}
-.portrait-svg{
-  width:100%; height:100%;
-  display:block;
-  background: #1e1a22;
-}
-.portrait-pop{ animation: portraitPop 0.5s cubic-bezier(.2,.9,.3,1.2); }
-@keyframes portraitPop{
-  0%{ opacity:0; transform: translateY(24px) scale(0.94); }
-  100%{ opacity:1; transform: translateY(0) scale(1); }
+.dialogue-overlay.statement-desk-scene.is-active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.dialogue-panel {
+/* Physical 1946 Witness Statement Sheet resting on desk */
+.dialogue-panel.statement-record-sheet {
   position: relative;
-  width: min(720px, 92vw);
-  margin-bottom: 30px;
-  padding: 34px 34px 22px 190px;
-  background: #fdfaf2;
-  border: 1.5px solid #d4c5a9;
+  width: min(740px, 94vw);
+  min-height: 280px;
+  padding: 36px 40px 30px 220px;
+  background: 
+    radial-gradient(ellipse at 15% 15%, rgba(255,255,255,0.4) 0%, transparent 50%),
+    linear-gradient(135deg, #fbf7ec 0%, #ede0c4 100%);
+  border: 1.5px solid #c8b998;
+  border-left: 6px solid #8b0000;
   border-radius: 2px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-  rotate: 1.2deg;
+  box-shadow: 
+    0 25px 55px rgba(0, 0, 0, 0.8),
+    inset 0 0 20px rgba(120, 90, 40, 0.1);
+  transform: rotate(1deg);
+  transition: transform 0.3s ease;
 }
-/* Brass Inkwell Paperweight base */
-.dialogue-panel::after {
+
+/* Brass Inkwell Paperweight holding down the statement sheet */
+.dialogue-panel.statement-record-sheet::after {
   content: "";
   position: absolute;
-  top: -14px;
-  right: 20px;
-  width: 44px;
-  height: 44px;
+  top: -16px;
+  right: 24px;
+  width: 46px;
+  height: 46px;
   background: radial-gradient(circle at 35% 35%, #ebd7a2, #aa7c11 40%, #5a4005 85%);
-  border: 1.5px solid #5a4005;
+  border: 1.5px solid #3c2416;
   border-radius: 50%;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.55), inset 0 2px 4px rgba(255,255,255,0.4);
-  z-index: 10;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.4);
+  z-index: 15;
 }
-/* Small inkwell cap inside the brass paperweight */
-.dialogue-panel::before {
+.dialogue-panel.statement-record-sheet::before {
   content: "";
   position: absolute;
-  top: -6px;
-  right: 28px;
-  width: 28px;
-  height: 28px;
-  background: radial-gradient(circle at 50% 50%, #202020, #0a0a0a);
+  top: -8px;
+  right: 32px;
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle at 50% 50%, #1e1e1e, #080808);
   border: 2px solid #ebd7a2;
   border-radius: 50%;
-  z-index: 11;
-  box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
+  z-index: 16;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.25);
+}
+
+/* Witness Photograph clipped to the paper sheet */
+.dialogue-portrait.statement-photo-clip {
+  position: absolute;
+  top: -24px;
+  left: 24px;
+  width: 165px;
+  height: 200px;
+  padding: 8px 8px 28px;
+  background: #fdfaf2;
+  border: 1px solid #d4c5a9;
+  border-radius: 2px;
+  transform: rotate(-4deg);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.55);
+  z-index: 10;
+}
+/* Translucent Masking Tape Holding Photograph */
+.dialogue-portrait.statement-photo-clip::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 60px;
+  height: 22px;
+  background: linear-gradient(100deg, rgba(255,255,255,0.2), rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.2));
+  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.dialogue-portrait.statement-photo-clip::after {
+  content: "WITNESS EXHIBIT";
+  position: absolute;
+  bottom: 8px;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-type);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: rgba(43,32,19,0.5);
+  font-weight: bold;
+}
+.portrait-svg {
+  width: 100%; height: 100%;
+  display: block;
+  background: #19141c;
+  filter: sepia(0.3) contrast(1.1);
+}
+
+.statement-header-strip {
+  border-bottom: 1.5px double rgba(139, 0, 0, 0.3);
+  padding-bottom: 6px;
+  margin-bottom: 14px;
+}
+.statement-gov-stamp {
+  font-family: var(--font-type);
+  font-size: 0.6rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: #5a4005;
+  opacity: 0.8;
+}
+.dialogue-name.statement-witness-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: #8b0000;
+  margin-bottom: 10px;
+}
+.dialogue-text.statement-body-text {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #1f140a;
+  min-height: 3.5em;
+}
+
+/* Witness Thumbprint Acknowledge Prompt */
+.dialogue-continue.statement-thumbprint-continue {
+  position: absolute;
+  right: 28px;
+  bottom: 14px;
+  font-family: var(--font-type);
+  font-size: 0.72rem;
+  font-weight: bold;
+  color: #8b0000;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+.dialogue-continue.statement-thumbprint-continue.is-visible {
+  opacity: 1;
 }
 .dialogue-form-header {
   display: block;
