@@ -2797,60 +2797,88 @@ button{
 .meeting-evidence-dock {
   background: #fcfaf5;
   border: 4px solid #5f3a26;
-  width: min(520px, 90vw);
-  margin: auto;
-  padding: 24px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-  border-radius: 2px;
+.meeting-evidence-dock.panchayat-assembly-table {
+  background: 
+    linear-gradient(rgba(10, 6, 3, 0.4), rgba(10, 6, 3, 0.7)),
+    repeating-linear-gradient(90deg, #3c2416 0px, #3c2416 140px, #25160c 140px, #25160c 280px);
+  border: 8px solid #25160c;
+  border-radius: 4px;
+  width: min(680px, 94vw);
+  padding: 30px;
+  box-shadow: 
+    0 30px 60px rgba(0,0,0,0.85),
+    inset 0 0 40px rgba(0,0,0,0.6);
   z-index: 100;
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
 }
-.meeting-evidence-dock.is-active {
+.meeting-evidence-dock.panchayat-assembly-table.is-active {
   display: block;
   animation: fadeIn 0.4s ease forwards;
 }
-.meeting-evidence-dock h3 {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: var(--wood-deep);
+
+.panchayat-table-header {
+  border-bottom: 2px double rgba(221, 147, 73, 0.4);
+  padding-bottom: 8px;
+  margin-bottom: 22px;
   text-align: center;
-  margin-bottom: 20px;
-  line-height: 1.4;
 }
-.evidence-dock-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
+.table-eyebrow {
+  display: block;
+  font-family: var(--font-type);
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: var(--lantern);
+  opacity: 0.9;
+}
+.table-instruction {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--paper);
+  margin: 4px 0 0;
+}
+
+.evidence-dock-grid.table-documents-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
 }
 .evidence-dock-card {
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: #faf6eb;
+  gap: 10px;
+  background: #fdfaf2;
   border: 1.5px solid #d4c5a9;
-  border-radius: 4px;
-  padding: 12px 60px 12px 12px;
+  border-radius: 2px;
+  padding: 14px 16px;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition: transform 0.25s ease, background 0.2s, border-color 0.2s;
   font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #2c1e12;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+  transform: rotate(-1deg);
+}
+.evidence-dock-card:nth-child(even) {
+  transform: rotate(1.2deg);
 }
 .evidence-dock-card:hover {
-  background: #f3e6ca;
+  background: #fffdf7;
   border-color: #aa7c11;
+  transform: translateY(-4px) scale(1.02);
 }
 .evidence-dock-card.is-selected {
-  background: #eae2cf;
-  border-color: #a8452f;
-  box-shadow: inset 0 0 5px rgba(139,0,0,0.1);
+  background: #f5ebd6;
+  border: 2px solid #a8452f;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.6);
+  transform: translateY(-6px) scale(1.03);
 }
 .evidence-dock-checkbox {
   display: none !important;
@@ -2858,7 +2886,7 @@ button{
 .evidence-dock-card.is-selected::after {
   content: "PRESENTED";
   position: absolute;
-  right: 15px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%) rotate(-8deg);
   border: 1.5px double #a8452f;
@@ -2869,28 +2897,33 @@ button{
   padding: 1px 5px;
   z-index: 10;
   letter-spacing: 0.05em;
-  opacity: 0.85;
-  background: rgba(250, 246, 235, 0.9);
+  opacity: 0.9;
+  background: rgba(250, 246, 235, 0.95);
 }
-.evidence-dock-submit-btn {
+
+.evidence-dock-submit-btn.panchayat-seal-action {
   width: 100%;
-  padding: 12px;
-  background: #5f3a26;
-  border: 1px solid #3d2315;
-  color: #ffffff;
+  padding: 14px;
+  background: linear-gradient(180deg, #aa7c11 0%, #6d4e13 100%);
+  border: 1.5px solid #3c2416;
+  color: #fdfaf2;
   font-family: var(--font-type);
   font-weight: bold;
   font-size: 0.85rem;
+  letter-spacing: 0.08em;
   cursor: pointer;
   border-radius: 3px;
-  transition: background 0.2s;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+  transition: background 0.2s, transform 0.2s;
 }
-.evidence-dock-submit-btn:hover:not(:disabled) {
-  background: #4a2e1b;
+.evidence-dock-submit-btn.panchayat-seal-action:hover:not(:disabled) {
+  background: linear-gradient(180deg, #c49418 0%, #856018 100%);
+  transform: translateY(-2px);
 }
-.evidence-dock-submit-btn:disabled {
-  opacity: 0.5;
+.evidence-dock-submit-btn.panchayat-seal-action:disabled {
+  opacity: 0.4;
   cursor: not-allowed;
+  filter: grayscale(0.5);
 }
 
 .stamp-archived {
