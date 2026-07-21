@@ -449,30 +449,144 @@ button{
   color: rgba(95,58,38,0.45);
   pointer-events: none;
 }
-/* Brass Tacks pinning 4 corners of map to desk */
-.village-map::after {
-  content: "";
+
+/* Glass Inspection Layer (Faint Reflections, Soft Glare, Edge Highlights) */
+.glass-inspection-overlay {
   position: absolute;
-  top: -6px; right: -6px;
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ebd7a2, #aa7c11 50%, #5a4005 90%);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.6), 2px 2px 3px rgba(0,0,0,0.4);
-  z-index: 20;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 75% 20%, rgba(255,255,255,0.14) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 40%, rgba(0,0,0,0.1) 100%);
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.12);
   pointer-events: none;
+  z-index: 25;
 }
 
+/* Red Investigator Pencil Route Path */
 .road-svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
 }
-.road-path {
+.road-path.red-pencil-route {
   fill: none;
-  stroke: rgba(95,58,38,0.35);
-  stroke-width: 1.2;
-  stroke-dasharray: 4 3;
+  stroke: #8b0000;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 6 3;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  opacity: 0.85;
+}
+
+/* 4 Golden Brass Corner Thumbtacks */
+.map-pin {
+  position: absolute;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ebd7a2, #aa7c11 50%, #5a4005 90%);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.6), 2px 2px 3px rgba(0,0,0,0.4);
+  z-index: 22;
+  pointer-events: none;
+}
+.map-pin.pin-top-left { top: -6px; left: -6px; }
+.map-pin.pin-top-right { top: -6px; right: -6px; }
+.map-pin.pin-bottom-left { bottom: -6px; left: -6px; }
+.map-pin.pin-bottom-right { bottom: -6px; right: -6px; }
+
+/* Translucent Masking Tape Scrap */
+.map-tape-scrap.tape-top {
+  position: absolute;
+  top: -10px; left: 45%;
+  transform: translateX(-50%) rotate(1deg);
+  width: 70px; height: 18px;
+  background: rgba(255, 252, 230, 0.7);
+  border: 1px solid rgba(200, 180, 140, 0.5);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  z-index: 21;
+  pointer-events: none;
+}
+
+/* Physical Desk Props Resting Around Map Edges */
+.map-desk-prop.wooden-ruler-prop {
+  position: absolute;
+  bottom: -18px; left: 12%;
+  width: 220px; height: 16px;
+  background: linear-gradient(180deg, #d4a96e 0%, #aa7c11 100%);
+  border: 1px solid #5a4005;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+  z-index: 20;
+  pointer-events: none;
+}
+.map-desk-prop.wooden-ruler-prop::before {
+  content: "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||";
+  font-family: monospace;
+  font-size: 0.45rem;
+  color: #3c2416;
+  letter-spacing: 2px;
+  display: block;
+  padding-left: 6px;
+}
+
+.map-desk-prop.brass-compass-prop {
+  position: absolute;
+  top: -22px; left: -24px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ebd7a2, #aa7c11 60%, #5a4005 95%);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+  z-index: 24;
+  pointer-events: none;
+}
+.map-desk-prop.brass-compass-prop::before {
+  content: "N";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; height: 100%;
+  font-family: var(--font-type);
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #3c2416;
+}
+
+.map-desk-prop.railway-ticket-clip {
+  position: absolute;
+  top: -18px; right: 40px;
+  background: #fdf5e6;
+  border: 1px dashed #aa7c11;
+  padding: 4px 10px;
+  transform: rotate(-3deg);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+  z-index: 23;
+  pointer-events: none;
+}
+.ticket-stamp {
+  font-family: var(--font-type);
+  font-size: 0.54rem;
+  font-weight: bold;
+  color: #8b0000;
+}
+
+.map-desk-prop.fountain-pen-prop {
+  position: absolute;
+  bottom: -16px; right: -12px;
+  width: 110px; height: 10px;
+  background: linear-gradient(180deg, #2a2a2a 0%, #111111 100%);
+  border-radius: 5px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.7);
+  transform: rotate(-15deg);
+  z-index: 24;
+  pointer-events: none;
+}
+.map-desk-prop.fountain-pen-prop::before {
+  content: "";
+  position: absolute;
+  left: -8px; top: 1px;
+  width: 10px; height: 8px;
+  background: #ebd7a2;
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
 }
 
 /* Direct Map Locations (No level-select card borders) */
