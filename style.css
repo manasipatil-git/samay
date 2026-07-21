@@ -2284,22 +2284,21 @@ button{
 }
 
 /* ============================================================
-   ARCHIVE SCENE (HANDCRAFTED 1946 GOVERNMENT DOSSIER COVER)
+   ARCHIVE SCENE (PURE MANILA GOVERNMENT DOSSIER FOLDER UI)
 ============================================================ */
-.case-folder {
+.case-folder.physical-manila-case-dossier {
   position: relative;
   width: 100%;
-  max-width: 680px;
+  max-width: 650px;
   background: transparent;
   padding: 0;
-  margin: 25px auto;
+  margin: 20px auto;
   animation: folderSlideIn 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.25);
 }
 
-/* Underlying Layered Folders & Colored Archive Tabs */
-.cover-blue-backing-tab {
+.dossier-colored-backing-tab {
   position: absolute;
-  top: -28px;
+  top: -26px;
   right: 24px;
   background: #39506b;
   border: 1.5px solid #202e3f;
@@ -2315,9 +2314,9 @@ button{
   z-index: 1;
 }
 
-.cover-manila-folder-tab {
+.dossier-archive-tab {
   position: absolute;
-  top: -30px;
+  top: -28px;
   left: 24px;
   background: #c9b485;
   border: 1.5px solid #a89467;
@@ -2333,21 +2332,21 @@ button{
   z-index: 2;
 }
 
-/* Main Physical Archival Dossier Cover Surface */
-.folder-cover.physical-archival-dossier-cover {
+/* Entire Visible Object IS the Manila Folder Cover Face */
+.folder-cover-face {
   position: relative;
   width: 100%;
-  min-height: 480px;
+  min-height: 440px;
   background: 
-    radial-gradient(ellipse at 15% 15%, rgba(255,255,255,0.45) 0%, transparent 45%),
-    linear-gradient(135deg, #fdfaf2 0%, #ede0c4 100%);
-  border: 1.5px solid #c8b998;
+    radial-gradient(ellipse at 15% 15%, rgba(255,255,255,0.3) 0%, transparent 50%),
+    linear-gradient(135deg, #dfcb9f 0%, #c9b485 100%);
+  border: 1.5px solid #a89467;
   border-left: 16px solid #8b0000;
-  border-radius: 2px;
+  border-radius: 3px;
   box-shadow: 
     0 30px 65px rgba(0,0,0,0.85),
-    inset 0 0 30px rgba(120,90,40,0.12);
-  padding: 28px 32px 36px;
+    inset 0 0 35px rgba(120,80,40,0.22);
+  padding: 28px 32px 32px;
   z-index: 5;
   display: flex;
   flex-direction: column;
@@ -2357,8 +2356,8 @@ button{
   overflow: visible;
 }
 
-/* Red Stitch Spine Seam */
-.cover-red-stitch-spine {
+/* Red Cloth Bound Spine Seam */
+.dossier-cloth-spine {
   position: absolute;
   top: 0; bottom: 0; left: 0;
   width: 16px;
@@ -2367,8 +2366,8 @@ button{
   pointer-events: none;
 }
 
-/* Paperclipped Hero Exhibit Photo at Top Left (Pushed Outward) */
-.cover-hero-photo-clip {
+/* Pinned Exhibit Photo at Top Left */
+.cover-photo-attachment {
   position: absolute;
   top: 20px;
   left: 28px;
@@ -2377,7 +2376,7 @@ button{
   z-index: 10;
   transform: rotate(-3deg);
 }
-.cover-paperclip {
+.paper-clip {
   position: absolute;
   top: -10px;
   right: 16px;
@@ -2390,19 +2389,19 @@ button{
   box-shadow: 0 2px 4px rgba(0,0,0,0.4);
   z-index: 12;
 }
-.cover-photo-frame {
+.photo-paper-scrap {
   background: #fdfaf2;
   border: 1px solid #d4c5a9;
   padding: 4px 4px 14px;
   box-shadow: 0 6px 14px rgba(0,0,0,0.45);
 }
-.cover-photo-svg {
+.scrap-svg {
   width: 100%;
   height: 65px;
   display: block;
   border: 1px solid #1a0f08;
 }
-.cover-photo-label {
+.scrap-label {
   display: block;
   text-align: center;
   font-family: var(--font-type);
@@ -2413,8 +2412,66 @@ button{
   margin-top: 3px;
 }
 
-/* Yellow Sticky Profile Note at Top Right (Pushed Outward) */
-.cover-yellow-sticky {
+/* Stamps & Presidency Line Printed Directly on Manila Folder */
+.dossier-confidential-stamp {
+  display: inline-block;
+  font-family: var(--font-type);
+  font-size: 0.78rem;
+  font-weight: bold;
+  letter-spacing: 0.14em;
+  color: #8b0000;
+  border: 2px double #8b0000;
+  padding: 2px 10px;
+  transform: rotate(-2deg);
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.dossier-agency-header {
+  display: block;
+  font-family: var(--font-type);
+  font-size: 0.58rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  color: #3c2416;
+  opacity: 0.9;
+  margin-bottom: 12px;
+}
+
+/* DOMINANT TITLE BLOCK PRINTED DIRECTLY ON FOLDER */
+.dossier-title-block {
+  width: min(440px, 90%);
+  margin: 12px auto 16px;
+  padding: 10px 16px;
+  text-align: center;
+  z-index: 15;
+}
+.dossier-ref-no {
+  display: block;
+  font-family: var(--font-type);
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.14em;
+  color: #8b0000;
+  margin-bottom: 4px;
+}
+.dossier-title-block .folder-title {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  color: #1a0f08;
+  margin: 2px 0 6px;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+}
+.dossier-meta-subtitle {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.76rem;
+  color: #3c2416;
+  display: block;
+}
+
+/* Taped Yellow Sticky Note Profile */
+.cover-sticky-note {
   position: absolute;
   top: 20px;
   right: 24px;
@@ -2427,14 +2484,14 @@ button{
   z-index: 10;
   text-align: left;
 }
-.sticky-tape {
+.sticky-tape-strip {
   position: absolute;
   top: -8px; left: 35%;
   width: 35px; height: 12px;
   background: rgba(255, 255, 255, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
-.sticky-title {
+.sticky-header {
   font-family: var(--font-type);
   font-size: 0.58rem;
   font-weight: bold;
@@ -2442,7 +2499,7 @@ button{
   display: block;
   margin-bottom: 3px;
 }
-.cover-yellow-sticky ul {
+.cover-sticky-note ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -2450,10 +2507,10 @@ button{
   font-size: 0.58rem;
   color: #1a0f08;
 }
-.cover-yellow-sticky li {
+.cover-sticky-note li {
   margin-bottom: 2px;
 }
-.sticky-star {
+.sticky-verified-label {
   font-family: var(--font-type);
   font-size: 0.52rem;
   font-weight: bold;
@@ -2462,102 +2519,43 @@ button{
   margin-top: 4px;
 }
 
-/* Top Center Stamps & Presidency Line */
-.stamp-confidential-red {
-  display: inline-block;
-  font-family: var(--font-type);
-  font-size: 0.74rem;
-  font-weight: bold;
-  letter-spacing: 0.14em;
-  color: #8b0000;
-  border: 2px double #8b0000;
-  padding: 2px 10px;
-  transform: rotate(-2deg);
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-.cover-presidency-seal {
-  display: block;
-  font-family: var(--font-type);
-  font-size: 0.58rem;
-  font-weight: bold;
-  letter-spacing: 0.08em;
-  color: #5a4005;
-  opacity: 0.85;
-  margin-bottom: 12px;
+/* Folder Closing Flap Seam Line */
+.dossier-closing-flap-line {
+  position: absolute;
+  bottom: 110px;
+  left: 16px; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #a89467 0%, rgba(168,148,103,0.3) 100%);
+  border-bottom: 1px dashed rgba(60,36,22,0.25);
+  pointer-events: none;
 }
 
-/* DOMINANT FOCAL POINT: Center Title Patch (Clean, Unblocked) */
-.cover-title-patch {
-  width: min(420px, 88%);
-  margin: 10px auto 14px;
-  background: #fdfbf7;
-  border: 2px solid #d4c5a9;
-  padding: 16px 20px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-  transform: rotate(0deg);
-  text-align: center;
-  z-index: 15;
-}
-.patch-case-no {
-  display: block;
-  font-family: var(--font-type);
-  font-size: 0.64rem;
-  font-weight: bold;
-  letter-spacing: 0.14em;
-  color: #8b0000;
-  margin-bottom: 4px;
-}
-.cover-title-patch .folder-title {
-  font-family: var(--font-display);
-  font-size: 1.65rem;
-  color: #2c1a0e;
-  margin: 2px 0 6px;
-  line-height: 1.25;
-  letter-spacing: 0.02em;
-}
-.patch-sub {
-  font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.74rem;
-  color: #5a4005;
-  display: block;
-}
-
-/* WAX SEAL BELONGS ON THE BOTTOM FOLDER FLAP (Clean, Locking Folder) */
-.physical-archival-dossier-cover .wax-seal-wrapper {
+/* WAX SEAL PHYSICALLY LOCKS THE FOLDER CLOSED */
+.physical-manila-case-dossier .wax-seal-wrapper {
   position: relative;
   top: auto; left: auto;
   transform: none;
-  margin: 16px auto 8px;
+  margin: 18px auto 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 30;
 }
-.physical-archival-dossier-cover .wax-seal-wrapper::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: -120px; right: -120px;
-  height: 2px;
-  background: repeating-linear-gradient(90deg, rgba(139,0,0,0.2) 0, rgba(139,0,0,0.2) 6px, transparent 6px, transparent 12px);
-  z-index: -1;
-}
 
-/* Bottom Left Evidence Summary Box (Pushed to Corner) */
-.cover-evidence-box {
+/* Bottom Routing Boxes */
+.dossier-evidence-routing {
   position: absolute;
   bottom: 20px;
   left: 28px;
   width: 155px;
   border: 1.5px solid #3c2416;
   padding: 6px 8px;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.25);
   text-align: left;
   z-index: 10;
 }
-.cover-evidence-box .box-title {
+.dossier-evidence-routing .routing-label {
   display: block;
   font-family: var(--font-type);
   font-size: 0.55rem;
@@ -2568,14 +2566,14 @@ button{
   padding-bottom: 2px;
   margin-bottom: 3px;
 }
-.cover-evidence-box p {
+.dossier-evidence-routing p {
   font-family: monospace;
   font-size: 0.52rem;
   color: #2c1a0e;
   line-height: 1.35;
   margin: 0;
 }
-.fingerprint-stamp {
+.fingerprint-mark {
   position: absolute;
   right: 4px; bottom: 4px;
   width: 22px; height: 26px;
@@ -2584,33 +2582,32 @@ button{
   opacity: 0.35;
 }
 
-/* Bottom Right Barcode & Auth Box (Pushed to Corner) */
-.cover-barcode-box {
+.dossier-barcode-routing {
   position: absolute;
   bottom: 20px;
   right: 24px;
   width: 155px;
   border: 1.5px solid #3c2416;
   padding: 6px 8px;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.25);
   text-align: center;
   z-index: 10;
 }
-.cover-barcode-box .box-label {
+.dossier-barcode-routing .barcode-label {
   font-family: var(--font-type);
   font-size: 0.52rem;
   font-weight: bold;
   color: #2c1a0e;
   display: block;
 }
-.barcode-lines {
+.barcode-graphic {
   font-family: monospace;
   font-size: 0.78rem;
   letter-spacing: 1.2px;
   color: #1a0f08;
   margin: 2px 0;
 }
-.box-auth {
+.barcode-warning {
   font-family: var(--font-type);
   font-size: 0.48rem;
   font-weight: bold;
