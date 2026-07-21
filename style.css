@@ -2284,19 +2284,19 @@ button{
 }
 
 /* ============================================================
-   ARCHIVE SCENE (PURE MANILA GOVERNMENT DOSSIER FOLDER UI)
+   ARCHIVE SCENE (STATE 1: PHYSICALLY CLOSED ARCHIVE FOLDER)
 ============================================================ */
-.case-folder.physical-manila-case-dossier {
+.case-folder.physically-closed-archive-folder {
   position: relative;
   width: 100%;
-  max-width: 650px;
+  max-width: 540px;
   background: transparent;
   padding: 0;
   margin: 20px auto;
   animation: folderSlideIn 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.25);
 }
 
-.dossier-colored-backing-tab {
+.closed-folder-backing-tab {
   position: absolute;
   top: -26px;
   right: 24px;
@@ -2314,7 +2314,7 @@ button{
   z-index: 1;
 }
 
-.dossier-archive-tab {
+.closed-folder-archive-tab {
   position: absolute;
   top: -28px;
   left: 24px;
@@ -2332,11 +2332,10 @@ button{
   z-index: 2;
 }
 
-/* Entire Visible Object IS the Manila Folder Cover Face */
-.folder-cover-face {
+.closed-folder-surface {
   position: relative;
   width: 100%;
-  min-height: 440px;
+  min-height: 360px;
   background: 
     radial-gradient(ellipse at 15% 15%, rgba(255,255,255,0.3) 0%, transparent 50%),
     linear-gradient(135deg, #dfcb9f 0%, #c9b485 100%);
@@ -2344,16 +2343,95 @@ button{
   border-left: 16px solid #8b0000;
   border-radius: 3px;
   box-shadow: 
-    0 30px 65px rgba(0,0,0,0.85),
+    0 25px 55px rgba(0,0,0,0.85),
     inset 0 0 35px rgba(120,80,40,0.22);
-  padding: 28px 32px 32px;
+  padding: 32px;
   z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  overflow: visible;
+}
+
+.closed-folder-spine {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 16px;
+  background: repeating-linear-gradient(0deg, #6b0000 0px, #6b0000 8px, #8b0000 8px, #8b0000 16px);
+  border-right: 2px dashed rgba(255,255,255,0.6);
+  pointer-events: none;
+}
+
+.closed-folder-stamps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.closed-stamp-confidential {
+  font-family: var(--font-type);
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 0.14em;
+  color: #8b0000;
+  border: 2px double #8b0000;
+  padding: 3px 12px;
+  transform: rotate(-2deg);
+}
+.closed-presidency-seal {
+  font-family: var(--font-type);
+  font-size: 0.58rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  color: #3c2416;
+  opacity: 0.85;
+}
+
+.closed-case-reference-block {
+  margin: 20px 0 10px;
+}
+.closed-case-no {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: #2c1a0e;
+  margin-bottom: 2px;
+}
+.closed-district-tag {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.72rem;
+  color: #5a4005;
+}
+
+.closed-folder-flap-seam {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #a89467 0%, rgba(168,148,103,0.3) 100%);
+  border-bottom: 1px dashed rgba(60,36,22,0.25);
+  margin: 10px 0;
+}
+
+.closed-bottom-routing {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-family: monospace;
+  font-size: 0.55rem;
+  color: #3c2416;
+  opacity: 0.75;
+}
+
+/* Wax Seal sitting right on the center closing seam */
+.physically-closed-archive-folder .wax-seal-wrapper {
+  position: relative;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 30;
 }
 
 /* Red Cloth Bound Spine Seam */
