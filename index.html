@@ -578,30 +578,89 @@
     <div class="meeting-options" id="meeting-options"></div>
   </section>
 
-  <!-- ============ SCENE: FINAL DECISION ============ -->
+  <!-- ============ SCENE: FINAL DECISION (INVESTIGATION CONCLUSION BOARD) ============ -->
   <section id="scene-decision" class="scene">
-    <div class="decision-dossier-folder">
-      <div class="dossier-spine-red"></div>
-      <div class="decision-header-strip">
-        <span class="decision-gov-stamp">KAIRA DISTRICT ASSEMBLY // RESOLUTION FILE 1946</span>
-        <h2 class="decision-title">WHAT DOES THE VILLAGE DO?</h2>
+    <!-- Spotlight & Teak Desk / Wall Backing -->
+    <div class="conclusion-board-spotlight"></div>
+
+    <!-- Pinned Archive Header Plaque -->
+    <div class="conclusion-board-header">
+      <span class="hud-eyebrow">FINAL INVESTIGATION CONCLUSION · ANAND 1946</span>
+      <h2>WHAT DOES THE VILLAGE DO?</h2>
+      <p class="conclusion-board-hint">Pin your final recommendation to the assembly board</p>
+    </div>
+
+    <!-- Tactile Evidence Wall Canvas -->
+    <div class="conclusion-evidence-wall">
+      
+      <!-- Connected Red String Web SVG -->
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="conclusion-string-svg">
+        <path d="M 18 28 Q 32 45 42 62" stroke="#ff4d4d" stroke-width="2" fill="none" stroke-dasharray="3 2" />
+        <path d="M 82 25 Q 68 45 58 65" stroke="#ff4d4d" stroke-width="2" fill="none" stroke-dasharray="3 2" />
+        <path d="M 50 18 Q 50 40 50 68" stroke="#ff4d4d" stroke-width="2.5" fill="none" />
+        <path d="M 18 28 Q 50 18 82 25" stroke="#ff4d4d" stroke-width="1.8" fill="none" opacity="0.6" />
+      </svg>
+
+      <!-- Background Pinned Evidence Items (Receipts, Photos, Manifests, Newspaper Clippings) -->
+      <div class="pinned-evidence-doc doc-receipt">
+        <div class="pin-head"></div>
+        <span class="doc-label">EXHIBIT #1: MILK RECEIPT</span>
+        <div class="doc-snippet">4 Annas Payout / Handling Fee Deducted</div>
       </div>
+
+      <div class="pinned-evidence-doc doc-manifest">
+        <div class="pin-head"></div>
+        <span class="doc-label">EXHIBIT #2: FREIGHT MANIFEST</span>
+        <div class="doc-snippet">Night Milk Train to Bombay Freight Yard</div>
+      </div>
+
+      <div class="pinned-evidence-doc doc-petition">
+        <div class="pin-head"></div>
+        <span class="doc-label">EXHIBIT #3: VILLAGE PETITION</span>
+        <div class="doc-snippet">Signed by 120 Kaira Milk Farmers</div>
+      </div>
+
+      <div class="pinned-evidence-doc doc-photo">
+        <div class="pin-head"></div>
+        <div class="photo-placeholder">
+          <span>ANAND DEPOT 1946</span>
+        </div>
+      </div>
+
+      <!-- Chalk Scribbles & Field Annotations -->
+      <div class="chalk-scribble-note scribble-left">"Polson Margin: 12 Annas ➔ Bombay"</div>
+      <div class="chalk-scribble-note scribble-right">"Contract Expires Oct 1946 🖈"</div>
+
+      <!-- THE 3 PINNED CONCLUSION HYPOTHESIS NOTES (Interactive Recommendations) -->
       <div class="decision-options" id="decision-options">
-        <button class="decision-card" data-ending="accept">
-          <span class="decision-option-stamp">OPTION A</span>
+        
+        <!-- Conclusion 1 -->
+        <button class="decision-card conclusion-note note-accept" data-ending="accept">
+          <div class="note-pushpin pin-red"></div>
+          <span class="note-stamp-badge">HYPOTHESIS A</span>
           <h3>Accept lower prices</h3>
           <p>Take what relief is offered. Move on with Polson monopoly.</p>
+          <span class="note-action-tag">Click to Pin Recommendation 🖈</span>
         </button>
-        <button class="decision-card" data-ending="cooling">
-          <span class="decision-option-stamp">OPTION B</span>
+
+        <!-- Conclusion 2 -->
+        <button class="decision-card conclusion-note note-cooling" data-ending="cooling">
+          <div class="note-pushpin pin-brass"></div>
+          <span class="note-stamp-badge">HYPOTHESIS B</span>
           <h3>Invest in cooling only</h3>
           <p>Keep milk fresher, but remain bound to the private contractor.</p>
+          <span class="note-action-tag">Click to Pin Recommendation 🖈</span>
         </button>
-        <button class="decision-card" data-ending="cooperative">
-          <span class="decision-option-stamp">HISTORIC ACTION</span>
+
+        <!-- Conclusion 3 (Historic Action) -->
+        <button class="decision-card conclusion-note note-cooperative" data-ending="cooperative">
+          <div class="note-pushpin pin-gold"></div>
+          <span class="note-stamp-badge stamp-historic">HISTORIC ACTION</span>
           <h3>Form a cooperative</h3>
           <p>Collect, grade, and sell milk together — strike against Polson.</p>
+          <span class="note-action-tag">Click to Pin Recommendation 🖈</span>
         </button>
+
       </div>
     </div>
   </section>
