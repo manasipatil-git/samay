@@ -640,12 +640,12 @@ class Game {
       this.boardNodeEls[clueId] = node;
     });
 
-    // Append random physical paper chits and chalk notes to chalkboard
+    // Append random physical paper chits and chalk notes to chalkboard corners
     const chitsData = [
-      { text: "Why is 4 AM milk rejected? ❓", left: 74, top: 10, rotate: 4, class: "sticky-yellow" },
-      { text: "BOMBAY MILK SCHEME // EXPIRING 1946 🗞️", left: 5, top: 70, rotate: -3, class: "news-scrap" },
-      { text: "POLSON ➔ BOMBAY FREIGHT YARD 🚆", left: 42, top: 80, rotate: 2, class: "tape-slip" },
-      { text: "દૂધ ખરીદ દર: ૪ આના / ૧૨ આના 🖈", left: 80, top: 76, rotate: -5, class: "torn-memo" }
+      { text: "Why 4 AM milk rejection? ❓", left: 4, top: 12, rotate: -4, class: "sticky-yellow" },
+      { text: "BOMBAY MILK SCHEME // 1946 🗞️", left: 78, top: 8, rotate: 5, class: "news-scrap" },
+      { text: "POLSON ➔ BOMBAY FREIGHT YARD 🚆", left: 3, top: 76, rotate: 3, class: "tape-slip" },
+      { text: "દૂધ ખરીદ દર: ૪ આના / ૧૨ આના 🖈", left: 75, top: 78, rotate: -4, class: "torn-memo" }
     ];
 
     chitsData.forEach(c => {
@@ -954,24 +954,24 @@ class Game {
   _showMeetingOptions() {
     const box = this.el.meetingOptions;
     box.innerHTML = `
-      <div class="decision-dossier-folder">
-        <div class="dossier-spine-red"></div>
-        <div class="decision-header-strip">
-          <span class="decision-gov-stamp">KAIRA VILLAGE ASSEMBLY // POLICY PROPOSAL 1946</span>
-          <h2 class="decision-title">WHAT IS OUR RECOMMENDATION TO THE VILLAGE?</h2>
+      <div class="meeting-docket-spread">
+        <div class="meeting-plaque">
+          <span class="plaque-sub">KAIRA VILLAGE ASSEMBLY · 1946</span>
+          <h2 class="plaque-title">WHAT IS OUR RECOMMENDATION TO THE VILLAGE?</h2>
         </div>
-        <div class="decision-options" id="meeting-options-grid"></div>
+        <div class="meeting-cards-grid" id="meeting-cards-grid"></div>
       </div>
     `;
-    const grid = box.querySelector("#meeting-options-grid");
+    const grid = box.querySelector("#meeting-cards-grid");
+    const stamps = ["PROPOSAL A", "PROPOSAL B", "HISTORIC ACTION"];
     GAME_DATA.meeting.options.forEach((opt, idx) => {
       const btn = document.createElement("button");
-      btn.className = "decision-card";
-      const stamps = ["PROPOSAL A", "PROPOSAL B", "HISTORIC ACTION"];
+      btn.className = `meeting-policy-card card-tilt-${idx + 1}`;
       btn.innerHTML = `
-        <span class="decision-option-stamp">${stamps[idx] || 'PROPOSAL'}</span>
-        <h3>${opt.text}</h3>
-        <p>Present this policy recommendation to the assembled elders.</p>
+        <div class="card-pin"></div>
+        <span class="policy-stamp">${stamps[idx] || 'PROPOSAL'}</span>
+        <h3 class="policy-heading">${opt.text}</h3>
+        <p class="policy-desc">Present this policy recommendation to the assembled elders.</p>
       `;
       btn.addEventListener("click", () => this._chooseMeetingOption(opt, btn));
       grid.appendChild(btn);
