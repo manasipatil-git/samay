@@ -2133,65 +2133,89 @@ button{
 /* ============================================================
    ARCHIVE SCENE
 ============================================================ */
+/* ============================================================
+   ARCHIVE SCENE (WARM 1946 TEAK WOOD DETECTIVE DESK ENVIRONMENT)
+============================================================ */
 #scene-archive {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(ellipse at 50% 20%, #2b1f13 0%, #150f09 80%);
+  background: 
+    radial-gradient(ellipse at 50% 20%, rgba(255, 185, 110, 0.24) 0%, rgba(65, 40, 24, 0.92) 55%, #180e07 95%),
+    linear-gradient(135deg, #2b1a0e 0%, #1c0e06 50%, #100703 100%);
+  position: relative;
   overflow-y: auto;
 }
 .archive-room {
-  width: min(650px, 94vw);
+  width: min(680px, 94vw);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 20px;
+  padding: 40px 20px 60px;
   position: relative;
+  z-index: 5;
 }
 .archive-glow {
   position: absolute;
-  top: -10%; left: 50%; transform: translateX(-50%);
-  width: 500px; height: 300px;
-  background: radial-gradient(ellipse, rgba(221,147,73,0.12) 0%, transparent 70%);
+  top: -5%; left: 50%; transform: translateX(-50%);
+  width: 650px; height: 420px;
+  background: radial-gradient(ellipse at 50% 15%, rgba(235, 180, 100, 0.28) 0%, rgba(221, 147, 73, 0.08) 50%, transparent 75%);
   pointer-events: none;
+  z-index: 2;
 }
 .archive-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
   z-index: 5;
+}
+.archive-header .archive-kicker {
+  font-family: var(--font-type);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: #aa7c11;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 4px;
+  display: block;
 }
 .archive-header h2 {
   font-family: var(--font-display);
-  font-size: 1.8rem;
-  margin: 6px 0;
+  font-size: 2.1rem;
+  margin: 4px 0 8px;
   color: var(--paper);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(235, 180, 100, 0.2);
+  letter-spacing: 0.04em;
 }
 .archive-hint {
-  font-family: var(--font-type);
-  font-size: 0.8rem;
-  color: rgba(236,224,196,0.6);
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.84rem;
+  color: rgba(236,224,196,0.75);
 }
 
-/* Cabinet UI */
+/* Authentic Teak & Mahogany Cabinet Frame UI */
 .cabinet {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  background: #25160c;
-  padding: 16px;
+  gap: 14px;
+  background: linear-gradient(180deg, #321c10 0%, #22120a 100%);
+  padding: 22px 20px;
   border-radius: 4px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.5);
-  border: 8px solid #1c0f07;
+  box-shadow: 
+    0 30px 60px rgba(0,0,0,0.85),
+    inset 0 0 25px rgba(0,0,0,0.7),
+    0 0 0 1px rgba(235,215,162,0.12);
+  border: 10px solid #1a0b04;
+  position: relative;
 }
 
 .drawer {
   position: relative;
-  height: 80px;
-  background: linear-gradient(180deg, #4e301e 0%, #2f1d12 100%);
-  border: 3px solid #22140a;
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.15), 0 4px 6px rgba(0,0,0,0.3);
+  height: 84px;
+  background: linear-gradient(180deg, #543420 0%, #341e12 100%);
+  border: 3px solid #1c0e07;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.18), 0 6px 12px rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   padding: 0 24px;
@@ -2200,7 +2224,7 @@ button{
 }
 
 .drawer:hover {
-  background: linear-gradient(180deg, #593722 0%, #362115 100%);
+  background: linear-gradient(180deg, #643e26 0%, #3e2415 100%);
 }
 
 .active-drawer:hover {
@@ -2208,46 +2232,47 @@ button{
 }
 
 .drawer-handle {
-  width: 90px;
-  height: 12px;
+  width: 95px;
+  height: 14px;
   background: linear-gradient(180deg, #ebd7a2, #aa7c11 40%, #5a4005 90%);
   border-radius: 6px;
   position: absolute;
   left: 35px;
   top: 50%;
   transform: translateY(-50%);
-  border: 1px solid rgba(90, 60, 30, 0.45);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.65), inset 0 1px 2px rgba(255,255,255,0.4);
+  border: 1px solid rgba(90, 60, 30, 0.6);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.7), inset 0 1px 2px rgba(255,255,255,0.5);
 }
 .drawer-handle::before, .drawer-handle::after {
   content: "";
   position: absolute;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle at 40% 40%, #888, #444);
+  width: 7px;
+  height: 7px;
+  background: radial-gradient(circle at 40% 40%, #aaa, #333);
   border: 1px solid #1c0f07;
   border-radius: 50%;
-  top: 2px;
+  top: 3px;
 }
-.drawer-handle::before { left: 4px; }
-.drawer-handle::after { right: 4px; }
+.drawer-handle::before { left: 5px; }
+.drawer-handle::after { right: 5px; }
 
 .drawer-label {
   font-family: var(--font-type);
   font-size: 0.72rem;
   color: #22140a;
-  background: #fdfaf1;
-  border: 3px solid #aa7c11;
-  padding: 4px 10px;
-  border-radius: 1px;
+  background: linear-gradient(180deg, #fdfaf1 0%, #ede0c4 100%);
+  border: 2px solid #aa7c11;
+  padding: 5px 12px;
+  border-radius: 2px;
   position: absolute;
   right: 35px;
   top: 50%;
   transform: translateY(-50%);
   line-height: 1.3;
-  width: 170px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 3px rgba(0,0,0,0.2);
+  width: 175px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.6);
   pointer-events: none;
+  font-weight: bold;
 }
 
 /* Drawer contents / fold-out folder */
