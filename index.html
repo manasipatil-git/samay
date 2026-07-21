@@ -394,13 +394,51 @@
       </div>
       
       <!-- Physical Government Dossier on Desk -->
-      <div id="folder-unfold-sheet" class="folder-unfold-sheet physical-dossier">
-        <div class="dossier-binding-spine"></div>
-        <div class="dossier-header-strip">
-          <span class="unfold-seal">SECRET // CLASSIFIED 1946</span>
-          <button class="dossier-bookmark-skip" id="btn-skip-briefing">Turn Page to Case ›</button>
+      <div id="folder-unfold-sheet" class="folder-unfold-sheet physical-dossier-docket">
+        <!-- Underlying Manila Backing Folder Layer -->
+        <div class="dossier-manila-backing"></div>
+        <div class="dossier-file-tab">REF: KAIRA/1946/001-M</div>
+        <div class="dossier-red-spine"></div>
+        
+        <!-- Paperclip and Hero Archival Exhibit Photo Clip -->
+        <div class="dossier-hero-exhibit">
+          <div class="exhibit-paperclip"></div>
+          <div class="exhibit-photo-frame">
+            <svg viewBox="0 0 120 90" class="exhibit-photo-svg">
+              <rect width="120" height="90" fill="#24170e"/>
+              <path d="M10,80 Q30,40 50,65 T90,30 T120,70 L120,90 L0,90 Z" fill="#422e1e" opacity="0.85"/>
+              <circle cx="95" cy="25" r="8" fill="#e0c285" opacity="0.7"/>
+              <text x="10" y="82" font-family="monospace" font-size="6.5" fill="#ebd7a2">EXHIBIT #01: ANAND DEPOT 1946</text>
+            </svg>
+            <span class="exhibit-tag-label">EXHIBIT #01</span>
+          </div>
         </div>
+
+        <!-- Strong Authentic Historical Cover Header -->
+        <div class="dossier-cover-header">
+          <div class="dossier-stamps-group">
+            <span class="stamp-confidential-red">CONFIDENTIAL</span>
+            <span class="stamp-district-seal">BOMBAY PRESIDENCY RECORD</span>
+          </div>
+          <span class="dossier-office-line">GOVERNMENT OF BOMBAY PRESIDENCY · DISTRICT RECORDS OFFICE ANAND</span>
+          <h2 class="dossier-case-title">CASE FILE 001: THE MILK MONOPOLY</h2>
+          <div class="dossier-meta-grid">
+            <div class="meta-item"><span>LOCATION:</span> Anand, Kaira District (Gujarat)</div>
+            <div class="meta-item"><span>DATE:</span> October 1946</div>
+            <div class="meta-item"><span>CLASSIFICATION:</span> Economic Monopoly Investigation</div>
+          </div>
+        </div>
+
+        <button class="dossier-bookmark-skip" id="btn-skip-briefing">Begin Investigation ›</button>
+
+        <!-- Typewriter Narrative Content Container -->
         <div class="unfold-content" id="briefing-content"></div>
+
+        <!-- Handwritten Margin Annotations & Stamps -->
+        <div class="dossier-margin-notes">
+          <span class="pencil-scribble">"Investigate contractor margins - V. Patel"</span>
+          <span class="stamp-archived-black">NATIONAL ARCHIVES OF INDIA // VERIFIED FILE</span>
+        </div>
       </div>
     </div>
   </section>

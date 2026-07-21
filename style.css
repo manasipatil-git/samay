@@ -2223,84 +2223,214 @@ button{
 /* ============================================================
    FOLDER UNFOLD OVERLAY SHEET (BRIEFING)
 ============================================================ */
-.folder-unfold-sheet.physical-dossier {
+/* ============================================================
+   FOLDER UNFOLD OVERLAY SHEET (AUTHENTIC 1946 CASE FILE DOSSIER)
+============================================================ */
+.folder-unfold-sheet.physical-dossier-docket {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-1deg) scale(0.92);
-  width: min(720px, 94vw);
-  min-height: 460px;
-  max-height: 82vh;
+  transform: translate(-50%, -46%) rotate(-2deg) scale(0.88);
+  width: min(800px, 94vw);
+  min-height: 520px;
+  max-height: 86vh;
   overflow-y: auto;
-  background: #fdfaf2;
-  border: 2px solid #c8b998;
-  border-left: 14px solid #8b0000;
+  background: 
+    radial-gradient(ellipse at 15% 15%, rgba(255,255,255,0.5) 0%, transparent 40%),
+    linear-gradient(135deg, #fbf7ec 0%, #ede0c4 100%);
+  border: 1.5px solid #c8b998;
+  border-left: 16px solid #8b0000;
   border-radius: 2px;
   box-shadow: 
-    0 30px 65px rgba(0,0,0,0.85),
-    inset 0 0 30px rgba(120,90,40,0.08);
-  padding: 40px 48px;
+    0 35px 75px rgba(0,0,0,0.9),
+    inset 0 0 35px rgba(120,90,40,0.12);
+  padding: 38px 46px;
   z-index: 150;
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+  transition: transform 0.75s cubic-bezier(0.18, 0.89, 0.32, 1.25), opacity 0.5s ease;
 }
-.folder-unfold-sheet.physical-dossier.is-unfolded {
+.folder-unfold-sheet.physical-dossier-docket.is-unfolded {
   opacity: 1;
   pointer-events: auto;
   transform: translate(-50%, -50%) rotate(0deg) scale(1);
 }
-.dossier-binding-spine {
+
+/* Manila Backing Folder & File Tab */
+.dossier-manila-backing {
   position: absolute;
-  top: 0; bottom: 0; left: 0;
-  width: 14px;
-  background: repeating-linear-gradient(0deg, #6b0000 0px, #6b0000 8px, #8b0000 8px, #8b0000 16px);
-  border-right: 1px dashed rgba(255,255,255,0.4);
+  inset: -8px -10px -12px -18px;
+  background: linear-gradient(135deg, #dfcb9f 0%, #c9b485 100%);
+  border: 1.5px solid #a89467;
+  border-radius: 3px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.7);
+  z-index: -1;
   pointer-events: none;
 }
-.dossier-header-strip {
+.dossier-file-tab {
+  position: absolute;
+  top: -26px;
+  left: 36px;
+  background: #c9b485;
+  border: 1.5px solid #a89467;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  padding: 3px 14px;
+  font-family: var(--font-type);
+  font-size: 0.66rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  color: #3c2416;
+  box-shadow: 0 -3px 6px rgba(0,0,0,0.3);
+}
+.dossier-red-spine {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 16px;
+  background: repeating-linear-gradient(0deg, #6b0000 0px, #6b0000 8px, #8b0000 8px, #8b0000 16px);
+  border-right: 2px dashed rgba(255,255,255,0.6);
+  pointer-events: none;
+}
+
+/* Paperclipped Hero Exhibit Photo */
+.dossier-hero-exhibit {
+  position: absolute;
+  top: 24px;
+  right: 42px;
+  width: 135px;
+  pointer-events: none;
+  z-index: 10;
+  transform: rotate(3deg);
+}
+.exhibit-paperclip {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  width: 16px;
+  height: 28px;
+  border: 3px solid #8a8f96;
+  border-right-color: transparent;
+  border-radius: 8px 8px 0 0 / 10px 10px 0 0;
+  transform: rotate(-10deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  z-index: 12;
+}
+.exhibit-photo-frame {
+  background: #fdfaf2;
+  border: 1px solid #d4c5a9;
+  padding: 6px 6px 18px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+  border-radius: 1px;
+}
+.exhibit-photo-svg {
+  width: 100%;
+  height: 85px;
+  display: block;
+  border: 1px solid #1a0f08;
+}
+.exhibit-tag-label {
+  display: block;
+  text-align: center;
+  font-family: var(--font-type);
+  font-size: 0.58rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  color: #8b0000;
+  margin-top: 4px;
+}
+
+/* Cover Header & Metadata Grid */
+.dossier-cover-header {
+  border-bottom: 2px double rgba(139, 0, 0, 0.35);
+  padding-bottom: 16px;
+  margin-bottom: 22px;
+  padding-right: 140px; /* space for hero photo */
+}
+.dossier-stamps-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.stamp-confidential-red {
+  font-family: var(--font-type);
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: #8b0000;
+  border: 2px double #8b0000;
+  padding: 2px 8px;
+  transform: rotate(-4deg);
+  display: inline-block;
+}
+.stamp-district-seal {
+  font-family: var(--font-type);
+  font-size: 0.62rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  color: #5a4005;
+  opacity: 0.85;
+}
+.dossier-office-line {
+  display: block;
+  font-family: var(--font-type);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  color: #4a3a26;
+  margin-bottom: 4px;
+}
+.dossier-case-title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  color: #2c1a0e;
+  margin: 2px 0 12px;
+  letter-spacing: 0.03em;
+}
+.dossier-meta-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: rgba(95, 58, 38, 0.06);
+  border: 1px dashed rgba(95, 58, 38, 0.25);
+  padding: 8px 12px;
+  border-radius: 2px;
+}
+.meta-item {
+  font-family: var(--font-type);
+  font-size: 0.68rem;
+  color: #2c1a0e;
+}
+.meta-item span {
+  font-weight: bold;
+  color: #8b0000;
+  margin-right: 4px;
+}
+
+/* Margin Notes & Stamps */
+.dossier-margin-notes {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
-  border-bottom: 1.5px double rgba(139, 0, 0, 0.25);
-  padding-bottom: 10px;
+  margin-top: 24px;
+  border-top: 1px dashed rgba(90, 60, 30, 0.2);
+  padding-top: 12px;
 }
-.dossier-bookmark-skip {
-  position: absolute;
-  top: -14px;
-  right: 30px;
-  background: #aa7c11;
-  color: #fdfaf2;
+.pencil-scribble {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.76rem;
+  color: #2b3a4a;
+  font-style: italic;
+  opacity: 0.9;
+}
+.stamp-archived-black {
   font-family: var(--font-type);
-  font-size: 0.7rem;
+  font-size: 0.58rem;
   font-weight: bold;
-  letter-spacing: 0.08em;
-  padding: 4px 14px;
-  border: 1px solid #5a4005;
-  border-bottom: none;
-  border-radius: 3px 3px 0 0;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
-  cursor: pointer;
-  z-index: 60;
-  transition: transform 0.2s, background 0.2s;
-}
-.dossier-bookmark-skip:hover {
-  transform: translateY(-2px);
-  background: #c49418;
-}
-.folder-unfold-sheet::before {
-  content: "";
-  position: absolute;
-  top: 0; bottom: 0; left: 0;
-  width: 14px;
-  background: rgba(0,0,0,0.12);
-  border-right: 1px dashed rgba(0,0,0,0.2);
-}
-.folder-unfold-sheet.is-unfolded {
-  transform: translate(-50%, -50%) scale(1) rotate(0deg);
-  opacity: 1;
-  pointer-events: auto;
+  letter-spacing: 0.1em;
+  color: #3c2416;
+  opacity: 0.65;
+  border: 1px solid #3c2416;
+  padding: 1px 6px;
 }
 .unfold-seal {
   font-family: var(--font-type);
