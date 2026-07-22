@@ -134,14 +134,45 @@ class Game {
     });
 
     // Archive drawer & wax seal click handlers
+    const cabinetEl = document.querySelector(".cabinet");
     const drawer1 = document.getElementById("drawer-case1");
+    const folder1 = document.getElementById("case-folder-1");
+    const folderBtn1 = document.getElementById("folder-btn-milk-monopoly");
+    const closeFolderBtn1 = document.getElementById("btn-close-folder-zoom-1");
+
     if (drawer1) {
-      drawer1.addEventListener("click", () => {
+      drawer1.addEventListener("click", (e) => {
+        // Prevent click if we are clicking children elements like folders
+        if (e.target !== drawer1 && !drawer1.contains(e.target) && e.target.closest(".drawer-contents")) return;
+
         if (!drawer1.classList.contains("is-open")) {
           drawer1.classList.add("is-open");
+          cabinetEl.classList.add("drawer-open-active");
           if (window.SAMAY_SOUND) {
             window.SAMAY_SOUND.play("paper");
           }
+        }
+      });
+    }
+
+    if (folderBtn1 && folder1 && cabinetEl) {
+      folderBtn1.addEventListener("click", (e) => {
+        e.stopPropagation();
+        folder1.classList.add("is-zoomed");
+        cabinetEl.classList.add("has-zoomed-folder");
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("paper");
+        }
+      });
+    }
+
+    if (closeFolderBtn1 && folder1 && cabinetEl) {
+      closeFolderBtn1.addEventListener("click", (e) => {
+        e.stopPropagation();
+        folder1.classList.remove("is-zoomed");
+        cabinetEl.classList.remove("has-zoomed-folder");
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("paper");
         }
       });
     }
