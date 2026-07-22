@@ -1904,6 +1904,18 @@ button{
   z-index: 20;
 }
 
+.panchayat-assembly-table .decision-options {
+  position: relative;
+  top: auto; left: auto;
+  transform: none;
+  margin: 24px auto 0;
+  display: none; /* Controlled by game.js */
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  z-index: 20;
+}
+
 .decision-card.conclusion-note {
   position: relative;
   width: min(260px, 88vw);

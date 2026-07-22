@@ -982,47 +982,7 @@ class Game {
     );
   }
 
-  _showMeetingOptions() {
-    const box = this.el.meetingOptions;
-    box.innerHTML = `
-      <div class="meeting-docket-spread">
-        <div class="meeting-plaque">
-          <span class="plaque-sub">KAIRA VILLAGE ASSEMBLY · 1946</span>
-          <h2 class="plaque-title">WHAT IS OUR RECOMMENDATION TO THE VILLAGE?</h2>
-        </div>
-        <div class="meeting-cards-grid" id="meeting-cards-grid"></div>
-      </div>
-    `;
-    const grid = box.querySelector("#meeting-cards-grid");
-    const stamps = ["PROPOSAL A", "PROPOSAL B", "HISTORIC ACTION"];
-    GAME_DATA.meeting.options.forEach((opt, idx) => {
-      const btn = document.createElement("button");
-      btn.className = `meeting-policy-card card-tilt-${idx + 1}`;
-      btn.innerHTML = `
-        <div class="card-pin"></div>
-        <span class="policy-stamp">${stamps[idx] || 'PROPOSAL'}</span>
-        <h3 class="policy-heading">${opt.text}</h3>
-        <p class="policy-desc">Present this policy recommendation to the assembled elders.</p>
-      `;
-      btn.addEventListener("click", () => this._chooseMeetingOption(opt, btn));
-      grid.appendChild(btn);
-    });
-    box.classList.add("is-visible");
-  }
 
-  _chooseMeetingOption(opt, btnEl) {
-    this.el.meetingOptions.classList.remove("is-visible");
-    this.dialogue.say("Village Meeting", "elder", [opt.response], () => {
-      if (opt.correct) {
-        this.state.meetingSolved = true;
-        this._save();
-        this._goToScene("decision");
-      } else {
-        btnEl.disabled = true;
-        this._showMeetingOptions();
-      }
-    });
-  }
 
   /* -------------------------------------------------------
      ENDING
@@ -1452,8 +1412,14 @@ class Game {
                       selectedClues.includes("petition");
 
       if (correct) {
-        dock.classList.remove("is-active");
+        // Disable evidence cards so they stay fixed on the table
+        grid.querySelectorAll(".evidence-dock-card").forEach(c => {
+          c.style.pointerEvents = "none";
+          c.style.opacity = "0.85";
+        });
+        submitBtn.style.display = "none";
         submitBtn.removeEventListener("click", submitAction);
+
         if (window.SAMAY_SOUND) {
           window.SAMAY_SOUND.play("stamp");
         }
@@ -1465,7 +1431,19 @@ class Game {
             "Polson charges 12 Annas in Bombay while paying us 3 Annas, rejects our milk arbitrarily at 08:15 AM, and Sardar Patel advises us to bypass the middlemen.",
             "What is our final recommendation?"
           ],
-          () => this._showMeetingOptions()
+          () => {
+            const instText = document.getElementById("panchayat-instruction-text");
+            if (instText) {
+              instText.textContent = "Pin your final recommendation to the assembly table:";
+            }
+            const decisionOptions = document.getElementById("decision-options");
+            if (decisionOptions) {
+              decisionOptions.style.display = "flex";
+              if (window.SAMAY_SOUND) {
+                window.SAMAY_SOUND.play("paper");
+              }
+            }
+          }
         );
       } else {
         dock.classList.remove("is-active");
