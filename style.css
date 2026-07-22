@@ -2475,414 +2475,200 @@ button{
 }
 
 /* ============================================================
-   ARCHIVE SCENE (STATE 1: PHYSICALLY CLOSED ARCHIVE FOLDER)
+   ARCHIVE SCENE (PHYSICAL KRAFT DOSSIER FOLDER & INTERACTION)
 ============================================================ */
-.case-folder.physically-closed-archive-folder {
-  position: relative;
-  width: 100%;
-  max-width: 540px;
+.physical-case-folder {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -46%) scale(0.65);
+  width: min(720px, 94vw);
+  height: 480px;
   background: transparent;
-  padding: 0;
-  margin: 20px auto;
-  animation: folderSlideIn 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.25);
+  perspective: 1200px; /* Enable 3D folding cover */
+  opacity: 0;
+  pointer-events: none;
+  z-index: 200;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1.1), opacity 0.4s ease;
 }
 
-.closed-folder-backing-tab {
+/* Landed / Zoomed State on the desk */
+.physical-case-folder.is-zoomed {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* FOLDER FRONT COVER (Kraft paper cover, clean & simplified by 60%) */
+.folder-cover-face {
   position: absolute;
-  top: -26px;
-  right: 24px;
-  background: #39506b;
-  border: 1.5px solid #202e3f;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 15% 15%, rgba(255,255,255,0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #c7a372 0%, #a88453 100%);
+  border: 2px solid #8e6d42;
+  border-left: 18px solid #8b0000;
+  border-radius: 4px;
+  box-shadow: 
+    0 25px 50px rgba(0,0,0,0.85),
+    inset 0 0 25px rgba(60,35,15,0.18);
+  padding: 38px 46px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  transform-origin: left center;
+  transition: transform 0.85s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease;
+}
+
+/* Spine cloth seam */
+.folder-cover-face .dossier-cloth-spine {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 18px;
+  background: repeating-linear-gradient(0deg, #6b0000 0px, #6b0000 8px, #8b0000 8px, #8b0000 16px);
+  border-right: 1px dashed rgba(255,255,255,0.4);
+  pointer-events: none;
+}
+
+.folder-top-tab {
+  position: absolute;
+  top: -24px;
+  left: 36px;
+  background: #a88453;
+  border: 2px solid #8e6d42;
   border-bottom: none;
   border-radius: 4px 4px 0 0;
-  padding: 4px 14px;
+  padding: 3px 14px;
   font-family: var(--font-type);
   font-size: 0.6rem;
   font-weight: bold;
   letter-spacing: 0.1em;
   color: #fdfaf2;
-  box-shadow: 0 -3px 6px rgba(0,0,0,0.3);
-  z-index: 1;
 }
 
-.closed-folder-archive-tab {
-  position: absolute;
-  top: -28px;
-  left: 24px;
-  background: #c9b485;
-  border: 1.5px solid #a89467;
-  border-bottom: none;
-  border-radius: 5px 5px 0 0;
-  padding: 5px 16px;
+.folder-cover-face .dossier-confidential-stamp {
   font-family: var(--font-type);
-  font-size: 0.64rem;
-  font-weight: bold;
-  letter-spacing: 0.1em;
-  color: #3c2416;
-  box-shadow: 0 -3px 6px rgba(0,0,0,0.3);
-  z-index: 2;
-}
-
-.closed-folder-surface {
-  position: relative;
-  width: 100%;
-  min-height: 360px;
-  background: 
-    radial-gradient(ellipse at 15% 15%, rgba(255,255,255,0.3) 0%, transparent 50%),
-    linear-gradient(135deg, #dfcb9f 0%, #c9b485 100%);
-  border: 1.5px solid #a89467;
-  border-left: 16px solid #8b0000;
-  border-radius: 3px;
-  box-shadow: 
-    0 25px 55px rgba(0,0,0,0.85),
-    inset 0 0 35px rgba(120,80,40,0.22);
-  padding: 32px;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-}
-
-.closed-folder-spine {
-  position: absolute;
-  top: 0; bottom: 0; left: 0;
-  width: 16px;
-  background: repeating-linear-gradient(0deg, #6b0000 0px, #6b0000 8px, #8b0000 8px, #8b0000 16px);
-  border-right: 2px dashed rgba(255,255,255,0.6);
-  pointer-events: none;
-}
-
-.closed-folder-stamps {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-.closed-stamp-confidential {
-  font-family: var(--font-type);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: bold;
   letter-spacing: 0.14em;
   color: #8b0000;
   border: 2px double #8b0000;
   padding: 3px 12px;
-  transform: rotate(-2deg);
-}
-.closed-presidency-seal {
-  font-family: var(--font-type);
-  font-size: 0.58rem;
-  font-weight: bold;
-  letter-spacing: 0.08em;
-  color: #3c2416;
-  opacity: 0.85;
-}
-
-.closed-case-reference-block {
-  margin: 20px 0 10px;
-}
-.closed-case-no {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: bold;
-  letter-spacing: 0.12em;
-  color: #2c1a0e;
-  margin-bottom: 2px;
-}
-.closed-district-tag {
-  font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.72rem;
-  color: #5a4005;
-}
-
-.closed-folder-flap-seam {
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, #a89467 0%, rgba(168,148,103,0.3) 100%);
-  border-bottom: 1px dashed rgba(60,36,22,0.25);
-  margin: 10px 0;
-}
-
-.closed-bottom-routing {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  font-family: monospace;
-  font-size: 0.55rem;
-  color: #3c2416;
-  opacity: 0.75;
-}
-
-/* Wax Seal sitting right on the center closing seam */
-.physically-closed-archive-folder .wax-seal-wrapper {
-  position: relative;
-  margin-top: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 30;
-}
-
-/* Red Cloth Bound Spine Seam */
-.dossier-cloth-spine {
-  position: absolute;
-  top: 0; bottom: 0; left: 0;
-  width: 16px;
-  background: repeating-linear-gradient(0deg, #6b0000 0px, #6b0000 8px, #8b0000 8px, #8b0000 16px);
-  border-right: 2px dashed rgba(255,255,255,0.6);
-  pointer-events: none;
-}
-
-/* Pinned Exhibit Photo at Top Left */
-.cover-photo-attachment {
-  position: absolute;
-  top: 20px;
-  left: 28px;
-  width: 105px;
-  pointer-events: none;
-  z-index: 10;
   transform: rotate(-3deg);
-}
-.paper-clip {
-  position: absolute;
-  top: -10px;
-  right: 16px;
-  width: 14px;
-  height: 24px;
-  border: 2.5px solid #8a8f96;
-  border-right-color: transparent;
-  border-radius: 8px 8px 0 0 / 10px 10px 0 0;
-  transform: rotate(12deg);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-  z-index: 12;
-}
-.photo-paper-scrap {
-  background: #fdfaf2;
-  border: 1px solid #d4c5a9;
-  padding: 4px 4px 14px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.45);
-}
-.scrap-svg {
-  width: 100%;
-  height: 65px;
-  display: block;
-  border: 1px solid #1a0f08;
-}
-.scrap-label {
-  display: block;
-  text-align: center;
-  font-family: var(--font-type);
-  font-size: 0.52rem;
-  font-weight: bold;
-  letter-spacing: 0.08em;
-  color: #8b0000;
-  margin-top: 3px;
+  margin-top: 10px;
 }
 
-/* Stamps & Presidency Line Printed Directly on Manila Folder */
-.dossier-confidential-stamp {
-  display: inline-block;
-  font-family: var(--font-type);
-  font-size: 0.78rem;
-  font-weight: bold;
-  letter-spacing: 0.14em;
-  color: #8b0000;
-  border: 2px double #8b0000;
-  padding: 2px 10px;
-  transform: rotate(-2deg);
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-.dossier-agency-header {
-  display: block;
-  font-family: var(--font-type);
-  font-size: 0.58rem;
-  font-weight: bold;
-  letter-spacing: 0.08em;
-  color: #3c2416;
-  opacity: 0.9;
-  margin-bottom: 12px;
-}
-
-/* DOMINANT TITLE BLOCK PRINTED DIRECTLY ON FOLDER */
 .dossier-title-block {
-  width: min(440px, 90%);
-  margin: 12px auto 16px;
-  padding: 10px 16px;
-  text-align: center;
-  z-index: 15;
+  margin: 10px 0;
 }
 .dossier-ref-no {
   display: block;
   font-family: var(--font-type);
-  font-size: 0.65rem;
+  font-size: 0.64rem;
   font-weight: bold;
-  letter-spacing: 0.14em;
-  color: #8b0000;
-  margin-bottom: 4px;
+  color: #3c2416;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
 }
-.dossier-title-block .folder-title {
+.folder-cover-face .folder-title {
   font-family: var(--font-display);
-  font-size: 1.85rem;
+  font-size: 2.1rem;
   color: #1a0f08;
-  margin: 2px 0 6px;
-  line-height: 1.2;
-  letter-spacing: 0.03em;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
 }
 .dossier-meta-subtitle {
   font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.76rem;
-  color: #3c2416;
+  font-size: 0.82rem;
+  color: #5a4005;
   display: block;
+  margin-top: 6px;
 }
 
-/* Taped Yellow Sticky Note Profile */
-.cover-sticky-note {
-  position: absolute;
-  top: 20px;
-  right: 24px;
-  width: 135px;
-  background: #fff897;
-  border-left: 3px solid #e0c800;
-  padding: 8px 10px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.35);
-  transform: rotate(2.5deg);
-  z-index: 10;
-  text-align: left;
-}
-.sticky-tape-strip {
-  position: absolute;
-  top: -8px; left: 35%;
-  width: 35px; height: 12px;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-}
-.sticky-header {
-  font-family: var(--font-type);
-  font-size: 0.58rem;
-  font-weight: bold;
-  color: #2c1a0e;
-  display: block;
-  margin-bottom: 3px;
-}
-.cover-sticky-note ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.58rem;
-  color: #1a0f08;
-}
-.cover-sticky-note li {
-  margin-bottom: 2px;
-}
-.sticky-verified-label {
-  font-family: var(--font-type);
-  font-size: 0.52rem;
-  font-weight: bold;
-  color: #8b0000;
-  display: block;
-  margin-top: 4px;
-}
-
-/* Folder Closing Flap Seam Line */
 .dossier-closing-flap-line {
-  position: absolute;
-  bottom: 110px;
-  left: 16px; right: 0;
+  width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #a89467 0%, rgba(168,148,103,0.3) 100%);
+  background: linear-gradient(90deg, #8e6d42 0%, rgba(142,109,66,0.3) 100%);
   border-bottom: 1px dashed rgba(60,36,22,0.25);
+  margin: 8px 0;
+}
+
+/* FOLDER INTERIOR PAGES (Parchment stacked paper sheets inside) */
+.folder-interior-pages {
+  position: absolute;
+  inset: 4px;
+  background: #fdfaf2;
+  border: 1px solid #d4c5a9;
+  border-radius: 2px;
+  box-shadow: inset 0 0 30px rgba(120,90,40,0.1);
+  z-index: 2;
+  overflow: hidden;
+}
+
+/* Stacked paper edge shadows to look like piles of papers */
+.stacked-paper-edge-1 {
+  position: absolute;
+  right: -5px; bottom: -5px; left: 5px; top: 5px;
+  background: #fbf7ee;
+  border: 1px solid #d4c5a9;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
+  z-index: 3;
+  transform: rotate(0.4deg);
+}
+.stacked-paper-edge-2 {
+  position: absolute;
+  right: -8px; bottom: -8px; left: 8px; top: 8px;
+  background: #faf6eb;
+  border: 1px solid #d4c5a9;
+  box-shadow: 3px 3px 6px rgba(0,0,0,0.12);
+  z-index: 4;
+  transform: rotate(-0.5deg);
+}
+
+.dossier-interior-sheet {
+  position: absolute;
+  inset: 12px;
+  background: #fffdf9;
+  border: 1px solid #e5d8bb;
+  padding: 32px 38px;
+  z-index: 5;
+  overflow-y: auto;
+  height: calc(100% - 24px);
+}
+
+/* Paper folding animations */
+.physical-case-folder.is-unfolded .folder-cover-face {
+  transform: rotateY(-118deg);
+  opacity: 0.15;
   pointer-events: none;
+  box-shadow: 20px 20px 40px rgba(0,0,0,0.4);
 }
 
-/* WAX SEAL PHYSICALLY LOCKS THE FOLDER CLOSED */
-.physical-manila-case-dossier .wax-seal-wrapper {
-  position: relative;
-  top: auto; left: auto;
-  transform: none;
-  margin: 18px auto 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 30;
-}
-
-/* Bottom Routing Boxes */
-.dossier-evidence-routing {
+.btn-close-folder-zoom {
   position: absolute;
-  bottom: 20px;
-  left: 28px;
-  width: 155px;
-  border: 1.5px solid #3c2416;
-  padding: 6px 8px;
-  background: rgba(255, 255, 255, 0.25);
-  text-align: left;
-  z-index: 10;
-}
-.dossier-evidence-routing .routing-label {
-  display: block;
+  top: -30px; right: 0;
+  background: #aa7c11;
+  border: 1px solid #7c5a0b;
+  color: #fdfaf2;
   font-family: var(--font-type);
-  font-size: 0.55rem;
+  font-size: 0.64rem;
   font-weight: bold;
-  letter-spacing: 0.1em;
-  color: #8b0000;
-  border-bottom: 1px solid #3c2416;
-  padding-bottom: 2px;
-  margin-bottom: 3px;
+  padding: 4px 12px;
+  cursor: pointer;
+  z-index: 220;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  border-radius: 2px 2px 0 0;
+  transition: background 0.2s;
 }
-.dossier-evidence-routing p {
-  font-family: monospace;
-  font-size: 0.52rem;
-  color: #2c1a0e;
-  line-height: 1.35;
-  margin: 0;
+.btn-close-folder-zoom:hover {
+  background: #8b0000;
+  border-color: #5a0000;
 }
-.fingerprint-mark {
-  position: absolute;
-  right: 4px; bottom: 4px;
-  width: 22px; height: 26px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(60, 36, 22, 0.4);
-  opacity: 0.35;
-}
-
-.dossier-barcode-routing {
-  position: absolute;
-  bottom: 20px;
-  right: 24px;
-  width: 155px;
-  border: 1.5px solid #3c2416;
-  padding: 6px 8px;
-  background: rgba(255, 255, 255, 0.25);
-  text-align: center;
-  z-index: 10;
-}
-.dossier-barcode-routing .barcode-label {
-  font-family: var(--font-type);
-  font-size: 0.52rem;
-  font-weight: bold;
-  color: #2c1a0e;
-  display: block;
-}
-.barcode-graphic {
-  font-family: monospace;
-  font-size: 0.78rem;
-  letter-spacing: 1.2px;
-  color: #1a0f08;
-  margin: 2px 0;
-}
-.barcode-warning {
-  font-family: var(--font-type);
-  font-size: 0.48rem;
-  font-weight: bold;
-  color: #8b0000;
-  letter-spacing: 0.08em;
-  display: block;
+.physical-case-folder.is-unfolded .btn-close-folder-zoom {
+  display: none; /* Hide close button when inside the folder */
 }
   color: #3c2416;
   margin-bottom: 30px;
@@ -3040,71 +2826,8 @@ button{
 /* ============================================================
    FOLDER UNFOLD OVERLAY SHEET (AUTHENTIC 1946 CASE FILE DOSSIER)
 ============================================================ */
-.folder-unfold-sheet.physical-dossier-docket {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -46%) rotate(-2deg) scale(0.88);
-  width: min(800px, 94vw);
-  min-height: 520px;
-  max-height: 86vh;
-  overflow-y: auto;
-  background: 
-    radial-gradient(ellipse at 15% 15%, rgba(255,255,255,0.5) 0%, transparent 40%),
-    linear-gradient(135deg, #fbf7ec 0%, #ede0c4 100%);
-  border: 1.5px solid #c8b998;
-  border-left: 16px solid #8b0000;
-  border-radius: 2px;
-  box-shadow: 
-    0 35px 75px rgba(0,0,0,0.9),
-    inset 0 0 35px rgba(120,90,40,0.12);
-  padding: 38px 46px;
-  z-index: 150;
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.75s cubic-bezier(0.18, 0.89, 0.32, 1.25), opacity 0.5s ease;
-}
-.folder-unfold-sheet.physical-dossier-docket.is-unfolded {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) rotate(0deg) scale(1);
-}
 
-/* Manila Backing Folder & File Tab */
-.dossier-manila-backing {
-  position: absolute;
-  inset: -8px -10px -12px -18px;
-  background: linear-gradient(135deg, #dfcb9f 0%, #c9b485 100%);
-  border: 1.5px solid #a89467;
-  border-radius: 3px;
-  box-shadow: 0 20px 45px rgba(0,0,0,0.7);
-  z-index: -1;
-  pointer-events: none;
-}
-.dossier-file-tab {
-  position: absolute;
-  top: -26px;
-  left: 36px;
-  background: #c9b485;
-  border: 1.5px solid #a89467;
-  border-bottom: none;
-  border-radius: 4px 4px 0 0;
-  padding: 3px 14px;
-  font-family: var(--font-type);
-  font-size: 0.66rem;
-  font-weight: bold;
-  letter-spacing: 0.1em;
-  color: #3c2416;
-  box-shadow: 0 -3px 6px rgba(0,0,0,0.3);
-}
-.dossier-red-spine {
-  position: absolute;
-  top: 0; bottom: 0; left: 0;
-  width: 16px;
-  background: repeating-linear-gradient(0deg, #6b0000 0px, #6b0000 8px, #8b0000 8px, #8b0000 16px);
-  border-right: 2px dashed rgba(255,255,255,0.6);
-  pointer-events: none;
-}
+
 
 /* Paperclipped Hero Exhibit Photo */
 .dossier-hero-exhibit {

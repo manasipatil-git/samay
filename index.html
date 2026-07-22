@@ -345,7 +345,7 @@
           <div class="drawer-handle"></div>
           <div class="drawer-label">CASE 001<br>The Milk Monopoly (1946)</div>
           <div class="drawer-contents" id="drawer-contents-1">
-            <!-- Physical Folders Row (Resting inside open drawer) -->
+            <!-- One folder partially pulled from the drawer -->
             <div class="drawer-folders-row">
               <div class="drawer-folder-item folder-milk-monopoly" id="folder-btn-milk-monopoly">
                 <div class="folder-item-tab">CASE 001</div>
@@ -358,49 +358,6 @@
                 <div class="folder-item-title">SALT CONSPIRACY</div>
                 <div class="folder-item-year">1930</div>
                 <div class="folder-item-confidential-stamp">LOCKED</div>
-              </div>
-            </div>
-
-            <div class="case-folder physically-closed-archive-folder" id="case-folder-1">
-              <!-- Colored Archive Folder Tabs peeking at top edge -->
-              <div class="closed-folder-backing-tab">CONFIDENTIAL DIVISION // RECORD 1946</div>
-              <div class="closed-folder-archive-tab">FILE REF: KAIRA/1946/001-M</div>
-
-              <div class="closed-folder-surface">
-                <!-- Close Zoomed Folder Button -->
-                <button class="btn-close-folder-zoom" id="btn-close-folder-zoom-1">✕ Put Back</button>
-
-                <!-- Red Woven Spine Tape on Left -->
-                <div class="closed-folder-spine"></div>
-
-                <!-- Top Administrative Stamps -->
-                <div class="closed-folder-stamps">
-                  <span class="closed-stamp-confidential">CONFIDENTIAL — CLASSIFIED 1946</span>
-                  <span class="closed-presidency-seal">GOVERNMENT OF BOMBAY PRESIDENCY · KAIRA RECORDS OFFICE</span>
-                </div>
-
-                <!-- Center Case Reference Identification (No Title, No Photos!) -->
-                <div class="closed-case-reference-block">
-                  <span class="closed-case-no">CASE FILE NO. 001 // KAIRA-M</span>
-                  <span class="closed-district-tag">DISTRICT SURVEY RECORDS · 1946</span>
-                </div>
-
-                <!-- Horizontal Folder Closing Flap Seam Line -->
-                <div class="closed-folder-flap-seam"></div>
-
-                <!-- Bottom Classification & Barcode Labels -->
-                <div class="closed-bottom-routing">
-                  <div class="routing-box-left">RECORD TYPE: MONOPOLY SURVEY</div>
-                  <div class="routing-box-right">BARCODE: KAIRA-1946-001</div>
-                </div>
-
-                <!-- The Red Wax Seal Physically Locking the Folder Flap Shut -->
-                <div class="wax-seal-wrapper">
-                  <div class="wax-seal" id="wax-seal-1">
-                    <span class="seal-logo">S</span>
-                  </div>
-                  <div class="seal-hint">Click seal to break & open file</div>
-                </div>
               </div>
             </div>
           </div>
@@ -435,6 +392,68 @@
           <div class="drawer-handle"></div>
           <div class="drawer-label">CASE 006<br>The Partition Train</div>
           <div class="lock-icon">🔒</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE 1 & STATE 2: THE PHYSICAL INVESTIGATION FOLDER (On the Desk Workspace) -->
+    <div class="physical-case-folder" id="folder-unfold-sheet">
+      <!-- Close/Put Back Button -->
+      <button class="btn-close-folder-zoom" id="btn-close-folder-zoom-1">✕ Put Back</button>
+
+      <!-- FOLDER FRONT COVER (Kraft paper cover, clean & simplified) -->
+      <div class="folder-cover-face">
+        <div class="dossier-cloth-spine"></div>
+        <div class="folder-top-tab">CASE 001</div>
+        <span class="dossier-confidential-stamp">CONFIDENTIAL</span>
+        <div class="dossier-title-block">
+          <span class="dossier-ref-no">CASE FILE NO. 001 // 1946</span>
+          <h2 class="folder-title">THE MILK MONOPOLY</h2>
+          <span class="dossier-meta-subtitle">Anand, Gujarat</span>
+        </div>
+        <div class="dossier-closing-flap-line"></div>
+        
+        <div class="wax-seal-wrapper">
+          <div class="wax-seal" id="wax-seal-1">
+            <span class="seal-logo">S</span>
+          </div>
+          <div class="seal-hint">Click seal to break & open</div>
+        </div>
+      </div>
+
+      <!-- FOLDER INTERIOR PAGES (Revealed when front cover flips/opens) -->
+      <div class="folder-interior-pages">
+        <div class="stacked-paper-edge-1"></div>
+        <div class="stacked-paper-edge-2"></div>
+        
+        <div class="dossier-interior-sheet">
+          <div class="cover-photo-attachment">
+            <div class="paper-clip"></div>
+            <div class="photo-paper-scrap">
+              <svg viewBox="0 0 100 80" class="scrap-svg">
+                <rect width="100" height="80" fill="#24180d"/>
+                <path d="M5 70 Q25 35 45 55 T80 25 T100 60 L100 80 L0 80 Z" fill="#3d2c1d" opacity="0.85"/>
+                <circle cx="80" cy="20" r="7" fill="#ebd7a2" opacity="0.7"/>
+                <text x="8" y="74" font-family="monospace" font-size="5.5" fill="#ebd7a2">ANAND DEPOT 1946</text>
+              </svg>
+              <span class="scrap-label">EXHIBIT #01</span>
+            </div>
+          </div>
+          
+          <div class="dossier-cover-header">
+            <span class="dossier-office-line">GOVERNMENT OF BOMBAY PRESIDENCY · KAIRA RECORDS OFFICE</span>
+            <h2 class="dossier-case-title">THE MILK MONOPOLY (1946)</h2>
+            <div class="dossier-meta-grid">
+              <div class="meta-item"><span>LOCATION:</span> Anand, Kaira District</div>
+              <div class="meta-item"><span>DATE:</span> October 1946</div>
+              <div class="meta-item"><span>CLASSIFICATION:</span> Economic Monopoly</div>
+            </div>
+          </div>
+
+          <button class="dossier-bookmark-skip" id="btn-skip-briefing">Begin Investigation ›</button>
+
+          <!-- Typewriter Narrative Content Container -->
+          <div class="unfold-content" id="briefing-content"></div>
         </div>
       </div>
     </div>

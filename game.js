@@ -136,7 +136,7 @@ class Game {
     // Archive drawer & wax seal click handlers
     const cabinetEl = document.querySelector(".cabinet");
     const drawer1 = document.getElementById("drawer-case1");
-    const folder1 = document.getElementById("case-folder-1");
+    const folder1 = document.getElementById("folder-unfold-sheet");
     const folderBtn1 = document.getElementById("folder-btn-milk-monopoly");
     const closeFolderBtn1 = document.getElementById("btn-close-folder-zoom-1");
 
