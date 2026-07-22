@@ -96,6 +96,7 @@ button{
   pointer-events:none;
   transition: opacity 1.1s ease;
   z-index: 2;
+  overflow: hidden;
 }
 .scene.is-active{
   opacity:1;
@@ -2157,16 +2158,47 @@ button{
     radial-gradient(ellipse at 50% 20%, rgba(255, 185, 110, 0.24) 0%, rgba(65, 40, 24, 0.92) 55%, #180e07 95%),
     linear-gradient(135deg, #2b1a0e 0%, #1c0e06 50%, #100703 100%);
   position: relative;
-  overflow-y: auto;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
 }
 .archive-room {
   width: min(680px, 94vw);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 20px 60px;
+  padding: 20px;
   position: relative;
   z-index: 5;
+  transition: transform 0.3s ease;
+}
+
+/* Responsive scaling to fit cabinet inside short viewports without scrollbars */
+@media (max-height: 820px) {
+  .archive-room {
+    transform: scale(0.9);
+  }
+}
+@media (max-height: 720px) {
+  .archive-room {
+    transform: scale(0.8);
+  }
+  .archive-header {
+    margin-bottom: 12px !important;
+  }
+  .archive-header h2 {
+    font-size: 1.7rem !important;
+  }
+}
+@media (max-height: 620px) {
+  .archive-room {
+    transform: scale(0.68);
+  }
+}
+@media (max-height: 520px) {
+  .archive-room {
+    transform: scale(0.55);
+  }
 }
 .archive-glow {
   position: absolute;
