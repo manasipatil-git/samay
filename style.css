@@ -2459,6 +2459,82 @@ button{
   border-color: #666;
 }
 
+/* Physical Archive Drawer Details */
+.drawer-item-divider {
+  position: relative;
+  width: 120px;
+  height: 130px;
+  background: linear-gradient(135deg, #baaa88 0%, #a2916e 100%);
+  border: 1.5px solid #8c7b5a;
+  border-radius: 2px 14px 2px 2px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 8px;
+  opacity: 0.65;
+  transform: rotate(2deg) translateY(4px);
+  pointer-events: none;
+}
+.divider-tab {
+  font-family: var(--font-type);
+  font-size: 0.44rem;
+  font-weight: bold;
+  color: #3c2416;
+  border-bottom: 1.5px solid rgba(60,36,22,0.3);
+  padding-bottom: 1px;
+}
+.divider-title {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: bold;
+  color: #1a0f08;
+  margin-top: 4px;
+}
+.divider-desc {
+  font-family: var(--font-type);
+  font-size: 0.42rem;
+  color: #4a3a26;
+  line-height: 1.2;
+}
+
+.drawer-inventory-slip {
+  position: relative;
+  width: 110px;
+  height: 115px;
+  background: #fdfaf2;
+  border: 1px solid #d4c5a9;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
+  transform: rotate(-1.5deg) translateY(6px);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.slip-stamp {
+  font-family: var(--font-type);
+  font-size: 0.44rem;
+  font-weight: bold;
+  color: #8b0000;
+  border: 1px solid #8b0000;
+  padding: 1px 3px;
+  width: fit-content;
+  transform: rotate(-5deg);
+}
+.slip-title {
+  font-family: var(--font-display);
+  font-size: 0.64rem;
+  font-weight: bold;
+  color: #2c1a0e;
+}
+.slip-meta {
+  font-family: monospace;
+  font-size: 0.46rem;
+  color: #666;
+}
+
 /* Physically Closed Folder Zoom Box */
 .case-folder.physically-closed-archive-folder {
   position: fixed;
