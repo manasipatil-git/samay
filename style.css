@@ -2163,42 +2163,43 @@ button{
   height: 100vh;
 }
 .archive-room {
-  width: min(680px, 94vw);
+  width: min(650px, 94vw);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 20px 20px;
+  padding: 10px;
   position: relative;
   z-index: 5;
-  transform-origin: top center;
+  transform-origin: center center;
   transition: transform 0.3s ease;
+  margin: auto;
 }
 
 /* Responsive scaling to fit cabinet inside short viewports without scrollbars */
-@media (max-height: 820px) {
+@media (max-height: 850px) {
   .archive-room {
-    transform: scale(0.9);
+    transform: scale(0.85);
   }
 }
 @media (max-height: 720px) {
   .archive-room {
-    transform: scale(0.8);
+    transform: scale(0.75);
   }
   .archive-header {
-    margin-bottom: 12px !important;
+    margin-bottom: 8px !important;
   }
   .archive-header h2 {
-    font-size: 1.7rem !important;
+    font-size: 1.6rem !important;
   }
 }
 @media (max-height: 620px) {
   .archive-room {
-    transform: scale(0.68);
+    transform: scale(0.65);
   }
 }
 @media (max-height: 520px) {
   .archive-room {
-    transform: scale(0.55);
+    transform: scale(0.52);
   }
 }
 .archive-glow {
@@ -2211,23 +2212,23 @@ button{
 }
 .archive-header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 14px;
   z-index: 5;
 }
 .archive-header .archive-kicker {
   font-family: var(--font-type);
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   letter-spacing: 0.16em;
   color: #aa7c11;
   text-transform: uppercase;
   font-weight: bold;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   display: block;
 }
 .archive-header h2 {
   font-family: var(--font-display);
-  font-size: 2.1rem;
-  margin: 4px 0 8px;
+  font-size: 1.85rem;
+  margin: 2px 0 4px;
   color: var(--paper);
   text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(235, 180, 100, 0.2);
   letter-spacing: 0.04em;
