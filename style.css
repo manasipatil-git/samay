@@ -2677,8 +2677,29 @@ button{
 
 .dossier-cover.is-unfolded {
   transform: rotateY(-118deg);
-  opacity: 0.12;
+  opacity: 0;
   pointer-events: none;
+}
+
+/* DEDICATED FULLSCREEN INTERIOR SHEET LAYOUT */
+.dossier-interior-sheet {
+  position: absolute;
+  width: min(740px, 92vw);
+  height: 500px;
+  background: 
+    radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.6) 0%, transparent 60%),
+    linear-gradient(135deg, #fffdf9 0%, #f4ebd7 100%);
+  border: 2.5px solid #d4c49c;
+  border-left: 20px solid #8b0000;
+  border-radius: 4px;
+  box-shadow: 0 35px 80px rgba(0,0,0,0.92);
+  padding: 32px 42px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  color: #1a0f08;
 }
 
 .dossier-cloth-spine {
@@ -3136,9 +3157,6 @@ button{
 }
 .physical-case-folder.is-unfolded .btn-close-folder-zoom {
   display: none; /* Hide close button when inside the folder */
-}
-  color: #3c2416;
-  margin-bottom: 30px;
 }
 
 .wax-seal-wrapper {
