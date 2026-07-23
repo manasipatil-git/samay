@@ -2603,12 +2603,11 @@ button{
   box-shadow: 
     0 25px 50px rgba(0,0,0,0.85),
     inset 0 0 25px rgba(60,35,15,0.18);
-  padding: 32px 40px;
+  padding: 24px 32px;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 26px;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
   transform-origin: left center;
@@ -2641,52 +2640,213 @@ button{
   color: #fdfaf2;
 }
 
-.folder-cover-face .dossier-confidential-stamp {
+/* FOLDER HEADER TITLE (Top 20%) */
+.folder-header-title {
+  width: 100%;
+  text-align: center;
+  border-bottom: 2px dashed rgba(60,35,15,0.25);
+  padding-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.folder-header-title .dossier-confidential-stamp {
   font-family: var(--font-type);
-  font-size: 0.85rem;
+  font-size: 0.72rem;
   font-weight: bold;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   color: #8b0000;
-  border: 2px double #8b0000;
-  padding: 3px 12px;
+  border: 1.5px double #8b0000;
+  padding: 2px 8px;
   transform: rotate(-3deg);
-  margin-top: 10px;
+  width: fit-content;
 }
-
-.dossier-title-block {
-  margin: 10px 0;
-}
-.dossier-ref-no {
-  display: block;
+.folder-header-title .cover-ref-no {
   font-family: var(--font-type);
-  font-size: 0.64rem;
+  font-size: 0.58rem;
   font-weight: bold;
-  color: #3c2416;
   letter-spacing: 2px;
-  margin-bottom: 6px;
+  color: #5a4005;
+  margin-top: 4px;
 }
-.folder-cover-face .folder-title {
+.folder-header-title .folder-title {
   font-family: var(--font-display);
-  font-size: 2.1rem;
+  font-size: 1.48rem;
   color: #1a0f08;
-  margin: 0;
-  line-height: 1.25;
+  margin: 2px 0 0;
   letter-spacing: 0.02em;
 }
-.dossier-meta-subtitle {
+.folder-header-title .dossier-meta-subtitle {
   font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.82rem;
-  color: #5a4005;
+  font-size: 0.7rem;
+  color: #3c2416;
   display: block;
-  margin-top: 6px;
 }
 
-.dossier-closing-flap-line {
+/* COVER EVIDENCE CLUTTER (Remaining 80% with natural layering & offsets) */
+.cover-evidence-clutter {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  margin-top: 14px;
+}
+
+/* Clipped photo rotation & placement */
+.clutter-photo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 125px;
+  transform: rotate(-4deg);
+  z-index: 5;
+}
+.clutter-paperclip {
+  position: absolute;
+  top: -8px; left: 16px;
+  width: 12px; height: 22px;
+  border: 2.5px solid #8a8f96;
+  border-right-color: transparent;
+  border-radius: 6px 6px 0 0;
+  transform: rotate(-10deg);
+  z-index: 10;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.clutter-photo-frame {
+  background: #fdfaf2;
+  border: 1px solid #d4c5a9;
+  padding: 4px 4px 10px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+}
+.clutter-photo-svg {
+  display: block;
+  width: 100%;
+  border: 1.5px solid #1c0e07;
+}
+
+/* Tack-pinned map */
+.clutter-map {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 110px;
+  transform: rotate(5deg);
+  z-index: 4;
+}
+.map-tack {
+  position: absolute;
+  top: -8px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  z-index: 10;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
+}
+.clutter-map-svg {
+  display: block;
+  width: 100%;
+  border: 1px solid #c0b293;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+}
+
+/* Stacked Receipts & Manifests */
+.clutter-slip {
+  position: absolute;
+  width: 120px;
+  background: #faf6ee;
+  border: 1px solid #d8ccb0;
+  padding: 6px 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  font-family: monospace;
+  font-size: 0.52rem;
+  color: #2b1d11;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.clutter-slip strong {
+  margin-top: 2px;
+  color: #8b0000;
+  font-size: 0.56rem;
+}
+.clutter-slip .slip-stamp {
+  font-family: var(--font-type);
+  font-size: 0.44rem;
+  font-weight: bold;
+  border: 1px solid #5a4005;
+  padding: 1px 3px;
+  width: fit-content;
+  margin-bottom: 2px;
+  transform: rotate(-3deg);
+  color: #5a4005;
+}
+.slip-receipt {
+  bottom: 24px;
+  left: 10px;
+  transform: rotate(-2deg);
+  z-index: 6;
+}
+.slip-waybill {
+  bottom: 20px;
+  right: 10px;
+  transform: rotate(3deg);
+  z-index: 6;
+}
+
+/* Taped Investigator Note */
+.clutter-note {
+  position: absolute;
+  top: 95px;
+  left: 130px;
+  width: 145px;
+  background: #fff9ab;
+  border-left: 3px solid #dac200;
+  padding: 8px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.35);
+  transform: rotate(-2deg);
+  z-index: 8;
+  font-family: var(--font-type);
+  font-size: 0.52rem;
+  color: #1a0f08;
+  text-align: left;
+}
+.note-tape {
+  position: absolute;
+  top: -8px; left: 35%;
+  width: 40px; height: 12px;
+  background: rgba(255,255,255,0.45);
+  border: 1.5px solid rgba(255,255,255,0.6);
+  transform: rotate(-1deg);
+}
+.note-label {
+  font-weight: bold;
+  color: #8b0000;
+}
+.clutter-note p {
+  margin: 3px 0 0;
+  line-height: 1.25;
+}
+
+/* FOLDED EVIDENCE PACKET (Centers near bottom, holding the Wax Seal) */
+.folded-evidence-packet {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 230px;
+  background: linear-gradient(180deg, #ede0c4 0%, #dbccaa 100%);
+  border: 2px solid #b8aa8a;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  padding: 10px 14px 18px;
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.35);
+  z-index: 12;
+  text-align: center;
+}
+.packet-seam {
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #8e6d42 0%, rgba(142,109,66,0.3) 100%);
-  border-bottom: 1px dashed rgba(60,36,22,0.25);
-  margin: 8px 0;
+  background: rgba(60,35,15,0.2);
+  border-bottom: 1px dashed rgba(60,35,15,0.4);
+  margin-bottom: 8px;
 }
 
 /* FOLDER INTERIOR PAGES (Parchment stacked paper sheets inside) */

@@ -403,28 +403,78 @@
       <!-- Close/Put Back Button -->
       <button class="btn-close-folder-zoom" id="btn-close-folder-zoom-1">✕ Put Back</button>
 
-      <!-- FOLDER FRONT COVER (Kraft paper cover, clean & simplified) -->
+      <!-- FOLDER FRONT COVER (Kraft paper cover, filled with layered physical evidence) -->
       <div class="folder-cover-face">
         <div class="dossier-cloth-spine"></div>
         <div class="folder-top-tab">CASE 001</div>
         
-        <!-- CONFIDENTIAL stamp at top -->
-        <span class="dossier-confidential-stamp">CONFIDENTIAL</span>
-        
-        <!-- Case Title & Subtitle -->
-        <div class="dossier-title-block">
+        <!-- CONFIDENTIAL Case Title Header (occupies top 20%) -->
+        <div class="folder-header-title">
+          <span class="dossier-confidential-stamp">CONFIDENTIAL</span>
+          <span class="cover-ref-no">CASE FILE NO. 001 // KAIRA</span>
           <h2 class="folder-title">THE MILK MONOPOLY</h2>
           <span class="dossier-meta-subtitle">Anand, Gujarat • 1946</span>
         </div>
         
-        <!-- Centered Wax Seal and instruction directly beneath -->
-        <div class="wax-seal-wrapper">
-          <div class="wax-seal" id="wax-seal-1">
-            <div class="seal-half seal-left"></div>
-            <div class="seal-half seal-right"></div>
-            <span class="seal-logo">S</span>
+        <!-- Layered Physical Evidence Layout (occupies 80%) -->
+        <div class="cover-evidence-clutter">
+          <!-- Clipped Photograph -->
+          <div class="clutter-photo">
+            <div class="clutter-paperclip"></div>
+            <div class="clutter-photo-frame">
+              <svg viewBox="0 0 100 75" class="clutter-photo-svg">
+                <rect width="100" height="75" fill="#20140b"/>
+                <path d="M5 65 Q25 30 45 50 T80 20 T100 50 L100 75 L0 75 Z" fill="#382618" opacity="0.85"/>
+                <circle cx="80" cy="18" r="6" fill="#ebd7a2" opacity="0.7"/>
+                <text x="6" y="68" font-family="monospace" font-size="5" fill="#ebd7a2">MILK COLLECTION CENTRE</text>
+              </svg>
+            </div>
           </div>
-          <div class="seal-hint" id="seal-hint-text">Break the seal to begin investigation</div>
+
+          <!-- Small Gujarat Map with Anand circled -->
+          <div class="clutter-map">
+            <div class="map-tack">📍</div>
+            <svg viewBox="0 0 80 80" class="clutter-map-svg">
+              <rect width="80" height="80" fill="#eae1c9"/>
+              <path d="M10,25 Q25,12 42,32 T70,52 T80,72 L80,80 L0,80 Z" fill="#cfc2a0" opacity="0.8"/>
+              <circle cx="46" cy="38" r="3.5" fill="none" stroke="#8b0000" stroke-width="1.2"/>
+              <text x="52" y="41" font-family="monospace" font-size="4.8" fill="#8b0000" font-weight="bold">ANAND</text>
+            </svg>
+          </div>
+
+          <!-- Milk Receipt Slip -->
+          <div class="clutter-slip slip-receipt">
+            <span class="slip-stamp">RECEIPT</span>
+            <span>Procurement Rate</span>
+            <strong>3 Annas</strong>
+          </div>
+
+          <!-- Railway Freight Waybill -->
+          <div class="clutter-slip slip-waybill">
+            <span class="slip-stamp">BB&CI RY</span>
+            <span>Bombay scheme</span>
+            <strong>12 Annas</strong>
+          </div>
+
+          <!-- Investigator Note -->
+          <div class="clutter-note">
+            <div class="note-tape"></div>
+            <span class="note-label">📝 Investigator Note:</span>
+            <p>"Farmers report receiving only 3 annas. Heavy margin retained by agent..."</p>
+          </div>
+
+          <!-- Folded Evidence Packet (Locked by Wax Seal) -->
+          <div class="folded-evidence-packet">
+            <div class="packet-seam"></div>
+            <div class="wax-seal-wrapper">
+              <div class="wax-seal" id="wax-seal-1">
+                <div class="seal-half seal-left"></div>
+                <div class="seal-half seal-right"></div>
+                <span class="seal-logo">S</span>
+              </div>
+              <div class="seal-hint" id="seal-hint-text">Break seal to open dossier</div>
+            </div>
+          </div>
         </div>
       </div>
 
