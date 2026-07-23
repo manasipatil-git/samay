@@ -2256,11 +2256,10 @@ button{
   position: relative;
 }
 
-/* Depth of Field (DoF) Blur when drawer open */
+/* Subtle dimming when drawer open (no blur) */
 .cabinet.drawer-open-active .drawer:not(.is-open) {
-  filter: blur(1.8px) brightness(0.35);
+  opacity: 0.7;
   pointer-events: none;
-  transform: scale(0.98);
 }
 
 .drawer {
@@ -2422,13 +2421,13 @@ button{
   z-index: 10;
 }
 
-/* 300ms Auto-pulled state when drawer opens */
+/* 300ms Auto-pulled state when drawer opens (Slides forward 50px on rails) */
 .drawer-folder-item.is-auto-pulled {
-  transform: translateY(-24px) rotate(-1.5deg);
+  transform: translateY(-50px) rotate(-1.5deg);
 }
 
 .drawer-folder-item:hover {
-  transform: translateY(-34px) rotate(-0.5deg) scale(1.025) !important;
+  transform: translateY(-60px) rotate(-0.5deg) scale(1.02) !important;
   box-shadow: 
     0 32px 64px rgba(0,0,0,0.98),
     2px 2px 0 #cbb88d,
@@ -2437,6 +2436,13 @@ button{
     8px 8px 0 #a48f63;
   background: linear-gradient(135deg, #ebd8ad 0%, #cbb17b 100%);
   z-index: 25 !important;
+}
+
+/* Phase 1: Physical retrieval out of drawer slot onto desk */
+.drawer-folder-item.is-retrieving {
+  transform: translateY(-160px) scale(1.1) rotate(0deg) !important;
+  z-index: 100 !important;
+  transition: transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .locked-folder-item {
@@ -2622,11 +2628,10 @@ button{
   border-color: #5a0000;
 }
 
-/* Depth of Field blur when folder is zoomed in foreground */
+/* Background elements remain sharp and unblurred during retrieval */
 .cabinet.has-zoomed-folder .drawer-folders-row,
 .cabinet.has-zoomed-folder .drawer-handle,
 .cabinet.has-zoomed-folder .drawer-label {
-  filter: blur(3.5px) brightness(0.28);
   pointer-events: none;
 }
 

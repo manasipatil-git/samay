@@ -163,12 +163,18 @@ class Game {
     if (folderBtn1 && cabinetEl) {
       folderBtn1.addEventListener("click", (e) => {
         e.stopPropagation();
-        if (!folderBtn1.classList.contains("is-zoomed")) {
-          folderBtn1.classList.add("is-zoomed");
-          cabinetEl.classList.add("has-zoomed-folder");
+        if (!folderBtn1.classList.contains("is-zoomed") && !folderBtn1.classList.contains("is-retrieving")) {
+          // Phase 1: Physically retrieve folder out of drawer slot onto desk surface
+          folderBtn1.classList.add("is-retrieving");
           if (window.SAMAY_SOUND) {
             window.SAMAY_SOUND.play("paper");
           }
+          // Phase 2: Expand in foreground focus after retrieval animation finishes
+          setTimeout(() => {
+            folderBtn1.classList.remove("is-retrieving");
+            folderBtn1.classList.add("is-zoomed");
+            cabinetEl.classList.add("has-zoomed-folder");
+          }, 400);
         }
       });
     }
@@ -177,6 +183,7 @@ class Game {
       closeFolderBtn1.addEventListener("click", (e) => {
         e.stopPropagation();
         folderBtn1.classList.remove("is-zoomed");
+        folderBtn1.classList.remove("is-retrieving");
         cabinetEl.classList.remove("has-zoomed-folder");
         if (window.SAMAY_SOUND) {
           window.SAMAY_SOUND.play("paper");
