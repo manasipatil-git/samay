@@ -264,7 +264,8 @@ class Game {
   }
 
   async _playBriefing() {
-    const sheet = document.getElementById("folder-unfold-sheet");
+    const sheet = document.getElementById("fullscreen-dossier");
+    const dossierCover = document.getElementById("dossier-cover");
     const container = document.getElementById("briefing-content");
     if (!sheet || !container) {
       this._endIntro();
@@ -272,7 +273,9 @@ class Game {
     }
 
     container.innerHTML = "";
-    sheet.classList.add("is-unfolded");
+    if (dossierCover) {
+      dossierCover.classList.add("is-unfolded");
+    }
     
     if (window.SAMAY_SOUND) {
       window.SAMAY_SOUND.play("paper");
@@ -281,7 +284,7 @@ class Game {
     const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
     this._briefingActive = true;
 
-    await wait(1200);
+    await wait(600);
     if (!this._briefingActive) return;
 
     // Line 1: NAI Meta
@@ -289,7 +292,7 @@ class Game {
     p1.className = "brief-meta";
     container.appendChild(p1);
     await this._typeTo(p1, "RECOVERED FROM THE NATIONAL ARCHIVES OF INDIA", 30);
-    await wait(1500);
+    await wait(1200);
     if (!this._briefingActive) return;
 
     // Line 2: Access Granted
@@ -300,7 +303,7 @@ class Game {
     if (window.SAMAY_SOUND) {
       window.SAMAY_SOUND.play("bell");
     }
-    await wait(1500);
+    await wait(1200);
     if (!this._briefingActive) return;
 
     // Line 3: Case Title
@@ -308,7 +311,7 @@ class Game {
     p3.className = "brief-title";
     container.appendChild(p3);
     await this._typeTo(p3, "THE MILK MONOPOLY", 40);
-    await wait(1200);
+    await wait(1000);
     if (!this._briefingActive) return;
 
     // Line 4: Core Quote
@@ -316,7 +319,7 @@ class Game {
     p4.className = "brief-quote";
     container.appendChild(p4);
     await this._typeTo(p4, "“Milk is plentiful. Yet every family grows poorer.”", 45);
-    await wait(1800);
+    await wait(1400);
     if (!this._briefingActive) return;
 
     // Line 5: Objective Statement
@@ -327,20 +330,14 @@ class Game {
     if (window.SAMAY_SOUND) {
       window.SAMAY_SOUND.play("bell");
     }
-    await wait(3500);
-    if (!this._briefingActive) return;
-
-    // Fade out fold sheet and end Act 1
-    sheet.classList.remove("is-unfolded");
-    await wait(850);
-    this._endIntro();
+    // Leaves briefing open so player reads file and clicks 'Begin Investigation'
   }
 
   _skipBriefing() {
     this._briefingActive = false;
-    const sheet = document.getElementById("folder-unfold-sheet");
+    const sheet = document.getElementById("fullscreen-dossier");
     if (sheet) {
-      sheet.classList.remove("is-unfolded");
+      sheet.classList.remove("is-active");
     }
     this._endIntro();
   }
