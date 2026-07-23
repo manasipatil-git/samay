@@ -183,6 +183,9 @@ class Game {
         e.stopPropagation();
         if (seal1.classList.contains("is-broken")) return;
         seal1.classList.add("is-broken");
+        if (folder1) {
+          folder1.classList.add("cover-lifts");
+        }
         if (window.SAMAY_SOUND) {
           window.SAMAY_SOUND.play("stamp");
         }

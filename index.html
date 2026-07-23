@@ -407,19 +407,24 @@
       <div class="folder-cover-face">
         <div class="dossier-cloth-spine"></div>
         <div class="folder-top-tab">CASE 001</div>
-        <span class="dossier-confidential-stamp">CONFIDENTIAL</span>
-        <div class="dossier-title-block">
-          <span class="dossier-ref-no">CASE FILE NO. 001 // 1946</span>
-          <h2 class="folder-title">THE MILK MONOPOLY</h2>
-          <span class="dossier-meta-subtitle">Anand, Gujarat</span>
-        </div>
-        <div class="dossier-closing-flap-line"></div>
         
+        <!-- CONFIDENTIAL stamp at top -->
+        <span class="dossier-confidential-stamp">CONFIDENTIAL</span>
+        
+        <!-- Case Title & Subtitle -->
+        <div class="dossier-title-block">
+          <h2 class="folder-title">THE MILK MONOPOLY</h2>
+          <span class="dossier-meta-subtitle">Anand, Gujarat • 1946</span>
+        </div>
+        
+        <!-- Centered Wax Seal and instruction directly beneath -->
         <div class="wax-seal-wrapper">
           <div class="wax-seal" id="wax-seal-1">
+            <div class="seal-half seal-left"></div>
+            <div class="seal-half seal-right"></div>
             <span class="seal-logo">S</span>
           </div>
-          <div class="seal-hint">Click seal to break & open</div>
+          <div class="seal-hint" id="seal-hint-text">Break the seal to begin investigation</div>
         </div>
       </div>
 
@@ -429,6 +434,7 @@
         <div class="stacked-paper-edge-2"></div>
         
         <div class="dossier-interior-sheet">
+          <!-- Clipped Photograph -->
           <div class="cover-photo-attachment">
             <div class="paper-clip"></div>
             <div class="photo-paper-scrap">
@@ -441,6 +447,15 @@
               <span class="scrap-label">EXHIBIT #01</span>
             </div>
           </div>
+
+          <!-- Milk Receipt Excerpt pinned to page -->
+          <div class="dossier-receipt-excerpt">
+            <div class="paper-clip-brass"></div>
+            <span class="excerpt-stamp">MONOPOLY TARIFF</span>
+            <div class="excerpt-line">Anand Payout: <strong>3 Annas</strong></div>
+            <div class="excerpt-line">Bombay Sale: <strong>12 Annas</strong></div>
+            <span class="excerpt-agent">POLSON AGENT PROCUREMENT</span>
+          </div>
           
           <div class="dossier-cover-header">
             <span class="dossier-office-line">GOVERNMENT OF BOMBAY PRESIDENCY · KAIRA RECORDS OFFICE</span>
@@ -450,6 +465,12 @@
               <div class="meta-item"><span>DATE:</span> October 1946</div>
               <div class="meta-item"><span>CLASSIFICATION:</span> Economic Monopoly</div>
             </div>
+          </div>
+
+          <!-- Handwritten Notes and Stamps pre-printed on page -->
+          <div class="dossier-margin-details">
+            <div class="handwritten-scribble">"Contract expires Oct 30, 1946. Immediate action required. — V. Patel"</div>
+            <div class="dossier-presidency-seal-stamp">BOMBAY PRESIDENCY OFFICIAL FILE</div>
           </div>
 
           <button class="dossier-bookmark-skip" id="btn-skip-briefing">Begin Investigation ›</button>

@@ -2603,11 +2603,12 @@ button{
   box-shadow: 
     0 25px 50px rgba(0,0,0,0.85),
     inset 0 0 25px rgba(60,35,15,0.18);
-  padding: 38px 46px;
+  padding: 32px 40px;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 26px;
   align-items: center;
   text-align: center;
   transform-origin: left center;
@@ -2774,30 +2775,53 @@ button{
 }
 
 .wax-seal {
-  width: 70px;
-  height: 70px;
-  background: radial-gradient(circle at 35% 35%, #ff4d4d, #9c1a1a);
-  border-radius: 46% 54% 50% 48% / 52% 48% 52% 46%;
+  width: 76px;
+  height: 76px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.3);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   position: relative;
+  background: transparent;
+  overflow: visible;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.55));
 }
-.wax-seal::after {
+.seal-half {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 50%;
+  background: radial-gradient(circle at center, #ff4d4d, #9c1a1a);
+  z-index: 1;
+  transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1.1), opacity 0.5s ease;
+  pointer-events: none;
+}
+.seal-half::after {
   content: "";
   position: absolute;
   inset: 10px;
   border: 3px double #731313;
-  border-radius: 50%;
   opacity: 0.6;
 }
-
-.wax-seal:hover {
-  transform: scale(1.08);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.55);
+.seal-left {
+  left: 0;
+  border-radius: 40px 0 0 40px;
+  border-right: 1.5px solid #731313;
+  transform-origin: left center;
+}
+.seal-left::after {
+  border-radius: 50% 0 0 50%;
+  right: -5px;
+}
+.seal-right {
+  right: 0;
+  border-radius: 0 40px 40px 0;
+  border-left: 1.5px solid #731313;
+  transform-origin: right center;
+}
+.seal-right::after {
+  border-radius: 0 50% 50% 0;
+  left: -5px;
 }
 
 .seal-logo {
@@ -2806,12 +2830,16 @@ button{
   color: #500909;
   text-shadow: 0 1px 2px rgba(255,255,255,0.2);
   user-select: none;
+  z-index: 2;
+  transition: opacity 0.3s ease, transform 0.4s ease;
 }
 
 .seal-hint {
   font-family: var(--font-type);
-  font-size: 0.7rem;
-  color: #5f3a3c;
+  font-size: 0.68rem;
+  color: #8b0000;
+  font-weight: bold;
+  letter-spacing: 0.05em;
   animation: pulseHint 1.6s infinite alternate;
 }
 
@@ -2820,15 +2848,100 @@ button{
   to { opacity: 1; }
 }
 
-.wax-seal.is-broken {
-  animation: breakSeal 0.8s forwards;
-  pointer-events: none;
+/* Wax Seal Splitting Animation */
+.wax-seal.is-broken .seal-left {
+  transform: translateX(-24px) rotate(-16deg) translateY(4px);
+  opacity: 0;
+}
+.wax-seal.is-broken .seal-right {
+  transform: translateX(24px) rotate(16deg) translateY(4px);
+  opacity: 0;
+}
+.wax-seal.is-broken .seal-logo {
+  opacity: 0;
+  transform: scale(0.7);
 }
 
-@keyframes breakSeal {
-  0% { transform: scale(1); opacity: 1; }
-  40% { transform: scale(0.9); filter: saturate(0.5); }
-  100% { opacity: 0; transform: scale(1.2); filter: blur(4px); }
+/* Folder Cover lifts slightly when clicked */
+.physical-case-folder.cover-lifts .folder-cover-face {
+  transform: translate(-3%, -2%) scale(1.02) rotate(-1deg);
+  box-shadow: 0 35px 70px rgba(0,0,0,0.95);
+}
+
+/* Clutter-free interior physical details on the first page */
+.dossier-receipt-excerpt {
+  position: absolute;
+  bottom: 24px;
+  right: 28px;
+  width: 175px;
+  background: #faf6eb;
+  border: 1px solid #d2c3a5;
+  padding: 8px 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transform: rotate(2deg);
+  font-family: monospace;
+  font-size: 0.54rem;
+  color: #3c2416;
+  z-index: 10;
+}
+.paper-clip-brass {
+  position: absolute;
+  top: -10px; left: 24px;
+  width: 10px; height: 18px;
+  border: 2px solid #b0821b;
+  border-right-color: transparent;
+  border-radius: 6px 6px 0 0;
+  transform: rotate(-15deg);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.excerpt-stamp {
+  display: block;
+  font-family: var(--font-type);
+  font-size: 0.5rem;
+  font-weight: bold;
+  color: #8b0000;
+  border: 1px solid #8b0000;
+  padding: 1px 3px;
+  width: fit-content;
+  margin-bottom: 4px;
+  transform: rotate(-5deg);
+}
+.excerpt-line {
+  margin-bottom: 2px;
+}
+.excerpt-agent {
+  display: block;
+  font-size: 0.46rem;
+  color: #666;
+  margin-top: 4px;
+  border-top: 1px dashed #bbb;
+  padding-top: 2px;
+}
+
+.dossier-margin-details {
+  margin-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px dashed rgba(139, 0, 0, 0.2);
+  padding-top: 12px;
+}
+.handwritten-scribble {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.64rem;
+  color: #5a4005;
+  max-width: 60%;
+  font-style: italic;
+}
+.dossier-presidency-seal-stamp {
+  font-family: var(--font-type);
+  font-size: 0.52rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  color: rgba(139, 0, 0, 0.45);
+  border: 1.5px solid rgba(139, 0, 0, 0.45);
+  padding: 2px 6px;
+  transform: rotate(-4deg);
 }
 
 .locked-drawer {
