@@ -2633,8 +2633,39 @@ button{
 /* ============================================================
    ARCHIVE SCENE (PHYSICAL KRAFT DOSSIER FOLDER & INTERACTION)
 ============================================================ */
+/* Hide evidence clutter and interior pages when folder is resting inside drawer slot */
+.drawer-folder-item:not(.is-zoomed) .cover-evidence-clutter,
+.drawer-folder-item:not(.is-zoomed) .folder-interior-pages,
+.drawer-folder-item:not(.is-zoomed) .dossier-cloth-spine {
+  display: none !important;
+}
+
+.drawer-folder-item:not(.is-zoomed) .folder-cover-face {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.drawer-folder-item:not(.is-zoomed) .folder-header-title {
+  border-bottom: none;
+  padding-bottom: 0;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.drawer-folder-item:not(.is-zoomed) .folder-title {
+  font-size: 1.25rem !important;
+  margin-top: 10px;
+}
+
 .drawer-folder-item.physical-case-folder {
-  perspective: 1200px; /* Enable 3D folding cover */
+  perspective: 1200px;
   transition: transform 0.7s cubic-bezier(0.18, 0.89, 0.32, 1.25), box-shadow 0.5s ease, width 0.5s ease, height 0.5s ease;
 }
 
@@ -2651,7 +2682,7 @@ button{
 }
 
 .btn-close-folder-zoom {
-  display: none; /* Only show when zoomed */
+  display: none;
 }
 
 .drawer-folder-item.physical-case-folder.is-zoomed .btn-close-folder-zoom {
