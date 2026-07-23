@@ -151,6 +151,12 @@ class Game {
           if (window.SAMAY_SOUND) {
             window.SAMAY_SOUND.play("paper");
           }
+          // Wait 300ms, then slide the case folder forward into focus
+          setTimeout(() => {
+            if (folderBtn1) {
+              folderBtn1.classList.add("is-auto-pulled");
+            }
+          }, 300);
         }
       });
     }

@@ -2361,26 +2361,33 @@ button{
 }
 
 .drawer.is-open .drawer-contents {
-  max-height: 380px;
+  max-height: 420px;
   opacity: 1;
-  padding: 20px;
-  border: 3px solid #1c0e07;
+  padding: 24px 28px;
+  border: 4px solid #140804;
   border-top: none;
+  background: #0d0603; /* Darker deep wooden cavity interior */
 }
 
-/* PHYSICAL FOLDERS ROW (Resting inside open drawer) */
+/* PHYSICAL FOLDERS ROW (Resting inside open drawer cavity) */
 .drawer-folders-row {
   display: flex;
   gap: 15px;
   justify-content: center;
   align-items: center;
-  padding: 32px 14px 28px;
+  padding: 38px 24px 30px;
   width: 100%;
-  min-height: 220px;
-  background: rgba(0,0,0,0.55);
+  min-height: 250px;
+  background: 
+    linear-gradient(90deg, #1c0f08 0%, #120904 12px, transparent 12px, transparent calc(100% - 12px), #120904 calc(100% - 12px), #1c0f08 100%),
+    radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.98) 100%);
   border-radius: 3px;
-  border: 1.5px inset rgba(0,0,0,0.8);
-  box-shadow: inset 0 10px 20px rgba(0,0,0,0.95);
+  border: 2px solid #140804;
+  border-left: 14px solid #28150a; /* Visible wooden side walls */
+  border-right: 14px solid #28150a;
+  box-shadow: 
+    inset 0 20px 40px rgba(0,0,0,0.98),
+    inset 0 0 15px rgba(0,0,0,0.9);
   overflow: visible;
   transition: filter 0.4s ease, brightness 0.4s ease;
   position: relative;
@@ -2388,37 +2395,47 @@ button{
 
 .drawer-folder-item {
   position: relative;
-  width: clamp(300px, 65%, 420px);
-  height: 190px;
+  width: clamp(340px, 72%, 480px);
+  height: 210px;
   margin: 0 auto;
-  background: linear-gradient(135deg, #dfcb9f 0%, #c9b485 100%);
-  border: 1.5px solid #a89467;
-  border-radius: 2px 14px 2px 2px;
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.22) 0%, transparent 60%),
+    linear-gradient(135deg, #d8c397 0%, #ba9f6c 100%);
+  border: 2px solid #8e7a50;
+  border-radius: 3px 16px 3px 3px;
   box-shadow: 
-    0 16px 36px rgba(0,0,0,0.9),
-    2px 2px 0 #bcab81, 
-    4px 4px 0 #b3a277, 
-    6px 6px 0 #a9996e,
-    inset 0 1px 2px rgba(255,255,255,0.45);
+    0 22px 48px rgba(0,0,0,0.95),
+    2px 2px 0 #cbb88d,
+    4px 4px 0 #bfab7f,
+    6px 6px 0 #b39e71,
+    8px 8px 0 #a48f63,
+    inset 0 2px 4px rgba(255,255,255,0.4),
+    inset 0 -2px 6px rgba(60,40,15,0.3);
   cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1.1), box-shadow 0.3s, background 0.2s;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.25), box-shadow 0.4s ease, background 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 18px 20px;
+  padding: 20px 24px;
   text-align: left;
-  transform: translateY(-8px) rotate(-1.5deg);
+  transform: translateY(0px) rotate(-3deg);
   z-index: 10;
 }
 
+/* 300ms Auto-pulled state when drawer opens */
+.drawer-folder-item.is-auto-pulled {
+  transform: translateY(-24px) rotate(-1.5deg);
+}
+
 .drawer-folder-item:hover {
-  transform: translateY(-18px) rotate(-0.5deg) scale(1.03) !important;
+  transform: translateY(-34px) rotate(-0.5deg) scale(1.025) !important;
   box-shadow: 
-    0 26px 48px rgba(0,0,0,0.95),
-    2px 2px 0 #bcab81, 
-    4px 4px 0 #b3a277, 
-    6px 6px 0 #a9996e;
-  background: #fdfaf2;
+    0 32px 64px rgba(0,0,0,0.98),
+    2px 2px 0 #cbb88d,
+    4px 4px 0 #bfab7f,
+    6px 6px 0 #b39e71,
+    8px 8px 0 #a48f63;
+  background: linear-gradient(135deg, #ebd8ad 0%, #cbb17b 100%);
   z-index: 25 !important;
 }
 
@@ -2435,7 +2452,7 @@ button{
 
 .folder-item-tab {
   font-family: var(--font-type);
-  font-size: 0.64rem;
+  font-size: 0.68rem;
   font-weight: bold;
   color: #8b0000;
   border-bottom: 1.5px dashed rgba(139,0,0,0.4);
@@ -2445,31 +2462,32 @@ button{
 }
 .folder-item-title {
   font-family: var(--font-display);
-  font-size: 1.28rem;
+  font-size: 1.35rem;
   font-weight: bold;
   color: #1a0f08;
   line-height: 1.25;
-  margin-top: 12px;
+  margin-top: 14px;
   flex-grow: 1;
+  letter-spacing: 0.02em;
 }
 .folder-item-year {
   font-family: monospace;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: #5a4005;
   font-weight: bold;
   margin-top: auto;
 }
 .folder-item-confidential-stamp {
   position: absolute;
-  bottom: 14px;
-  right: 14px;
+  bottom: 16px;
+  right: 18px;
   font-family: var(--font-type);
-  font-size: 0.64rem;
+  font-size: 0.7rem;
   font-weight: bold;
   letter-spacing: 0.08em;
   color: #8b0000;
   border: 1.5px double #8b0000;
-  padding: 2px 6px;
+  padding: 2px 8px;
   transform: rotate(-6deg);
 }
 .locked-folder-item .folder-item-confidential-stamp {
@@ -2477,16 +2495,18 @@ button{
   border-color: #666;
 }
 
-/* Physical Archive Drawer Details */
+/* Metallic Brass Filing Rails */
 .drawer-brass-rail {
   position: absolute;
-  left: 20px; right: 20px;
-  bottom: 30px;
-  height: 4px;
-  background: linear-gradient(180deg, #aa7c11, #5a4005);
-  border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.8);
-  opacity: 0.6;
+  left: 24px; right: 24px;
+  bottom: 34px;
+  height: 6px;
+  background: linear-gradient(180deg, #e6c86e 0%, #b88d22 45%, #664d08 100%);
+  border-radius: 3px;
+  box-shadow: 
+    0 2px 5px rgba(0,0,0,0.9),
+    inset 0 1px 1px rgba(255,255,255,0.6);
+  opacity: 0.85;
   pointer-events: none;
   z-index: 2;
 }
@@ -2498,6 +2518,25 @@ button{
   z-index: 1;
   overflow: hidden;
 }
+/* Floating dust particle specks */
+.drawer-background-details::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(235,215,162,0.15) 1px, transparent 2px),
+    radial-gradient(circle at 75% 60%, rgba(235,215,162,0.12) 1.5px, transparent 3px),
+    radial-gradient(circle at 45% 80%, rgba(235,215,162,0.18) 1px, transparent 2px);
+  animation: dustFloat 6s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes dustFloat {
+  0% { transform: translateY(0) scale(1); opacity: 0.4; }
+  100% { transform: translateY(-8px) scale(1.05); opacity: 0.8; }
+}
+
 .bg-folder {
   position: absolute;
   bottom: 24px;
