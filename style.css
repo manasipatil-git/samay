@@ -2579,33 +2579,7 @@ button{
   letter-spacing: 1px;
 }
 
-/* Popped active folder. Primary focal point, pulled forward slightly, sitting on rails */
-.drawer-folder-item.folder-milk-monopoly {
-  margin: 0 auto;
-  transform: translateY(-16px) rotate(-1.5deg);
-  z-index: 5;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.9);
-  border-color: #aa7c11;
-  background: linear-gradient(135deg, #fdfaf2 0%, #dfcb9f 100%);
-}
 
-/* Physically Closed Folder Zoom Box */
-.case-folder.physically-closed-archive-folder {
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -46%) scale(0.6);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 200;
-  transition: transform 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.25), opacity 0.4s ease;
-  width: min(540px, 92vw);
-  margin: 0;
-}
-.case-folder.physically-closed-archive-folder.is-zoomed {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
-}
 
 .btn-close-folder-zoom {
   position: absolute;
@@ -2674,15 +2648,12 @@ button{
   transition: transform 0.7s cubic-bezier(0.18, 0.89, 0.32, 1.25), box-shadow 0.5s ease, width 0.5s ease, height 0.5s ease;
 }
 
-/* LIFTED / INSPECTED STATE (Lifts directly from drawer slot into 3D focus) */
+/* LIFTED / INSPECTED STATE (Transforms directly from drawer slot in physical 3D space) */
 .drawer-folder-item.physical-case-folder.is-zoomed {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   width: min(720px, 92vw);
   height: 480px;
-  transform: translate(-50%, -50%) scale(1) rotate(0deg) !important;
-  z-index: 250 !important;
+  transform: translateY(-160px) scale(2.0) rotate(0deg) !important;
+  z-index: 300 !important;
   box-shadow: 0 45px 100px rgba(0,0,0,0.98);
 }
 
