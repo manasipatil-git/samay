@@ -2717,9 +2717,11 @@ button{
   padding: 4px 4px 10px;
   box-shadow: 0 6px 14px rgba(0,0,0,0.4);
 }
-.clutter-photo-svg {
+.clutter-photo-img {
   display: block;
   width: 100%;
+  height: 75px;
+  object-fit: cover;
   border: 1.5px solid #1c0e07;
 }
 
@@ -2740,9 +2742,11 @@ button{
   z-index: 10;
   filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
 }
-.clutter-map-svg {
+.clutter-map-img {
   display: block;
   width: 100%;
+  height: 80px;
+  object-fit: cover;
   border: 1px solid #c0b293;
   box-shadow: 0 4px 10px rgba(0,0,0,0.35);
 }
@@ -3224,10 +3228,11 @@ button{
   box-shadow: 0 8px 18px rgba(0,0,0,0.5);
   border-radius: 1px;
 }
-.exhibit-photo-svg {
+.exhibit-photo-img {
   width: 100%;
   height: 85px;
   display: block;
+  object-fit: cover;
   border: 1px solid #1a0f08;
 }
 .exhibit-tag-label {
