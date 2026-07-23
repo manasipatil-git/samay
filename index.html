@@ -359,12 +359,122 @@
                 <span class="bg-drawer-label">KAIRA REGISTRY</span>
               </div>
 
-              <!-- The Main Case Folder (20-30% pulled out, sits on rails) -->
-              <div class="drawer-folder-item folder-milk-monopoly" id="folder-btn-milk-monopoly">
-                <div class="folder-item-tab">CASE 001</div>
-                <div class="folder-item-title">THE MILK MONOPOLY</div>
-                <div class="folder-item-year">1946</div>
-                <div class="folder-item-confidential-stamp">CONFIDENTIAL</div>
+              <!-- The Main Case Folder (Single physical object residing in the drawer slot) -->
+              <div class="drawer-folder-item physical-case-folder folder-milk-monopoly" id="folder-btn-milk-monopoly">
+                <!-- Close/Put Back Button -->
+                <button class="btn-close-folder-zoom" id="btn-close-folder-zoom-1">✕ Put Back</button>
+
+                <!-- FOLDER FRONT COVER (Kraft paper cover with layered physical evidence) -->
+                <div class="folder-cover-face">
+                  <div class="dossier-cloth-spine"></div>
+                  <div class="folder-top-tab">CASE 001</div>
+                  
+                  <!-- CONFIDENTIAL Case Title Header -->
+                  <div class="folder-header-title">
+                    <span class="dossier-confidential-stamp">CONFIDENTIAL</span>
+                    <span class="cover-ref-no">CASE FILE NO. 001 // KAIRA</span>
+                    <h2 class="folder-title">THE MILK MONOPOLY</h2>
+                    <span class="dossier-meta-subtitle">Anand, Gujarat • 1946</span>
+                  </div>
+                  
+                  <!-- Layered Physical Evidence Layout -->
+                  <div class="cover-evidence-clutter">
+                    <!-- Clipped Photograph -->
+                    <div class="clutter-photo">
+                      <div class="clutter-paperclip"></div>
+                      <div class="clutter-photo-frame">
+                        <img src="assests/milk_depot_1946.jpg" class="clutter-photo-img" alt="Anand Milk Depot 1946">
+                      </div>
+                    </div>
+
+                    <!-- Small Gujarat Map with Anand circled -->
+                    <div class="clutter-map">
+                      <div class="map-tack">📍</div>
+                      <img src="assests/anand_map_1946.jpg" class="clutter-map-img" alt="Anand Region Map 1946">
+                    </div>
+
+                    <!-- Milk Receipt Slip -->
+                    <div class="clutter-slip slip-receipt">
+                      <span class="slip-stamp">RECEIPT</span>
+                      <span>Procurement Rate</span>
+                      <strong>3 Annas</strong>
+                    </div>
+
+                    <!-- Railway Freight Waybill -->
+                    <div class="clutter-slip slip-waybill">
+                      <span class="slip-stamp">BB&CI RY</span>
+                      <span>Bombay scheme</span>
+                      <strong>12 Annas</strong>
+                    </div>
+
+                    <!-- Investigator Note -->
+                    <div class="clutter-note">
+                      <div class="note-tape"></div>
+                      <span class="note-label">📝 Investigator Note:</span>
+                      <p>"Farmers report receiving only 3 annas. Heavy margin retained by agent..."</p>
+                    </div>
+
+                    <!-- Folded Evidence Packet (Locked by Wax Seal) -->
+                    <div class="folded-evidence-packet">
+                      <div class="packet-seam"></div>
+                      <div class="wax-seal-wrapper">
+                        <div class="wax-seal" id="wax-seal-1">
+                          <div class="seal-half seal-left"></div>
+                          <div class="seal-half seal-right"></div>
+                          <span class="seal-logo">S</span>
+                        </div>
+                        <div class="seal-hint" id="seal-hint-text">Break seal to open dossier</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FOLDER INTERIOR PAGES (Revealed when front cover flips/opens) -->
+                <div class="folder-interior-pages">
+                  <div class="stacked-paper-edge-1"></div>
+                  <div class="stacked-paper-edge-2"></div>
+                  
+                  <div class="dossier-interior-sheet">
+                    <!-- Paperclipped Hero Exhibit Photo -->
+                    <div class="dossier-hero-exhibit">
+                      <div class="exhibit-paperclip"></div>
+                      <div class="exhibit-photo-frame">
+                        <img src="assests/milk_depot_1946.jpg" class="exhibit-photo-img" alt="Anand Milk Depot 1946 Exhibit">
+                        <span class="exhibit-tag-label">EXHIBIT #01</span>
+                      </div>
+                    </div>
+
+                    <!-- Milk Receipt Excerpt pinned to page -->
+                    <div class="dossier-receipt-excerpt">
+                      <div class="paper-clip-brass"></div>
+                      <span class="excerpt-stamp">MONOPOLY TARIFF</span>
+                      <div class="excerpt-line">Anand Payout: <strong>3 Annas</strong></div>
+                      <div class="excerpt-line">Bombay Sale: <strong>12 Annas</strong></div>
+                      <span class="excerpt-agent">POLSON AGENT PROCUREMENT</span>
+                    </div>
+                    
+                    <div class="dossier-cover-header">
+                      <span class="dossier-office-line">GOVERNMENT OF BOMBAY PRESIDENCY · KAIRA RECORDS OFFICE</span>
+                      <h2 class="dossier-case-title">THE MILK MONOPOLY (1946)</h2>
+                      <div class="dossier-meta-grid">
+                        <div class="meta-item"><span>LOCATION:</span> Anand, Kaira District</div>
+                        <div class="meta-item"><span>DATE:</span> October 1946</div>
+                        <div class="meta-item"><span>CLASSIFICATION:</span> Economic Monopoly</div>
+                      </div>
+                    </div>
+
+                    <!-- Handwritten Notes and Stamps pre-printed on page -->
+                    <div class="dossier-margin-details">
+                      <div class="handwritten-scribble">"Contract expires Oct 30, 1946. Immediate action required. — V. Patel"</div>
+                      <div class="dossier-presidency-seal-stamp">BOMBAY PRESIDENCY OFFICIAL FILE</div>
+                    </div>
+
+                    <button class="dossier-bookmark-skip" id="btn-skip-briefing">Begin Investigation ›</button>
+
+                    <!-- Typewriter Narrative Content Container -->
+                    <div class="unfold-content" id="briefing-content"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -394,124 +504,6 @@
         <div class="drawer locked-drawer">
           <div class="drawer-handle"></div>
           <div class="drawer-label">POLSON LTD CORRESPONDENCE<br>Bombay Municipal Scheme (1945)</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- STATE 1 & STATE 2: THE PHYSICAL INVESTIGATION FOLDER (On the Desk Workspace) -->
-    <div class="physical-case-folder" id="folder-unfold-sheet">
-      <!-- Close/Put Back Button -->
-      <button class="btn-close-folder-zoom" id="btn-close-folder-zoom-1">✕ Put Back</button>
-
-      <!-- FOLDER FRONT COVER (Kraft paper cover, filled with layered physical evidence) -->
-      <div class="folder-cover-face">
-        <div class="dossier-cloth-spine"></div>
-        <div class="folder-top-tab">CASE 001</div>
-        
-        <!-- CONFIDENTIAL Case Title Header (occupies top 20%) -->
-        <div class="folder-header-title">
-          <span class="dossier-confidential-stamp">CONFIDENTIAL</span>
-          <span class="cover-ref-no">CASE FILE NO. 001 // KAIRA</span>
-          <h2 class="folder-title">THE MILK MONOPOLY</h2>
-          <span class="dossier-meta-subtitle">Anand, Gujarat • 1946</span>
-        </div>
-        
-        <!-- Layered Physical Evidence Layout (occupies 80%) -->
-        <div class="cover-evidence-clutter">
-          <!-- Clipped Photograph -->
-          <div class="clutter-photo">
-            <div class="clutter-paperclip"></div>
-            <div class="clutter-photo-frame">
-              <img src="assests/milk_depot_1946.jpg" class="clutter-photo-img" alt="Anand Milk Depot 1946">
-            </div>
-          </div>
-
-          <!-- Small Gujarat Map with Anand circled -->
-          <div class="clutter-map">
-            <div class="map-tack">📍</div>
-            <img src="assests/anand_map_1946.jpg" class="clutter-map-img" alt="Anand Region Map 1946">
-          </div>
-
-          <!-- Milk Receipt Slip -->
-          <div class="clutter-slip slip-receipt">
-            <span class="slip-stamp">RECEIPT</span>
-            <span>Procurement Rate</span>
-            <strong>3 Annas</strong>
-          </div>
-
-          <!-- Railway Freight Waybill -->
-          <div class="clutter-slip slip-waybill">
-            <span class="slip-stamp">BB&CI RY</span>
-            <span>Bombay scheme</span>
-            <strong>12 Annas</strong>
-          </div>
-
-          <!-- Investigator Note -->
-          <div class="clutter-note">
-            <div class="note-tape"></div>
-            <span class="note-label">📝 Investigator Note:</span>
-            <p>"Farmers report receiving only 3 annas. Heavy margin retained by agent..."</p>
-          </div>
-
-          <!-- Folded Evidence Packet (Locked by Wax Seal) -->
-          <div class="folded-evidence-packet">
-            <div class="packet-seam"></div>
-            <div class="wax-seal-wrapper">
-              <div class="wax-seal" id="wax-seal-1">
-                <div class="seal-half seal-left"></div>
-                <div class="seal-half seal-right"></div>
-                <span class="seal-logo">S</span>
-              </div>
-              <div class="seal-hint" id="seal-hint-text">Break seal to open dossier</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FOLDER INTERIOR PAGES (Revealed when front cover flips/opens) -->
-      <div class="folder-interior-pages">
-        <div class="stacked-paper-edge-1"></div>
-        <div class="stacked-paper-edge-2"></div>
-        
-        <div class="dossier-interior-sheet">
-          <!-- Paperclipped Hero Exhibit Photo -->
-          <div class="dossier-hero-exhibit">
-            <div class="exhibit-paperclip"></div>
-            <div class="exhibit-photo-frame">
-              <img src="assests/milk_depot_1946.jpg" class="exhibit-photo-img" alt="Anand Milk Depot 1946 Exhibit">
-              <span class="exhibit-tag-label">EXHIBIT #01</span>
-            </div>
-          </div>
-
-          <!-- Milk Receipt Excerpt pinned to page -->
-          <div class="dossier-receipt-excerpt">
-            <div class="paper-clip-brass"></div>
-            <span class="excerpt-stamp">MONOPOLY TARIFF</span>
-            <div class="excerpt-line">Anand Payout: <strong>3 Annas</strong></div>
-            <div class="excerpt-line">Bombay Sale: <strong>12 Annas</strong></div>
-            <span class="excerpt-agent">POLSON AGENT PROCUREMENT</span>
-          </div>
-          
-          <div class="dossier-cover-header">
-            <span class="dossier-office-line">GOVERNMENT OF BOMBAY PRESIDENCY · KAIRA RECORDS OFFICE</span>
-            <h2 class="dossier-case-title">THE MILK MONOPOLY (1946)</h2>
-            <div class="dossier-meta-grid">
-              <div class="meta-item"><span>LOCATION:</span> Anand, Kaira District</div>
-              <div class="meta-item"><span>DATE:</span> October 1946</div>
-              <div class="meta-item"><span>CLASSIFICATION:</span> Economic Monopoly</div>
-            </div>
-          </div>
-
-          <!-- Handwritten Notes and Stamps pre-printed on page -->
-          <div class="dossier-margin-details">
-            <div class="handwritten-scribble">"Contract expires Oct 30, 1946. Immediate action required. — V. Patel"</div>
-            <div class="dossier-presidency-seal-stamp">BOMBAY PRESIDENCY OFFICIAL FILE</div>
-          </div>
-
-          <button class="dossier-bookmark-skip" id="btn-skip-briefing">Begin Investigation ›</button>
-
-          <!-- Typewriter Narrative Content Container -->
-          <div class="unfold-content" id="briefing-content"></div>
         </div>
       </div>
     </div>

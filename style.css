@@ -2633,25 +2633,29 @@ button{
 /* ============================================================
    ARCHIVE SCENE (PHYSICAL KRAFT DOSSIER FOLDER & INTERACTION)
 ============================================================ */
-.physical-case-folder {
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -46%) scale(0.65);
-  width: min(720px, 94vw);
-  height: 480px;
-  background: transparent;
+.drawer-folder-item.physical-case-folder {
   perspective: 1200px; /* Enable 3D folding cover */
-  opacity: 0;
-  pointer-events: none;
-  z-index: 200;
-  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1.1), opacity 0.4s ease;
+  transition: transform 0.7s cubic-bezier(0.18, 0.89, 0.32, 1.25), box-shadow 0.5s ease, width 0.5s ease, height 0.5s ease;
 }
 
-/* Landed / Zoomed State on the desk */
-.physical-case-folder.is-zoomed {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
+/* LIFTED / INSPECTED STATE (Lifts directly from drawer slot into 3D focus) */
+.drawer-folder-item.physical-case-folder.is-zoomed {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(720px, 92vw);
+  height: 480px;
+  transform: translate(-50%, -50%) scale(1) rotate(0deg) !important;
+  z-index: 250 !important;
+  box-shadow: 0 45px 100px rgba(0,0,0,0.98);
+}
+
+.btn-close-folder-zoom {
+  display: none; /* Only show when zoomed */
+}
+
+.drawer-folder-item.physical-case-folder.is-zoomed .btn-close-folder-zoom {
+  display: block;
 }
 
 /* FOLDER FRONT COVER (Kraft paper cover, clean & simplified by 60%) */
