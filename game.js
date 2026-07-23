@@ -133,15 +133,17 @@ class Game {
       card.addEventListener("click", () => this._chooseEnding(card.dataset.ending));
     });
 
-    // Archive drawer & wax seal click handlers
+    // Archive drawer & fullscreen dossier click handlers
     const cabinetEl = document.querySelector(".cabinet");
     const drawer1 = document.getElementById("drawer-case1");
     const folderBtn1 = document.getElementById("folder-btn-milk-monopoly");
-    const closeFolderBtn1 = document.getElementById("btn-close-folder-zoom-1");
+    const fullscreenDossier = document.getElementById("fullscreen-dossier");
+    const dossierCover = document.getElementById("dossier-cover");
+    const closeDossierBtn = document.getElementById("btn-close-dossier");
+    const seal1 = document.getElementById("wax-seal-1");
 
     if (drawer1) {
       drawer1.addEventListener("click", (e) => {
-        // Prevent click if we are clicking children elements like folders
         if (e.target !== drawer1 && !drawer1.contains(e.target) && e.target.closest(".drawer-contents")) return;
 
         if (!drawer1.classList.contains("is-open")) {
@@ -150,55 +152,44 @@ class Game {
           if (window.SAMAY_SOUND) {
             window.SAMAY_SOUND.play("paper");
           }
-          // Wait 300ms, then slide the case folder forward into focus
-          setTimeout(() => {
-            if (folderBtn1) {
-              folderBtn1.classList.add("is-auto-pulled");
-            }
-          }, 300);
         }
       });
     }
 
-    if (folderBtn1 && cabinetEl) {
+    if (folderBtn1 && fullscreenDossier) {
       folderBtn1.addEventListener("click", (e) => {
         e.stopPropagation();
-        if (!folderBtn1.classList.contains("is-zoomed") && !folderBtn1.classList.contains("is-retrieving")) {
-          // Phase 1: Physically retrieve folder out of drawer slot onto desk surface
-          folderBtn1.classList.add("is-retrieving");
-          if (window.SAMAY_SOUND) {
-            window.SAMAY_SOUND.play("paper");
-          }
-          // Phase 2: Expand in foreground focus after retrieval animation finishes
-          setTimeout(() => {
-            folderBtn1.classList.remove("is-retrieving");
-            folderBtn1.classList.add("is-zoomed");
-            cabinetEl.classList.add("has-zoomed-folder");
-          }, 400);
-        }
-      });
-    }
-
-    if (closeFolderBtn1 && folderBtn1 && cabinetEl) {
-      closeFolderBtn1.addEventListener("click", (e) => {
-        e.stopPropagation();
-        folderBtn1.classList.remove("is-zoomed");
-        folderBtn1.classList.remove("is-retrieving");
-        cabinetEl.classList.remove("has-zoomed-folder");
+        folderBtn1.classList.add("is-retrieving");
+        fullscreenDossier.classList.add("is-active");
         if (window.SAMAY_SOUND) {
           window.SAMAY_SOUND.play("paper");
         }
       });
     }
 
-    const seal1 = document.getElementById("wax-seal-1");
+    if (closeDossierBtn && fullscreenDossier) {
+      closeDossierBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        fullscreenDossier.classList.remove("is-active");
+        if (dossierCover) {
+          dossierCover.classList.remove("is-unfolded");
+        }
+        if (folderBtn1) {
+          folderBtn1.classList.remove("is-retrieving");
+        }
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("paper");
+        }
+      });
+    }
+
     if (seal1) {
       seal1.addEventListener("click", (e) => {
         e.stopPropagation();
         if (seal1.classList.contains("is-broken")) return;
         seal1.classList.add("is-broken");
-        if (folder1) {
-          folder1.classList.add("cover-lifts");
+        if (dossierCover) {
+          dossierCover.classList.add("is-unfolded");
         }
         if (window.SAMAY_SOUND) {
           window.SAMAY_SOUND.play("stamp");

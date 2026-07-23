@@ -2421,28 +2421,16 @@ button{
   z-index: 10;
 }
 
-/* 300ms Auto-pulled state when drawer opens (Slides forward 50px on rails) */
-.drawer-folder-item.is-auto-pulled {
-  transform: translateY(-50px) rotate(-1.5deg);
+/* Clean resting state inside open drawer on brass rails */
+.drawer-folder-item {
+  transform: translateY(-16px) rotate(-1.5deg);
+  transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.3s ease;
 }
 
-.drawer-folder-item:hover {
-  transform: translateY(-60px) rotate(-0.5deg) scale(1.02) !important;
-  box-shadow: 
-    0 32px 64px rgba(0,0,0,0.98),
-    2px 2px 0 #cbb88d,
-    4px 4px 0 #bfab7f,
-    6px 6px 0 #b39e71,
-    8px 8px 0 #a48f63;
-  background: linear-gradient(135deg, #ebd8ad 0%, #cbb17b 100%);
-  z-index: 25 !important;
-}
-
-/* Phase 1: Physical retrieval out of drawer slot onto desk */
+/* Smooth retrieval crossfade towards camera into dedicated fullscreen dossier */
 .drawer-folder-item.is-retrieving {
-  transform: translateY(-160px) scale(1.1) rotate(0deg) !important;
-  z-index: 100 !important;
-  transition: transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform: translateY(-45px) scale(1.05) rotate(0deg) !important;
+  opacity: 0 !important;
 }
 
 .locked-folder-item {
@@ -2619,50 +2607,197 @@ button{
   display: none !important;
 }
 
-.drawer-folder-item:not(.is-zoomed) .folder-cover-face {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0;
+/* ============================================================
+   DEDICATED FULLSCREEN INVESTIGATION DOSSIER COMPONENT
+============================================================ */
+.fullscreen-dossier {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12, 6, 3, 0.75);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  perspective: 1400px;
+}
+
+.fullscreen-dossier.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.btn-close-dossier {
+  position: absolute;
+  top: 24px; right: 28px;
+  background: #aa7c11;
+  border: 1px solid #7c5a0b;
+  color: #fdfaf2;
+  font-family: var(--font-type);
+  font-size: 0.72rem;
+  font-weight: bold;
+  padding: 6px 14px;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  border-radius: 3px;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-close-dossier:hover {
+  background: #8b0000;
+  border-color: #5a0000;
+  transform: translateY(-2px);
+}
+
+/* DEDICATED FULLSCREEN COVER LAYOUT */
+.dossier-cover {
+  position: absolute;
+  width: min(740px, 92vw);
+  height: 500px;
+  background: 
+    radial-gradient(ellipse at 15% 15%, rgba(255,255,255,0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #c7a372 0%, #a88453 100%);
+  border: 2.5px solid #8e6d42;
+  border-left: 20px solid #8b0000;
+  border-radius: 4px;
+  box-shadow: 0 35px 80px rgba(0,0,0,0.92);
+  padding: 32px 42px;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  text-align: left;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
+  transform-origin: left center;
+  transition: transform 0.85s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease;
 }
 
-.drawer-folder-item:not(.is-zoomed) .folder-header-title {
+.dossier-cover.is-unfolded {
+  transform: rotateY(-118deg);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.dossier-cloth-spine {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 20px;
+  background: repeating-linear-gradient(0deg, #6b0000 0px, #6b0000 8px, #8b0000 8px, #8b0000 16px);
+  border-right: 1px dashed rgba(255,255,255,0.4);
+  pointer-events: none;
+}
+
+.dossier-top-tab {
+  position: absolute;
+  top: -24px;
+  left: 42px;
+  background: #a88453;
+  border: 2px solid #8e6d42;
   border-bottom: none;
-  padding-bottom: 0;
-  align-items: flex-start;
-  text-align: left;
+  border-radius: 4px 4px 0 0;
+  padding: 3px 16px;
+  font-family: var(--font-type);
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  color: #fdfaf2;
 }
 
-.drawer-folder-item:not(.is-zoomed) .folder-title {
-  font-size: 1.25rem !important;
+.dossier-confidential-stamp {
+  position: absolute;
+  top: 24px; right: 28px;
+  font-family: var(--font-type);
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: #8b0000;
+  border: 2px double #8b0000;
+  padding: 3px 12px;
+  transform: rotate(-4deg);
+}
+
+.dossier-header-title {
   margin-top: 10px;
 }
-
-.drawer-folder-item.physical-case-folder {
-  perspective: 1200px;
-  transition: transform 0.7s cubic-bezier(0.18, 0.89, 0.32, 1.25), box-shadow 0.5s ease, width 0.5s ease, height 0.5s ease;
+.cover-ref-no {
+  font-family: monospace;
+  font-size: 0.68rem;
+  color: #5a4005;
+  letter-spacing: 1px;
+}
+.dossier-header-title .folder-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a0f08;
+  letter-spacing: 0.04em;
+  margin: 6px 0 4px;
+}
+.dossier-meta-subtitle {
+  font-family: var(--font-type);
+  font-size: 0.75rem;
+  color: #3e2a07;
+  letter-spacing: 0.5px;
 }
 
-/* LIFTED / INSPECTED STATE (Transforms directly from drawer slot in physical 3D space) */
-.drawer-folder-item.physical-case-folder.is-zoomed {
-  width: min(720px, 92vw);
-  height: 480px;
-  transform: translateY(-160px) scale(2.0) rotate(0deg) !important;
-  z-index: 300 !important;
-  box-shadow: 0 45px 100px rgba(0,0,0,0.98);
+/* Balanced Evidence Grid (Photo & Map) */
+.dossier-evidence-grid {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
 }
-
-.btn-close-folder-zoom {
-  display: none;
+.dossier-evidence-card {
+  position: relative;
+  background: #fdfaf2;
+  padding: 8px 8px 24px;
+  border-radius: 2px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  border: 1px solid #d4c49c;
 }
+.card-photo { transform: rotate(-2.5deg); }
+.card-map { transform: rotate(2deg); }
 
-.drawer-folder-item.physical-case-folder.is-zoomed .btn-close-folder-zoom {
+.card-paperclip {
+  position: absolute;
+  top: -12px; left: 16px;
+  width: 10px; height: 26px;
+  border: 2px solid #888;
+  border-radius: 5px;
+  z-index: 5;
+}
+.card-pin {
+  position: absolute;
+  top: -10px; right: 12px;
+  font-size: 1.1rem;
+}
+.evidence-card-img {
+  width: 140px;
+  height: 100px;
+  object-fit: cover;
   display: block;
+  filter: sepia(0.2) contrast(1.05);
+}
+.evidence-card-label {
+  display: block;
+  font-family: var(--font-type);
+  font-size: 0.55rem;
+  color: #4a3818;
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+/* Centered Wax Seal Block */
+.dossier-seal-block {
+  margin-top: auto;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* FOLDER FRONT COVER (Kraft paper cover, clean & simplified by 60%) */
