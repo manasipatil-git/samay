@@ -2153,7 +2153,8 @@ button{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: min(28px, 3.5vh);
   background: 
     radial-gradient(ellipse at 50% 20%, rgba(255, 185, 110, 0.24) 0%, rgba(65, 40, 24, 0.92) 55%, #180e07 95%),
     linear-gradient(135deg, #2b1a0e 0%, #1c0e06 50%, #100703 100%);
@@ -2170,9 +2171,9 @@ button{
   padding: 10px;
   position: relative;
   z-index: 5;
-  transform-origin: center center;
+  transform-origin: top center;
   transition: transform 0.3s ease;
-  margin: auto;
+  margin: 0 auto;
 }
 
 /* Responsive scaling to fit cabinet inside short viewports without scrollbars */
@@ -2655,6 +2656,9 @@ button{
 /* DEDICATED FULLSCREEN COVER LAYOUT */
 .dossier-cover {
   position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: min(760px, 90vw);
   height: min(510px, 82vh);
   max-height: calc(100vh - 60px);
@@ -2677,7 +2681,7 @@ button{
 }
 
 .dossier-cover.is-unfolded {
-  transform: rotateY(-118deg);
+  transform: translate(-50%, -50%) rotateY(-118deg);
   opacity: 0;
   pointer-events: none;
 }
@@ -2685,6 +2689,9 @@ button{
 /* DEDICATED FULLSCREEN INTERIOR SHEET LAYOUT (Hidden until seal breaks) */
 .dossier-interior-sheet {
   position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: min(760px, 90vw);
   height: min(510px, 82vh);
   max-height: calc(100vh - 60px);
