@@ -2686,7 +2686,7 @@ button{
   pointer-events: none;
 }
 
-/* DEDICATED FULLSCREEN INTERIOR SHEET LAYOUT (Hidden until seal breaks) */
+/* DEDICATED FULLSCREEN INTERIOR SHEET LAYOUT (Sitting at z-index 5 directly beneath cover) */
 .dossier-interior-sheet {
   position: absolute;
   left: 50%;
@@ -2709,18 +2709,9 @@ button{
   justify-content: space-between;
   overflow-y: auto;
   color: #1a0f08;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.4s ease 0.2s, visibility 0.4s ease 0.2s;
-}
-
-/* Revealed when cover flips open after breaking wax seal */
-.dossier-cover.is-unfolded ~ .dossier-interior-sheet,
-.fullscreen-dossier.is-unfolded .dossier-interior-sheet {
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .dossier-cloth-spine {

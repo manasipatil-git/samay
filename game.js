@@ -264,73 +264,13 @@ class Game {
   }
 
   async _playBriefing() {
-    const sheet = document.getElementById("fullscreen-dossier");
     const dossierCover = document.getElementById("dossier-cover");
-    const container = document.getElementById("briefing-content");
-    if (!sheet || !container) {
-      this._endIntro();
-      return;
-    }
-
-    container.innerHTML = "";
     if (dossierCover) {
       dossierCover.classList.add("is-unfolded");
     }
-    
     if (window.SAMAY_SOUND) {
       window.SAMAY_SOUND.play("paper");
     }
-
-    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-    this._briefingActive = true;
-
-    await wait(600);
-    if (!this._briefingActive) return;
-
-    // Line 1: NAI Meta
-    const p1 = document.createElement("p");
-    p1.className = "brief-meta";
-    container.appendChild(p1);
-    await this._typeTo(p1, "RECOVERED FROM THE NATIONAL ARCHIVES OF INDIA", 30);
-    await wait(1200);
-    if (!this._briefingActive) return;
-
-    // Line 2: Access Granted
-    const p2 = document.createElement("p");
-    p2.className = "brief-access";
-    container.appendChild(p2);
-    await this._typeTo(p2, "ACCESS GRANTED // CASE FILE 001 // THE MILK MONOPOLY // 1946", 25);
-    if (window.SAMAY_SOUND) {
-      window.SAMAY_SOUND.play("bell");
-    }
-    await wait(1200);
-    if (!this._briefingActive) return;
-
-    // Line 3: Case Title
-    const p3 = document.createElement("h3");
-    p3.className = "brief-title";
-    container.appendChild(p3);
-    await this._typeTo(p3, "THE MILK MONOPOLY", 40);
-    await wait(1000);
-    if (!this._briefingActive) return;
-
-    // Line 4: Core Quote
-    const p4 = document.createElement("blockquote");
-    p4.className = "brief-quote";
-    container.appendChild(p4);
-    await this._typeTo(p4, "“Milk is plentiful. Yet every family grows poorer.”", 45);
-    await wait(1400);
-    if (!this._briefingActive) return;
-
-    // Line 5: Objective Statement
-    const p5 = document.createElement("p");
-    p5.className = "brief-objective";
-    container.appendChild(p5);
-    await this._typeTo(p5, "Tomorrow the village gathers. Tonight you must discover why.", 35);
-    if (window.SAMAY_SOUND) {
-      window.SAMAY_SOUND.play("bell");
-    }
-    // Leaves briefing open so player reads file and clicks 'Begin Investigation'
   }
 
   _skipBriefing() {
