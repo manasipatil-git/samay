@@ -3286,7 +3286,7 @@ button{
   font-family: monospace;
   font-size: 0.54rem;
   color: #3c2416;
-  z-index: 10;
+  z-index: 2;
 }
 .paper-clip-brass {
   position: absolute;
@@ -3445,7 +3445,7 @@ button{
   right: 42px;
   width: 135px;
   pointer-events: none;
-  z-index: 10;
+  z-index: 2;
   transform: rotate(3deg);
 }
 .exhibit-paperclip {
