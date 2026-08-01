@@ -971,7 +971,7 @@ class Game {
   _showEnding(id) {
     this._goToScene("ending");
 
-    // Track Question 2 inspected documents
+    // Track Question 2 inspected 3D flip cards
     const inspectedDocs = new Set();
 
     // 1. QUESTION 1 SETUP: Unseal Historical Folder
@@ -1006,68 +1006,66 @@ class Game {
 
         // Unlock Question 2 after a brief pause
         setTimeout(() => {
-          if (stageQ2) stageQ2.style.display = "block";
-        }, 1200);
+          if (stageQ2) {
+            stageQ2.style.display = "block";
+            stageQ2.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 1000);
       };
     }
 
-    // 2. QUESTION 2 SETUP: 3 Interactive Inspectable Evidence Documents
-    document.querySelectorAll(".why-doc-card").forEach(card => {
+    // 2. QUESTION 2 SETUP: 3D Interactive Flip Cards
+    document.querySelectorAll(".flip-card-container").forEach(card => {
       card.onclick = () => {
         const docId = card.dataset.doc;
         inspectedDocs.add(docId);
-        card.classList.add("is-inspected");
-        
-        const revealedText = card.querySelector(".doc-revealed-text");
-        const prompt = card.querySelector(".doc-inspect-prompt");
-        if (revealedText) revealedText.style.display = "block";
-        if (prompt) prompt.textContent = "✓ Evidence Inspected";
+        card.classList.toggle("is-flipped");
 
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
 
-        // Unlock Question 3 when all 3 docs are inspected
+        // Unlock Question 3 when all 3 docs are flipped
         if (inspectedDocs.size >= 3) {
           setTimeout(() => {
-            if (stageQ3) stageQ3.style.display = "block";
-          }, 600);
+            if (stageQ3) {
+              stageQ3.style.display = "block";
+              stageQ3.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 800);
         }
       };
     });
 
-    // 3. STEP 3 SETUP: String-Tied AMUL Discovery Envelope & Rubber Stamp Slam
+    // 3. STEP 3 SETUP: String-Tied Discovery Envelope & Branching Outcome Reveal
     const envelopeBtn = document.getElementById("btn-open-amul-envelope");
     const envelopeBox = document.getElementById("amul-discovery-envelope");
     const legacyContainer = document.getElementById("legacy-reveal-container");
     const stampBtn = document.getElementById("btn-stamp-case-closed");
-    const footerAction = document.getElementById("ending-footer-action");
+
+    // Hide all branching outcome blocks first
+    document.querySelectorAll(".branch-outcome-block").forEach(b => b.style.display = "none");
 
     if (envelopeBtn) {
       envelopeBtn.onclick = () => {
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
         if (envelopeBox) envelopeBox.style.display = "none";
         if (legacyContainer) legacyContainer.style.display = "block";
+
+        // Show specific branching outcome block matching player decision
+        const branchOutcomeId = id === "cooperative" ? "branch-outcome-cooperative" :
+                                (id === "accept" ? "branch-outcome-accept" : "branch-outcome-cooling");
+        const branchEl = document.getElementById(branchOutcomeId);
+        if (branchEl) branchEl.style.display = "block";
       };
     }
 
+    // 4. UNIFIED SINGLE-CLICK CASE CLOSING & DRAWER LOCK ACTION
     if (stampBtn) {
-      stampBtn.onclick = () => {
+      stampBtn.onclick = (e) => {
+        e.preventDefault();
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
         stampBtn.style.display = "none";
-        if (footerAction) footerAction.style.display = "block";
-      };
-    }
 
-    // Physical Case Closing & Cabinet Drawer Lock Action
-    const restartBtn = document.getElementById("btn-restart");
-    if (restartBtn) {
-      restartBtn.onclick = (e) => {
-        e.preventDefault();
         const dossierFrame = document.getElementById("final-dispatch-dossier");
-        
-        if (window.SAMAY_SOUND) {
-          window.SAMAY_SOUND.play("stamp");
-        }
-
         if (dossierFrame) {
           dossierFrame.style.transform = "translateY(100vh) scale(0.9)";
           dossierFrame.style.opacity = "0";
@@ -1082,7 +1080,7 @@ class Game {
             dossierFrame.style.opacity = "1";
           }
           this._goToScene("archive");
-        }, 750);
+        }, 850);
       };
     }
   }

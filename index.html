@@ -820,54 +820,78 @@
           </div>
         </div>
 
-        <!-- STEP 2: WHY DID HISTORY UNFOLD THIS WAY? (Curiosity-Driven Question Headings) -->
+        <!-- STEP 2: WHY DID HISTORY UNFOLD THIS WAY? (3D Interactive Flip Evidence Cards) -->
         <div class="ending-stage-box stage-q2" id="stage-q2" style="display: none;">
           <div class="stage-section-header">
             <span class="stage-num">ARCHIVAL EVIDENCE</span>
             <h3 class="stage-title">Why did history unfold this way?</h3>
-            <p class="stage-hint">Inspect all 3 historical evidence documents to uncover the truth:</p>
+            <p class="stage-hint">Click each document to flip and inspect the archivist's graphite notes:</p>
           </div>
 
           <div class="why-docs-grid" id="why-docs-grid">
-            <!-- Doc 1: Price Margin Ledger (Pushpin + Folded Corner) -->
-            <div class="why-doc-card card-style-ledger" id="why-doc-price" data-doc="price">
-              <div class="brass-tack-corner">📍</div>
-              <span class="doc-badge">BOMBAY PRICE MARGIN LEDGER (1946)</span>
-              <h4>Why were farmers paid so little?</h4>
-              <p class="doc-inspect-prompt">Click to Inspect Evidence 🔍</p>
-              <div class="doc-revealed-text" style="display:none;">
-                "Contractors retained 9 Annas margin per seer in Bombay while paying Anand farmers only 3 Annas."
+            <!-- Doc 1: Price Margin Ledger (3D Flip Card) -->
+            <div class="flip-card-container card-style-ledger" id="why-doc-price" data-doc="price">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="brass-tack-corner">📍</div>
+                  <span class="doc-badge">BOMBAY PRICE MARGIN LEDGER (1946)</span>
+                  <h4>Why were farmers paid so little?</h4>
+                  <p class="doc-inspect-prompt">Click Document to Flip 🔄</p>
+                </div>
+                <div class="flip-card-back">
+                  <span class="back-tag font-type">ARCHIVAL AUDIT NOTE #01</span>
+                  <p class="doc-revealed-text font-type">
+                    "Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay, paying Anand farmers a mere 3 Annas."
+                  </p>
+                  <span class="back-verified">✓ Evidence Verified</span>
+                </div>
               </div>
             </div>
 
-            <!-- Doc 2: Patel Resolution Note (Paperclip + Ledger Margin) -->
-            <div class="why-doc-card card-style-memo" id="why-doc-patel" data-doc="patel">
-              <div class="paperclip-corner-right">📎</div>
-              <span class="doc-badge">SARDAR PATEL'S DIRECTIVE (1946)</span>
-              <h4>Who showed the farmers another way?</h4>
-              <p class="doc-inspect-prompt">Click to Inspect Evidence 🔍</p>
-              <div class="doc-revealed-text" style="display:none;">
-                "Sardar Patel advised that only a 15-day milk strike could break contractor monopoly power."
+            <!-- Doc 2: Patel Resolution Note (3D Flip Card) -->
+            <div class="flip-card-container card-style-memo" id="why-doc-patel" data-doc="patel">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="paperclip-corner-right">📎</div>
+                  <span class="doc-badge">SARDAR PATEL'S DIRECTIVE (1946)</span>
+                  <h4>Who showed the farmers another way?</h4>
+                  <p class="doc-inspect-prompt">Click Document to Flip 🔄</p>
+                </div>
+                <div class="flip-card-back">
+                  <span class="back-tag font-type">ARCHIVAL AUDIT NOTE #02</span>
+                  <p class="doc-revealed-text font-type">
+                    "Sardar Patel advised that only a <span class="pencil-underline">15-day milk strike</span> could break contractor monopoly power."
+                  </p>
+                  <span class="back-verified">✓ Evidence Verified</span>
+                </div>
               </div>
             </div>
 
-            <!-- Doc 3: Railway Transport Permit (Masking Tape + Telegraph Paper) -->
-            <div class="why-doc-card card-style-telegraph" id="why-doc-rail" data-doc="rail">
-              <div class="tape-strip-top"></div>
-              <span class="doc-badge">B.B. & C.I. RAILWAY FREIGHT PERMIT</span>
-              <h4>Who controlled transport?</h4>
-              <p class="doc-inspect-prompt">Click to Inspect Evidence 🔍</p>
-              <div class="doc-revealed-text" style="display:none;">
-                "Bombay Municipality granted direct rail transit permits exclusively to the Kaira Cooperative."
+            <!-- Doc 3: Railway Transport Permit (3D Flip Card) -->
+            <div class="flip-card-container card-style-telegraph" id="why-doc-rail" data-doc="rail">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="tape-strip-top"></div>
+                  <span class="doc-badge">B.B. & C.I. RAILWAY FREIGHT PERMIT</span>
+                  <h4>Who controlled transport?</h4>
+                  <p class="doc-inspect-prompt">Click Document to Flip 🔄</p>
+                </div>
+                <div class="flip-card-back">
+                  <span class="back-tag font-type">ARCHIVAL AUDIT NOTE #03</span>
+                  <p class="doc-revealed-text font-type">
+                    "Bombay Municipality granted <span class="pencil-underline">direct rail transit permits</span> exclusively to the Kaira Cooperative."
+                  </p>
+                  <span class="back-verified">✓ Evidence Verified</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- STEP 3: WHAT DID THIS LEAD TO? (AMUL Archival Discovery & Symmetrical Stamp Slam) -->
+        <!-- STEP 3: WHAT DID THIS LEAD TO? (Branching Outcomes & Sequential Reveal) -->
         <div class="ending-stage-box stage-q3" id="stage-q3" style="display: none;">
           
-          <!-- Physical String-Tied AMUL Discovery Envelope -->
+          <!-- Physical String-Tied Discovery Envelope -->
           <div class="amul-discovery-envelope" id="amul-discovery-envelope">
             <button class="btn-open-amul-envelope" id="btn-open-amul-envelope">
               <span class="envelope-string-button">🧵</span>
@@ -875,47 +899,83 @@
             </button>
           </div>
 
-          <!-- Unfolded Legacy Contents (Authentic Archival Discovery Spread) -->
+          <!-- Unfolded Legacy Contents (Sequentially Unveiled Archival Artifacts) -->
           <div class="legacy-reveal-container" id="legacy-reveal-container" style="display: none;">
             
-            <!-- RECOVERED HISTORIC PHOTOGRAPH OF 1946 FARMERS -->
-            <div class="desk-doc legacy-photo-frame">
-              <div class="photo-tape-corner top-left"></div>
-              <div class="photo-tape-corner top-right"></div>
-              <img src="assests/amul_history.jpg" alt="1946 Anand Union Assembly" class="legacy-photo-img">
-              <span class="photo-caption font-type">1946 Anand Union Assembly • Tribhuvandas Patel with Kaira Farmers</span>
-            </div>
+            <!-- BRANCH OUTCOME 1: COOPERATIVE (HISTORICAL TRIUMPH) -->
+            <div class="branch-outcome-block" id="branch-outcome-cooperative" style="display:none;">
+              <div class="desk-doc legacy-photo-frame artifact-anim-1">
+                <div class="photo-tape-corner top-left"></div>
+                <div class="photo-tape-corner top-right"></div>
+                <img src="assests/amul_history.jpg" alt="1946 Anand Union Assembly" class="legacy-photo-img">
+                <span class="photo-caption font-type">1946 Anand Union Assembly • Tribhuvandas Patel with Kaira Farmers</span>
+              </div>
 
-            <!-- 1946 COOPERATIVE REGISTRATION CERTIFICATE -->
-            <div class="desk-doc legacy-cert-card">
-              <span class="cert-stamp font-type">REGISTRATION #402 // 1946</span>
-              <h4>Kaira District Cooperative Milk Producers' Union Ltd.</h4>
-              <p class="font-type">Duly registered under Bombay Cooperative Societies Act VII of 1925.</p>
-            </div>
+              <div class="desk-doc legacy-cert-card artifact-anim-2">
+                <span class="cert-stamp font-type">REGISTRATION #402 // 1946</span>
+                <h4>Kaira District Cooperative Milk Producers' Union Ltd.</h4>
+                <p class="font-type">Duly registered under Bombay Cooperative Societies Act VII of 1925.</p>
+              </div>
 
-            <!-- BOMBAY CHRONICLE NEWSPRINT CLIPPING -->
-            <div class="desk-doc legacy-news-clipping">
-              <span class="news-date font-type">BOMBAY CHRONICLE • 15 JAN 1946</span>
-              <h4>MILK MONOPOLY BROKEN IN KAIRA</h4>
-              <p class="font-type">"Farmers' cooperative secures direct rail transit permits to Bombay Municipal Scheme."</p>
-            </div>
+              <div class="desk-doc legacy-news-clipping artifact-anim-3">
+                <span class="news-date font-type">BOMBAY CHRONICLE • 15 JAN 1946</span>
+                <h4>MILK MONOPOLY BROKEN IN KAIRA</h4>
+                <p class="font-type">"Farmers' cooperative secures direct rail transit permits to Bombay Municipal Scheme."</p>
+              </div>
 
-            <!-- SUBTLE VINTAGE EMBOSSED ARCHIVAL SEAL (REPLACES GIANT POWERPOINT TEXT) -->
-            <div class="desk-doc legacy-archival-seal-block">
-              <div class="vintage-archival-stamp font-type">
-                <span class="stamp-org">KAIRA DISTRICT COOPERATIVE UNION</span>
-                <span class="stamp-brand">A M U L</span>
-                <span class="stamp-date">EST. DECEMBER 1946</span>
+              <div class="desk-doc legacy-archival-seal-block artifact-anim-4">
+                <div class="vintage-archival-stamp font-type">
+                  <span class="stamp-org">KAIRA DISTRICT COOPERATIVE UNION</span>
+                  <span class="stamp-brand">A M U L</span>
+                  <span class="stamp-date">EST. DECEMBER 1946</span>
+                </div>
+              </div>
+
+              <div class="desk-doc legacy-handwritten-note font-type artifact-anim-5">
+                "This small village movement eventually became AMUL — initiating India's White Revolution."
               </div>
             </div>
 
-            <!-- HANDWRITTEN ANNOTATION TAG -->
-            <div class="desk-doc legacy-handwritten-note font-type">
-              "This small village movement eventually became AMUL — initiating India's White Revolution."
+            <!-- BRANCH OUTCOME 2: ACCEPT POLSON'S RATES (DARK ALTERNATE HISTORY) -->
+            <div class="branch-outcome-block" id="branch-outcome-accept" style="display:none;">
+              <div class="desk-doc legacy-cert-card dark-alt-card artifact-anim-1">
+                <span class="cert-stamp font-type">DISTRICT ECONOMIC AUDIT // 1948</span>
+                <h4>Kaira Milk Farmers Poverty Assessment</h4>
+                <p class="font-type">Contractor pricing maintained at 3 Annas. Middlemen profit margins expanded to 74% of retail milk value.</p>
+              </div>
+
+              <div class="desk-doc legacy-news-clipping dark-alt-news artifact-anim-2">
+                <span class="news-date font-type">GUJARAT SAMACHAR • 12 NOV 1947</span>
+                <h4>VILLAGE DISTRESS CONTINUES IN ANAND</h4>
+                <p class="font-type">"Monopoly milk contractor Polson Ltd. turns down farmer petitions for price relief."</p>
+              </div>
+
+              <div class="desk-doc legacy-handwritten-note font-type dark-alt-note artifact-anim-3">
+                "Accepting contractor terms avoided immediate conflict, but trapped Kaira's farmers in generational economic exploitation."
+              </div>
+            </div>
+
+            <!-- BRANCH OUTCOME 3: COOLING TANKS (TECHNICAL FAILURE) -->
+            <div class="branch-outcome-block" id="branch-outcome-cooling" style="display:none;">
+              <div class="desk-doc legacy-cert-card dark-alt-card artifact-anim-1">
+                <span class="cert-stamp font-type">TECHNICAL INSPECTION LOG // 1947</span>
+                <h4>Anand Cooling Depot Spoilage & Profit Audit</h4>
+                <p class="font-type">Cooling reduced milk souring during transit, but contractor Polson Ltd. captured 100% of efficiency gains.</p>
+              </div>
+
+              <div class="desk-doc legacy-news-clipping dark-alt-news artifact-anim-2">
+                <span class="news-date font-type">BOMBAY SENTINEL • 28 FEB 1947</span>
+                <h4>COOLING TANKS FAIL TO RESOLVE EXPLOITATION</h4>
+                <p class="font-type">"Technical upgrades without collective ownership leave procurement margins unchanged."</p>
+              </div>
+
+              <div class="desk-doc legacy-handwritten-note font-type dark-alt-note artifact-anim-3">
+                "Technical fixes reduced physical spoilage, but failed to address the root cause: middleman monopoly power."
+              </div>
             </div>
 
             <!-- Natural Archivist Sticky Note Placement -->
-            <div class="desk-doc doc-archivist-note">
+            <div class="desk-doc doc-archivist-note artifact-anim-last">
               <div class="sticky-pin">📌</div>
               <span class="sticky-header">ARCHIVIST'S NOTE</span>
               <p class="sticky-body">
@@ -925,15 +985,14 @@
               <div class="sticky-coffee-stain"></div>
             </div>
 
-            <!-- Symmetrical Physical CASE CLOSED Stamp Slam Action -->
+            <!-- Single Unified Symmetrical Rubber Stamp Slam Action -->
             <div class="stamp-action-block">
               <button class="btn-stamp-case-closed" id="btn-stamp-case-closed">
                 <span class="stamp-icon">🔴</span>
-                <span class="stamp-label">STAMP "CASE CLOSED" & LOCK CABINET DRAWER</span>
+                <span class="stamp-label">STAMP "CASE CLOSED" & FILE INTO CABINET</span>
               </button>
             </div>
 
-            <!-- Physical Case Closing & Drawer Slide Back Action -->
             <div class="ending-footer-action" id="ending-footer-action" style="display: none;">
               <button class="btn-seal-archive" id="btn-restart">
                 <span class="btn-icon">🔒</span>
