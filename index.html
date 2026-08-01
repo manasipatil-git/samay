@@ -996,6 +996,34 @@
         <button class="inspect-action-btn" id="btn-inspect-flip" style="display:none;">Flip Document</button>
         <button class="inspect-close-btn" id="btn-inspect-close">Close Dossier</button>
       </div>
+  <!-- ============ DEV-ONLY DEBUG MENU OVERLAY (TOGGLE ~ OR F9) ============ -->
+  <div class="dev-debug-overlay" id="dev-debug-overlay">
+    <div class="dev-debug-card">
+      <div class="dev-debug-header">
+        <span class="dev-debug-title">🛠️ SAMAY DEV DEBUG SCENE JUMPER</span>
+        <button class="dev-debug-close" id="dev-debug-close-btn">✕</button>
+      </div>
+      <p class="dev-debug-hint">Press <strong>~</strong> or <strong>F9</strong> anytime to toggle this menu.</p>
+      
+      <div class="dev-debug-grid">
+        <button class="dev-jump-btn" data-jump="archive">📁 Archive</button>
+        <button class="dev-jump-btn" data-jump="drawer">🗄️ Drawer</button>
+        <button class="dev-jump-btn" data-jump="folder">📂 Folder</button>
+        <button class="dev-jump-btn" data-jump="seal">🏷️ Seal</button>
+        <button class="dev-jump-btn" data-jump="briefing">📜 Briefing</button>
+        <button class="dev-jump-btn" data-jump="map">🗺️ Map</button>
+        <button class="dev-jump-btn" data-jump="witnesses">🗣️ Witnesses</button>
+        <button class="dev-jump-btn" data-jump="board">📌 Evidence Board</button>
+        <button class="dev-jump-btn" data-jump="recommendation">⚖️ Recommendation</button>
+        <button class="dev-jump-btn" data-jump="ending">🏁 Ending</button>
+      </div>
+
+      <div class="dev-ending-selector">
+        <span class="dev-selector-label">Target Ending for Jump:</span>
+        <label><input type="radio" name="dev-ending-choice" value="cooperative" checked> Cooperative (Historical)</label>
+        <label><input type="radio" name="dev-ending-choice" value="accept"> Accept Rates</label>
+        <label><input type="radio" name="dev-ending-choice" value="cooling"> Cooling Tanks</label>
+      </div>
     </div>
   </div>
 

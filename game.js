@@ -133,6 +133,9 @@ class Game {
       card.addEventListener("click", () => this._chooseEnding(card.dataset.ending));
     });
 
+    // Setup Dev-Only Debug Menu (Toggle via ~ or F9)
+    this._setupDevDebugMenu();
+
     // Archive drawer & fullscreen dossier click handlers
     const cabinetEl = document.querySelector(".cabinet");
     const drawer1 = document.getElementById("drawer-case1");
@@ -1605,6 +1608,130 @@ class Game {
     };
 
     submitBtn.addEventListener("click", submitAction);
+  }
+
+  /* -------------------------------------------------------
+     DEV-ONLY DEBUG MENU (SCENE JUMPER)
+  ------------------------------------------------------- */
+  _setupDevDebugMenu() {
+    const overlay = document.getElementById("dev-debug-overlay");
+    const closeBtn = document.getElementById("dev-debug-close-btn");
+
+    const toggleOverlay = () => {
+      if (overlay) {
+        overlay.classList.toggle("is-active");
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("click");
+      }
+    };
+
+    // Listen for ~ (backtick/tilde) or F9
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "~" || e.key === "`" || e.key === "F9") {
+        e.preventDefault();
+        toggleOverlay();
+      }
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", toggleOverlay);
+    }
+
+    // Bind Jump Buttons
+    document.querySelectorAll(".dev-jump-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.jump;
+        this._devJumpToScene(target);
+        if (overlay) overlay.classList.remove("is-active");
+      });
+    });
+  }
+
+  _devJumpToScene(target) {
+    const allClues = ["price", "receipt", "waybill", "monopoly", "cooperative"];
+    
+    // Get target ending choice from radio options
+    const selectedEndingRadio = document.querySelector('input[name="dev-ending-choice"]:checked');
+    const selectedEnding = selectedEndingRadio ? selectedEndingRadio.value : "cooperative";
+
+    switch (target) {
+      case "archive":
+        this.state.scene = "archive";
+        this._goToScene("archive");
+        break;
+
+      case "drawer":
+        this._goToScene("archive");
+        const drawer = document.getElementById("drawer-case1");
+        if (drawer) drawer.classList.add("is-drawer-open");
+        break;
+
+      case "folder":
+        this._goToScene("archive");
+        const dossier = document.getElementById("fullscreen-dossier");
+        if (dossier) dossier.classList.add("is-unfolded");
+        break;
+
+      case "seal":
+        this._goToScene("intro");
+        const cover = document.getElementById("dossier-cover");
+        if (cover) cover.classList.remove("is-unfolded");
+        break;
+
+      case "briefing":
+        this._goToScene("intro");
+        this._playBriefing();
+        break;
+
+      case "map":
+        this.state.clues = ["price"];
+        this.state.visited = ["depot"];
+        this._goToScene("village");
+        this._renderNotebook();
+        this._renderInventory();
+        break;
+
+      case "witnesses":
+        this.state.clues = ["price", "receipt"];
+        this.state.visited = ["depot", "farm"];
+        this._goToScene("village");
+        this.dialogue.say(
+          "Tribhuvandas Patel",
+          "leader",
+          ["Sardar Patel says we must stop selling milk to Polson completely. Only a cooperative union can save Anand's farmers."],
+          () => {}
+        );
+        break;
+
+      case "board":
+        this.state.clues = [...allClues];
+        this.state.visited = ["depot", "farm", "station", "panchayat", "office"];
+        this._goToScene("detective");
+        this._renderBoard();
+        this._renderNotebook();
+        this._renderInventory();
+        break;
+
+      case "recommendation":
+        this.state.clues = [...allClues];
+        this.state.visited = ["depot", "farm", "station", "panchayat", "office"];
+        this.state.connectedPairs = ["price-receipt", "monopoly-cooperative"];
+        this._goToScene("meeting");
+        const decisionOptions = document.getElementById("decision-options");
+        if (decisionOptions) decisionOptions.style.display = "flex";
+        this._renderNotebook();
+        this._renderInventory();
+        break;
+
+      case "ending":
+        this.state.clues = [...allClues];
+        this.state.ending = selectedEnding;
+        this._showEnding(selectedEnding);
+        break;
+
+      default:
+        this._goToScene("archive");
+        break;
+    }
   }
 }
 
