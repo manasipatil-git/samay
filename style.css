@@ -4438,6 +4438,17 @@ button{
   border-radius: 2px;
 }
 
+/* PHYSICAL RED THREAD SVG CONNECTING COMPARISON PAPERS */
+.comp-red-thread-svg {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  pointer-events: none;
+  z-index: 8;
+}
+
 /* HIGH CONTRAST ARCHIVAL COMPARISON SPREAD */
 .doc-comparison-spread {
   display: flex;
@@ -4514,6 +4525,99 @@ button{
   font-weight: bold;
   color: #1a0f08;
   letter-spacing: 0.04em;
+}
+
+/* RECOVERED HISTORIC MEDIA CARDS */
+.legacy-photo-frame {
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid #d4c5a9;
+  padding: 12px 12px 18px;
+  box-shadow: 0 14px 35px rgba(0,0,0,0.4);
+  transform: rotate(-1.5deg);
+  margin-bottom: 24px;
+}
+.legacy-photo-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border: 1px solid #1a0f08;
+  filter: sepia(0.25) contrast(1.1);
+}
+.photo-caption {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.76rem;
+  font-weight: bold;
+  color: #1a0f08;
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.legacy-cert-card {
+  background: #faf6eb;
+  border: 2px double #8b0000;
+  padding: 18px 24px;
+  transform: rotate(2deg);
+  margin-bottom: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+.legacy-cert-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: #1a0f08;
+  margin: 4px 0 6px;
+}
+.legacy-cert-card p {
+  font-size: 0.84rem;
+  color: #2b1a0e;
+  font-weight: bold;
+}
+.cert-stamp {
+  font-size: 0.64rem;
+  font-weight: bold;
+  color: #8b0000;
+  letter-spacing: 0.12em;
+}
+
+.legacy-news-clipping {
+  background: #f4e8c1;
+  border: 1px solid #c8ba9d;
+  padding: 16px 20px;
+  transform: rotate(-2.5deg);
+  margin-bottom: 20px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+}
+.news-date {
+  font-size: 0.62rem;
+  font-weight: bold;
+  color: #6e0e06;
+  letter-spacing: 0.12em;
+}
+.legacy-news-clipping h4 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: #1a0f08;
+  margin: 4px 0;
+}
+.legacy-news-clipping p {
+  font-size: 0.82rem;
+  color: #2b1a0e;
+  font-weight: bold;
+}
+
+.legacy-handwritten-note {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #8b0000;
+  background: #f4ebd7;
+  border: 1px dashed #aa7c11;
+  padding: 8px 16px;
+  display: inline-block;
+  transform: rotate(-1.2deg);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  margin-bottom: 24px;
 }
 
 /* HIGH CONTRAST WHY DOC CARDS */
