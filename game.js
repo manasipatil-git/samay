@@ -971,14 +971,11 @@ class Game {
   _showEnding(id) {
     this._goToScene("ending");
 
-    // Track Question 2 inspected 3D flip cards
-    const inspectedDocs = new Set();
-
-    // 1. QUESTION 1 SETUP: Unseal Historical Folder
+    // 1. DOSSIER UNSEAL: Unfold Historical Record & Reveal Desk Artifacts
     const sealedFolderBtn = document.getElementById("unseal-historical-folder");
     const unfoldedSpread = document.getElementById("unfolded-comparison-spread");
-    const stageQ2 = document.getElementById("stage-q2");
-    const stageQ3 = document.getElementById("stage-q3");
+    const stageArtifacts = document.getElementById("stage-artifacts");
+    const stageEnvelope = document.getElementById("stage-envelope");
 
     const compPlayerTitle = document.getElementById("comp-player-title");
     const compPlayerDesc = document.getElementById("comp-player-desc");
@@ -1003,39 +1000,20 @@ class Game {
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
         sealedFolderBtn.style.display = "none";
         if (unfoldedSpread) unfoldedSpread.style.display = "flex";
-
-        // Unlock Question 2 after a brief pause
-        setTimeout(() => {
-          if (stageQ2) {
-            stageQ2.style.display = "block";
-            stageQ2.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 1000);
+        if (stageArtifacts) stageArtifacts.style.display = "block";
+        if (stageEnvelope) stageEnvelope.style.display = "block";
       };
     }
 
-    // 2. QUESTION 2 SETUP: 3D Interactive Flip Cards
+    // 2. PHYSICAL ARTIFACT FLIP / INSPECT HANDLERS
     document.querySelectorAll(".flip-card-container").forEach(card => {
       card.onclick = () => {
-        const docId = card.dataset.doc;
-        inspectedDocs.add(docId);
         card.classList.toggle("is-flipped");
-
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
-
-        // Unlock Question 3 when all 3 docs are flipped
-        if (inspectedDocs.size >= 3) {
-          setTimeout(() => {
-            if (stageQ3) {
-              stageQ3.style.display = "block";
-              stageQ3.scrollIntoView({ behavior: "smooth" });
-            }
-          }, 800);
-        }
       };
     });
 
-    // 3. STEP 3 SETUP: String-Tied Discovery Envelope & Branching Outcome Reveal
+    // 3. LEGACY DOSSIER ENVELOPE UNWRAPPER
     const envelopeBtn = document.getElementById("btn-open-amul-envelope");
     const envelopeBox = document.getElementById("amul-discovery-envelope");
     const legacyContainer = document.getElementById("legacy-reveal-container");
@@ -1058,7 +1036,7 @@ class Game {
       };
     }
 
-    // 4. UNIFIED SINGLE-CLICK CASE CLOSING & DRAWER LOCK ACTION
+    // 4. UNIFIED PHYSICAL RUBBER STAMP & CABINET DRAWER CLOSING ACTION
     if (stampBtn) {
       stampBtn.onclick = (e) => {
         e.preventDefault();

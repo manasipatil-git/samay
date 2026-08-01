@@ -758,7 +758,7 @@
     </div>
   </section>
 
-  <!-- ============ SCENE: THE FINAL INVESTIGATION DESK (TACTILE ARCHIVAL CLIMAX) ============ -->
+  <!-- ============ SCENE: THE ENVIRONMENTAL DISCOVERY ARCHIVE DESK ============ -->
   <section id="scene-ending" class="scene">
     <div class="oak-desk-surface" id="final-dispatch-dossier">
       <div class="archive-dust-layer"></div>
@@ -766,28 +766,28 @@
 
       <!-- Top Desk Archive Reference Header -->
       <div class="desk-archive-ref-tag">
-        <span class="ref-tag">NATIONAL ARCHIVES OF INDIA // INVESTIGATION DESK</span>
+        <span class="ref-tag">NATIONAL ARCHIVES OF INDIA // ENVIRONMENTAL DISCOVERY DESK</span>
         <span class="ref-tag">CASE FILE 001 // KAIRA DISTRICT (1946)</span>
       </div>
 
-      <!-- SCATTERED DESK CONTAINER -->
+      <!-- ORGANIC ARCHIVAL ENVIRONMENT (ALL ARTIFACTS TOUCHABLE & EXPLORABLE) -->
       <div class="desk-scattered-spread" id="desk-scattered-spread">
         
-        <!-- STEP 1: MY RECOMMENDATION VS THE HISTORICAL DECISION -->
-        <div class="ending-stage-box stage-q1" id="stage-q1">
+        <!-- MAIN DOSSIER: MY RECOMMENDATION VS HISTORICAL RESOLUTION -->
+        <div class="ending-stage-box stage-dossier">
           <div class="sealed-folder-interactive" id="unseal-historical-folder">
             <div class="folder-wax-seal" id="folder-wax-seal">
               <span class="seal-emblem">🏛️</span>
-              <span class="seal-text">UNSEAL HISTORICAL RECORD</span>
+              <span class="seal-text">UNSEAL HISTORICAL DOSSIER</span>
             </div>
             <div class="folder-cover-label">
               <span class="label-kicker">CONFIDENTIAL ACCESSION // 1946</span>
               <h3>OFFICIAL HISTORICAL RECORD</h3>
-              <p>Click seal to unfold historical resolution</p>
+              <p>Click seal to open dossier resolution</p>
             </div>
           </div>
 
-          <!-- Unfolded Comparison Papers (Revealed after unsealing) -->
+          <!-- Unfolded Comparison Papers (Revealed on Unsealing) -->
           <div class="desk-doc doc-comparison-spread" id="unfolded-comparison-spread" style="display: none;">
             
             <!-- PHYSICAL RED THREAD SVG CONNECTING MY CASE TO HISTORICAL RESOLUTION -->
@@ -821,14 +821,8 @@
           </div>
         </div>
 
-        <!-- STEP 2: WHY DID HISTORY UNFOLD THIS WAY? (3 DISTINCT PHYSICAL ARCHIVAL ARTIFACTS) -->
-        <div class="ending-stage-box stage-q2" id="stage-q2" style="display: none;">
-          <div class="stage-section-header">
-            <span class="stage-num">ARCHIVAL EXAMINATION DESK</span>
-            <h3 class="stage-title">Why did history unfold this way?</h3>
-            <p class="stage-hint">Inspect the recovered 1946 physical artifacts sitting on your desk:</p>
-          </div>
-
+        <!-- 3 DISTINCT PHYSICAL ARCHIVAL ARTIFACTS (SITTING ON THE DESK FOR EXPLORATION) -->
+        <div class="ending-stage-box stage-artifacts" id="stage-artifacts" style="display: none;">
           <div class="why-docs-grid" id="why-docs-grid">
             
             <!-- ARTIFACT A: LEATHER-BOUND PROCUREMENT LEDGER BOOK -->
@@ -899,42 +893,40 @@
           </div>
         </div>
 
-        <!-- STEP 3: WHAT DID THIS LEAD TO? (Branching Outcomes & Sequential Reveal) -->
-        <div class="ending-stage-box stage-q3" id="stage-q3" style="display: none;">
-          
-          <!-- Physical String-Tied Discovery Envelope -->
+        <!-- STRING-TIED DISCOVERY ENVELOPE (AMUL LEGACY) -->
+        <div class="ending-stage-box stage-envelope" id="stage-envelope" style="display: none;">
           <div class="amul-discovery-envelope" id="amul-discovery-envelope">
             <button class="btn-open-amul-envelope" id="btn-open-amul-envelope">
               <span class="envelope-string-button">🧵</span>
-              <span class="envelope-label">UNFOLD CONFIDENTIAL LEGACY DOSSIER</span>
+              <span class="envelope-label">UNSEAL LEGACY DOSSIER // RESTRICTED 1950 RECORDS</span>
             </button>
           </div>
 
-          <!-- Unfolded Legacy Contents (Sequentially Unveiled Archival Artifacts) -->
+          <!-- Unfolded Legacy Contents (Explorable Archival Spread) -->
           <div class="legacy-reveal-container" id="legacy-reveal-container" style="display: none;">
             
             <!-- BRANCH OUTCOME 1: COOPERATIVE (HISTORICAL TRIUMPH) -->
             <div class="branch-outcome-block" id="branch-outcome-cooperative" style="display:none;">
-              <div class="desk-doc legacy-photo-frame artifact-anim-1">
+              <div class="desk-doc legacy-photo-frame">
                 <div class="photo-tape-corner top-left"></div>
                 <div class="photo-tape-corner top-right"></div>
                 <img src="assests/amul_history.jpg" alt="1946 Anand Union Assembly" class="legacy-photo-img">
                 <span class="photo-caption font-type">1946 Anand Union Assembly • Tribhuvandas Patel with Kaira Farmers</span>
               </div>
 
-              <div class="desk-doc legacy-cert-card artifact-anim-2">
+              <div class="desk-doc legacy-cert-card">
                 <span class="cert-stamp font-type">REGISTRATION #402 // 1946</span>
                 <h4>Kaira District Cooperative Milk Producers' Union Ltd.</h4>
                 <p class="font-type">Duly registered under Bombay Cooperative Societies Act VII of 1925.</p>
               </div>
 
-              <div class="desk-doc legacy-news-clipping artifact-anim-3">
+              <div class="desk-doc legacy-news-clipping">
                 <span class="news-date font-type">BOMBAY CHRONICLE • 15 JAN 1946</span>
                 <h4>MILK MONOPOLY BROKEN IN KAIRA</h4>
                 <p class="font-type">"Farmers' cooperative secures direct rail transit permits to Bombay Municipal Scheme."</p>
               </div>
 
-              <div class="desk-doc legacy-archival-seal-block artifact-anim-4">
+              <div class="desk-doc legacy-archival-seal-block">
                 <div class="vintage-archival-stamp font-type">
                   <span class="stamp-org">KAIRA DISTRICT COOPERATIVE UNION</span>
                   <span class="stamp-brand">A M U L</span>
@@ -942,51 +934,51 @@
                 </div>
               </div>
 
-              <div class="desk-doc legacy-handwritten-note font-type artifact-anim-5">
+              <div class="desk-doc legacy-handwritten-note font-type">
                 "This small village movement eventually became AMUL — initiating India's White Revolution."
               </div>
             </div>
 
             <!-- BRANCH OUTCOME 2: ACCEPT POLSON'S RATES (DARK ALTERNATE HISTORY) -->
             <div class="branch-outcome-block" id="branch-outcome-accept" style="display:none;">
-              <div class="desk-doc legacy-cert-card dark-alt-card artifact-anim-1">
+              <div class="desk-doc legacy-cert-card dark-alt-card">
                 <span class="cert-stamp font-type">DISTRICT ECONOMIC AUDIT // 1948</span>
                 <h4>Kaira Milk Farmers Poverty Assessment</h4>
                 <p class="font-type">Contractor pricing maintained at 3 Annas. Middlemen profit margins expanded to 74% of retail milk value.</p>
               </div>
 
-              <div class="desk-doc legacy-news-clipping dark-alt-news artifact-anim-2">
+              <div class="desk-doc legacy-news-clipping dark-alt-news">
                 <span class="news-date font-type">GUJARAT SAMACHAR • 12 NOV 1947</span>
                 <h4>VILLAGE DISTRESS CONTINUES IN ANAND</h4>
                 <p class="font-type">"Monopoly milk contractor Polson Ltd. turns down farmer petitions for price relief."</p>
               </div>
 
-              <div class="desk-doc legacy-handwritten-note font-type dark-alt-note artifact-anim-3">
+              <div class="desk-doc legacy-handwritten-note font-type dark-alt-note">
                 "Accepting contractor terms avoided immediate conflict, but trapped Kaira's farmers in generational economic exploitation."
               </div>
             </div>
 
             <!-- BRANCH OUTCOME 3: COOLING TANKS (TECHNICAL FAILURE) -->
             <div class="branch-outcome-block" id="branch-outcome-cooling" style="display:none;">
-              <div class="desk-doc legacy-cert-card dark-alt-card artifact-anim-1">
+              <div class="desk-doc legacy-cert-card dark-alt-card">
                 <span class="cert-stamp font-type">TECHNICAL INSPECTION LOG // 1947</span>
                 <h4>Anand Cooling Depot Spoilage & Profit Audit</h4>
                 <p class="font-type">Cooling reduced milk souring during transit, but contractor Polson Ltd. captured 100% of efficiency gains.</p>
               </div>
 
-              <div class="desk-doc legacy-news-clipping dark-alt-news artifact-anim-2">
+              <div class="desk-doc legacy-news-clipping dark-alt-news">
                 <span class="news-date font-type">BOMBAY SENTINEL • 28 FEB 1947</span>
                 <h4>COOLING TANKS FAIL TO RESOLVE EXPLOITATION</h4>
                 <p class="font-type">"Technical upgrades without collective ownership leave procurement margins unchanged."</p>
               </div>
 
-              <div class="desk-doc legacy-handwritten-note font-type dark-alt-note artifact-anim-3">
+              <div class="desk-doc legacy-handwritten-note font-type dark-alt-note">
                 "Technical fixes reduced physical spoilage, but failed to address the root cause: middleman monopoly power."
               </div>
             </div>
 
             <!-- Natural Archivist Sticky Note Placement -->
-            <div class="desk-doc doc-archivist-note artifact-anim-last">
+            <div class="desk-doc doc-archivist-note">
               <div class="sticky-pin">📌</div>
               <span class="sticky-header">ARCHIVIST'S NOTE</span>
               <p class="sticky-body">
@@ -996,19 +988,11 @@
               <div class="sticky-coffee-stain"></div>
             </div>
 
-            <!-- Single Unified Symmetrical Rubber Stamp Slam Action -->
+            <!-- Physical Brass Rubber Stamp Action (Player-Initiated Case Closing) -->
             <div class="stamp-action-block">
               <button class="btn-stamp-case-closed" id="btn-stamp-case-closed">
                 <span class="stamp-icon">🔴</span>
                 <span class="stamp-label">STAMP "CASE CLOSED" & FILE INTO CABINET</span>
-              </button>
-            </div>
-
-            <div class="ending-footer-action" id="ending-footer-action" style="display: none;">
-              <button class="btn-seal-archive" id="btn-restart">
-                <span class="btn-icon">🔒</span>
-                <span class="btn-label">SLIDE CASE INTO ARCHIVE CABINET & CLOSE DRAWER</span>
-                <span class="btn-arrow">↩</span>
               </button>
             </div>
           </div>
