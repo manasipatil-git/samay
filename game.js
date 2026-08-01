@@ -959,29 +959,110 @@ class Game {
   }
 
   _showEnding(id) {
-    const ending = GAME_DATA.endings[id];
-    this.el.endingTitle.textContent = ending.title;
-    this.el.endingBody.innerHTML = ending.body.map(p => `<p>${p}</p>`).join("");
-
-    // Hide the historical card initially for dramatic suspense
-    const histCard = document.getElementById("historical-card");
-    if (histCard) {
-      histCard.classList.remove("is-visible");
+    // 1. SECTION 1: Status Stamp
+    const statusStamp = document.getElementById("ending-status-stamp");
+    if (statusStamp) {
+      statusStamp.textContent = id === "cooperative" ? "CASE CLOSED" : "ARCHIVED";
     }
 
-    // Dynamically inject the historical archive dispatcher text
-    const histTextEl = document.getElementById("historical-text");
-    if (histTextEl) {
+    // 2. SECTION 2: Player Recommendation Card
+    const recTitle = document.getElementById("rec-card-title");
+    const recDesc = document.getElementById("rec-card-desc");
+    const recBadge = document.getElementById("rec-card-badge");
+
+    if (id === "cooperative") {
+      if (recTitle) recTitle.textContent = "Form a Cooperative";
+      if (recDesc) recDesc.textContent = "Collect, grade, and sell milk together — strike against Polson's procurement monopoly.";
+      if (recBadge) recBadge.textContent = "HISTORIC RESOLUTION";
+    } else if (id === "accept") {
+      if (recTitle) recTitle.textContent = "Accept Polson's Rates";
+      if (recDesc) recDesc.textContent = "Accept contractor terms — maintain immediate income stability without direct confrontation.";
+      if (recBadge) recBadge.textContent = "CONTRACTOR AGREEMENT";
+    } else if (id === "cooling") {
+      if (recTitle) recTitle.textContent = "Install Cooling Tanks";
+      if (recDesc) recDesc.textContent = "Improve milk quality to prevent spoilage — seek better rate negotiation with Polson.";
+      if (recBadge) recBadge.textContent = "TECHNICAL UPGRADE";
+    }
+
+    // 3. SECTION 4: Immediate Consequences (Government Observation Notes)
+    const findingsGrid = document.getElementById("findings-grid");
+    if (findingsGrid) {
       if (id === "cooperative") {
-        histTextEl.textContent = "In December 1946, Anand's farmers, guided by Tribhuvandas Patel and advised by Sardar Vallabhbhai Patel, went on strike against Polson's dairy monopoly. They refused to sell milk unless they could form their own cooperative. This action birthed the Kaira Cooperative (Amul) and sparked India's White Revolution, turning India into the world's largest milk producer.";
+        findingsGrid.innerHTML = `
+          <div class="finding-card">
+            <span class="finding-tag">FINDING 01</span>
+            <div class="finding-text">Farmers in Samarkha village refuse to sell milk to Polson agents, initiating the 15-day milk strike.</div>
+          </div>
+          <div class="finding-card">
+            <span class="finding-tag">FINDING 02</span>
+            <div class="finding-text">Direct procurement supply line established to Bombay Municipal Milk Scheme under cooperative union.</div>
+          </div>
+          <div class="finding-card">
+            <span class="finding-tag">FINDING 03</span>
+            <div class="finding-text">Foundation laid for Kaira District Cooperative Milk Producers' Union Limited (Amul).</div>
+          </div>
+        `;
       } else if (id === "accept") {
-        histTextEl.textContent = "By accepting the low rates, the village remained in poverty. In reality, it took farmers organizing a milk strike in late 1946 and establishing a cooperative to bypass the middlemen and gain economic independence.";
+        findingsGrid.innerHTML = `
+          <div class="finding-card">
+            <span class="finding-tag">FINDING 01</span>
+            <div class="finding-text">Farmers continue selling milk through Polson contractor network at 3 Annas per seer.</div>
+          </div>
+          <div class="finding-card">
+            <span class="finding-tag">FINDING 02</span>
+            <div class="finding-text">Procurement prices remain unchanged; 9 Annas surplus margin retained by private middlemen.</div>
+          </div>
+          <div class="finding-card">
+            <span class="finding-tag">FINDING 03</span>
+            <div class="finding-text">Village dairy producers remain economically dependent on monopoly contractors.</div>
+          </div>
+        `;
       } else if (id === "cooling") {
-        histTextEl.textContent = "Cooling tanks reduced spoilage but did not prevent economic exploitation. In history, Anand's farmers realized that cooling was merely technical; they needed collective ownership of distribution and processing to thrive.";
+        findingsGrid.innerHTML = `
+          <div class="finding-card">
+            <span class="finding-tag">FINDING 01</span>
+            <div class="finding-text">Spoilage rates drop, but contractor pricing power and monopoly margins remain intact.</div>
+          </div>
+          <div class="finding-card">
+            <span class="finding-tag">FINDING 02</span>
+            <div class="finding-text">Polson Ltd. retains exclusive procurement & transport rights to Bombay Municipal Scheme.</div>
+          </div>
+          <div class="finding-card">
+            <span class="finding-tag">FINDING 03</span>
+            <div class="finding-text">Technical upgrades fail to resolve underlying economic exploitation of Kaira farmers.</div>
+          </div>
+        `;
       }
     }
 
-    // Calculate Deduction Rating & Archivist Rank
+    // 4. SECTION 5 & 6: Historical Record & Sticky Note
+    const histTextEl = document.getElementById("historical-text");
+    const stickyBody = document.getElementById("sticky-body");
+
+    if (id === "cooperative") {
+      if (histTextEl) {
+        histTextEl.textContent = "In December 1946, Anand's farmers, guided by Tribhuvandas Patel and advised by Sardar Vallabhbhai Patel, went on strike against Polson's dairy monopoly. They refused to sell milk unless they could form their own cooperative. This action birthed the Kaira Cooperative (Amul) and sparked India's White Revolution, turning India into the world's largest milk producer.";
+      }
+      if (stickyBody) {
+        stickyBody.textContent = '"This historic recommendation led to the creation of India\'s first farmer-owned dairy union."';
+      }
+    } else if (id === "accept") {
+      if (histTextEl) {
+        histTextEl.textContent = "By accepting the low rates, the village remained in poverty. In reality, it took farmers organizing a milk strike in late 1946 and establishing a cooperative to bypass the middlemen and gain economic independence.";
+      }
+      if (stickyBody) {
+        stickyBody.textContent = '"This decision delayed the formation of a farmer-owned cooperative movement in Kaira District."';
+      }
+    } else if (id === "cooling") {
+      if (histTextEl) {
+        histTextEl.textContent = "Cooling tanks reduced spoilage but did not prevent economic exploitation. In history, Anand's farmers realized that cooling was merely technical; they needed collective ownership of distribution and processing to thrive.";
+      }
+      if (stickyBody) {
+        stickyBody.textContent = '"Technical upgrades without structural ownership failed to break the Polson monopoly."';
+      }
+    }
+
+    // 5. Calculate Deduction Rating & Archivist Rank
     const wrong = this.state.wrongGuesses || 0;
     let accuracy = "100%";
     let rankTitle = "Master Archivist";
@@ -1008,25 +1089,38 @@ class Game {
 
     this._goToScene("ending");
 
-    // Dramatic reveal sequence: Wait 1.5 seconds, then slide up the historical record dossier
+    // Reveal sequence
     setTimeout(() => {
-      if (histCard) {
-        histCard.classList.add("is-visible");
+      if (scoreStamp) {
+        scoreStamp.classList.add("is-visible");
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("stamp");
+        }
+      }
+    }, 800);
+
+    // 6. Handle Restart / Slide Back Action
+    const restartBtn = document.getElementById("btn-restart");
+    if (restartBtn) {
+      restartBtn.onclick = (e) => {
+        e.preventDefault();
+        const dossierFrame = document.getElementById("final-dispatch-dossier");
+        if (dossierFrame) {
+          dossierFrame.style.transform = "translateY(100vh)";
+          dossierFrame.style.opacity = "0";
+        }
         if (window.SAMAY_SOUND) {
           window.SAMAY_SOUND.play("paper");
         }
-      }
-      
-      // Stamp the deduction score 1.8 seconds after the timeline reveals
-      setTimeout(() => {
-        if (scoreStamp) {
-          scoreStamp.classList.add("is-visible");
-          if (window.SAMAY_SOUND) {
-            window.SAMAY_SOUND.play("stamp");
+        setTimeout(() => {
+          if (dossierFrame) {
+            dossierFrame.style.transform = "none";
+            dossierFrame.style.opacity = "1";
           }
-        }
-      }, 1800);
-    }, 1500);
+          this._goToScene("archive");
+        }, 650);
+      };
+    }
   }
 
   _findLocationByClue(clueId) {

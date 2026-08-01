@@ -760,45 +760,138 @@
 
   <!-- ============ SCENE: FINAL HISTORICAL DOSSIER ============ -->
   <section id="scene-ending" class="scene">
-    <div class="ending-frame final-dispatch-dossier">
+    <div class="ending-frame final-dispatch-dossier" id="final-dispatch-dossier">
       <div class="dossier-spine-red"></div>
-      <span class="ending-header-stamp">ARCHIVE DISPATCH // FINAL RECORD</span>
-      
-      <h2 id="ending-title"></h2>
-      <div id="ending-body" class="ending-body"></div>
-      
-      <!-- Dynamic Score Stamp -->
-      <div id="ending-score" class="ending-score-stamp"></div>
 
-      <!-- Historical Record Reveal Section -->
-      <div class="historical-card" id="historical-card">
-        <h3 class="hist-title">THE BIRTH OF AMUL (1946)</h3>
-        <div class="hist-photo-frame">
-          <div class="photo-clip-pin"></div>
-          <img src="assests/amul_history.jpg" alt="Indian dairy cooperative farmers in 1946" class="hist-photo">
-        </div>
-        
-        <!-- Timeline Animation container -->
-        <div class="hist-timeline">
-          <div class="timeline-step step-1">
-            <span class="timeline-year">1946</span>
-            <span class="timeline-desc">Milk strike in Anand bypasses Polson's monopoly</span>
-          </div>
-          <div class="timeline-step step-2">
-            <span class="timeline-year">1948</span>
-            <span class="timeline-desc">Cooperative expands, processing 250 liters daily</span>
-          </div>
-          <div class="timeline-step step-3">
-            <span class="timeline-year">1955</span>
-            <span class="timeline-desc">Brand name Amul registered, White Revolution begins</span>
-          </div>
-        </div>
-
-        <p id="historical-text" class="hist-explanation"></p>
+      <!-- Top Archive Reference Header -->
+      <div class="ending-archive-ref-bar">
+        <span class="ref-tag">FILE REF: KAIRA/1946/001-A</span>
+        <span class="ref-tag">RECOVERED: NATIONAL ARCHIVES OF INDIA</span>
+        <span class="ref-tag">PAGE 28 OF 28</span>
       </div>
 
-      <!-- Return to Archive Button -->
-      <button class="btn-proceed archive-lock-action" id="btn-restart"><span>Close Dossier & Shut Cabinet Drawer 🔒</span></button>
+      <!-- SECTION 1: Archival Header & Stamped Status -->
+      <div class="ending-sec-header">
+        <span class="ending-kicker">NATIONAL ARCHIVES OF INDIA · HISTORICAL RECORDS OFFICE</span>
+        <h1 class="ending-main-title">FINAL CASE REPORT</h1>
+        <div class="ending-subtitle">CASE 001 // KAIRA DISTRICT // INVESTIGATION CLOSED</div>
+        <div class="ending-status-stamp" id="ending-status-stamp">CASE CLOSED</div>
+      </div>
+
+      <!-- Score & Rank Stamp -->
+      <div id="ending-score" class="ending-score-stamp"></div>
+
+      <!-- SECTION 2: Player Recommendation Card -->
+      <div class="ending-sec-recommendation">
+        <h3 class="archival-sec-title">SECTION 01 // YOUR RECOMMENDATION</h3>
+        <p class="archival-sec-sub">The formal policy directive submitted to the Samarkha Village Assembly:</p>
+        <div class="user-recommendation-card-pinned" id="user-recommendation-card">
+          <div class="brass-pin-top">📌</div>
+          <div class="rec-card-badge" id="rec-card-badge">HISTORIC RESOLUTION</div>
+          <h2 class="rec-card-title" id="rec-card-title">Form a Cooperative</h2>
+          <p class="rec-card-desc" id="rec-card-desc">Collect, grade, and sell milk together — strike against Polson's procurement monopoly.</p>
+          <span class="rec-card-verified-stamp">✓ SUBMITTED & PINNED</span>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Investigation Timeline -->
+      <div class="ending-sec-timeline">
+        <h3 class="archival-sec-title">SECTION 02 // INVESTIGATION TIMELINE</h3>
+        <div class="archival-timeline-chain">
+          <div class="chain-step">
+            <span class="step-num">01</span>
+            <span class="step-text">Evidence Collected</span>
+          </div>
+          <span class="chain-arrow">↓</span>
+          <div class="chain-step">
+            <span class="step-num">02</span>
+            <span class="step-text">Village Assembly</span>
+          </div>
+          <span class="chain-arrow">↓</span>
+          <div class="chain-step highlight-step">
+            <span class="step-num">03</span>
+            <span class="step-text">Your Directive</span>
+          </div>
+          <span class="chain-arrow">↓</span>
+          <div class="chain-step">
+            <span class="step-num">04</span>
+            <span class="step-text">Village Decision</span>
+          </div>
+          <span class="chain-arrow">↓</span>
+          <div class="chain-step">
+            <span class="step-num">05</span>
+            <span class="step-text">Historical Outcome</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: Immediate Consequences -->
+      <div class="ending-sec-findings">
+        <h3 class="archival-sec-title">SECTION 03 // IMMEDIATE CONSEQUENCES</h3>
+        <p class="archival-sec-sub">Official field observations recorded by the Kaira District Records Office:</p>
+        <div class="findings-grid" id="findings-grid"></div>
+      </div>
+
+      <!-- SECTION 5 & 6: What History Remembers + Historian Sticky Note -->
+      <div class="ending-sec-history" id="historical-card">
+        <h3 class="archival-sec-title">SECTION 04 // WHAT HISTORY REMEMBERS</h3>
+        
+        <div class="history-spread-wrapper">
+          <!-- Archived Photograph Frame -->
+          <div class="archived-photo-card">
+            <div class="photo-tape-corner top-left"></div>
+            <div class="photo-tape-corner top-right"></div>
+            <div class="photo-frame-inner">
+              <img src="assests/amul_history.jpg" alt="Historical Amul Dairy Cooperative 1946" class="hist-photo-img">
+              <div class="photo-caption-tag">
+                <strong>ARCHIVE PHOTO</strong> — The Birth of Amul (1946)<br>
+                <span>Recovered from Kaira Cooperative Records</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Historian's Yellow Sticky Note (Torn & Pinned) -->
+          <div class="historian-sticky-note">
+            <div class="sticky-pin">📍</div>
+            <span class="sticky-header">HISTORIAN'S NOTE</span>
+            <p class="sticky-body" id="sticky-body">
+              "This historic recommendation led to the creation of India's first farmer-owned dairy union."
+            </p>
+            <span class="sticky-sig">— Archive Annotation (S.V.P.)</span>
+          </div>
+        </div>
+
+        <p id="historical-text" class="hist-explanation-text"></p>
+      </div>
+
+      <!-- SECTION 7: Final Findings Checklist -->
+      <div class="ending-sec-checklist">
+        <h3 class="archival-sec-title">SECTION 05 // FINAL FINDINGS CHECKLIST</h3>
+        <div class="findings-checklist-box">
+          <div class="chk-item">✓ 120 Milk Farmers Interviewed</div>
+          <div class="chk-item">✓ Private Monopoly Identified (Polson Ltd.)</div>
+          <div class="chk-item">✓ Low Procurement Price Verified (3 Annas vs 12 Annas)</div>
+          <div class="chk-item">✓ Railway Freight Transport System Audit (B.B. & C.I. Ry.)</div>
+          <div class="chk-item">✓ Cooperative Union Alternative Evaluated</div>
+        </div>
+      </div>
+
+      <!-- Micro-Details & Margin Annotations -->
+      <div class="ending-margin-annotations">
+        <div class="pencil-margin-note">"Cross-check witness statements with Bombay Municipality logbook." — S.V.P.</div>
+        <div class="gujarati-filing-stamp">ગુજરાત સંગ્રહાલય ૧૯૪૬ · સંશોધન શાખા</div>
+        <div class="verified-archive-seal">VERIFIED // NATIONAL ARCHIVES OF INDIA</div>
+        <div class="coffee-ring-stain"></div>
+      </div>
+
+      <!-- SECTION 8: Cinematic Archival Action Button -->
+      <div class="ending-footer-action">
+        <button class="btn-seal-archive" id="btn-restart">
+          <span class="btn-icon">🔒</span>
+          <span class="btn-label">SEAL CASE FILE & RETURN TO ARCHIVE</span>
+          <span class="btn-arrow">↩</span>
+        </button>
+      </div>
     </div>
   </section>
 
