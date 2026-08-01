@@ -3389,7 +3389,7 @@ button{
 /* ============================================================
    SPLASH SCENE
 ============================================================ */
-#scene-splash {
+#scene-splash.is-active {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3795,7 +3795,7 @@ button{
 /* ============================================================
    CASE CLOSED SCREEN
 ============================================================ */
-#scene-closed {
+#scene-closed.is-active {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3839,7 +3839,7 @@ button{
 /* ============================================================
    ARCHIVAL VERIFICATION TERMINAL (STEPS 2 & 3)
 ============================================================ */
-#scene-verification {
+#scene-verification.is-active {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3910,7 +3910,7 @@ button{
 /* ============================================================
    FINAL PLAYABLE INVESTIGATION EVIDENCE BOARD (PARTS 4 & 5)
 ============================================================ */
-#scene-final-board {
+#scene-final-board.is-active {
   display: flex;
   flex-direction: column;
   align-items: center;
