@@ -4270,6 +4270,202 @@ button{
   margin-top: -20px;
   box-shadow: 0 10px 22px rgba(0,0,0,0.3);
 }
+
+/* ============================================================
+   3-QUESTION PLAYABLE CLIMAX STAGE STYLES
+============================================================ */
+.ending-stage-box {
+  width: 100%;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+/* QUESTION 1: Sealed Folder Unseal Interaction */
+.sealed-folder-interactive {
+  background: linear-gradient(135deg, #3c2416 0%, #1a0f08 100%);
+  border: 3px solid #aa7c11;
+  border-radius: 4px;
+  padding: 30px 40px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.85);
+  cursor: pointer;
+  max-width: 540px;
+  margin: 20px auto;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.sealed-folder-interactive:hover {
+  transform: scale(1.02);
+  border-color: #d49a18;
+}
+
+.folder-wax-seal {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #b82619 0%, #6e0e06 85%);
+  border: 3px solid #e0584c;
+  box-shadow: 0 8px 25px rgba(184, 38, 25, 0.6), inset 0 0 15px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: #fffdfa;
+  animation: sealPulse 2s infinite alternate;
+}
+@keyframes sealPulse {
+  from { box-shadow: 0 6px 18px rgba(184, 38, 25, 0.5); }
+  to { box-shadow: 0 12px 30px rgba(184, 38, 25, 0.9), 0 0 20px rgba(224, 88, 76, 0.8); }
+}
+.seal-emblem { font-size: 1.6rem; line-height: 1; }
+.seal-text {
+  font-family: var(--font-type);
+  font-size: 0.52rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+.folder-cover-label .label-kicker {
+  font-family: var(--font-type);
+  font-size: 0.64rem;
+  font-weight: bold;
+  letter-spacing: 0.14em;
+  color: #aa7c11;
+}
+.folder-cover-label h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: #fdfaf2;
+  margin: 4px 0;
+}
+.folder-cover-label p {
+  font-family: var(--font-type);
+  font-size: 0.8rem;
+  color: #d4c5a9;
+}
+
+/* QUESTION 2: Why? Interactive 3-Document Grid */
+.stage-section-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.stage-num {
+  font-family: var(--font-type);
+  font-size: 0.62rem;
+  font-weight: bold;
+  letter-spacing: 0.14em;
+  color: #aa7c11;
+  background: rgba(170,124,17,0.12);
+  border: 1px solid #aa7c11;
+  padding: 2px 10px;
+  border-radius: 2px;
+}
+.stage-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: #fdfaf2;
+  margin: 6px 0 4px;
+}
+.stage-hint {
+  font-family: var(--font-type);
+  font-size: 0.82rem;
+  color: #d4c5a9;
+}
+
+.why-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.why-doc-card {
+  position: relative;
+  background: #faf6eb;
+  border: 1.5px solid #d4c5a9;
+  border-top: 4px solid #aa7c11;
+  padding: 18px 20px;
+  border-radius: 3px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.why-doc-card:hover {
+  transform: translateY(-4px) rotate(-0.5deg);
+  border-color: #8b0000;
+}
+.why-doc-card.is-inspected {
+  background: #fffdf8;
+  border-color: #2e7d32;
+  border-top-color: #2e7d32;
+}
+
+.why-doc-card .doc-badge {
+  font-family: var(--font-type);
+  font-size: 0.6rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  color: #8b0000;
+  display: block;
+}
+.why-doc-card.is-inspected .doc-badge { color: #2e7d32; }
+
+.why-doc-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: #1a0f08;
+  margin: 4px 0 8px;
+}
+
+.doc-inspect-prompt {
+  font-family: var(--font-type);
+  font-size: 0.76rem;
+  font-weight: bold;
+  color: #aa7c11;
+  margin-top: 8px;
+}
+
+.doc-revealed-text {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #2b1a0e;
+  background: rgba(170,124,17,0.08);
+  border-left: 3px solid #aa7c11;
+  padding: 8px 12px;
+  margin-top: 10px;
+  border-radius: 2px;
+}
+
+/* QUESTION 3: Stamp CASE CLOSED Action Button */
+.stamp-action-block {
+  text-align: center;
+  margin: 30px 0;
+}
+.btn-stamp-case-closed {
+  background: linear-gradient(135deg, #8b0000 0%, #5a0000 100%);
+  color: #ffffff;
+  border: 2px solid #ff5555;
+  border-radius: 4px;
+  padding: 16px 32px;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(139,0,0,0.6);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-stamp-case-closed:hover {
+  transform: scale(1.04);
+  box-shadow: 0 14px 40px rgba(255,85,85,0.7);
+}
+
 .news-masthead {
   font-family: var(--font-type);
   font-size: 0.62rem;
