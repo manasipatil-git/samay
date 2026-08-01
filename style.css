@@ -2097,8 +2097,8 @@ button{
   border: 3.5px double #354a67;
   border-radius: 50%;
   position: absolute;
-  bottom: 24px;
-  left: 40px;
+  top: 14px;
+  right: 210px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2108,16 +2108,18 @@ button{
   font-size: 0.58rem;
   text-transform: uppercase;
   font-weight: bold;
-  transform: rotate(-15deg);
+  transform: rotate(-12deg) scale(2);
   pointer-events: none;
   line-height: 1.25;
-  background: rgba(255,255,255,0.15);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: rgba(253, 250, 242, 0.92);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   opacity: 0;
-  transition: opacity 0.5s ease-out;
+  z-index: 15;
+  transition: opacity 0.3s ease-out, transform 0.35s cubic-bezier(0.1, 0.8, 0.1, 1.25);
 }
 .ending-score-stamp.is-visible {
-  opacity: 0.85;
+  opacity: 0.92;
+  transform: rotate(-12deg) scale(1);
 }
 .ending-score-stamp b {
   font-size: 1.35rem;
@@ -4093,28 +4095,28 @@ button{
 
 /* SECTION 4: Immediate Consequences Findings */
 .ending-sec-findings {
-  margin-bottom: 32px;
+  margin-bottom: 0;
 }
 .findings-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
 }
 .finding-card {
   position: relative;
   background: #faf6eb;
   border: 1.5px solid #d4c5a9;
-  padding: 16px 18px;
+  padding: 12px 14px;
   border-radius: 2px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
   transform: rotate(-0.5deg);
 }
 .finding-card:nth-child(2) {
-  transform: rotate(1deg);
+  transform: rotate(0.5deg);
 }
 .finding-card:nth-child(3) {
-  transform: rotate(-1deg);
+  transform: rotate(-0.5deg);
 }
 .finding-tag {
   font-family: var(--font-type);
@@ -4122,19 +4124,19 @@ button{
   font-weight: bold;
   color: #8b0000;
   letter-spacing: 0.1em;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   display: block;
 }
 .finding-text {
   font-family: var(--font-type);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: #2b1a0e;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 /* SECTION 5 & 6: Historical Record & Sticky Note */
 .ending-sec-history {
-  margin-bottom: 32px;
+  margin-bottom: 0;
 }
 .history-spread-wrapper {
   display: flex;
