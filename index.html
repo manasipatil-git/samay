@@ -777,6 +777,72 @@
     </div>
   </section>
 
+  <!-- ============ SCENE: FINAL INVESTIGATION EVIDENCE BOARD (PARTS 4 & 5) ============ -->
+  <section id="scene-final-board" class="scene">
+    <div class="desk-glow"></div>
+    <header class="board-header">
+      <span class="hud-eyebrow">NATIONAL ARCHIVES OF INDIA · CASE FILE 001</span>
+      <h2>WHAT ACTUALLY HAPPENED</h2>
+      <p class="board-hint">The evidence connected to reveal the historical truth.</p>
+    </header>
+
+    <!-- Physical Evidence Board Cork Container -->
+    <div class="board final-evidence-corkboard" id="final-board-cork">
+      <!-- SVG Red Thread Connections Canvas -->
+      <svg class="final-thread-svg" id="final-thread-svg">
+        <line x1="22%" y1="30%" x2="78%" y2="30%" stroke="#8b0000" stroke-width="2.5" stroke-dasharray="6,4" />
+        <line x1="22%" y1="30%" x2="22%" y2="72%" stroke="#8b0000" stroke-width="2.5" stroke-dasharray="6,4" />
+        <line x1="78%" y1="30%" x2="78%" y2="72%" stroke="#8b0000" stroke-width="2.5" stroke-dasharray="6,4" />
+        <line x1="22%" y1="72%" x2="78%" y2="72%" stroke="#8b0000" stroke-width="2.5" stroke-dasharray="6,4" />
+      </svg>
+
+      <!-- PIN 1 (Top Left): YOUR RECOMMENDATION CARD -->
+      <div class="final-pin-card card-recommendation" id="final-pin-rec">
+        <div class="note-pushpin pin-red"></div>
+        <span class="pin-tag">YOUR DIRECTIVE</span>
+        <h3 id="final-rec-title">Form a Cooperative</h3>
+        <p id="final-rec-desc">You advised the farmers to unite and refuse contractor milk sales.</p>
+      </div>
+
+      <!-- PIN 2 (Top Right): GOVERNMENT NOTICE -->
+      <div class="final-pin-card card-gov-letter">
+        <div class="note-pushpin pin-brass"></div>
+        <span class="pin-tag">GOVERNMENT NOTICE (1946)</span>
+        <h3>B.B. & C.I. Railway Order</h3>
+        <p>Direct milk transport permits granted exclusively to Kaira Cooperative Union.</p>
+      </div>
+
+      <!-- PIN 3 (Bottom Left): NEWSPAPER CLIPPING -->
+      <div class="final-pin-card card-newspaper">
+        <div class="note-pushpin pin-brass"></div>
+        <span class="pin-tag">BOMBAY CHRONICLE</span>
+        <h3>15-Day Milk Strike</h3>
+        <p>Anand farmers refuse to supply Polson, establishing independent pricing power.</p>
+      </div>
+
+      <!-- PIN 4 (Bottom Right): HISTORICAL PHOTOGRAPH -->
+      <div class="final-pin-card card-amul-photo">
+        <div class="note-pushpin pin-red"></div>
+        <span class="pin-tag">ARCHIVE PHOTO (1946)</span>
+        <img src="assests/amul_history.jpg" alt="Historical Amul Dairy 1946" class="final-photo-img">
+        <p class="photo-sub">The Birth of Amul</p>
+      </div>
+
+      <!-- CENTER PIN (Part 5): ARCHIVE FINDING CARD -->
+      <div class="final-archive-finding-center" id="final-archive-finding">
+        <div class="note-pushpin pin-red"></div>
+        <span class="finding-badge">ARCHIVE FINDING</span>
+        <h2 class="finding-heading" id="final-finding-heading">History Chose This Path</h2>
+        <p class="finding-text-body">
+          Instead of accepting the monopoly,<br>
+          the farmers organised a cooperative.<br><br>
+          This decision eventually led to the birth of <strong>AMUL</strong>.
+        </p>
+        <button class="btn-proceed-board" id="btn-proceed-desk">Review Final Desk File ➔</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ SCENE: CASE CLOSED STAMP ============ -->
   <section id="scene-closed" class="scene">
     <div class="closed-stamp-container physical-folder-closed">

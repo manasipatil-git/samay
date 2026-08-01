@@ -997,9 +997,42 @@ class Game {
 
       await wait(400);
 
-      // STEP 4-10: Show the Master 1946 Case Dispatch File!
-      this._showEnding(id);
+      // STEP 4 & 5: Transition to the Final Evidence Board (#scene-final-board)
+      this._showFinalBoard(id);
     })();
+  }
+
+  _showFinalBoard(id) {
+    const finalRecTitle = document.getElementById("final-rec-title");
+    const finalRecDesc = document.getElementById("final-rec-desc");
+    const finalFindingHeading = document.getElementById("final-finding-heading");
+
+    if (id === "cooperative") {
+      if (finalRecTitle) finalRecTitle.textContent = "Form a Cooperative";
+      if (finalRecDesc) finalRecDesc.textContent = "You advised the farmers to unite and refuse contractor milk sales.";
+      if (finalFindingHeading) finalFindingHeading.textContent = "History Chose This Path";
+    } else if (id === "accept") {
+      if (finalRecTitle) finalRecTitle.textContent = "Accept Polson's Rates";
+      if (finalRecDesc) finalRecDesc.textContent = "You advised accepting contractor terms, delaying economic independence.";
+      if (finalFindingHeading) finalFindingHeading.textContent = "History Took Another Path";
+    } else if (id === "cooling") {
+      if (finalRecTitle) finalRecTitle.textContent = "Install Cooling Tanks";
+      if (finalRecDesc) finalRecDesc.textContent = "You advised technical cooling, but monopoly margins remained.";
+      if (finalFindingHeading) finalFindingHeading.textContent = "History Sought Structural Ownership";
+    }
+
+    this._goToScene("final-board");
+    if (window.SAMAY_SOUND) {
+      window.SAMAY_SOUND.play("stamp");
+    }
+
+    const btnDesk = document.getElementById("btn-proceed-desk");
+    if (btnDesk) {
+      btnDesk.onclick = () => {
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
+        this._showEnding(id);
+      };
+    }
   }
 
   _showEnding(id) {
