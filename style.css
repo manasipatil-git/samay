@@ -4230,6 +4230,19 @@ button{
   font-weight: bold;
 }
 
+@media (max-width: 768px) {
+  .comparison-cards-grid {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .comparison-divider-arrow {
+    transform: rotate(90deg);
+    text-align: center;
+    margin: 4px auto;
+  }
+}
+
 /* STEP 9: THE LEGACY (AMUL Reveal) */
 .ending-sec-legacy {
   margin-top: 10px;
