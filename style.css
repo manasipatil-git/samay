@@ -4463,7 +4463,7 @@ button{
 .paper-your-report, .paper-archive-record {
   background: #faf6eb;
   border: 1.5px solid #c8ba9d;
-  padding: 22px 26px;
+  padding: 28px 26px 22px;
   border-radius: 2px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.35);
   flex: 1;
@@ -4472,6 +4472,37 @@ button{
 }
 .paper-your-report { transform: rotate(-2.2deg); border-top: 4px solid #aa7c11; }
 .paper-archive-record { transform: rotate(1.8deg); border-top: 4px solid #8b0000; }
+
+.paperclip-corner-right {
+  position: absolute;
+  top: -14px;
+  right: 12px;
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+  z-index: 15;
+}
+
+.brass-tack-corner {
+  position: absolute;
+  top: -12px;
+  left: 14px;
+  font-size: 1.2rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  z-index: 15;
+}
+
+.tape-strip-top {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 65px;
+  height: 18px;
+  background: rgba(225, 205, 150, 0.75);
+  border: 1px dashed #b8a680;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 15;
+}
 
 .comp-paper h4 {
   font-family: var(--font-display);
@@ -4487,6 +4518,28 @@ button{
   color: #2b1a0e;
   line-height: 1.6;
   font-weight: bold;
+}
+
+/* ASYMMETRICAL PHYSICAL EVIDENCE CARDS (ELIMINATES FLEXBOX WEB GRID LOOK) */
+.card-style-ledger {
+  background: #f4ebd7;
+  border: 1.5px solid #bfae8c;
+  border-top: 4px solid #8b0000;
+  transform: rotate(-3.2deg) translateY(-6px);
+}
+
+.card-style-memo {
+  background: #fffdf8;
+  border: 1.5px solid #d4c5a9;
+  border-top: 4px solid #aa7c11;
+  transform: rotate(2.4deg) translateY(8px);
+}
+
+.card-style-telegraph {
+  background: #f6ecd4;
+  border: 1.5px solid #c4b595;
+  border-top: 4px solid #364667;
+  transform: rotate(-1.8deg) translateY(-4px);
 }
 
 .paper-stamp-rec, .paper-stamp-gov {
