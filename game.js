@@ -103,35 +103,39 @@ class Game {
      GLOBAL UI (panels, restart, skip)
   ------------------------------------------------------- */
   _bindGlobalUI() {
-    this.el.skipIntro.addEventListener("click", () => this._endIntro());
+    if (this.el.skipIntro) this.el.skipIntro.addEventListener("click", () => this._endIntro());
 
-    this.el.btnNotebook.addEventListener("click", () => this._togglePanel("notebook"));
-    this.el.btnInventory.addEventListener("click", () => this._togglePanel("inventory"));
+    if (this.el.btnNotebook) this.el.btnNotebook.addEventListener("click", () => this._togglePanel("notebook"));
+    if (this.el.btnInventory) this.el.btnInventory.addEventListener("click", () => this._togglePanel("inventory"));
     document.querySelectorAll(".panel-close").forEach(btn => {
       btn.addEventListener("click", () => this._togglePanel(btn.dataset.close, false));
     });
 
-    this.el.btnToDetective.addEventListener("click", () => this._enterDetective());
-    this.el.btnToMeeting.addEventListener("click", () => this._enterMeeting());
-    this.el.btnRestart.addEventListener("click", () => {
-      const solvedEnding = this.state.ending;
-      this.state = {
-        scene: "archive",
-        hoursLeft: 5,
-        visited: [],
-        clues: [],
-        connectedPairs: [],
-        meetingSolved: false,
-        ending: solvedEnding,
-        wrongGuesses: 0
-      };
-      this._save();
-      location.reload();
-    });
+    if (this.el.btnToDetective) this.el.btnToDetective.addEventListener("click", () => this._enterDetective());
+    if (this.el.btnToMeeting) this.el.btnToMeeting.addEventListener("click", () => this._enterMeeting());
+    if (this.el.btnRestart) {
+      this.el.btnRestart.addEventListener("click", () => {
+        const solvedEnding = this.state.ending;
+        this.state = {
+          scene: "archive",
+          hoursLeft: 5,
+          visited: [],
+          clues: [],
+          connectedPairs: [],
+          meetingSolved: false,
+          ending: solvedEnding,
+          wrongGuesses: 0
+        };
+        this._save();
+        location.reload();
+      });
+    }
 
-    this.el.decisionOptions.querySelectorAll(".decision-card").forEach(card => {
-      card.addEventListener("click", () => this._chooseEnding(card.dataset.ending));
-    });
+    if (this.el.decisionOptions) {
+      this.el.decisionOptions.querySelectorAll(".decision-card").forEach(card => {
+        card.addEventListener("click", () => this._chooseEnding(card.dataset.ending));
+      });
+    }
 
     // Setup Dev-Only Debug Menu (Toggle via ~ or F9)
     this._setupDevDebugMenu();
@@ -226,9 +230,20 @@ class Game {
 
   _goToScene(name) {
     this.el.scenes.forEach(s => s.classList.remove("is-active"));
-    document.getElementById(`scene-${name}`).classList.add("is-active");
-    this.state.scene = name;
-    this._save();
+    const targetEl = document.getElementById(`scene-${name}`);
+    if (targetEl) {
+      targetEl.classList.add("is-active");
+      this.state.scene = name;
+      this._save();
+    } else {
+      // Fallback to archive scene if saved scene name is obsolete
+      const fallbackEl = document.getElementById("scene-archive") || document.getElementById("scene-splash");
+      if (fallbackEl) {
+        fallbackEl.classList.add("is-active");
+        this.state.scene = "archive";
+        this._save();
+      }
+    }
   }
 
   /* -------------------------------------------------------
