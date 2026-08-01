@@ -4337,18 +4337,63 @@ button{
   padding: 0 8px;
 }
 
-/* DOCUMENT 6: The Legacy Reveal - AMUL (Bottom Center) */
-.doc-legacy-reveal {
-  background: linear-gradient(135deg, #1f120a 0%, #0d0603 100%);
-  border: 2.5px solid #aa7c11;
+/* STEP 9: GEOGRAPHIC MAP EXPANSION (Reuses Investigation Map) */
+.doc-map-expansion {
+  background: #1a0f08;
+  border: 2px solid #aa7c11;
+  padding: 16px;
   border-radius: 3px;
-  padding: 22px 28px;
-  color: #fdfaf2;
-  text-align: center;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.65);
+  transform: rotate(-0.8deg);
   width: min(640px, 94%);
-  margin: 10px auto;
-  transform: rotate(0.5deg);
+  margin: 14px auto;
+  position: relative;
+}
+.map-kicker {
+  font-family: var(--font-type);
+  font-size: 0.62rem;
+  font-weight: bold;
+  letter-spacing: 0.14em;
+  color: #aa7c11;
+  display: block;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.ending-map-frame {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  border: 1px solid #4a2e1b;
+  border-radius: 2px;
+}
+.ending-map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(0.5) contrast(1.1) brightness(0.85);
+}
+.map-route-node {
+  position: absolute;
+  font-family: var(--font-type);
+  font-size: 0.64rem;
+  font-weight: bold;
+  color: #fdfaf2;
+  background: rgba(139, 0, 0, 0.88);
+  border: 1px solid #aa7c11;
+  padding: 2px 8px;
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  animation: nodeGlow 2s infinite alternate;
+}
+.node-anand { top: 20%; left: 15%; }
+.node-samarkha { top: 40%; left: 35%; }
+.node-railway { top: 60%; left: 55%; }
+.node-bombay { top: 75%; left: 75%; }
+
+@keyframes nodeGlow {
+  from { box-shadow: 0 0 4px #aa7c11; }
+  to { box-shadow: 0 0 12px #aa7c11, 0 0 20px #8b0000; }
 }
 
 /* DOCUMENT 7: Archivist Yellow Sticky Note (Bottom Right) */

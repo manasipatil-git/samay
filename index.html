@@ -870,25 +870,35 @@
       <!-- SCATTERED DESK SPREAD CONTAINER -->
       <div class="desk-scattered-spread" id="desk-scattered-spread">
         
-        <!-- DOCUMENT 1: Pinned Recommendation Directive (Top Left) -->
-        <div class="desk-doc doc-final-directive" id="user-recommendation-card">
-          <div class="brass-tack-head">📍</div>
-          <span class="doc-kicker">GOVERNMENT DIRECTIVE // KAIRA DISTRICT</span>
-          <h2 class="directive-title" id="rec-card-title">FORM A COOPERATIVE</h2>
-          <p class="directive-desc" id="rec-card-desc">Collect, grade, and sell milk together — strike against Polson's procurement monopoly.</p>
-          <span class="rec-submitted-note">Submitted to the Kaira Village Assembly</span>
-          <div class="directive-stamp-received">DIRECTIVE RECEIVED // 1946</div>
+        <!-- STEP 5 & 6: YOUR CONCLUSION VS OFFICIAL HISTORICAL RECORD (Unjudged Comparison) -->
+        <div class="desk-doc doc-comparison-spread">
+          <!-- LEFT: YOUR CONCLUSION -->
+          <div class="comp-paper paper-your-report">
+            <span class="comp-paper-tag">YOUR CONCLUSION</span>
+            <h4 id="comp-player-title">Form a Cooperative</h4>
+            <p id="comp-player-desc">You recommended collecting, grading, and selling milk together.</p>
+          </div>
+
+          <!-- CENTER: HANDWRITTEN PENCIL ANNOTATION -->
+          <div class="comp-pencil-annotation" id="comp-pencil-text">"The investigation reached the same conclusion."</div>
+
+          <!-- RIGHT: OFFICIAL HISTORICAL RECORD -->
+          <div class="comp-paper paper-archive-record">
+            <span class="comp-paper-tag history-tag">OFFICIAL HISTORICAL RECORD</span>
+            <h4>4 January 1946 Resolution</h4>
+            <p>The farmers of Kaira District resolved to form an independent cooperative union.</p>
+          </div>
         </div>
 
-        <!-- DOCUMENT 2: Village Proceedings (Top Right) -->
+        <!-- STEP 7: THREE HISTORICAL EVIDENCE DOCUMENTS (Why History Unfolded) -->
         <div class="desk-doc doc-assembly-minutes">
           <div class="paperclip-corner">📎</div>
-          <span class="doc-kicker">VILLAGE ASSEMBLY MINUTES</span>
-          <h3 class="minutes-heading">WHAT HAPPENED NEXT</h3>
+          <span class="doc-kicker">HISTORICAL EVIDENCE LOG</span>
+          <h3 class="minutes-heading">WHY HISTORY UNFOLDED THIS WAY</h3>
           <div class="findings-grid" id="findings-grid"></div>
         </div>
 
-        <!-- DOCUMENT 3: Recovered Archival Photograph (Center Left) -->
+        <!-- STEP 6: Recovered Archival Photograph -->
         <div class="desk-doc doc-archival-photo" id="historical-card">
           <div class="photo-tape-corner top-left"></div>
           <div class="photo-tape-corner top-right"></div>
@@ -898,48 +908,34 @@
           </div>
         </div>
 
-        <!-- DOCUMENT 4: Yellowed Newspaper Clipping (Center Right) -->
-        <div class="desk-doc doc-newspaper-clipping">
-          <span class="news-masthead">THE BOMBAY CHRONICLE · DEC 1946</span>
-          <h4 class="news-headline">Kaira Farmers Organise Dairy Union In Anand</h4>
-          <p class="news-snippet">Village milk producers refuse contractor rates, demanding direct supply rights to Bombay Milk Scheme...</p>
-        </div>
-
-        <!-- DOCUMENT 5: Two Separate Comparison Papers (Center Desk) -->
-        <div class="desk-doc doc-comparison-spread">
-          <div class="comp-paper paper-your-report">
-            <span class="comp-paper-tag">YOUR REPORT</span>
-            <h4 id="comp-player-title">✓ Formed a Cooperative</h4>
-            <p id="comp-player-desc">You advised the farmers to unite and refuse contractor milk sales.</p>
-            <span class="comp-tag player-tag" id="comp-player-tag">MATCHED HISTORY</span>
-          </div>
-
-          <div class="comp-pencil-annotation" id="comp-pencil-text">"History took this path."</div>
-
-          <div class="comp-paper paper-archive-record">
-            <span class="comp-paper-tag history-tag">ARCHIVE RECORD</span>
-            <h4>✓ Farmers Formed a Cooperative</h4>
-            <p>Under Tribhuvandas & Sardar Patel, Anand's farmers created Amul.</p>
-            <span class="comp-tag history-tag">HISTORICAL FACT</span>
-          </div>
-        </div>
-
-        <!-- DOCUMENT 6: The Legacy Reveal - AMUL (Bottom Center) -->
+        <!-- STEP 8: WHY THIS MATTERED (AMUL Payoff) -->
         <div class="desk-doc doc-legacy-reveal">
-          <p class="legacy-lead">Because farmers united...</p>
-          <p class="legacy-body">The Kaira District Cooperative Union grew into one of India's most influential agricultural movements.</p>
+          <p class="legacy-lead">Because the farmers organised together...</p>
+          <p class="legacy-body">The Kaira District Cooperative Union was formed, initiating India's White Revolution.</p>
           <div class="amul-reveal-block">
-            <span class="amul-reveal-label">THIS WOULD LATER BECOME</span>
+            <span class="amul-reveal-label">THIS EVENTUALLY BECAME</span>
             <h1 class="amul-reveal-logo" id="amul-reveal-logo">A M U L</h1>
           </div>
         </div>
 
-        <!-- DOCUMENT 7: Archivist's Yellow Sticky Note (Bottom Right) -->
+        <!-- STEP 9: THE GEOGRAPHIC MAP EXPANSION (Reuses Investigation Map) -->
+        <div class="desk-doc doc-map-expansion">
+          <span class="map-kicker">GEOGRAPHIC OUTCOME // KAIRA DISTRICT ➔ BOMBAY ROUTE</span>
+          <div class="ending-map-frame">
+            <img src="assests/anand_map_1946.jpg" alt="Kaira District Geographic Route Map" class="ending-map-img">
+            <div class="map-route-node node-anand">Anand Depot</div>
+            <div class="map-route-node node-samarkha">Samarkha Route</div>
+            <div class="map-route-node node-railway">B.B. & C.I. Railway</div>
+            <div class="map-route-node node-bombay">Bombay Milk Scheme</div>
+          </div>
+        </div>
+
+        <!-- STEP 10: Archivist's Yellow Sticky Note -->
         <div class="desk-doc doc-archivist-note">
           <div class="sticky-pin">📌</div>
           <span class="sticky-header">ARCHIVIST'S NOTE</span>
           <p class="sticky-body" id="sticky-body">
-            "History is rarely inevitable. Thousands of ordinary decisions shape extraordinary futures. You just experienced one."
+            "History is rarely inevitable. The evidence available to ordinary people is often incomplete. That is why these decisions mattered."
           </p>
           <span class="sticky-sig">— National Archives of India (1951)</span>
           <div class="sticky-coffee-stain"></div>
@@ -953,7 +949,7 @@
         <span class="verified-archive-seal">VERIFIED // NATIONAL ARCHIVES OF INDIA</span>
       </div>
 
-      <!-- Closing Drawer Action -->
+      <!-- STEP 11: Closing Drawer Action -->
       <div class="ending-footer-action">
         <button class="btn-seal-archive" id="btn-restart">
           <span class="btn-icon">🔒</span>
