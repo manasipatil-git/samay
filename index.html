@@ -750,6 +750,33 @@
     <div class="meeting-options" id="meeting-options"></div>
   </section>
 
+  <!-- ============ SCENE: ARCHIVAL VERIFICATION TERMINAL (STEPS 2 & 3) ============ -->
+  <section id="scene-verification" class="scene">
+    <div class="verification-container">
+      <div class="verification-header">
+        <span class="verification-badge">NATIONAL ARCHIVES OF INDIA // ACCESSION VERIFICATION</span>
+        <span class="verification-dot"></span>
+      </div>
+
+      <!-- Typewriter Console Output -->
+      <div class="verification-terminal-screen" id="verification-terminal">
+        <div class="terminal-line" id="term-line-1"></div>
+        <div class="terminal-line" id="term-line-2"></div>
+        <div class="terminal-line" id="term-line-3"></div>
+        <div class="terminal-line" id="term-line-4"></div>
+      </div>
+
+      <!-- Time-lapse Year Progression Container (Step 3) -->
+      <div class="year-timelapse-box" id="year-timelapse-box">
+        <div class="timelapse-year-display" id="timelapse-year">1946</div>
+        <div class="timelapse-doc-preview" id="timelapse-doc-preview">
+          <span class="doc-tag" id="timelapse-doc-tag">1946 // MILK STRIKE RESOLUTION</span>
+          <p class="doc-text" id="timelapse-doc-text">Samarkha village producers refuse contractor milk collection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ SCENE: CASE CLOSED STAMP ============ -->
   <section id="scene-closed" class="scene">
     <div class="closed-stamp-container physical-folder-closed">
@@ -786,9 +813,9 @@
       <!-- TWO-COLUMN ARCHIVAL DOSSIER SPREAD -->
       <div class="dossier-two-column-spread">
         
-        <!-- LEFT COLUMN: RESOLUTION & FINDINGS -->
+        <!-- LEFT COLUMN: RESOLUTION, DECISION COMPARISON & FINDINGS -->
         <div class="dossier-left-column">
-          <!-- SECTION 2: Player Recommendation Card -->
+          <!-- STEP 4: Player Recommendation Card -->
           <div class="ending-sec-recommendation">
             <h3 class="archival-sec-title">YOUR DIRECTIVE SUBMITTED</h3>
             <div class="user-recommendation-card-pinned" id="user-recommendation-card">
@@ -798,15 +825,40 @@
               <p class="rec-card-desc" id="rec-card-desc">Collect, grade, and sell milk together — strike against Polson's procurement monopoly.</p>
               <span class="rec-card-verified-stamp">✓ SUBMITTED & PINNED TO ARCHIVE</span>
             </div>
+            <span class="rec-submitted-note">This recommendation was submitted to the Kaira Village Assembly.</span>
           </div>
 
-          <!-- SECTION 4: Immediate Consequences -->
+          <!-- STEP 7: Decision vs Real History Comparison -->
+          <div class="ending-sec-comparison">
+            <h3 class="archival-sec-title">MY DECISION VS REAL HISTORY</h3>
+            <div class="comparison-cards-grid">
+              <!-- LEFT: YOUR INVESTIGATION -->
+              <div class="comparison-card card-player">
+                <div class="comp-header">YOUR INVESTIGATION</div>
+                <h4 class="comp-title" id="comp-player-title">✓ Formed a Cooperative</h4>
+                <p class="comp-desc" id="comp-player-desc">You advised the farmers to unite and refuse contractor milk sales.</p>
+                <span class="comp-tag player-tag" id="comp-player-tag">MATCHED HISTORY</span>
+              </div>
+
+              <div class="comparison-divider-arrow">➔</div>
+
+              <!-- RIGHT: REAL HISTORY -->
+              <div class="comparison-card card-history">
+                <div class="comp-header">REAL HISTORY (1946)</div>
+                <h4 class="comp-title">✓ Farmers Formed a Cooperative</h4>
+                <p class="comp-desc">Under Tribhuvandas & Sardar Patel, Anand's farmers went on a 15-day milk strike and created Amul.</p>
+                <span class="comp-tag history-tag">HISTORICAL FACT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 5: Immediate Consequences Findings -->
           <div class="ending-sec-findings">
-            <h3 class="archival-sec-title">OFFICIAL FIELD OBSERVATIONS</h3>
+            <h3 class="archival-sec-title">WHAT HAPPENED NEXT</h3>
             <div class="findings-grid" id="findings-grid"></div>
           </div>
 
-          <!-- SECTION 7: Final Findings Checklist -->
+          <!-- Investigation Checklist -->
           <div class="ending-sec-checklist">
             <h3 class="archival-sec-title">INVESTIGATION CHECKLIST</h3>
             <div class="findings-checklist-box">
@@ -818,9 +870,9 @@
           </div>
         </div>
 
-        <!-- RIGHT COLUMN: HISTORICAL OUTCOME & CHRONOLOGY -->
+        <!-- RIGHT COLUMN: HISTORICAL OUTCOME, LEGACY & ARCHIVIST NOTE -->
         <div class="dossier-right-column">
-          <!-- SECTION 3: Investigation Timeline -->
+          <!-- Investigation Timeline -->
           <div class="ending-sec-timeline">
             <h3 class="archival-sec-title">INVESTIGATION CHRONOLOGY</h3>
             <div class="archival-timeline-chain">
@@ -851,7 +903,7 @@
             </div>
           </div>
 
-          <!-- SECTION 5 & 6: Archived Photo + Sticky Note -->
+          <!-- STEP 6: Archived Photo + Sticky Note -->
           <div class="ending-sec-history" id="historical-card">
             <h3 class="archival-sec-title">WHAT HISTORY REMEMBERS</h3>
             
@@ -863,24 +915,37 @@
                 <div class="photo-frame-inner">
                   <img src="assests/amul_history.jpg" alt="Historical Amul Dairy Cooperative 1946" class="hist-photo-img">
                   <div class="photo-caption-tag">
-                    <strong>ARCHIVE PHOTO</strong> — The Birth of Amul (1946)<br>
+                    <strong>ARCHIVE PHOTO</strong> — KAIRA DISTRICT (1946)<br>
                     <span>Recovered from Kaira Cooperative Records</span>
                   </div>
                 </div>
               </div>
 
-              <!-- Historian's Yellow Sticky Note -->
+              <!-- STEP 10: Archivist's Yellow Sticky Note -->
               <div class="historian-sticky-note">
-                <div class="sticky-pin">📌</div>
-                <span class="sticky-header">HISTORIAN'S NOTE</span>
+                <div class="sticky-pin">📍</div>
+                <span class="sticky-header">ARCHIVIST'S NOTE</span>
                 <p class="sticky-body" id="sticky-body">
-                  "This historic recommendation led to the creation of India's first farmer-owned dairy union."
+                  "History is rarely inevitable. Thousands of ordinary decisions shape extraordinary futures. You just experienced one."
                 </p>
-                <span class="sticky-sig">— Archive Annotation (S.V.P.)</span>
+                <span class="sticky-sig">— National Archives of India (1951)</span>
               </div>
             </div>
 
             <p id="historical-text" class="hist-explanation-text"></p>
+          </div>
+
+          <!-- STEP 9: THE LEGACY (AMUL Reveal) -->
+          <div class="ending-sec-legacy">
+            <h3 class="archival-sec-title">THE LEGACY</h3>
+            <div class="legacy-card-box">
+              <p class="legacy-lead">Because farmers united...</p>
+              <p class="legacy-body">The Kaira District Cooperative Union grew into one of India's most influential agricultural movements, sparking the White Revolution.</p>
+              <div class="amul-reveal-block">
+                <span class="amul-reveal-label">THIS WOULD LATER BECOME</span>
+                <h1 class="amul-reveal-logo" id="amul-reveal-logo">A M U L</h1>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -893,7 +958,7 @@
         <div class="coffee-ring-stain"></div>
       </div>
 
-      <!-- SECTION 8: Cinematic Archival Action Button -->
+      <!-- STEP 11: Cinematic Archival Action Button -->
       <div class="ending-footer-action">
         <button class="btn-seal-archive" id="btn-restart">
           <span class="btn-icon">🔒</span>

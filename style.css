@@ -3838,6 +3838,119 @@ button{
   transform: rotate(-8deg) scale(1);
 }
 /* ============================================================
+   ARCHIVAL VERIFICATION TERMINAL (STEPS 2 & 3)
+============================================================ */
+#scene-verification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 40%, #1c120a 0%, #080402 100%);
+  z-index: 400;
+}
+
+.verification-container {
+  width: min(680px, 90vw);
+  background: #120a05;
+  border: 3px solid #3c2416;
+  border-radius: 4px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 20px rgba(0,0,0,0.8);
+  padding: 28px 34px;
+  position: relative;
+  color: #ede0c4;
+}
+
+.verification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed rgba(237, 224, 196, 0.25);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.verification-badge {
+  font-family: var(--font-type);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: #aa7c11;
+  font-weight: bold;
+}
+
+.verification-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #aa7c11;
+  box-shadow: 0 0 8px #aa7c11;
+  animation: dotPulse 1.2s infinite alternate;
+}
+@keyframes dotPulse {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+.verification-terminal-screen {
+  min-height: 110px;
+  font-family: var(--font-type);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #ebd7a2;
+}
+
+.terminal-line {
+  margin-bottom: 8px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.terminal-line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Time-lapse Year Progression Box (Step 3) */
+.year-timelapse-box {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px dashed rgba(237, 224, 196, 0.2);
+  text-align: center;
+  display: none;
+}
+.year-timelapse-box.is-active {
+  display: block;
+}
+
+.timelapse-year-display {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  color: #a8452f;
+  text-shadow: 0 0 15px rgba(168, 69, 47, 0.4);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.timelapse-doc-preview {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(170, 124, 17, 0.3);
+  padding: 10px 16px;
+  border-radius: 2px;
+}
+.doc-tag {
+  font-family: var(--font-type);
+  font-size: 0.65rem;
+  color: #aa7c11;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 4px;
+}
+.doc-text {
+  font-family: var(--font-type);
+  font-size: 0.82rem;
+  color: #fdfaf2;
+}
+
+/* ============================================================
    HISTORICAL RECORD ENDING SCREEN (AUTHENTIC 1946 ARCHIVE DOSSIER)
 ============================================================ */
 #scene-ending {
@@ -4037,6 +4150,138 @@ button{
   color: #8b0000;
   margin-top: 10px;
   letter-spacing: 0.08em;
+}
+.rec-submitted-note {
+  font-family: var(--font-type);
+  font-size: 0.68rem;
+  color: #6a5240;
+  margin-top: 6px;
+  display: block;
+  font-style: italic;
+}
+
+/* STEP 7: Decision vs Real History Comparison */
+.ending-sec-comparison {
+  margin-top: 4px;
+}
+.comparison-cards-grid {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+.comparison-card {
+  flex: 1 1 45%;
+  background: #faf6eb;
+  border: 1.5px solid #d4c5a9;
+  border-radius: 2px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  position: relative;
+}
+.comparison-card.card-player {
+  border-top: 4px solid #aa7c11;
+}
+.comparison-card.card-history {
+  border-top: 4px solid #8b0000;
+}
+.comp-header {
+  font-family: var(--font-type);
+  font-size: 0.6rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  color: #795548;
+  margin-bottom: 4px;
+}
+.comp-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: #2c1a0e;
+  margin: 2px 0 4px;
+}
+.comp-desc {
+  font-family: var(--font-type);
+  font-size: 0.74rem;
+  color: #4a3423;
+  line-height: 1.35;
+}
+.comp-tag {
+  display: inline-block;
+  font-family: var(--font-type);
+  font-size: 0.58rem;
+  font-weight: bold;
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-top: 8px;
+}
+.comp-tag.player-tag {
+  background: rgba(170, 124, 17, 0.12);
+  color: #aa7c11;
+  border: 1px solid #aa7c11;
+}
+.comp-tag.history-tag {
+  background: rgba(139, 0, 0, 0.1);
+  color: #8b0000;
+  border: 1px solid #8b0000;
+}
+.comparison-divider-arrow {
+  font-size: 1.4rem;
+  color: #8b0000;
+  font-weight: bold;
+}
+
+/* STEP 9: THE LEGACY (AMUL Reveal) */
+.ending-sec-legacy {
+  margin-top: 10px;
+}
+.legacy-card-box {
+  background: linear-gradient(135deg, #1f120a 0%, #0d0603 100%);
+  border: 2px solid #aa7c11;
+  border-radius: 3px;
+  padding: 20px 24px;
+  color: #fdfaf2;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+.legacy-lead {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.95rem;
+  color: #ebd7a2;
+  font-style: italic;
+  margin-bottom: 6px;
+}
+.legacy-body {
+  font-family: var(--font-type);
+  font-size: 0.82rem;
+  color: #d4c5a9;
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+.amul-reveal-block {
+  border-top: 1px dashed rgba(235, 215, 162, 0.3);
+  padding-top: 12px;
+}
+.amul-reveal-label {
+  font-family: var(--font-type);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  color: #aa7c11;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+.amul-reveal-logo {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  color: #a8452f;
+  letter-spacing: 0.35em;
+  text-shadow: 0 0 20px rgba(168, 69, 47, 0.6);
+  margin: 0;
+  animation: amulGlow 2s infinite alternate;
+}
+@keyframes amulGlow {
+  from { text-shadow: 0 0 10px rgba(168, 69, 47, 0.4); }
+  to { text-shadow: 0 0 25px rgba(255, 120, 90, 0.8), 0 0 40px rgba(168, 69, 47, 0.5); }
 }
 
 /* SECTION 3: Investigation Timeline Chain */

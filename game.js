@@ -932,28 +932,72 @@ class Game {
   /* -------------------------------------------------------
      ENDING
   ------------------------------------------------------- */
+  /* -------------------------------------------------------
+     ENDING (11-STEP CINEMATIC ARCHIVAL SEQUENCE)
+  ------------------------------------------------------- */
   _chooseEnding(id) {
     this.state.ending = id;
     this._save();
     
-    // Step 1: Transition to the Closed Stamp Screen
-    this._goToScene("closed");
-    
     const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
     
     (async () => {
-      await wait(400);
-      const stamp = document.getElementById("closed-stamp-text");
-      if (stamp) {
-        stamp.classList.add("is-stamped");
-      }
+      // STEP 1: Card lifts, stamps slam
       if (window.SAMAY_SOUND) {
         window.SAMAY_SOUND.play("stamp");
       }
+      await wait(600);
+
+      // STEP 2: Transition to Archival Terminal Verification Screen
+      this._goToScene("verification");
       
-      await wait(2400);
-      
-      // Step 2: Show the Historical Record Reveal ending screen!
+      const line1 = document.getElementById("term-line-1");
+      const line2 = document.getElementById("term-line-2");
+      const line3 = document.getElementById("term-line-3");
+      const line4 = document.getElementById("term-line-4");
+
+      if (line1) { line1.textContent = "Cross-checking district records..."; line1.classList.add("is-visible"); }
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+      await wait(700);
+
+      if (line2) { line2.textContent = "Retrieving archival documents..."; line2.classList.add("is-visible"); }
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+      await wait(700);
+
+      if (line3) { line3.textContent = "Verifying witness testimonies..."; line3.classList.add("is-visible"); }
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+      await wait(700);
+
+      if (line4) { line4.textContent = "Comparing historical sources..."; line4.classList.add("is-visible"); }
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+      await wait(900);
+
+      // STEP 3: Time-lapse Year Progression (1946 -> 1950)
+      const timelapseBox = document.getElementById("year-timelapse-box");
+      const yrDisplay = document.getElementById("timelapse-year");
+      const docTag = document.getElementById("timelapse-doc-tag");
+      const docText = document.getElementById("timelapse-doc-text");
+
+      if (timelapseBox) timelapseBox.classList.add("is-active");
+
+      const years = [
+        { yr: "1946", tag: "1946 // MILK STRIKE RESOLUTION", text: "Samarkha village producers refuse contractor milk collection." },
+        { yr: "1947", tag: "1947 // BOMBAY NEWSPAPER CLIPPING", text: "Farmers demand direct supply rights to Bombay Municipal Scheme." },
+        { yr: "1948", tag: "1948 // COOPERATIVE UNION RECEIPT", text: "Kaira Cooperative expands daily processing to 250 liters." },
+        { yr: "1950", tag: "1950 // HISTORICAL ACCESSION RECORD", text: "National Archives files Case 001 resolution report." }
+      ];
+
+      for (const item of years) {
+        if (yrDisplay) yrDisplay.textContent = item.yr;
+        if (docTag) docTag.textContent = item.tag;
+        if (docText) docText.textContent = item.text;
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
+        await wait(850);
+      }
+
+      await wait(400);
+
+      // STEP 4-10: Show the Master 1946 Case Dispatch File!
       this._showEnding(id);
     })();
   }
@@ -965,7 +1009,7 @@ class Game {
       statusStamp.textContent = id === "cooperative" ? "CASE CLOSED" : "ARCHIVED";
     }
 
-    // 2. SECTION 2: Player Recommendation Card
+    // 2. STEP 4: Player Recommendation Card
     const recTitle = document.getElementById("rec-card-title");
     const recDesc = document.getElementById("rec-card-desc");
     const recBadge = document.getElementById("rec-card-badge");
@@ -984,7 +1028,26 @@ class Game {
       if (recBadge) recBadge.textContent = "TECHNICAL UPGRADE";
     }
 
-    // 3. SECTION 4: Immediate Consequences (Government Observation Notes)
+    // 3. STEP 7: Decision vs Real History Comparison Card
+    const compPlayerTitle = document.getElementById("comp-player-title");
+    const compPlayerDesc = document.getElementById("comp-player-desc");
+    const compPlayerTag = document.getElementById("comp-player-tag");
+
+    if (id === "cooperative") {
+      if (compPlayerTitle) compPlayerTitle.textContent = "✓ Formed a Cooperative";
+      if (compPlayerDesc) compPlayerDesc.textContent = "You advised the farmers to unite and refuse contractor milk sales.";
+      if (compPlayerTag) { compPlayerTag.textContent = "MATCHED HISTORY"; compPlayerTag.className = "comp-tag player-tag"; }
+    } else if (id === "accept") {
+      if (compPlayerTitle) compPlayerTitle.textContent = "✗ Accepted Polson's Rates";
+      if (compPlayerDesc) compPlayerDesc.textContent = "You advised accepting contractor terms, delaying economic independence.";
+      if (compPlayerTag) { compPlayerTag.textContent = "DIVERGED FROM HISTORY"; compPlayerTag.className = "comp-tag history-tag"; }
+    } else if (id === "cooling") {
+      if (compPlayerTitle) compPlayerTitle.textContent = "⚠ Installed Cooling Tanks";
+      if (compPlayerDesc) compPlayerDesc.textContent = "You advised technical cooling, but contractor monopoly margins remained.";
+      if (compPlayerTag) { compPlayerTag.textContent = "PARTIAL ALTERNATIVE"; compPlayerTag.className = "comp-tag player-tag"; }
+    }
+
+    // 4. STEP 5: Immediate Consequences (Findings 01-03)
     const findingsGrid = document.getElementById("findings-grid");
     if (findingsGrid) {
       if (id === "cooperative") {
@@ -1035,7 +1098,7 @@ class Game {
       }
     }
 
-    // 4. SECTION 5 & 6: Historical Record & Sticky Note
+    // 5. STEP 6 & 10: Historical Explanation & Archivist Sticky Note
     const histTextEl = document.getElementById("historical-text");
     const stickyBody = document.getElementById("sticky-body");
 
@@ -1044,25 +1107,25 @@ class Game {
         histTextEl.textContent = "In December 1946, Anand's farmers, guided by Tribhuvandas Patel and advised by Sardar Vallabhbhai Patel, went on strike against Polson's dairy monopoly. They refused to sell milk unless they could form their own cooperative. This action birthed the Kaira Cooperative (Amul) and sparked India's White Revolution, turning India into the world's largest milk producer.";
       }
       if (stickyBody) {
-        stickyBody.textContent = '"This historic recommendation led to the creation of India\'s first farmer-owned dairy union."';
+        stickyBody.textContent = '"History is rarely inevitable. Thousands of ordinary decisions shape extraordinary futures. You just experienced one."';
       }
     } else if (id === "accept") {
       if (histTextEl) {
         histTextEl.textContent = "By accepting the low rates, the village remained in poverty. In reality, it took farmers organizing a milk strike in late 1946 and establishing a cooperative to bypass the middlemen and gain economic independence.";
       }
       if (stickyBody) {
-        stickyBody.textContent = '"This decision delayed the formation of a farmer-owned cooperative movement in Kaira District."';
+        stickyBody.textContent = '"History is rarely inevitable. Thousands of ordinary decisions shape extraordinary futures. You just experienced one."';
       }
     } else if (id === "cooling") {
       if (histTextEl) {
         histTextEl.textContent = "Cooling tanks reduced spoilage but did not prevent economic exploitation. In history, Anand's farmers realized that cooling was merely technical; they needed collective ownership of distribution and processing to thrive.";
       }
       if (stickyBody) {
-        stickyBody.textContent = '"Technical upgrades without structural ownership failed to break the Polson monopoly."';
+        stickyBody.textContent = '"History is rarely inevitable. Thousands of ordinary decisions shape extraordinary futures. You just experienced one."';
       }
     }
 
-    // 5. Calculate Deduction Rating & Archivist Rank
+    // 6. Calculate Deduction Rating & Archivist Rank
     const wrong = this.state.wrongGuesses || 0;
     let accuracy = "100%";
     let rankTitle = "Master Archivist";
@@ -1097,28 +1160,34 @@ class Game {
           window.SAMAY_SOUND.play("stamp");
         }
       }
-    }, 800);
+    }, 600);
 
-    // 6. Handle Restart / Slide Back Action
+    // STEP 11: Final Closing & Cabinet Drawer Lock Animation
     const restartBtn = document.getElementById("btn-restart");
     if (restartBtn) {
       restartBtn.onclick = (e) => {
         e.preventDefault();
         const dossierFrame = document.getElementById("final-dispatch-dossier");
+        
+        if (window.SAMAY_SOUND) {
+          window.SAMAY_SOUND.play("stamp");
+        }
+
         if (dossierFrame) {
-          dossierFrame.style.transform = "translateY(100vh)";
+          dossierFrame.style.transform = "translateY(100vh) scale(0.9)";
           dossierFrame.style.opacity = "0";
         }
-        if (window.SAMAY_SOUND) {
-          window.SAMAY_SOUND.play("paper");
-        }
+
         setTimeout(() => {
+          if (window.SAMAY_SOUND) {
+            window.SAMAY_SOUND.play("bell");
+          }
           if (dossierFrame) {
             dossierFrame.style.transform = "none";
             dossierFrame.style.opacity = "1";
           }
           this._goToScene("archive");
-        }, 650);
+        }, 750);
       };
     }
   }
