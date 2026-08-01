@@ -147,11 +147,10 @@ button{
   letter-spacing: 0.05em;
   z-index: 10;
 }
-.intro-skip:hover{ color: var(--lantern-bright); }
-
 /* ============================================================
    VILLAGE SCENE
-===========================================================#scene-village {
+============================================================ */
+#scene-village {
   background: 
     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.75)),
     repeating-linear-gradient(90deg, #2b1a11 0px, #2b1a11 150px, #21130a 150px, #21130a 300px);
