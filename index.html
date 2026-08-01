@@ -758,7 +758,7 @@
     </div>
   </section>
 
-  <!-- ============ SCENE: THE FINAL INVESTIGATION DESK (3-QUESTION PLAYABLE CLIMAX) ============ -->
+  <!-- ============ SCENE: THE FINAL INVESTIGATION DESK (TACTILE ARCHIVAL CLIMAX) ============ -->
   <section id="scene-ending" class="scene">
     <div class="oak-desk-surface" id="final-dispatch-dossier">
       <div class="archive-dust-layer"></div>
@@ -773,7 +773,7 @@
       <!-- SCATTERED DESK CONTAINER -->
       <div class="desk-scattered-spread" id="desk-scattered-spread">
         
-        <!-- QUESTION 1: WHAT ACTUALLY HAPPENED? (Sealed Folder -> Unfold Comparison) -->
+        <!-- STEP 1: MY RECOMMENDATION VS THE HISTORICAL DECISION -->
         <div class="ending-stage-box stage-q1" id="stage-q1">
           <div class="sealed-folder-interactive" id="unseal-historical-folder">
             <div class="folder-wax-seal" id="folder-wax-seal">
@@ -790,35 +790,42 @@
           <!-- Unfolded Comparison Papers (Revealed after unsealing) -->
           <div class="desk-doc doc-comparison-spread" id="unfolded-comparison-spread" style="display: none;">
             <div class="comp-paper paper-your-report">
+              <div class="brass-tack-head">📍</div>
               <span class="comp-paper-tag">MY RECOMMENDATION</span>
               <h4 id="comp-player-title">Form a Cooperative</h4>
               <p id="comp-player-desc">You recommended collecting, grading, and selling milk together.</p>
+              <div class="paper-stamp-rec">FILED // 1946</div>
             </div>
 
-            <div class="comp-pencil-annotation" id="comp-pencil-text">"Your investigation reached the same conclusion recorded in the historical archive."</div>
+            <!-- Integrated Yellow Margin Annotation Strip -->
+            <div class="comp-pencil-annotation-strip">
+              <div class="comp-pencil-annotation" id="comp-pencil-text">"Your investigation reached the same conclusion recorded in the historical archive."</div>
+            </div>
 
             <div class="comp-paper paper-archive-record">
+              <div class="paperclip-corner">📎</div>
               <span class="comp-paper-tag history-tag">THE HISTORICAL DECISION</span>
               <h4>4 January 1946 Resolution</h4>
               <p>The farmers of Kaira District resolved to form an independent cooperative union.</p>
+              <div class="paper-stamp-gov">ACCESSION RECORD // 1946</div>
             </div>
           </div>
         </div>
 
-        <!-- QUESTION 2: WHY? (3 Interactive Inspectable Evidence Documents) -->
+        <!-- STEP 2: WHY DID HISTORY UNFOLD THIS WAY? (Curiosity-Driven Question Headings) -->
         <div class="ending-stage-box stage-q2" id="stage-q2" style="display: none;">
           <div class="stage-section-header">
-            <span class="stage-num">QUESTION 2 OF 3</span>
+            <span class="stage-num">ARCHIVAL EVIDENCE</span>
             <h3 class="stage-title">Why did history unfold this way?</h3>
-            <p class="stage-hint">Inspect all 3 historical evidence documents to unlock the final archive action:</p>
+            <p class="stage-hint">Inspect all 3 historical evidence documents to uncover the truth:</p>
           </div>
 
           <div class="why-docs-grid" id="why-docs-grid">
             <!-- Doc 1: Price Margin Ledger -->
             <div class="why-doc-card" id="why-doc-price" data-doc="price">
               <div class="paperclip-corner">📎</div>
-              <span class="doc-badge">DOCUMENT 01</span>
-              <h4>Bombay Price Ledger (1946)</h4>
+              <span class="doc-badge">BOMBAY PRICE MARGIN LEDGER (1946)</span>
+              <h4>Why were farmers paid so little?</h4>
               <p class="doc-inspect-prompt">Click to Inspect Evidence 🔍</p>
               <div class="doc-revealed-text" style="display:none;">
                 "Contractors retained 9 Annas margin per seer in Bombay while paying Anand farmers only 3 Annas."
@@ -828,8 +835,8 @@
             <!-- Doc 2: Patel Resolution Note -->
             <div class="why-doc-card" id="why-doc-patel" data-doc="patel">
               <div class="paperclip-corner">📎</div>
-              <span class="doc-badge">DOCUMENT 02</span>
-              <h4>Sardar Patel's Directive</h4>
+              <span class="doc-badge">SARDAR PATEL'S DIRECTIVE (1946)</span>
+              <h4>Who showed the farmers another way?</h4>
               <p class="doc-inspect-prompt">Click to Inspect Evidence 🔍</p>
               <div class="doc-revealed-text" style="display:none;">
                 "Sardar Patel advised that only a 15-day milk strike could break contractor monopoly power."
@@ -839,8 +846,8 @@
             <!-- Doc 3: Railway Transport Permit -->
             <div class="why-doc-card" id="why-doc-rail" data-doc="rail">
               <div class="paperclip-corner">📎</div>
-              <span class="doc-badge">DOCUMENT 03</span>
-              <h4>B.B. & C.I. Railway Permit</h4>
+              <span class="doc-badge">B.B. & C.I. RAILWAY FREIGHT PERMIT</span>
+              <h4>Who controlled transport?</h4>
               <p class="doc-inspect-prompt">Click to Inspect Evidence 🔍</p>
               <div class="doc-revealed-text" style="display:none;">
                 "Bombay Municipality granted direct rail transit permits exclusively to the Kaira Cooperative."
@@ -849,28 +856,33 @@
           </div>
         </div>
 
-        <!-- QUESTION 3: WHAT DID THIS LEAD TO? (Stamp CASE CLOSED -> AMUL Reveal) -->
+        <!-- STEP 3: WHAT DID THIS LEAD TO? (AMUL Envelope Reveal & Symmetrical Stamp Slam) -->
         <div class="ending-stage-box stage-q3" id="stage-q3" style="display: none;">
-          <div class="stamp-action-block">
-            <button class="btn-stamp-case-closed" id="btn-stamp-case-closed">
-              <span class="stamp-icon">🔴</span>
-              <span class="stamp-label">STAMP "CASE CLOSED" TO SEAL ARCHIVE</span>
+          
+          <!-- Physical String-Tied AMUL Discovery Envelope -->
+          <div class="amul-discovery-envelope" id="amul-discovery-envelope">
+            <button class="btn-open-amul-envelope" id="btn-open-amul-envelope">
+              <span class="envelope-string-button">🧵</span>
+              <span class="envelope-label">UNFOLD CONFIDENTIAL LEGACY DOSSIER</span>
             </button>
           </div>
 
-          <!-- AMUL Legacy Reveal & Map Expansion (Appears on Stamp Slam) -->
+          <!-- Unfolded Legacy Contents & Map -->
           <div class="legacy-reveal-container" id="legacy-reveal-container" style="display: none;">
             <div class="desk-doc doc-legacy-reveal">
+              <div class="photo-tape-corner top-left"></div>
+              <div class="photo-tape-corner top-right"></div>
               <p class="legacy-lead">Because the farmers organised together...</p>
-              <p class="legacy-body">The Kaira District Cooperative Union was formed, initiating India's White Revolution.</p>
+              <p class="legacy-body">The Kaira District Cooperative Union was registered in 1946, initiating India's White Revolution.</p>
               <div class="amul-reveal-block">
                 <span class="amul-reveal-label">THIS EVENTUALLY BECAME</span>
                 <h1 class="amul-reveal-logo" id="amul-reveal-logo">A M U L</h1>
               </div>
             </div>
 
-            <div class="desk-doc doc-map-expansion">
-              <span class="map-kicker">GEOGRAPHIC EXPANSION // KAIRA DISTRICT ➔ BOMBAY</span>
+            <!-- Folded B.B. & C.I. Railway Route Map -->
+            <div class="desk-doc doc-map-expansion folded-railway-map">
+              <span class="map-kicker">B.B. & C.I. RAILWAY TRANSIT ROUTE // ANAND ➔ BOMBAY</span>
               <div class="ending-map-frame">
                 <img src="assests/anand_map_1946.jpg" alt="Kaira District Geographic Route Map" class="ending-map-img">
                 <div class="map-route-node node-anand">Anand Depot</div>
@@ -878,9 +890,10 @@
                 <div class="map-route-node node-railway">B.B. & C.I. Railway</div>
                 <div class="map-route-node node-bombay">Bombay Milk Scheme</div>
               </div>
+              <span class="map-pencil-annotation">"Direct procurement route established Dec 1946" — S.V.P.</span>
             </div>
 
-            <!-- Archivist's Yellow Sticky Note -->
+            <!-- Natural Archivist Sticky Note Placement -->
             <div class="desk-doc doc-archivist-note">
               <div class="sticky-pin">📌</div>
               <span class="sticky-header">ARCHIVIST'S NOTE</span>
@@ -891,8 +904,16 @@
               <div class="sticky-coffee-stain"></div>
             </div>
 
+            <!-- Symmetrical Physical CASE CLOSED Stamp Slam Action -->
+            <div class="stamp-action-block">
+              <button class="btn-stamp-case-closed" id="btn-stamp-case-closed">
+                <span class="stamp-icon">🔴</span>
+                <span class="stamp-label">STAMP "CASE CLOSED" & LOCK CABINET DRAWER</span>
+              </button>
+            </div>
+
             <!-- Physical Case Closing & Drawer Slide Back Action -->
-            <div class="ending-footer-action">
+            <div class="ending-footer-action" id="ending-footer-action" style="display: none;">
               <button class="btn-seal-archive" id="btn-restart">
                 <span class="btn-icon">🔒</span>
                 <span class="btn-label">SLIDE CASE INTO ARCHIVE CABINET & CLOSE DRAWER</span>

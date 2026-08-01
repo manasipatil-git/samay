@@ -4438,31 +4438,176 @@ button{
   border-radius: 2px;
 }
 
-/* QUESTION 3: Stamp CASE CLOSED Action Button */
-.stamp-action-block {
-  text-align: center;
-  margin: 30px 0;
+/* HIGH CONTRAST ARCHIVAL COMPARISON SPREAD */
+.doc-comparison-spread {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 900px;
+  margin: 20px auto;
+  position: relative;
 }
-.btn-stamp-case-closed {
-  background: linear-gradient(135deg, #8b0000 0%, #5a0000 100%);
-  color: #ffffff;
-  border: 2px solid #ff5555;
-  border-radius: 4px;
-  padding: 16px 32px;
+
+.paper-your-report, .paper-archive-record {
+  background: #faf6eb;
+  border: 1.5px solid #c8ba9d;
+  padding: 22px 26px;
+  border-radius: 2px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  flex: 1;
+  position: relative;
+  min-height: 180px;
+}
+.paper-your-report { transform: rotate(-2.2deg); border-top: 4px solid #aa7c11; }
+.paper-archive-record { transform: rotate(1.8deg); border-top: 4px solid #8b0000; }
+
+.comp-paper h4 {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.35rem;
+  color: #1a0f08;
+  font-weight: bold;
+  margin: 6px 0 8px;
+}
+
+.comp-paper p {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.9rem;
+  color: #2b1a0e;
+  line-height: 1.6;
+  font-weight: bold;
+}
+
+.paper-stamp-rec, .paper-stamp-gov {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border-radius: 2px;
+  opacity: 0.85;
+}
+.paper-stamp-rec { color: #aa7c11; border: 1.5px double #aa7c11; transform: rotate(-4deg); }
+.paper-stamp-gov { color: #8b0000; border: 1.5px double #8b0000; transform: rotate(5deg); }
+
+/* INTEGRATED MARGIN ANNOTATION STRIP */
+.comp-pencil-annotation-strip {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: min(520px, 90%);
+  background: #f4ebd7;
+  border: 1px solid #d4c5a9;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  padding: 8px 16px;
+  text-align: center;
+  z-index: 10;
+}
+
+.comp-pencil-annotation {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.88rem;
+  font-weight: bold;
+  color: #1a0f08;
+  letter-spacing: 0.04em;
+}
+
+/* HIGH CONTRAST WHY DOC CARDS */
+.why-doc-card {
+  position: relative;
+  background: #faf6eb;
+  border: 1.5px solid #c8ba9d;
+  border-top: 4px solid #aa7c11;
+  padding: 20px 22px;
+  border-radius: 3px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.why-doc-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: #1a0f08;
+  font-weight: bold;
+  margin: 6px 0 10px;
+}
+.why-doc-card .doc-badge {
+  font-family: var(--font-type);
+  font-size: 0.64rem;
   font-weight: bold;
   letter-spacing: 0.12em;
+  color: #8b0000;
+  display: block;
+}
+.doc-revealed-text {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.88rem;
+  font-weight: bold;
+  line-height: 1.6;
+  color: #1a0f08;
+  background: #f4ebd7;
+  border-left: 3.5px solid #aa7c11;
+  padding: 10px 14px;
+  margin-top: 12px;
+  border-radius: 2px;
+}
+
+/* STRING-TIED CONFIDENTIAL AMUL DISCOVERY ENVELOPE */
+.amul-discovery-envelope {
+  background: linear-gradient(135deg, #4a2e1b 0%, #2b180d 100%);
+  border: 3px solid #aa7c11;
+  border-radius: 4px;
+  padding: 24px 30px;
+  text-align: center;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.85);
+  max-width: 580px;
+  margin: 20px auto;
+  transform: rotate(-0.5deg);
+}
+
+.btn-open-amul-envelope {
+  background: linear-gradient(135deg, #aa7c11 0%, #6d4e13 100%);
+  color: #fffdf9;
+  border: 1.5px solid #3c2416;
+  border-radius: 3px;
+  padding: 14px 28px;
+  font-family: var(--font-type);
+  font-size: 0.88rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(139,0,0,0.6);
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 20px rgba(170,124,17,0.4);
+  transition: transform 0.2s ease, background 0.2s ease;
 }
-.btn-stamp-case-closed:hover {
-  transform: scale(1.04);
-  box-shadow: 0 14px 40px rgba(255,85,85,0.7);
+.btn-open-amul-envelope:hover {
+  transform: scale(1.03);
+  background: linear-gradient(135deg, #c49418 0%, #856018 100%);
+}
+.envelope-string-button { font-size: 1.4rem; }
+
+/* FOLDED B.B. & C.I. RAILWAY MAP */
+.folded-railway-map {
+  background: #f4ebd7;
+  border: 2px dashed #a89478;
+  padding: 16px;
+  transform: rotate(1.2deg);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+}
+.map-pencil-annotation {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.76rem;
+  font-weight: bold;
+  color: #8b0000;
+  display: block;
+  text-align: right;
+  margin-top: 6px;
 }
 
 .news-masthead {

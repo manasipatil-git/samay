@@ -1034,15 +1034,26 @@ class Game {
       };
     });
 
-    // 3. QUESTION 3 SETUP: Stamp CASE CLOSED & AMUL Legacy Reveal
-    const stampBtn = document.getElementById("btn-stamp-case-closed");
+    // 3. STEP 3 SETUP: String-Tied AMUL Discovery Envelope & Rubber Stamp Slam
+    const envelopeBtn = document.getElementById("btn-open-amul-envelope");
+    const envelopeBox = document.getElementById("amul-discovery-envelope");
     const legacyContainer = document.getElementById("legacy-reveal-container");
+    const stampBtn = document.getElementById("btn-stamp-case-closed");
+    const footerAction = document.getElementById("ending-footer-action");
+
+    if (envelopeBtn) {
+      envelopeBtn.onclick = () => {
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+        if (envelopeBox) envelopeBox.style.display = "none";
+        if (legacyContainer) legacyContainer.style.display = "block";
+      };
+    }
 
     if (stampBtn) {
       stampBtn.onclick = () => {
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
         stampBtn.style.display = "none";
-        if (legacyContainer) legacyContainer.style.display = "block";
+        if (footerAction) footerAction.style.display = "block";
       };
     }
 
