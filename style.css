@@ -3642,6 +3642,58 @@ button{
   margin-top: 18px;
 }
 
+/* Authentic 1946 Archival Begin Investigation Action Button */
+.dossier-action-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1.5px dashed rgba(139, 0, 0, 0.22);
+}
+
+.dossier-bookmark-skip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #8b0000 0%, #600000 100%);
+  color: #fffdf9;
+  border: 2px solid #500909;
+  border-radius: 3px;
+  padding: 10px 22px;
+  font-family: var(--font-type);
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(139, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.dossier-bookmark-skip:hover {
+  background: linear-gradient(135deg, #a30000 0%, #7a0000 100%);
+  border-color: #aa7c11;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.55), inset 0 1px 3px rgba(255, 255, 255, 0.4);
+}
+
+.dossier-bookmark-skip:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.dossier-bookmark-skip .btn-arrow {
+  font-size: 1.1rem;
+  color: #ebd7a2;
+  transition: transform 0.25s ease;
+}
+
+.dossier-bookmark-skip:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
 /* ============================================================
    MAP UPGRADES & ANIMATIONS
 ============================================================ */
