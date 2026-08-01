@@ -4608,16 +4608,60 @@ button{
 
 .legacy-handwritten-note {
   font-family: 'Special Elite', Courier, monospace;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: bold;
   color: #8b0000;
   background: #f4ebd7;
   border: 1px dashed #aa7c11;
-  padding: 8px 16px;
-  display: inline-block;
+  padding: 10px 18px;
+  display: block;
+  text-align: center;
   transform: rotate(-1.2deg);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   margin-bottom: 24px;
+}
+
+/* SUBTLE VINTAGE EMBOSSED ARCHIVAL STAMP (REPLACES POWERPOINT LOGO) */
+.legacy-archival-seal-block {
+  text-align: center;
+  margin: 20px 0;
+}
+.vintage-archival-stamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px double #8b0000;
+  border-radius: 50%;
+  width: 170px;
+  height: 170px;
+  justify-content: center;
+  padding: 12px;
+  background: radial-gradient(circle at 35% 35%, rgba(250, 246, 235, 0.95) 0%, rgba(244, 235, 215, 0.95) 100%);
+  color: #8b0000;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35), inset 0 0 10px rgba(139,0,0,0.2);
+  transform: rotate(-6deg);
+}
+.vintage-archival-stamp .stamp-org {
+  font-size: 0.52rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+.vintage-archival-stamp .stamp-brand {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: bold;
+  letter-spacing: 0.25em;
+  line-height: 1.1;
+  margin: 4px 0;
+  border-top: 1.5px solid #8b0000;
+  border-bottom: 1.5px solid #8b0000;
+  padding: 2px 10px;
+}
+.vintage-archival-stamp .stamp-date {
+  font-size: 0.54rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
 }
 
 /* HIGH CONTRAST WHY DOC CARDS */
