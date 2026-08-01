@@ -4091,13 +4091,13 @@ button{
 }
 
 /* ============================================================
-   INVESTIGATOR'S OAK DESK SURFACE (TACTILE ARCHIVAL CLIMAX)
+   INVESTIGATOR'S OAK DESK SURFACE (ENVIRONMENTAL DISCOVERY DESK)
 ============================================================ */
 #scene-ending.is-active {
   display: flex;
   height: 100vh;
   overflow: hidden;
-  padding: 20px 15px;
+  padding: 15px;
   background: radial-gradient(ellipse at 50% 40%, #2a1a0f 0%, #080402 95%);
   align-items: center;
   justify-content: center;
@@ -4105,11 +4105,11 @@ button{
 
 .oak-desk-surface {
   width: min(940px, 95vw);
-  max-height: 92vh;
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
   position: relative;
   margin: auto;
-  padding: 28px 34px;
+  padding: 24px 30px;
   background: 
     radial-gradient(ellipse at 50% 30%, rgba(255,220,180,0.08) 0%, transparent 70%),
     linear-gradient(135deg, #1f130b 0%, #120904 100%);
@@ -4119,6 +4119,165 @@ button{
     0 40px 100px rgba(0,0,0,0.95),
     inset 0 0 45px rgba(0,0,0,0.7);
   transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease;
+}
+
+/* PAPERCLIP POSITIONING FIX ON HISTORICAL RESOLUTION PAPER */
+.paper-archive-record {
+  padding: 30px 24px 22px !important;
+}
+
+.paperclip-corner-right {
+  position: absolute;
+  top: -14px;
+  right: 14px;
+  font-size: 1.35rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  z-index: 25;
+}
+
+.history-title-heading {
+  margin: 10px 0 6px !important;
+  font-size: 1.3rem !important;
+}
+
+/* TORN CARBON MEMO SLIP WITH SAFETY PIN FIX */
+.torn-carbon-memo {
+  position: relative !important;
+  overflow: visible !important;
+  background: linear-gradient(135deg, #2b2622 0%, #1a1614 100%) !important;
+  color: #f4ebd7 !important;
+  border: 1px dashed #aa7c11 !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6) !important;
+  border-radius: 2px !important;
+  padding: 10px 22px 10px 36px !important;
+}
+.safety-pin-clip {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  font-size: 1.3rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+  z-index: 25;
+}
+
+/* ASYMMETRICAL PHYSICAL ARTIFACT LAYOUT & ROTATIONS */
+.why-docs-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.artifact-heading {
+  font-family: var(--font-display);
+  font-size: 1.08rem !important;
+  line-height: 1.35 !important;
+  margin: 12px 0 8px !important;
+  font-weight: bold;
+}
+
+.leather-ledger-book {
+  transform: rotate(-5.5deg) translateY(-8px) !important;
+  width: 32% !important;
+}
+.telegraph-wire-slip {
+  transform: rotate(3.2deg) translateY(10px) !important;
+  width: 33% !important;
+}
+.railway-token-tag {
+  transform: rotate(-4.2deg) translateY(-4px) !important;
+  width: 32% !important;
+}
+
+.ledger-open-prompt, .wire-inspect-prompt, .tag-inspect-prompt {
+  font-size: 0.72rem;
+  font-weight: bold;
+  color: #aa7c11;
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+/* AUTHENTIC PHYSICAL MANILA STRING ENVELOPE (REPLACES WEB BUTTON) */
+.physical-manila-envelope {
+  background: linear-gradient(135deg, #d8c39d 0%, #c2ac83 100%);
+  border: 2px solid #9e875e;
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+  padding: 16px 24px;
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.envelope-stamp-restricted {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  background: #8b0000;
+  color: #fffdf8;
+  padding: 3px 12px;
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  border-radius: 2px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+  transform: rotate(1.5deg);
+  z-index: 15;
+}
+
+.btn-unwrap-string-envelope {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.string-washer-button {
+  width: 44px;
+  height: 44px;
+  background: #bfa575;
+  border: 2px solid #7a633a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.4), 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+.btn-unwrap-string-envelope:hover .string-washer-button {
+  transform: scale(1.1) rotate(15deg);
+}
+
+.envelope-label-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.envelope-kicker {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  color: #6e5936;
+  font-weight: bold;
+}
+
+.envelope-main-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: #1a0f08;
+  font-weight: bold;
+  margin: 2px 0;
+}
+
+.envelope-sub-hint {
+  font-size: 0.72rem;
+  color: #5c4728;
 }
 
 /* GRAPHITE PENCIL UNDERLINE */
