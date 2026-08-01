@@ -1028,23 +1028,27 @@ class Game {
       if (recBadge) recBadge.textContent = "TECHNICAL UPGRADE";
     }
 
-    // 3. STEP 7: Decision vs Real History Comparison Card
+    // 3. STEP 7: Decision vs Real History Comparison Papers
     const compPlayerTitle = document.getElementById("comp-player-title");
     const compPlayerDesc = document.getElementById("comp-player-desc");
     const compPlayerTag = document.getElementById("comp-player-tag");
+    const compPencilText = document.getElementById("comp-pencil-text");
 
     if (id === "cooperative") {
       if (compPlayerTitle) compPlayerTitle.textContent = "✓ Formed a Cooperative";
       if (compPlayerDesc) compPlayerDesc.textContent = "You advised the farmers to unite and refuse contractor milk sales.";
       if (compPlayerTag) { compPlayerTag.textContent = "MATCHED HISTORY"; compPlayerTag.className = "comp-tag player-tag"; }
+      if (compPencilText) compPencilText.textContent = '"Your investigation matched history."';
     } else if (id === "accept") {
       if (compPlayerTitle) compPlayerTitle.textContent = "✗ Accepted Polson's Rates";
       if (compPlayerDesc) compPlayerDesc.textContent = "You advised accepting contractor terms, delaying economic independence.";
       if (compPlayerTag) { compPlayerTag.textContent = "DIVERGED FROM HISTORY"; compPlayerTag.className = "comp-tag history-tag"; }
+      if (compPencilText) compPencilText.textContent = '"History took another path."';
     } else if (id === "cooling") {
       if (compPlayerTitle) compPlayerTitle.textContent = "⚠ Installed Cooling Tanks";
       if (compPlayerDesc) compPlayerDesc.textContent = "You advised technical cooling, but contractor monopoly margins remained.";
       if (compPlayerTag) { compPlayerTag.textContent = "PARTIAL ALTERNATIVE"; compPlayerTag.className = "comp-tag player-tag"; }
+      if (compPencilText) compPencilText.textContent = '"History demanded structural ownership."';
     }
 
     // 4. STEP 5: Immediate Consequences (Findings 01-03)
