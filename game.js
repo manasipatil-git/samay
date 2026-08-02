@@ -955,20 +955,21 @@ class Game {
     }
 
     const tableSurface = document.getElementById("panchayat-table-surface");
-    if (tableSurface) tableSurface.style.display = "none";
+    if (tableSurface) {
+      tableSurface.style.display = "flex";
+    }
 
-    // Play Motibhai Patel intro sequence via DialogueManager overlay
+    // Initialize evidence folder and table cards immediately
+    this._showEvidenceDock();
+
+    // Play Motibhai Patel intro sequence via DialogueManager overlay over table
     this.dialogue.say(
       GAME_DATA.locations.hall.speaker,
       "elder",
       [
         "You have gathered your records.",
         "Place before the assembly the documents that support your findings."
-      ],
-      () => {
-        if (tableSurface) tableSurface.style.display = "flex";
-        this._showEvidenceDock();
-      }
+      ]
     );
   }
 
