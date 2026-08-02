@@ -1108,19 +1108,19 @@ class Game {
       };
     }
 
-    const envelopeBtn = document.getElementById("btn-open-amul-envelope");
-    const envelopeBox = document.getElementById("amul-discovery-envelope");
-    const legacyContainer = document.getElementById("legacy-reveal-container");
-    const stampBtn = document.getElementById("btn-stamp-case-closed");
-
-    // Hide all branching outcome blocks first
-    document.querySelectorAll(".branch-outcome-block").forEach(b => b.style.display = "none");
+    // Global samayOpenEnvelope helper for Tab 3 discovery button
+    window.samayOpenEnvelope = () => {
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+      if (envelopeBox) envelopeBox.style.display = "none";
+      if (legacyContainer) {
+        legacyContainer.style.display = "block";
+        legacyContainer.style.animation = "slideOutHistoricalDeed 0.6s ease forwards";
+      }
+    };
 
     if (envelopeBtn) {
       envelopeBtn.onclick = () => {
-        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-        if (envelopeBox) envelopeBox.style.display = "none";
-        if (legacyContainer) legacyContainer.style.display = "block";
+        window.samayOpenEnvelope();
 
         // Show specific branching outcome block or update sleek final dossier
         const playerTitle = document.getElementById("dossier-player-title");
