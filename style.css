@@ -4616,7 +4616,10 @@ button{
   font-size: 0.72rem;
   font-weight: bold;
   letter-spacing: 0.06em;
-  cursor: pointer;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 10 !important;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   transition: transform 0.2s ease, background 0.2s ease;
   width: 100%;

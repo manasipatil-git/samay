@@ -9,7 +9,57 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Vesper+Libre:wght@400;500;700;900&family=Special+Elite&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css?v=20260802_FORCE_RELOAD_999">
+<link rel="stylesheet" href="style.css?v=20260802_FORCE_RELOAD_9999">
+<script>
+/* GLOBAL ROOT SAMAY OPEN INSPECT HANDLER (PARSED IN HEAD BEFORE ANY HTML) */
+window.samayOpenInspect = function(docId) {
+  console.log("[SAMAY ROOT HEAD] openInspect triggered:", docId);
+  var overlay = document.getElementById("artifact-inspect-overlay");
+  var content = document.getElementById("inspect-content-body");
+  if (!overlay || !content) return;
+
+  // Move overlay to document.body root if nested
+  if (overlay.parentNode !== document.body) {
+    document.body.appendChild(overlay);
+  }
+
+  var details = {
+    price: {
+      title: "📕 BOMBAY PROCUREMENT LEDGER (1946)",
+      badge: "MARGIN ACCOUNTING AUDIT",
+      body: '<div class="ledger-modal-inspect font-type"><h4 style="color:#8b0000;margin-bottom:12px;">BOMBAY MILK PROCUREMENT MARGINS</h4><p>Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay, paying Anand farmers only 3 Annas per seer.</p><div style="background:rgba(43,23,12,0.06);padding:12px;border-left:3px solid #aa7c11;margin:16px 0;"><strong style="color:#2b170c;display:block;">Graphite Audit Note:</strong><em>"Contractor profit margins reached 75% of retail price. Middleman monopoly verified. See Transit Permit #402."</em></div></div>'
+    },
+    patel: {
+      title: "⚡ TELEGRAM DISPATCH #402",
+      badge: "INDIAN TELEGRAPH DEPT // 1946",
+      body: '<div class="wire-modal-inspect font-type"><h4 style="color:#8b0000;margin-bottom:12px;">SARDAR VALLABHBHAI PATEL DIRECTIVE</h4><p>"Sardar Patel advised the Kaira farmers that only a <span class="pencil-underline">15-day complete milk strike</span> could break contractor monopoly power over Bombay supply lines."</p><div style="background:rgba(139,0,0,0.06);padding:12px;border-left:3px solid #8b0000;margin:16px 0;"><strong style="color:#8b0000;display:block;">Dispatch Priority: CONFIDENTIAL</strong><em>"Prepare village committees for collective boycott of contractor milk collection centers."</em></div></div>'
+    },
+    rail: {
+      title: "🚂 B.B. & C.I. RAILWAY FREIGHT PASS #402",
+      badge: "TRANSIT FREIGHT CLEARANCE",
+      body: '<div class="rail-modal-inspect font-type"><h4 style="color:#1b2a4a;margin-bottom:12px;">DIRECT RAIL TRANSIT PERMIT #402</h4><p>"Bombay Municipality granted <span class="pencil-underline">direct rail transit permits</span> exclusively to the independent Kaira Cooperative."</p><div style="background:rgba(27,42,74,0.06);padding:12px;border-left:3px solid #1b2a4a;margin:16px 0;"><strong style="color:#1b2a4a;display:block;">Freight Authorization: PASSED</strong><em>"Allows cooperative milk tankers direct priority dispatch on Anand-Bombay express rail line."</em></div></div>'
+    }
+  };
+
+  var data = details[docId];
+  if (!data) return;
+
+  if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
+
+  content.innerHTML = '<span class="clipping-tag font-type" style="display:block;margin-bottom:4px;">' + data.badge + '</span><h3 style="font-family:var(--font-display);color:#3c2416;margin:0 0 16px;">' + data.title + '</h3>' + data.body;
+  overlay.classList.add("is-active");
+  overlay.style.cssText = "display: flex !important; position: fixed !important; inset: 0 !important; z-index: 9999999 !important; align-items: center !important; justify-content: center !important;";
+};
+
+window.samayCloseInspect = function() {
+  var overlay = document.getElementById("artifact-inspect-overlay");
+  if (overlay) {
+    overlay.classList.remove("is-active");
+    overlay.style.cssText = "display: none !important;";
+  }
+  if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+};
+</script>
 </head>
 <body>
 
@@ -893,7 +943,7 @@
                 "Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay. <span class="detective-lead font-type">See Rail Permit #402.</span>"
               </p>
 
-              <button class="btn-inspect-artifact font-type" data-doc="price" onclick="event.stopPropagation(); window.samayOpenInspect && window.samayOpenInspect('price')">
+              <button class="btn-inspect-artifact font-type" data-doc="price" onclick="window.samayOpenInspect('price')">
                 <span>🔍 Inspect Leather Ledger Book</span>
               </button>
             </div>
@@ -902,7 +952,7 @@
             <div class="museum-page page-right evidence-clippings-page">
               
               <!-- TOP CLIPPING: SARDAR PATEL TELEGRAM WIRE (PAPERCLIPPED 📎) -->
-              <div class="museum-clipping wire-clipping-card" id="why-doc-patel" data-doc="patel" onclick="window.samayOpenInspect && window.samayOpenInspect('patel')">
+              <div class="museum-clipping wire-clipping-card" id="why-doc-patel" data-doc="patel" onclick="window.samayOpenInspect('patel')">
                 <div class="paperclip-corner-left">📎</div>
                 <div class="perforated-edge top"></div>
                 <div class="perforated-edge bottom"></div>
@@ -911,13 +961,13 @@
                 <p class="clipping-body font-type">
                   "Sardar Patel advised that only a <span class="pencil-underline">15-day milk strike</span> could break contractor monopoly power."
                 </p>
-                <button class="btn-inspect-artifact font-type" data-doc="patel" onclick="event.stopPropagation(); window.samayOpenInspect && window.samayOpenInspect('patel')">
+                <button class="btn-inspect-artifact font-type" data-doc="patel" onclick="window.samayOpenInspect('patel')">
                   <span>📜 Inspect Wire Dispatch</span>
                 </button>
               </div>
 
               <!-- BOTTOM TAG: B.B. & C.I. RAILWAY FREIGHT PASS #402 (TIED WITH TWINE 🧵) -->
-              <div class="museum-clipping railway-tag-card" id="why-doc-rail" data-doc="rail" onclick="window.samayOpenInspect && window.samayOpenInspect('rail')">
+              <div class="museum-clipping railway-tag-card" id="why-doc-rail" data-doc="rail" onclick="window.samayOpenInspect('rail')">
                 <div class="twine-string-loop">🧵</div>
                 <div class="brass-token-icon">🪙</div>
                 <span class="clipping-tag font-type">🚂 B.B. & C.I. RAILWAY PERMIT #402</span>
@@ -933,7 +983,7 @@
                 <p class="clipping-body font-type">
                   "Bombay Municipality granted <span class="pencil-underline">direct rail transit permits</span> exclusively to the Kaira Cooperative."
                 </p>
-                <button class="btn-inspect-artifact font-type" data-doc="rail" onclick="event.stopPropagation(); window.samayOpenInspect && window.samayOpenInspect('rail')">
+                <button class="btn-inspect-artifact font-type" data-doc="rail" onclick="window.samayOpenInspect('rail')">
                   <span>🏷️ Inspect Railway Pass Tag</span>
                 </button>
               </div>
