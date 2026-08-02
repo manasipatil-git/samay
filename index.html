@@ -758,55 +758,55 @@
     </div>
   </section>
 
-  <!-- ============ SCENE: THE ACCIDENTAL ARCHIVE DESK (LIVED-IN 1946 ENVIRONMENT) ============ -->
+  <!-- ============ SCENE: THE 1946 CONFIDENTIAL DOSSIER BINDER ============ -->
   <section id="scene-ending" class="scene">
-    <div class="oak-desk-surface" id="final-dispatch-dossier">
-      <div class="archive-dust-layer"></div>
-      <div class="desk-wood-grain"></div>
-
-      <!-- ENVIRONMENT PROPS LAYER (BELIEVABLE ACCIDENTAL TOUCHPOINTS) -->
-      <div class="desk-props-layer">
-        <div class="coffee-stain-ring"></div>
-        <div class="fountain-pen-prop">🖋️</div>
-        <div class="cracked-spectacles-prop">👓</div>
-        <div class="wax-flakes-spill"></div>
-        <div class="wooden-ruler-prop"></div>
-      </div>
-
-      <!-- Top Desk Archive Reference Header -->
-      <div class="desk-archive-ref-tag">
-        <span class="ref-tag">NATIONAL ARCHIVES OF INDIA // ACCESSION DESK 04</span>
-        <span class="ref-tag">CASE FILE 001 // KAIRA DISTRICT (1946)</span>
-      </div>
-
-      <!-- ACCIDENTAL ENVIRONMENT DESK LAYOUT -->
-      <div class="desk-scattered-spread" id="desk-scattered-spread">
+    <div class="spotlight-desk-canvas">
+      
+      <!-- MAIN PHYSICAL OBJECT: 1946 CONFIDENTIAL DOSSIER BINDER -->
+      <div class="dossier-binder-container" id="final-dispatch-dossier">
         
-        <!-- TOP: MY RECOMMENDATION WITH TUCKED GOVERNMENT RESOLUTION -->
-        <div class="ending-stage-box stage-dossier">
+        <!-- BINDER BINDING RINGS & SPINE -->
+        <div class="binder-spine-rings">
+          <div class="brass-ring top-ring">🪙</div>
+          <div class="brass-ring bottom-ring">🪙</div>
+        </div>
+
+        <!-- RIGHT SIDE PHYSICAL TAB NAVIGATION (THE NOTEBOOK DIVIDERS) -->
+        <div class="dossier-tab-navigation">
+          <button class="binder-tab-btn is-active" id="tab-btn-1" data-tab="1">
+            <span class="tab-number font-type">01</span>
+            <span class="tab-label font-type">1946 CASE FILE</span>
+          </button>
+          <button class="binder-tab-btn" id="tab-btn-2" data-tab="2">
+            <span class="tab-number font-type">02</span>
+            <span class="tab-label font-type">EVIDENCE RECORDS</span>
+          </button>
+          <button class="binder-tab-btn" id="tab-btn-3" data-tab="3">
+            <span class="tab-number font-type">03</span>
+            <span class="tab-label font-type">1950 LEGACY</span>
+          </button>
+        </div>
+
+        <!-- TAB PAGE 1: 1946 CASE FILE (YOUR RECOMMENDATION + HISTORICAL RESOLUTION) -->
+        <div class="binder-page-spread tab-page-content is-active" id="tab-page-1">
+          
+          <!-- INITIAL UNSEAL WAX COVER -->
           <div class="sealed-folder-interactive" id="unseal-historical-folder">
             <div class="folder-wax-seal" id="folder-wax-seal">
               <span class="seal-emblem">🏛️</span>
-              <span class="seal-text">UNSEAL CASE 001</span>
+              <span class="seal-text">UNSEAL ACCESSION DOSSIER</span>
             </div>
             <div class="folder-cover-label">
-              <span class="label-kicker">CONFIDENTIAL ACCESSION // 1946</span>
-              <h3>OFFICIAL HISTORICAL RECORD</h3>
-              <p>Click seal to open dossier spread</p>
+              <span class="label-kicker font-type">CONFIDENTIAL ACCESSION // 1946</span>
+              <h3>NATIONAL ARCHIVES OF INDIA</h3>
+              <p class="font-type">Click wax seal to open case file spread</p>
             </div>
           </div>
 
-          <!-- Unsealed Comparison Papers (Tucked Underneath Report) -->
+          <!-- UNSEALED PAGE 1 SPREAD -->
           <div class="desk-doc doc-comparison-spread" id="unfolded-comparison-spread" style="display: none;">
             
-            <!-- PHYSICAL RED THREAD SVG CONNECTING MY CASE TO HISTORICAL RESOLUTION -->
-            <svg class="comp-red-thread-svg" viewBox="0 0 800 180">
-              <path d="M 220 90 Q 400 20 580 90" stroke="#b82619" stroke-width="3" fill="none" stroke-dasharray="6,4" />
-              <circle cx="220" cy="90" r="5" fill="#b82619" />
-              <circle cx="580" cy="90" r="5" fill="#b82619" />
-            </svg>
-
-            <!-- YOUR FILED RECOMMENDATION REPORT -->
+            <!-- YOUR FILED RECOMMENDATION REPORT (PINNED WITH BRASS PUSHPIN 📍) -->
             <div class="comp-paper paper-your-report" id="paper-your-report">
               <div class="brass-tack-head">📍</div>
               <span class="comp-paper-tag font-type">MY RECOMMENDATION</span>
@@ -826,7 +826,7 @@
               <div class="comp-pencil-annotation font-type" id="comp-pencil-text">"Your investigation reached the same conclusion recorded in the historical archive."</div>
             </div>
 
-            <!-- OFFICIAL GOVERNMENT RESOLUTION (SLIDES OUT FROM UNDERNEATH ONLY WHEN PULLED) -->
+            <!-- OFFICIAL GOVERNMENT RESOLUTION (CLIPPED 📎 UNDERNEATH) -->
             <div class="comp-paper paper-archive-record" id="tucked-archive-record" style="display: none;">
               <div class="paperclip-corner-right">📎</div>
               <span class="comp-paper-tag history-tag font-type">THE HISTORICAL DECISION</span>
@@ -837,8 +837,8 @@
           </div>
         </div>
 
-        <!-- CENTER DESK: LAYERED PHYSICAL EVIDENCE STACK (EXCAVATION SYSTEM) -->
-        <div class="ending-stage-box stage-artifacts" id="stage-artifacts" style="display: none;">
+        <!-- TAB PAGE 2: EVIDENCE RECORDS (LEDGER, TELEGRAM, RAILWAY PASS) -->
+        <div class="binder-page-spread tab-page-content" id="tab-page-2" style="display: none;">
           <div class="layered-evidence-stack" id="layered-evidence-stack">
             
             <!-- LAYER 1 (TOP): LEATHER-BOUND PROCUREMENT LEDGER BOOK -->
@@ -906,8 +906,8 @@
           </div>
         </div>
 
-        <!-- TOP RIGHT: THE FORGOTTEN DUSTY ENVELOPE (AMUL DISCOVERY) -->
-        <div class="ending-stage-box stage-envelope" id="stage-envelope" style="display: none;">
+        <!-- TAB PAGE 3: 1950 LEGACY (AMUL REVEAL & STAMP CASE CLOSED) -->
+        <div class="binder-page-spread tab-page-content" id="tab-page-3" style="display: none;">
           <div class="physical-manila-envelope forgotten-dusty-envelope" id="amul-discovery-envelope">
             <div class="approval-stamp-slip font-type" id="approval-stamp-slip" style="display:none;">ACCESS APPROVED // 1950 RECORDS</div>
             <button class="btn-unwrap-string-envelope" id="btn-open-amul-envelope">
@@ -928,7 +928,7 @@
             <!-- BRANCH OUTCOME 1: COOPERATIVE (HISTORICAL TRIUMPH) -->
             <div class="branch-outcome-block" id="branch-outcome-cooperative" style="display:none;">
               
-              <!-- FLIPPABLE HISTORIC PHOTOGRAPH -->
+              <!-- TAPED HISTORIC PHOTOGRAPH -->
               <div class="desk-doc legacy-photo-frame flippable-photo-card" id="legacy-photo-card">
                 <div class="photo-tape-corner top-left"></div>
                 <div class="photo-tape-corner top-right"></div>

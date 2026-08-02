@@ -4117,6 +4117,106 @@ button{
     0 40px 100px rgba(0,0,0,0.95),
     inset 0 0 45px rgba(0,0,0,0.7);
   transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease;
+/* SPOTLIGHT DESK CANVAS & 1946 DOSSIER BINDER CONTAINER */
+.spotlight-desk-canvas {
+  width: 100vw;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 45%, #3a2314 0%, #120904 65%, #050201 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.dossier-binder-container {
+  width: min(940px, 94vw);
+  min-height: 620px;
+  background: linear-gradient(135deg, #2b170c 0%, #1a0f07 100%);
+  border: 4px solid #3c2416;
+  border-radius: 6px;
+  box-shadow: inset 0 0 25px rgba(0,0,0,0.85), 0 20px 50px rgba(0,0,0,0.8);
+  position: relative;
+  padding: 30px 40px 30px 55px;
+  transition: transform 0.6s ease, opacity 0.5s ease;
+}
+
+/* BINDER SPINE RINGS */
+.binder-spine-rings {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 18px;
+  width: 24px;
+  background: linear-gradient(90deg, #180d06 0%, #2b170c 50%, #180d06 100%);
+  border-right: 2px solid #3c2416;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 30;
+}
+.brass-ring {
+  font-size: 1.1rem;
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.6));
+}
+
+/* SIDE TAB NAVIGATION (PHYSICAL NOTEBOOK DIVIDERS) */
+.dossier-tab-navigation {
+  position: absolute;
+  right: -125px;
+  top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 35;
+}
+
+.binder-tab-btn {
+  background: linear-gradient(135deg, #d8c5a0 0%, #bfae8c 100%);
+  border: 1.5px solid #8c7958;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.binder-tab-btn:hover {
+  transform: translateX(4px);
+  background: #f2e5c4;
+}
+
+.binder-tab-btn.is-active {
+  background: linear-gradient(135deg, #aa7c11 0%, #7a5808 100%);
+  border-color: #f7c873;
+  color: #ffffff !important;
+  transform: translateX(8px);
+}
+
+.tab-number {
+  font-size: 0.68rem;
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.tab-label {
+  font-size: 0.72rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.binder-page-spread {
+  display: none;
+}
+.binder-page-spread.is-active {
+  display: block;
 }
 
 /* ENVIRONMENT PROPS LAYER (BELIEVABLE ACCIDENTAL TOUCHPOINTS) */

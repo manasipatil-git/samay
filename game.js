@@ -984,14 +984,38 @@ class Game {
     const compPlayerDesc = document.getElementById("comp-player-desc");
     const compPencilText = document.getElementById("comp-pencil-text");
 
+    // PHYSICAL DOSSIER BINDER TAB NAVIGATION
+    const tabBtns = document.querySelectorAll(".binder-tab-btn");
+    const tabPages = document.querySelectorAll(".binder-page-spread");
+
+    tabBtns.forEach(btn => {
+      btn.onclick = () => {
+        const tabId = btn.dataset.tab;
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
+
+        tabBtns.forEach(b => b.classList.remove("is-active"));
+        tabPages.forEach(p => {
+          p.classList.remove("is-active");
+          p.style.display = "none";
+        });
+
+        btn.classList.add("is-active");
+        const activePage = document.getElementById(`tab-page-${tabId}`);
+        if (activePage) {
+          activePage.classList.add("is-active");
+          activePage.style.display = "block";
+        }
+      };
+    });
+
     if (unfoldedSpread) {
       unfoldedSpread.classList.remove("is-unsealed");
       unfoldedSpread.style.display = "none";
     }
     if (tuckedRecord) tuckedRecord.style.display = "none";
     if (peekingCorner) peekingCorner.style.display = "block";
-    if (stageArtifacts) stageArtifacts.style.display = "none";
-    if (stageEnvelope) stageEnvelope.style.display = "none";
+    if (stageArtifacts) stageArtifacts.style.display = "block";
+    if (stageEnvelope) stageEnvelope.style.display = "block";
     if (sealedFolderBtn) sealedFolderBtn.style.display = "block";
 
     if (id === "cooperative") {
