@@ -5865,83 +5865,92 @@ button{
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-/* MAIN TABLE DROP ZONE */
-.table-drop-zone {
-  position: relative;
-  flex: 1;
-  width: 100%;
-  min-height: 250px;
-  background: rgba(10, 5, 2, 0.45);
-  border: 2px dashed #aa7c11;
-  border-radius: 6px;
+/* CARVED EVIDENCE SLOT OUTLINES ON TEAKWOOD TABLE */
+.evidence-table-slots {
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  position: absolute;
+  inset: 16px;
+  pointer-events: none;
+  z-index: 5;
+}
+.evidence-slot {
+  flex: 1;
+  height: 100%;
+  border: 1.5px dashed rgba(184, 134, 11, 0.4);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding: 20px;
-  transition: background 0.3s ease, border-color 0.3s ease;
-  z-index: 15;
-  margin: 12px 0;
+  padding: 12px;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
-.table-drop-zone.drag-over-active {
-  background: rgba(170, 124, 17, 0.22);
+.evidence-slot.is-highlighted {
   border-color: #ffd894;
+  background: rgba(170, 124, 17, 0.18);
 }
-
-.table-drop-hint {
-  color: #fdfaf2;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  pointer-events: none;
-  background: rgba(43, 23, 12, 0.7);
-  padding: 8px 18px;
-  border-radius: 4px;
-  border: 1px stroke #aa7c11;
-}
-
-/* MOTIBHAI PATEL NARRATIVE SUBTITLE BAR */
-.elder-narrative-bar {
-  background: rgba(20, 10, 5, 0.95);
-  border: 2px solid #aa7c11;
-  border-radius: 4px;
-  padding: 12px 24px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-  margin: 12px auto;
-  width: min(700px, 92%);
-  z-index: 30;
-}
-.elder-speaker-name {
-  color: #aa7c11;
-  font-size: 0.75rem;
+.slot-label {
+  font-size: 0.72rem;
   font-weight: bold;
-  letter-spacing: 0.14em;
-  display: block;
+  letter-spacing: 0.12em;
+  color: #aa7c11;
+  margin-bottom: 4px;
 }
-.elder-spoken-line {
-  color: #fdfaf2;
-  font-family: 'Special Elite', Courier, monospace;
-  font-size: 1.05rem;
-  margin-top: 4px;
+.slot-desc {
+  font-size: 0.65rem;
+  color: rgba(253, 250, 242, 0.55);
 }
 
-/* OPEN INVESTIGATOR EVIDENCE FOLDER */
+/* INTERACTIVE MANILA EVIDENCE DOSSIER FOLDER */
 .investigator-evidence-folder {
   position: relative;
-  background: linear-gradient(180deg, #e6c58f 0%, #c9a363 100%);
+  background: linear-gradient(180deg, #dfc08a 0%, #c9a363 100%);
   border: 2.5px solid #5a3d28;
   border-radius: 6px 6px 0 0;
-  padding: 12px 18px 14px;
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.8), inset 0 2px 6px rgba(255,255,255,0.6);
+  padding: 10px 16px 12px;
+  box-shadow: 0 -12px 35px rgba(0,0,0,0.85), inset 0 2px 6px rgba(255,255,255,0.5);
   z-index: 20;
+  transition: transform 0.35s cubic-bezier(.2,.85,.3,1), height 0.35s ease;
+  cursor: pointer;
 }
+.investigator-evidence-folder.is-closed .evidence-folder-cards-grid {
+  display: none;
+}
+.investigator-evidence-folder.is-open .evidence-folder-cards-grid {
+  display: flex;
+  animation: folderFanOut 0.4s ease forwards;
+}
+@keyframes folderFanOut {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 .folder-tab-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
   border-bottom: 1.5px solid #8b5a2b;
   padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+.folder-title-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.folder-string-washer {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #3c2416;
+  border: 1.5px solid #aa7c11;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 .folder-tag {
   font-size: 0.72rem;
@@ -5949,9 +5958,19 @@ button{
   letter-spacing: 0.16em;
   color: #2b170c;
 }
+.folder-action-strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 .folder-count {
   font-size: 0.72rem;
   color: #8b0000;
+  font-weight: bold;
+}
+.folder-toggle-hint {
+  font-size: 0.68rem;
+  color: #5a3d28;
   font-weight: bold;
 }
 
@@ -5959,17 +5978,64 @@ button{
   display: flex;
   gap: 12px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding: 6px 2px 4px;
 }
 
-/* EVIDENCE DOCUMENT CARDS ON TABLE & IN FOLDER */
+/* DISTINCT ARCHIVAL DOCUMENT STYLES */
 .evidence-card-drag {
   position: relative;
-  width: 145px;
-  height: 180px;
-  background: #faf6eb;
-  border: 1px solid #c4b595;
+  width: 155px;
+  height: 185px;
   border-radius: 3px;
+  padding: 12px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #1a0f08;
+  flex-shrink: 0;
+}
+.evidence-card-drag:hover {
+  transform: translateY(-8px) scale(1.05) rotate(-1deg);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.65);
+  z-index: 25;
+}
+.evidence-card-drag.placed-on-table {
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.75);
+}
+
+/* Custom Archival Document Textures */
+.evidence-card-drag.doc-style-receipt {
+  background: #faf4e1;
+  border: 1px solid #d8c49e;
+  border-left: 4px solid #8b0000;
+}
+.evidence-card-drag.doc-style-ledger {
+  background: #eaf1f8;
+  border: 1px solid #b8c8d8;
+  border-left: 4px solid #1f4e79;
+}
+.evidence-card-drag.doc-style-rejectedLog {
+  background: #fdf2f0;
+  border: 1px solid #e2b8b2;
+  border-left: 4px solid #a61c1c;
+}
+.evidence-card-drag.doc-style-manifest {
+  background: #f5f0e6;
+  border: 1px solid #c8ba9d;
+  border-left: 4px solid #5a4005;
+}
+.evidence-card-drag.doc-style-petition {
+  background: #fbf7ee;
+  border: 1px solid #d4c5a9;
+  border-left: 4px solid #4a3b2c;
+}
   padding: 10px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.4);
   cursor: grab;

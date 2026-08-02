@@ -869,15 +869,37 @@
       <!-- MAIN TABLE DROP ZONE (WHERE DOCUMENTS LAND NATURALLY) -->
       <div class="table-drop-zone" id="table-drop-zone">
         <div class="table-drop-hint font-type" id="table-drop-hint">
-          <span class="drop-hint-text">Drag or click documents from your folder below onto the table</span>
+          <span class="drop-hint-text">Drag or click records from your dossier below to lay your case on the table</span>
+        </div>
+
+        <!-- 3 CARVED EVIDENCE SLOT OUTLINES -->
+        <div class="evidence-table-slots font-type" id="evidence-table-slots">
+          <div class="evidence-slot slot-pricing" data-slot="pricing">
+            <span class="slot-label font-type">⚖️ PRICING PROOF</span>
+            <span class="slot-desc font-type">Receipt or Ledger</span>
+          </div>
+          <div class="evidence-slot slot-spoilage" data-slot="spoilage">
+            <span class="slot-label font-type">🥛 SPOILAGE LOSSES</span>
+            <span class="slot-desc font-type">Rejection Log</span>
+          </div>
+          <div class="evidence-slot slot-transport" data-slot="transport">
+            <span class="slot-label font-type">🚆 TRANSPORT & DEMANDS</span>
+            <span class="slot-desc font-type">Manifest or Petition</span>
+          </div>
         </div>
       </div>
 
-      <!-- OPEN INVESTIGATOR EVIDENCE FOLDER AT BOTTOM EDGE OF TABLE -->
-      <div class="investigator-evidence-folder" id="investigator-evidence-folder">
-        <div class="folder-tab-header font-type">
-          <span class="folder-tag">INVESTIGATOR EVIDENCE DOSSIER</span>
-          <span class="folder-count" id="folder-count-badge">5 Collected Records</span>
+      <!-- OPEN/CLOSED INVESTIGATOR EVIDENCE DOSSIER FOLDER AT BOTTOM EDGE -->
+      <div class="investigator-evidence-folder is-open" id="investigator-evidence-folder">
+        <div class="folder-tab-header font-type" id="folder-toggle-btn">
+          <div class="folder-title-strip">
+            <div class="folder-string-washer"></div>
+            <span class="folder-tag">INVESTIGATOR DOSSIER // KAIRA 1946</span>
+          </div>
+          <div class="folder-action-strip">
+            <span class="folder-count" id="folder-count-badge">5 Collected Records</span>
+            <span class="folder-toggle-hint font-type" id="folder-toggle-text">Toggle Folder 📂</span>
+          </div>
         </div>
         <div class="evidence-folder-cards-grid" id="evidence-folder-cards"></div>
       </div>

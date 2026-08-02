@@ -974,6 +974,9 @@ class Game {
   }
 
   _showEvidenceDock() {
+    const folderContainer = document.getElementById("investigator-evidence-folder");
+    const folderToggleBtn = document.getElementById("folder-toggle-btn");
+    const folderToggleText = document.getElementById("folder-toggle-text");
     const folderGrid = document.getElementById("evidence-folder-cards");
     const dropZone = document.getElementById("table-drop-zone");
     const countBadge = document.getElementById("folder-count-badge");
@@ -986,6 +989,24 @@ class Game {
     dropZone.innerHTML = "";
     if (decisionOptions) decisionOptions.style.display = "none";
     if (threadPath) threadPath.classList.remove("is-active");
+
+    // Dossier Folder Open / Close Toggle Interaction
+    if (folderToggleBtn && folderContainer) {
+      folderToggleBtn.onclick = (e) => {
+        e.stopPropagation();
+        const isOpen = folderContainer.classList.contains("is-open");
+        if (isOpen) {
+          folderContainer.classList.remove("is-open");
+          folderContainer.classList.add("is-closed");
+          if (folderToggleText) folderToggleText.textContent = "Click to Open Folder 📂";
+        } else {
+          folderContainer.classList.remove("is-closed");
+          folderContainer.classList.add("is-open");
+          if (folderToggleText) folderToggleText.textContent = "Click to Close Dossier 📁";
+        }
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+      };
+    }
 
     const masterCluesList = [
       { id: "receipt", tag: "MILK RECEIPT #1402", title: "Contractor Receipt", desc: "Rs 1/6/0 for 8 seers (14 sent)" },
@@ -1009,7 +1030,7 @@ class Game {
 
       remainingClues.forEach(c => {
         const card = document.createElement("div");
-        card.className = "evidence-card-drag font-type";
+        card.className = `evidence-card-drag doc-style-${c.id} font-type`;
         card.draggable = true;
         card.dataset.id = c.id;
         card.innerHTML = `
