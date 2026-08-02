@@ -4119,8 +4119,12 @@ button{
   transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease;
 }
 
-/* TOP COMPARISON SPREAD: SIDE-BY-SIDE FLEX LAYOUT */
+/* TOP COMPARISON SPREAD: SIDE-BY-SIDE FLEX LAYOUT (ONLY ACTIVE AFTER UNSEALING) */
 .doc-comparison-spread {
+  display: none;
+}
+
+.doc-comparison-spread.is-unsealed {
   display: flex !important;
   flex-direction: row !important;
   justify-content: space-between !important;
@@ -4166,7 +4170,7 @@ button{
   margin: 6px 0 6px !important;
   font-size: 1.25rem !important;
   font-family: var(--font-display);
-  color: #1a0f08;
+  color: #1a0f08 !important;
   font-weight: bold;
 }
 
@@ -4194,7 +4198,7 @@ button{
   z-index: 35;
 }
 
-/* ASYMMETRICAL PHYSICAL ARTIFACT LAYOUT & ROTATIONS */
+/* ASYMMETRICAL PHYSICAL ARTIFACT LAYOUT & HIGH CONTRAST TYPOGRAPHY */
 .why-docs-grid {
   display: flex !important;
   flex-direction: row !important;
@@ -4214,6 +4218,10 @@ button{
   position: relative;
 }
 
+.flip-card-front {
+  color: #1a0f08;
+}
+
 .artifact-heading {
   font-family: var(--font-display);
   font-size: 1.05rem !important;
@@ -4222,21 +4230,90 @@ button{
   font-weight: bold;
 }
 
+/* CARD 1: LEATHER PROCUREMENT LEDGER BOOK */
 .leather-ledger-book {
   transform: rotate(-3.5deg) translateY(-4px) !important;
 }
+.ledger-cover-front {
+  background: linear-gradient(135deg, #2b170c 0%, #150a04 100%) !important;
+  border: 2px solid #3c2416 !important;
+  color: #f4ebd7 !important;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 10px 25px rgba(0,0,0,0.5);
+}
+.ledger-cover-front .artifact-heading {
+  color: #fffdf8 !important;
+}
+.ledger-cover-front .doc-badge {
+  color: #e2b467 !important;
+}
+.ledger-open-prompt {
+  color: #f7c873 !important;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+/* CARD 2: PERFORATED INDIAN TELEGRAPH WIRE SLIP */
 .telegraph-wire-slip {
   transform: rotate(2.2deg) translateY(6px) !important;
 }
+.wire-front {
+  background: #f2e5c4 !important;
+  border: 1.5px solid #d4c5a9 !important;
+  border-top: 4px solid #8b0000 !important;
+  color: #1a0f08 !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+.wire-front .artifact-type-tag {
+  color: #8b0000 !important;
+  font-weight: bold;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+}
+.wire-front .doc-badge {
+  color: #8b0000 !important;
+  font-weight: bold;
+}
+.wire-front .artifact-heading {
+  color: #1a0f08 !important;
+}
+.wire-inspect-prompt {
+  color: #8b0000 !important;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+/* CARD 3: B.B. & C.I. RAILWAY TRANSIT MANILA TAG */
 .railway-token-tag {
   transform: rotate(-2.8deg) translateY(-2px) !important;
 }
-
-.ledger-open-prompt, .wire-inspect-prompt, .tag-inspect-prompt {
-  font-size: 0.72rem;
+.tag-front {
+  background: #e4d4b2 !important;
+  border: 1.5px solid #bfae8c !important;
+  border-top: 4px solid #1b2a4a !important;
+  color: #1a0f08 !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+.tag-front .artifact-type-tag {
+  color: #1b2a4a !important;
   font-weight: bold;
-  color: #aa7c11;
-  letter-spacing: 0.05em;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+}
+.tag-front .doc-badge {
+  color: #1b2a4a !important;
+  font-weight: bold;
+}
+.tag-front .artifact-heading {
+  color: #1a0f08 !important;
+}
+.tag-inspect-prompt {
+  color: #1b2a4a !important;
+  font-size: 0.75rem;
+  font-weight: bold;
   margin-top: 6px;
   display: inline-block;
 }

@@ -981,6 +981,14 @@ class Game {
     const compPlayerDesc = document.getElementById("comp-player-desc");
     const compPencilText = document.getElementById("comp-pencil-text");
 
+    if (unfoldedSpread) {
+      unfoldedSpread.classList.remove("is-unsealed");
+      unfoldedSpread.style.display = "none";
+    }
+    if (stageArtifacts) stageArtifacts.style.display = "none";
+    if (stageEnvelope) stageEnvelope.style.display = "none";
+    if (sealedFolderBtn) sealedFolderBtn.style.display = "block";
+
     if (id === "cooperative") {
       if (compPlayerTitle) compPlayerTitle.textContent = "Form a Cooperative";
       if (compPlayerDesc) compPlayerDesc.textContent = "You recommended collecting, grading, and selling milk together.";
@@ -999,7 +1007,10 @@ class Game {
       sealedFolderBtn.onclick = () => {
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
         sealedFolderBtn.style.display = "none";
-        if (unfoldedSpread) unfoldedSpread.style.display = "flex";
+        if (unfoldedSpread) {
+          unfoldedSpread.classList.add("is-unsealed");
+          unfoldedSpread.style.display = "flex";
+        }
         if (stageArtifacts) stageArtifacts.style.display = "block";
         if (stageEnvelope) stageEnvelope.style.display = "block";
       };
