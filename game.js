@@ -1116,6 +1116,7 @@ class Game {
         ${data.body}
       `;
 
+      inspectOverlay.classList.add("is-active");
       inspectOverlay.style.display = "flex";
 
       if (inspectedSet.size >= 2 && approvalSlip) {
@@ -1124,14 +1125,20 @@ class Game {
     };
 
     const closeInspectionModal = () => {
-      if (inspectOverlay) inspectOverlay.style.display = "none";
+      if (inspectOverlay) {
+        inspectOverlay.classList.remove("is-active");
+        inspectOverlay.style.display = "none";
+      }
       if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
     };
 
-    document.querySelectorAll("#why-doc-price, #why-doc-patel, #why-doc-rail").forEach(el => {
+    document.querySelectorAll("#why-doc-price, #why-doc-patel, #why-doc-rail, .btn-inspect-artifact").forEach(el => {
       el.onclick = (e) => {
         e.stopPropagation();
-        openInspectionModal(el.dataset.doc);
+        const docTarget = el.dataset.doc || el.closest("[data-doc]")?.dataset.doc;
+        if (docTarget) {
+          openInspectionModal(docTarget);
+        }
       };
     });
 
