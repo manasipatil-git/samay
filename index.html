@@ -849,7 +849,7 @@
           <div class="museum-double-page-spread" id="museum-double-page-spread">
             
             <!-- LEFT PAGE: BOMBAY MARGIN ACCOUNTING LEDGER PAGE -->
-            <div class="museum-page page-left ledger-audit-page" id="why-doc-price" data-doc="price">
+            <div class="museum-page page-left ledger-audit-page" id="why-doc-price" data-doc="price" onclick="window.samayOpenInspect && window.samayOpenInspect('price')">
               <div class="page-corner-fold"></div>
               <span class="museum-page-tag font-type">📕 BOMBAY PROCUREMENT LEDGER (1946)</span>
               <div class="ledger-header-stamp font-type">AUDITED // MARGIN BREAKDOWN</div>
@@ -877,7 +877,7 @@
                 "Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay. <span class="detective-lead font-type">See Rail Permit #402.</span>"
               </p>
 
-              <button class="btn-inspect-artifact font-type">
+              <button class="btn-inspect-artifact font-type" data-doc="price" onclick="event.stopPropagation(); window.samayOpenInspect && window.samayOpenInspect('price')">
                 <span>🔍 Inspect Leather Ledger Book</span>
               </button>
             </div>
@@ -886,7 +886,7 @@
             <div class="museum-page page-right evidence-clippings-page">
               
               <!-- TOP CLIPPING: SARDAR PATEL TELEGRAM WIRE (PAPERCLIPPED 📎) -->
-              <div class="museum-clipping wire-clipping-card" id="why-doc-patel" data-doc="patel">
+              <div class="museum-clipping wire-clipping-card" id="why-doc-patel" data-doc="patel" onclick="window.samayOpenInspect && window.samayOpenInspect('patel')">
                 <div class="paperclip-corner-left">📎</div>
                 <div class="perforated-edge top"></div>
                 <div class="perforated-edge bottom"></div>
@@ -895,13 +895,13 @@
                 <p class="clipping-body font-type">
                   "Sardar Patel advised that only a <span class="pencil-underline">15-day milk strike</span> could break contractor monopoly power."
                 </p>
-                <button class="btn-inspect-artifact font-type">
+                <button class="btn-inspect-artifact font-type" data-doc="patel" onclick="event.stopPropagation(); window.samayOpenInspect && window.samayOpenInspect('patel')">
                   <span>📜 Inspect Wire Dispatch</span>
                 </button>
               </div>
 
               <!-- BOTTOM TAG: B.B. & C.I. RAILWAY FREIGHT PASS #402 (TIED WITH TWINE 🧵) -->
-              <div class="museum-clipping railway-tag-card" id="why-doc-rail" data-doc="rail">
+              <div class="museum-clipping railway-tag-card" id="why-doc-rail" data-doc="rail" onclick="window.samayOpenInspect && window.samayOpenInspect('rail')">
                 <div class="twine-string-loop">🧵</div>
                 <div class="brass-token-icon">🪙</div>
                 <span class="clipping-tag font-type">🚂 B.B. & C.I. RAILWAY PERMIT #402</span>
@@ -909,7 +909,7 @@
                 <p class="clipping-body font-type">
                   "Bombay Municipality granted <span class="pencil-underline">direct rail transit permits</span> exclusively to the Kaira Cooperative."
                 </p>
-                <button class="btn-inspect-artifact font-type">
+                <button class="btn-inspect-artifact font-type" data-doc="rail" onclick="event.stopPropagation(); window.samayOpenInspect && window.samayOpenInspect('rail')">
                   <span>🏷️ Inspect Railway Pass Tag</span>
                 </button>
               </div>
@@ -1033,11 +1033,11 @@
 
   <!-- CINEMATIC 3D PHYSICAL INSPECTION OVERLAY MODAL (DEAD-CENTERED 1946 PARCHMENT SPOTLIGHT) -->
   <div class="artifact-inspect-overlay" id="artifact-inspect-overlay" style="display: none;">
-    <div class="inspect-backdrop" id="inspect-backdrop"></div>
+    <div class="inspect-backdrop" id="inspect-backdrop" onclick="window.samayCloseInspect && window.samayCloseInspect()"></div>
     <div class="inspect-modal-parchment" id="inspect-modal-card">
       <div class="parchment-top-bar">
         <span class="parchment-archive-badge font-type">NATIONAL ARCHIVES OF INDIA // EVIDENCE #402</span>
-        <button class="btn-close-inspect-brass font-type" id="btn-close-inspect">
+        <button class="btn-close-inspect-brass font-type" id="btn-close-inspect" onclick="window.samayCloseInspect && window.samayCloseInspect()">
           <span>📍 RETURN TO DOSSIER</span>
         </button>
       </div>

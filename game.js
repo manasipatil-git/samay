@@ -1098,7 +1098,7 @@ class Game {
       }
     };
 
-    const openInspectionModal = (docId) => {
+    const openInspectionModal = window.samayOpenInspect = (docId) => {
       const inspectOverlay = document.getElementById("artifact-inspect-overlay");
       const inspectContent = document.getElementById("inspect-content-body");
       const approvalSlip = document.getElementById("approval-stamp-slip");
@@ -1117,18 +1117,18 @@ class Game {
       `;
 
       inspectOverlay.classList.add("is-active");
-      inspectOverlay.style.display = "flex";
+      inspectOverlay.style.setProperty("display", "flex", "important");
 
       if (inspectedSet.size >= 2 && approvalSlip) {
         approvalSlip.style.display = "block";
       }
     };
 
-    const closeInspectionModal = () => {
+    const closeInspectionModal = window.samayCloseInspect = () => {
       const inspectOverlay = document.getElementById("artifact-inspect-overlay");
       if (inspectOverlay) {
         inspectOverlay.classList.remove("is-active");
-        inspectOverlay.style.display = "none";
+        inspectOverlay.style.setProperty("display", "none", "important");
       }
       if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
     };
