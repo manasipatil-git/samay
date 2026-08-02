@@ -115,7 +115,9 @@ class Game {
     if (this.el.btnToMeeting) this.el.btnToMeeting.addEventListener("click", () => this._enterMeeting());
     if (this.el.btnRestart) {
       this.el.btnRestart.addEventListener("click", () => {
-        const solvedEnding = this.state.ending;
+        const confirmed = window.confirm("Start a new investigation? This will reset your current case progress and let you choose a different recommendation.");
+        if (!confirmed) return;
+
         this.state = {
           scene: "archive",
           hoursLeft: 5,
@@ -123,7 +125,7 @@ class Game {
           clues: [],
           connectedPairs: [],
           meetingSolved: false,
-          ending: solvedEnding,
+          ending: null,
           wrongGuesses: 0
         };
         this._save();
@@ -1606,6 +1608,9 @@ class Game {
      DEV-ONLY DEBUG MENU (SCENE JUMPER)
   ------------------------------------------------------- */
   _setupDevDebugMenu() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("dev") !== "1") return;
+
     const overlay = document.getElementById("dev-debug-overlay");
     const closeBtn = document.getElementById("dev-debug-close-btn");
 
