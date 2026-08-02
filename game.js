@@ -273,14 +273,24 @@ class Game {
     this._goToScene("archive");
     this._startArchiveAmbient();
 
-    // Mark Case 001 as solved if ending is completed
-    const drawerLabel = document.querySelector("#drawer-case1 .drawer-label");
-    if (drawerLabel && this.state.ending) {
-      drawerLabel.innerHTML = `CASE 001<br>The Milk Monopoly<br><span class="stamp-archived">ARCHIVED</span>`;
-      drawerLabel.style.color = "#a8452f";
-      drawerLabel.style.borderColor = "#aa7c11";
-      drawerLabel.style.background = "#faf6eb";
-    }
+    // Locked Drawers diegetic feedback (Audit Fix #8)
+    document.querySelectorAll(".drawer.locked-drawer").forEach(drawer => {
+      drawer.onclick = () => {
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
+        const hintEl = document.querySelector(".archive-hint");
+        if (hintEl) {
+          const orig = hintEl.textContent;
+          hintEl.style.color = "#8b0000";
+          hintEl.style.fontWeight = "bold";
+          hintEl.textContent = "🔒 CASE FILE RESTRICTED — Access clearance required for Bombay Presidency Archives (1946)";
+          setTimeout(() => {
+            hintEl.style.color = "";
+            hintEl.style.fontWeight = "";
+            hintEl.textContent = orig;
+          }, 3200);
+        }
+      };
+    });
   }
 
   async _playBriefing() {
@@ -465,6 +475,10 @@ class Game {
   _visitLocation(id) {
     if (this.state.visited.includes(id)) return;
     if (this.state.hoursLeft <= 0) return;
+
+    if (window.SAMAY_SOUND && window.SAMAY_SOUND.playLocationAmbient) {
+      window.SAMAY_SOUND.playLocationAmbient(id);
+    }
 
     const loc = GAME_DATA.locations[id];
     this.dialogue.say(loc.speaker, loc.portrait, loc.lines, () => {
@@ -1536,13 +1550,17 @@ class Game {
           card.classList.add("is-selected");
           selectedClues.push(clueId);
         }
-        submitBtn.disabled = selectedClues.length !== 3;
+        const count = selectedClues.length;
+        submitBtn.disabled = count !== 3;
+        submitBtn.textContent = count === 3 ? "Present 3 Key Evidences to Assembly ➔" : `Select Evidence (${count} / 3 Selected)`;
         if (window.SAMAY_SOUND) {
           window.SAMAY_SOUND.play("clack");
         }
       });
       grid.appendChild(card);
     });
+
+    submitBtn.textContent = `Select Evidence (0 / 3 Selected)`;
 
     const submitAction = () => {
       const correct = selectedClues.includes("ledger") && 

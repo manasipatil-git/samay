@@ -7605,4 +7605,42 @@ button{
   align-items: center;
   gap: 6px;
 }
+
+/* ============================================================
+   MOBILE RESPONSIVE MEDIA QUERIES FOR ENDING BINDER (AUDIT FIX #3)
+   ============================================================ */
+@media (max-width: 768px) {
+  .spotlight-desk-canvas {
+    padding: 20px 10px 20px !important;
+  }
+  .dossier-binder-container {
+    padding: 24px 15px 24px 35px !important;
+    margin-top: 35px !important;
+    min-height: auto !important;
+  }
+  .museum-double-page-spread,
+  .gazette-double-page-spread {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  .museum-page,
+  .gazette-page {
+    width: 100% !important;
+  }
+  .dossier-tab-navigation {
+    top: -36px !important;
+    right: 10px !important;
+    gap: 4px !important;
+  }
+  .binder-tab-btn {
+    padding: 6px 10px !important;
+  }
+  .tab-label {
+    font-size: 0.65rem !important;
+  }
+  .inspect-modal-parchment {
+    width: 95vw !important;
+    padding: 18px 16px !important;
+  }
+}
 

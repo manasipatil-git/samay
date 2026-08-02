@@ -9,7 +9,21 @@ class SoundManager {
     this.rainGain = null;
     this.unlocked = false;
 
-    // Listen for first interaction to unlock AudioContext (browser policy)
+    this.audioTracks = {
+      ambience: new Audio("audio/ambience.mp3"),
+      cows: new Audio("audio/cows.mp3"),
+      rain: new Audio("audio/rain.mp3"),
+      train: new Audio("audio/train.mp3")
+    };
+
+    // Configure tracks
+    Object.keys(this.audioTracks).forEach(key => {
+      const track = this.audioTracks[key];
+      track.loop = true;
+      track.volume = 0;
+    });
+
+    // Listen for first interaction to unlock AudioContext & HTML5 Audio
     const unlock = () => {
       this.unlock();
       window.removeEventListener("click", unlock);
@@ -25,8 +39,41 @@ class SoundManager {
       this.ctx = new (window.AudioContext || window.webkitAudioContext)();
       this.unlocked = true;
       this.startRain();
+
+      // Start ambient audio loops softly
+      if (this.audioTracks.ambience) {
+        this.audioTracks.ambience.play().catch(() => {});
+        this.audioTracks.ambience.volume = 0.10;
+      }
+      if (this.audioTracks.rain) {
+        this.audioTracks.rain.play().catch(() => {});
+        this.audioTracks.rain.volume = 0.08;
+      }
     } catch (e) {
       console.warn("Web Audio API not supported or blocked", e);
+    }
+  }
+
+  playLocationAmbient(locId) {
+    if (!this.unlocked) return;
+    try {
+      // Reset location specific track volumes
+      if (this.audioTracks.cows) this.audioTracks.cows.volume = 0;
+      if (this.audioTracks.train) this.audioTracks.train.volume = 0;
+
+      if (locId === "home" || locId === "collection") {
+        if (this.audioTracks.cows) {
+          this.audioTracks.cows.play().catch(() => {});
+          this.audioTracks.cows.volume = 0.18;
+        }
+      } else if (locId === "buyer" || locId === "railway") {
+        if (this.audioTracks.train) {
+          this.audioTracks.train.play().catch(() => {});
+          this.audioTracks.train.volume = 0.15;
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to play location ambient track", e);
     }
   }
 
