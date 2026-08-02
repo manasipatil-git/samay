@@ -9,55 +9,83 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Vesper+Libre:wght@400;500;700;900&family=Special+Elite&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css?v=20260802_FORCE_RELOAD_9999">
+<link rel="stylesheet" href="style.css?v=20260802_FORCE_RELOAD_99999">
 <script>
-/* GLOBAL ROOT SAMAY OPEN INSPECT HANDLER (PARSED IN HEAD BEFORE ANY HTML) */
+/* GUARANTEED 100% RELIABLE DYNAMIC MODAL GENERATOR (DOCUMENT.BODY INJECTION) */
 window.samayOpenInspect = function(docId) {
-  console.log("[SAMAY ROOT HEAD] openInspect triggered:", docId);
-  var overlay = document.getElementById("artifact-inspect-overlay");
-  var content = document.getElementById("inspect-content-body");
-  if (!overlay || !content) return;
-
-  // Move overlay to document.body root if nested
-  if (overlay.parentNode !== document.body) {
-    document.body.appendChild(overlay);
-  }
+  console.log("[SAMAY DYNAMIC MODAL] Open inspect requested:", docId);
 
   var details = {
     price: {
       title: "📕 BOMBAY PROCUREMENT LEDGER (1946)",
       badge: "MARGIN ACCOUNTING AUDIT",
-      body: '<div class="ledger-modal-inspect font-type"><h4 style="color:#8b0000;margin-bottom:12px;">BOMBAY MILK PROCUREMENT MARGINS</h4><p>Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay, paying Anand farmers only 3 Annas per seer.</p><div style="background:rgba(43,23,12,0.06);padding:12px;border-left:3px solid #aa7c11;margin:16px 0;"><strong style="color:#2b170c;display:block;">Graphite Audit Note:</strong><em>"Contractor profit margins reached 75% of retail price. Middleman monopoly verified. See Transit Permit #402."</em></div></div>'
+      body: '<div class="ledger-modal-inspect font-type"><h4 style="color:#8b0000;margin-bottom:12px;font-size:1.1rem;">BOMBAY MILK PROCUREMENT MARGINS</h4><p style="font-size:0.95rem;line-height:1.5;">Private contractors retained <span style="border-bottom:2px dashed #8b0000;font-weight:bold;color:#8b0000;">9 Annas margin</span> per seer in Bombay, paying Anand farmers only 3 Annas per seer.</p><div style="background:rgba(43,23,12,0.06);padding:14px;border-left:4px solid #aa7c11;margin:18px 0;"><strong style="color:#2b170c;display:block;">Graphite Audit Note:</strong><em style="color:#3c2416;">"Contractor profit margins reached 75% of retail price. Middleman monopoly verified. See Transit Permit #402."</em></div></div>'
     },
     patel: {
       title: "⚡ TELEGRAM DISPATCH #402",
       badge: "INDIAN TELEGRAPH DEPT // 1946",
-      body: '<div class="wire-modal-inspect font-type"><h4 style="color:#8b0000;margin-bottom:12px;">SARDAR VALLABHBHAI PATEL DIRECTIVE</h4><p>"Sardar Patel advised the Kaira farmers that only a <span class="pencil-underline">15-day complete milk strike</span> could break contractor monopoly power over Bombay supply lines."</p><div style="background:rgba(139,0,0,0.06);padding:12px;border-left:3px solid #8b0000;margin:16px 0;"><strong style="color:#8b0000;display:block;">Dispatch Priority: CONFIDENTIAL</strong><em>"Prepare village committees for collective boycott of contractor milk collection centers."</em></div></div>'
+      body: '<div class="wire-modal-inspect font-type"><h4 style="color:#8b0000;margin-bottom:12px;font-size:1.1rem;">SARDAR VALLABHBHAI PATEL DIRECTIVE</h4><p style="font-size:0.95rem;line-height:1.5;">"Sardar Patel advised the Kaira farmers that only a <span style="border-bottom:2px dashed #8b0000;font-weight:bold;color:#8b0000;">15-day complete milk strike</span> could break contractor monopoly power over Bombay supply lines."</p><div style="background:rgba(139,0,0,0.06);padding:14px;border-left:4px solid #8b0000;margin:18px 0;"><strong style="color:#8b0000;display:block;">Dispatch Priority: CONFIDENTIAL</strong><em style="color:#8b0000;">"Prepare village committees for collective boycott of contractor milk collection centers."</em></div></div>'
     },
     rail: {
       title: "🚂 B.B. & C.I. RAILWAY FREIGHT PASS #402",
       badge: "TRANSIT FREIGHT CLEARANCE",
-      body: '<div class="rail-modal-inspect font-type"><h4 style="color:#1b2a4a;margin-bottom:12px;">DIRECT RAIL TRANSIT PERMIT #402</h4><p>"Bombay Municipality granted <span class="pencil-underline">direct rail transit permits</span> exclusively to the independent Kaira Cooperative."</p><div style="background:rgba(27,42,74,0.06);padding:12px;border-left:3px solid #1b2a4a;margin:16px 0;"><strong style="color:#1b2a4a;display:block;">Freight Authorization: PASSED</strong><em>"Allows cooperative milk tankers direct priority dispatch on Anand-Bombay express rail line."</em></div></div>'
+      body: '<div class="rail-modal-inspect font-type"><h4 style="color:#1b2a4a;margin-bottom:12px;font-size:1.1rem;">DIRECT RAIL TRANSIT PERMIT #402</h4><p style="font-size:0.95rem;line-height:1.5;">"Bombay Municipality granted <span style="border-bottom:2px dashed #1b2a4a;font-weight:bold;color:#1b2a4a;">direct rail transit permits</span> exclusively to the independent Kaira Cooperative."</p><div style="background:rgba(27,42,74,0.06);padding:14px;border-left:4px solid #1b2a4a;margin:18px 0;"><strong style="color:#1b2a4a;display:block;">Freight Authorization: PASSED</strong><em style="color:#1b2a4a;">"Allows cooperative milk tankers direct priority dispatch on Anand-Bombay express rail line."</em></div></div>'
     }
   };
 
   var data = details[docId];
   if (!data) return;
 
-  if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
+  if (window.SAMAY_SOUND && window.SAMAY_SOUND.play) {
+    try { window.SAMAY_SOUND.play("page"); } catch(e){}
+  }
 
-  content.innerHTML = '<span class="clipping-tag font-type" style="display:block;margin-bottom:4px;">' + data.badge + '</span><h3 style="font-family:var(--font-display);color:#3c2416;margin:0 0 16px;">' + data.title + '</h3>' + data.body;
-  overlay.classList.add("is-active");
-  overlay.style.cssText = "display: flex !important; position: fixed !important; inset: 0 !important; z-index: 9999999 !important; align-items: center !important; justify-content: center !important;";
+  // Remove existing dynamic modal if present
+  var existing = document.getElementById("samay-dynamic-modal");
+  if (existing) existing.remove();
+
+  // Create brand new top-level modal directly on document.body
+  var modal = document.createElement("div");
+  modal.id = "samay-dynamic-modal";
+  modal.onclick = function(e) {
+    if (e.target === modal) window.samayCloseInspect();
+  };
+  modal.style.cssText = "position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 99999999 !important; background: rgba(5, 2, 1, 0.92) !important; backdrop-filter: blur(12px) !important; display: flex !important; align-items: center !important; justify-content: center !important; padding: 20px !important; box-sizing: border-box !important;";
+
+  modal.innerHTML = `
+    <div style="position: relative !important; width: min(640px, 92vw) !important; max-height: 88vh !important; overflow-y: auto !important; background: url('assests/torn_parchment.jpg') center/cover no-repeat, #faf4e6 !important; border: 4px solid #aa7c11 !important; border-radius: 8px !important; box-shadow: 0 40px 100px rgba(0,0,0,0.95) !important; padding: 28px 30px !important; color: #1a0f08 !important; font-family: 'Vesper Libre', Georgia, serif !important;">
+      <div style="display: flex !important; justify-content: space-between !important; align-items: center !important; border-bottom: 2px solid #d4c5a9 !important; padding-bottom: 14px !important; margin-bottom: 20px !important;">
+        <span style="font-family: 'Special Elite', monospace !important; font-size: 0.75rem !important; color: #8b0000 !important; font-weight: bold !important; letter-spacing: 0.1em !important;">NATIONAL ARCHIVES OF INDIA // EVIDENCE #402</span>
+        <button onclick="window.samayCloseInspect()" style="background: #8b0000 !important; color: #ffffff !important; border: 1px solid #ff7777 !important; border-radius: 4px !important; padding: 6px 14px !important; font-family: 'Special Elite', monospace !important; font-size: 0.78rem !important; font-weight: bold !important; cursor: pointer !important;">
+          📍 RETURN TO DOSSIER
+        </button>
+      </div>
+      <div>
+        <span style="display: block !important; font-family: 'Special Elite', monospace !important; font-size: 0.72rem !important; color: #aa7c11 !important; font-weight: bold !important; letter-spacing: 0.1em !important; margin-bottom: 6px !important;">${data.badge}</span>
+        <h3 style="font-family: 'Vesper Libre', Georgia, serif !important; font-size: 1.4rem !important; color: #3c2416 !important; margin: 0 0 16px 0 !important;">${data.title}</h3>
+        ${data.body}
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  // Also trigger approval slip if present
+  var slip = document.getElementById("approval-stamp-slip");
+  if (slip) slip.style.display = "block";
 };
 
 window.samayCloseInspect = function() {
+  var modal = document.getElementById("samay-dynamic-modal");
+  if (modal) modal.remove();
   var overlay = document.getElementById("artifact-inspect-overlay");
   if (overlay) {
     overlay.classList.remove("is-active");
     overlay.style.cssText = "display: none !important;";
   }
-  if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+  if (window.SAMAY_SOUND && window.SAMAY_SOUND.play) {
+    try { window.SAMAY_SOUND.play("paper"); } catch(e){}
+  }
 };
 </script>
 </head>
