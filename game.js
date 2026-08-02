@@ -1054,6 +1054,14 @@ class Game {
       });
     };
 
+    const elderSpeechMap = {
+      receipt: '"This receipt proves the contractor charges 6 Pice levy per seer, taking massive profits while farmers struggle."',
+      ledger: '"The price ledger confirms Polson sells for 12 Annas in Bombay while paying our local farmers only 3 Annas!"',
+      rejectedLog: '"This log shows full milk cans rejected at 08:15 AM every morning once contractor quotas are filled."',
+      manifest: '"Look at the freight manifest—wagon #428 is sent to Bombay half-empty! Transport bottlenecks are manufactured!"',
+      petition: '"The petition shows every farmer family in Kaira is ready to unite under Sardar Patel\'s strike advice."'
+    };
+
     // Place clue onto table
     const placeClueOnTable = (clueId) => {
       if (placedClues.length >= 3 || isEvaluating) return;
@@ -1063,9 +1071,11 @@ class Game {
       placedClues.push(clue);
       if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
 
-      // Hide default hint text if items on table
-      const dropHint = document.getElementById("table-drop-hint");
-      if (dropHint) dropHint.style.display = "none";
+      // Update Motibhai Patel Live Subtitle Bar
+      const elderFeedbackText = document.getElementById("elder-feedback-text");
+      if (elderFeedbackText && elderSpeechMap[clue.id]) {
+        elderFeedbackText.textContent = elderSpeechMap[clue.id];
+      }
 
       renderTable();
       renderFolder();
@@ -1077,31 +1087,36 @@ class Game {
 
     // Render items placed on table
     const renderTable = () => {
-      const dropHint = document.getElementById("table-drop-hint");
-      if (placedClues.length === 0 && dropHint) {
-        dropHint.style.display = "block";
-      }
-
-      // Keep existing drop hint element
+      // Clear previous placed cards
       dropZone.querySelectorAll(".evidence-card-drag").forEach(el => el.remove());
 
-      const tilts = ["tilt-left-1", "tilt-right-1", "tilt-left-2", "tilt-right-2"];
+      const tilts = ["transform: rotate(-2.5deg);", "transform: rotate(1.8deg);", "transform: rotate(-1.2deg);"];
+      const pencilNotes = [
+        "✏️ Verified Contractor Discrepancy",
+        "✏️ Verified Spoilage Quota Bottleneck",
+        "✏️ Verified Transport Monopoly Proof"
+      ];
 
       placedClues.forEach((c, idx) => {
         const card = document.createElement("div");
-        card.className = `evidence-card-drag placed-on-table ${tilts[idx % tilts.length]} font-type`;
+        card.className = `evidence-card-drag doc-style-${c.id} placed-on-table font-type`;
+        card.style.cssText = tilts[idx % tilts.length];
         card.dataset.id = c.id;
         card.innerHTML = `
           <span class="card-drag-tag font-type">${c.tag}</span>
           <h4 class="card-drag-title font-type">${c.title}</h4>
           <p class="card-drag-snippet font-type">${c.desc}</p>
-          <span class="card-drag-action font-type">Click to Return ↩</span>
+          <span class="card-drag-action font-type" style="color: #aa7c11; font-weight: bold;">${pencilNotes[idx % pencilNotes.length]}</span>
         `;
 
         card.onclick = () => {
           if (isEvaluating) return;
-          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
           placedClues = placedClues.filter(p => p.id !== c.id);
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+          const elderFeedbackText = document.getElementById("elder-feedback-text");
+          if (elderFeedbackText) {
+            elderFeedbackText.textContent = '"Place your collected evidence upon the assembly table to prove the contractor\'s monopoly."';
+          }
           renderTable();
           renderFolder();
         };

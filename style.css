@@ -5865,46 +5865,95 @@ button{
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-/* CARVED EVIDENCE SLOT OUTLINES ON TEAKWOOD TABLE */
-.evidence-table-slots {
+/* MOTIBHAI PATEL LIVE FEEDBACK SUBTITLE BAR */
+.elder-feedback-bar {
+  background: rgba(18, 9, 4, 0.92);
+  border: 1.5px solid #b8860b;
+  border-radius: 4px;
+  padding: 8px 18px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.8);
+  margin: 6px auto 10px;
+  width: min(780px, 94%);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.elder-feedback-speaker {
+  color: #aa7c11;
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.16em;
+}
+.elder-feedback-text {
+  color: #fdfaf2;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+/* MAIN TABLE CONTINUOUS TEAKWOOD SURFACE & CHALMED SLOTS */
+.table-drop-zone {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 250px;
+  background: radial-gradient(ellipse at 50% 40%, rgba(35, 18, 9, 0.4) 0%, rgba(12, 6, 2, 0.8) 100%);
+  border: 1.5px dashed rgba(184, 134, 11, 0.5);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 16px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  z-index: 15;
+  margin: 6px 0 10px;
+}
+.table-drop-zone.drag-over-active {
+  background: rgba(170, 124, 17, 0.18);
+  border-color: #ffd894;
+}
+
+.assembly-chalk-slots {
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 16px;
   width: 100%;
-  position: absolute;
-  inset: 16px;
+  height: 100%;
   pointer-events: none;
   z-index: 5;
 }
-.evidence-slot {
+.chalk-slot {
   flex: 1;
   height: 100%;
-  border: 1.5px dashed rgba(184, 134, 11, 0.4);
+  border: 1.5px dashed rgba(184, 134, 11, 0.35);
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 12px;
-  box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.7);
   transition: border-color 0.3s ease, background 0.3s ease;
 }
-.evidence-slot.is-highlighted {
-  border-color: #ffd894;
-  background: rgba(170, 124, 17, 0.18);
+.chalk-slot.is-filled {
+  border-color: #aa7c11;
+  background: rgba(170, 124, 17, 0.12);
 }
-.slot-label {
-  font-size: 0.72rem;
+.chalk-slot-title {
+  font-size: 0.7rem;
   font-weight: bold;
   letter-spacing: 0.12em;
   color: #aa7c11;
   margin-bottom: 4px;
 }
-.slot-desc {
-  font-size: 0.65rem;
-  color: rgba(253, 250, 242, 0.55);
+.chalk-slot-hint {
+  font-size: 0.62rem;
+  color: rgba(253, 250, 242, 0.5);
 }
 
 /* INTERACTIVE MANILA EVIDENCE DOSSIER FOLDER */
@@ -6035,16 +6084,6 @@ button{
   background: #fbf7ee;
   border: 1px solid #d4c5a9;
   border-left: 4px solid #4a3b2c;
-}
-  padding: 10px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-  cursor: grab;
-  user-select: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: #1a0f08;
 }
 .evidence-card-drag:hover {
   transform: translateY(-5px) scale(1.04) rotate(-1deg);
