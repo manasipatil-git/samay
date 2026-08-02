@@ -4350,7 +4350,7 @@ button{
 }
 
 .gazette-page.page-right {
-  border-top: 4px solid #8b0000;
+  border: 1.5px solid #c8ba9d;
   transform: rotate(1deg);
 }
 
@@ -4518,7 +4518,6 @@ button{
 .wire-clipping-card {
   background: #f2e5c4;
   border: 1.5px solid #d4c5a9;
-  border-top: 4px solid #8b0000;
   padding: 16px;
   margin-bottom: 16px;
   position: relative;
