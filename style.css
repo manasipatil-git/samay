@@ -1491,6 +1491,12 @@ button{
 #scene-meeting{
   background: radial-gradient(ellipse at 50% 0%, #4a3a3c 0%, #241c1a 70%);
   animation: meetingFlicker 5s infinite alternate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 15px;
+  overflow-y: auto;
 }
 @keyframes meetingFlicker {
   0%, 100% { filter: brightness(1); }
