@@ -5802,6 +5802,7 @@ button{
 /* ============================================================
    PHYSICAL TEAKWOOD VILLAGE ASSEMBLY TABLE & SILHOUETTE CANVAS
    ============================================================ */
+#panchayat-table-surface,
 .panchayat-teakwood-table {
   position: relative;
   width: min(980px, 92vw);
@@ -5813,9 +5814,10 @@ button{
   border: 4px solid #b8860b;
   border-radius: 8px;
   box-shadow: 0 30px 90px rgba(0,0,0,0.98), inset 0 0 70px rgba(0,0,0,0.9);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: stretch !important;
   padding: 18px 24px 20px;
   overflow: hidden;
   z-index: 10;
