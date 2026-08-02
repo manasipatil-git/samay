@@ -1160,13 +1160,46 @@ class Game {
 
         setTimeout(() => {
           if (window.SAMAY_SOUND) {
-            window.SAMAY_SOUND.play("bell");
+            window.SAMAY_SOUND.play("stamp");
           }
+
+          // 1. Reset dossier transform
           if (dossier) {
             dossier.style.transform = "none";
             dossier.style.opacity = "1";
           }
+
+          // 2. Go to Archive scene
           this._goToScene("archive");
+
+          // 3. Smooth Mechanical Cabinet Drawer Slam & Lock Sequence
+          const drawer1 = document.getElementById("drawer-case1");
+          const cabinetEl = document.querySelector(".cabinet");
+          
+          if (drawer1) {
+            drawer1.classList.remove("is-open");
+            drawer1.classList.add("case-completed");
+            
+            const drawerLabel = drawer1.querySelector(".drawer-label");
+            if (drawerLabel) {
+              drawerLabel.innerHTML = `<span style="color:#aa7c11; font-weight:bold;">✔ CASE 001 RESOLVED</span><br>Foundation of AMUL (1946-1950)`;
+            }
+          }
+          if (cabinetEl) {
+            cabinetEl.classList.remove("drawer-open-active");
+          }
+
+          // 4. Update Archive Room Header Status & Show Restart Button
+          const archiveHint = document.querySelector(".archive-hint");
+          if (archiveHint) {
+            archiveHint.innerHTML = `<span style="color:#aa7c11; font-weight:bold;">✔ CASE #001 OFFICIALLY RESOLVED & FILED IN THE NATIONAL ARCHIVES</span>`;
+          }
+
+          const btnRestart = document.getElementById("btn-restart");
+          if (btnRestart) {
+            btnRestart.style.display = "inline-flex";
+            btnRestart.style.margin = "12px auto 0";
+          }
         }, 850);
       };
     }
