@@ -139,6 +139,9 @@ class Game {
       });
     }
 
+    // Initialize Inspection Modal Handlers immediately on boot
+    this._setupInspectionModal();
+
     // Setup Dev-Only Debug Menu (Toggle via ~ or F9)
     this._setupDevDebugMenu();
 
@@ -986,6 +989,7 @@ class Game {
 
   _showEnding(id) {
     this._goToScene("ending");
+    this._setupInspectionModal();
 
     // 1. DOSSIER UNSEAL: Unfold Historical Record & Reveal Desk Artifacts
     const sealedFolderBtn = document.getElementById("unseal-historical-folder");
@@ -1072,7 +1076,10 @@ class Game {
       };
     }
 
-    // 2. CINEMATIC 3D PHYSICAL INSPECTION OVERLAY MODAL HANDLERS
+  _setupInspectionModal() {
+    if (this._inspectionModalInitialized) return;
+    this._inspectionModalInitialized = true;
+
     const inspectedSet = new Set();
 
     const artifactDetails = {
@@ -1151,13 +1158,11 @@ class Game {
 
     // Robust event delegation for inspection modal triggers
     document.addEventListener("click", (e) => {
-      // Check if clicking inside close button or backdrop
       if (e.target.closest("#btn-close-inspect, #inspect-backdrop")) {
         closeInspectionModal();
         return;
       }
 
-      // Check if clicking any inspect button or artifact card
       const trigger = e.target.closest("#why-doc-price, #why-doc-patel, #why-doc-rail, .btn-inspect-artifact, [data-doc]");
       if (trigger) {
         const docTarget = trigger.dataset.doc || trigger.closest("[data-doc]")?.dataset.doc;
@@ -1166,6 +1171,7 @@ class Game {
         }
       }
     });
+  }
 
     // 3. FLIPPABLE HISTORIC PHOTO CARD HANDLER
     const photoCard = document.getElementById("legacy-photo-card");
