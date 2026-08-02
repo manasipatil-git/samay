@@ -1095,7 +1095,19 @@ class Game {
       };
     }
 
-    // 4. LEGACY DOSSIER ENVELOPE UNWRAPPER
+    // 4. STRING WASHER UNWRAPPER (CONCEPT 1 DISCOVERY RITUAL)
+    const stringWasherBtn = document.getElementById("string-washer-btn");
+    const sealedSleeve = document.getElementById("sealed-discovery-sleeve");
+    const unfoldedRecord = document.getElementById("unfolded-historical-record");
+
+    if (stringWasherBtn) {
+      stringWasherBtn.onclick = () => {
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+        if (sealedSleeve) sealedSleeve.style.display = "none";
+        if (unfoldedRecord) unfoldedRecord.style.display = "block";
+      };
+    }
+
     const envelopeBtn = document.getElementById("btn-open-amul-envelope");
     const envelopeBox = document.getElementById("amul-discovery-envelope");
     const legacyContainer = document.getElementById("legacy-reveal-container");

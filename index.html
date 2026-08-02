@@ -1011,48 +1011,67 @@
                     <div class="spine-shadow-overlay"></div>
                   </div>
 
-                  <!-- RIGHT PAGE: HISTORICAL ARCHIVE EVIDENCE -->
+                  <!-- RIGHT PAGE: HISTORICAL ARCHIVE EVIDENCE DISCOVERY -->
                   <div class="casebook-page-sheet page-right">
                     
-                    <!-- Historic Photo Mounted with Photo Corners (Flippable) -->
-                    <div class="overlapping-photo-group flippable-photo-card" id="legacy-photo-card">
-                      <div class="photo-corner top-left"></div>
-                      <div class="photo-corner top-right"></div>
-                      <div class="photo-corner bottom-left"></div>
-                      <div class="photo-corner bottom-right"></div>
-                      <div class="photo-card-front">
-                        <img src="assests/amul_history.jpg" alt="1946 Anand Union Assembly" class="archive-photo-img">
-                        <span class="photo-caption-tag font-type">Anand Milk Producers Assembly • 1946 (Click to Flip)</span>
+                    <!-- STEP 1: SEALED ARCHIVAL DISCOVERY SLEEVE (INITIAL STATE) -->
+                    <div class="sealed-discovery-sleeve" id="sealed-discovery-sleeve">
+                      <div class="sleeve-wax-seal font-type">CONFIDENTIAL 1946 RECORDS</div>
+                      <h4 class="sleeve-title font-type">OFFICIAL RESOLUTION & HISTORICAL FILE</h4>
+                      <p class="sleeve-subtitle font-type">Kaira District Cooperative Milk Producers' Union</p>
+                      
+                      <!-- Interactive String Washer Button -->
+                      <button class="string-washer-btn" id="string-washer-btn">
+                        <div class="washer-disk"></div>
+                        <div class="washer-thread"></div>
+                        <span class="washer-label font-type">UNWIND TWINE WASHER TO UNSEAL RECORD</span>
+                      </button>
+                    </div>
+
+                    <!-- STEP 2: UNSEALED HISTORICAL RECORD (REVEALED UPON UNSEALING) -->
+                    <div class="unfolded-historical-record" id="unfolded-historical-record" style="display: none;">
+                      
+                      <!-- Historic Photo Mounted with Photo Corners (Flippable) -->
+                      <div class="overlapping-photo-group flippable-photo-card" id="legacy-photo-card">
+                        <div class="photo-corner top-left"></div>
+                        <div class="photo-corner top-right"></div>
+                        <div class="photo-corner bottom-left"></div>
+                        <div class="photo-corner bottom-right"></div>
+                        <div class="photo-card-front">
+                          <img src="assests/amul_history.jpg" alt="1946 Anand Union Assembly" class="archive-photo-img">
+                          <span class="photo-caption-tag font-type">Anand Milk Producers Assembly • 1946 (Click to Flip)</span>
+                        </div>
+                        <div class="photo-card-back" style="display:none;">
+                          <p class="photo-back-script font-type">
+                            "Anand Milk Producers Assembly • 1946<br>
+                            Tribhuvandas Patel with Kaira Farmers"
+                          </p>
+                        </div>
                       </div>
-                      <div class="photo-card-back" style="display:none;">
-                        <p class="photo-back-script font-type">
-                          "Anand Milk Producers Assembly • 1946<br>
-                          Tribhuvandas Patel with Kaira Farmers"
+
+                      <!-- Official Kaira Registration Deed -->
+                      <div class="pasted-registration-deed">
+                        <span class="deed-stamp-tag font-type">REGISTRATION #402 // BOMBAY PRESIDENCY 1946</span>
+                        <h4 class="deed-title font-type">Kaira District Cooperative Milk Producers' Union Ltd.</h4>
+                        <p class="deed-body font-type">Duly registered under Bombay Cooperative Societies Act VII of 1925.</p>
+                        <div class="registrar-red-seal font-type">SEAL OF THE REGISTRAR OF COOPERATIVE SOCIETIES • BOMBAY</div>
+                      </div>
+
+                      <!-- Typewriter Cotton Ribbon Label -->
+                      <div class="typewriter-ribbon-strip font-type">
+                        "Later renamed AMUL — initiating India's White Revolution."
+                      </div>
+
+                      <!-- Pinned Sticky Note: Archivist Note -->
+                      <div class="pinned-sticky-note note-right">
+                        <div class="brass-pin-dot"></div>
+                        <span class="sticky-kicker font-type">ARCHIVIST'S NOTE</span>
+                        <p class="sticky-body-text font-type">
+                          "History is rarely inevitable. The evidence available to ordinary people is often incomplete. That is why these decisions mattered."
                         </p>
+                        <span class="sticky-by font-type">— National Archives of India (1951)</span>
                       </div>
-                    </div>
 
-                    <!-- Official Kaira Registration Deed -->
-                    <div class="pasted-registration-deed">
-                      <span class="deed-stamp-tag font-type">REGISTRATION #402 // BOMBAY PRESIDENCY 1946</span>
-                      <h4 class="deed-title font-type">Kaira District Cooperative Milk Producers' Union Ltd.</h4>
-                      <p class="deed-body font-type">Duly registered under Bombay Cooperative Societies Act VII of 1925.</p>
-                      <div class="registrar-red-seal font-type">SEAL OF THE REGISTRAR OF COOPERATIVE SOCIETIES • BOMBAY</div>
-                    </div>
-
-                    <!-- Typewriter Cotton Ribbon Label -->
-                    <div class="typewriter-ribbon-strip font-type">
-                      "Later renamed AMUL — initiating India's White Revolution."
-                    </div>
-
-                    <!-- Pinned Sticky Note: Archivist Note -->
-                    <div class="pinned-sticky-note note-right">
-                      <div class="brass-pin-dot"></div>
-                      <span class="sticky-kicker font-type">ARCHIVIST'S NOTE</span>
-                      <p class="sticky-body-text font-type">
-                        "History is rarely inevitable. The evidence available to ordinary people is often incomplete. That is why these decisions mattered."
-                      </p>
-                      <span class="sticky-by font-type">— National Archives of India (1951)</span>
                     </div>
 
                   </div>
