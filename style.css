@@ -4266,13 +4266,22 @@ button{
   color: #8b0000;
 }
 
+.pencil-underline {
+  color: #8b0000;
+  font-weight: bold;
+  border-bottom: 2px dashed #8b0000;
+  display: inline !important;
+  padding-bottom: 1px;
+}
+
 /* DETECTIVE CROSS-REFERENCE LEAD */
 .detective-lead {
   color: #8b0000;
   font-weight: bold;
-  text-decoration: underline;
-  display: block;
+  border-bottom: 2px solid #8b0000;
+  display: inline !important;
   margin-top: 4px;
+  padding-bottom: 1px;
 }
 
 /* APPROVAL STAMP SLIP ON FORGOTTEN ENVELOPE */

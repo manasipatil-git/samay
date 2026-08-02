@@ -1058,10 +1058,6 @@ class Game {
 
     // 2. CINEMATIC 3D PHYSICAL INSPECTION OVERLAY MODAL HANDLERS
     const inspectedSet = new Set();
-    const inspectOverlay = document.getElementById("artifact-inspect-overlay");
-    const inspectBackdrop = document.getElementById("inspect-backdrop");
-    const inspectCloseBtn = document.getElementById("btn-close-inspect");
-    const inspectContent = document.getElementById("inspect-content-body");
 
     const artifactDetails = {
       price: {
@@ -1103,6 +1099,10 @@ class Game {
     };
 
     const openInspectionModal = (docId) => {
+      const inspectOverlay = document.getElementById("artifact-inspect-overlay");
+      const inspectContent = document.getElementById("inspect-content-body");
+      const approvalSlip = document.getElementById("approval-stamp-slip");
+
       if (!inspectOverlay || !inspectContent) return;
       const data = artifactDetails[docId];
       if (!data) return;
@@ -1125,6 +1125,7 @@ class Game {
     };
 
     const closeInspectionModal = () => {
+      const inspectOverlay = document.getElementById("artifact-inspect-overlay");
       if (inspectOverlay) {
         inspectOverlay.classList.remove("is-active");
         inspectOverlay.style.display = "none";
