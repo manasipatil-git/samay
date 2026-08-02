@@ -4247,14 +4247,47 @@ button{
   line-height: 1.6;
 }
 
-/* QUIET AMUL FOOTNOTE */
-.quiet-amul-footnote {
-  font-size: 0.85rem;
-  color: #8b0000;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 14px;
-  letter-spacing: 0.04em;
+/* LAYERED 3D PHYSICAL EVIDENCE STACK (EXCAVATION SYSTEM) */
+.layered-evidence-stack {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  margin-top: 24px;
+}
+
+.artifact-layer-1 {
+  position: relative;
+  z-index: 25 !important;
+  transform: rotate(-3.5deg) translateY(0px) !important;
+  transition: transform 0.4s ease, z-index 0.4s ease;
+}
+
+.artifact-layer-2 {
+  position: relative;
+  margin-top: -120px;
+  z-index: 20 !important;
+  transform: rotate(2.5deg) translateX(25px) !important;
+  transition: transform 0.4s ease, z-index 0.4s ease;
+}
+
+.artifact-layer-3 {
+  position: relative;
+  margin-top: -120px;
+  z-index: 15 !important;
+  transform: rotate(-4.2deg) translateX(-20px) !important;
+  transition: transform 0.4s ease, z-index 0.4s ease;
+}
+
+/* DUSTY UNLABELLED FORGOTTEN ENVELOPE */
+.forgotten-dusty-envelope {
+  opacity: 0.85;
+  filter: brightness(0.85);
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+}
+.forgotten-dusty-envelope:hover {
+  opacity: 1;
+  filter: brightness(1);
+  transform: scale(1.02) rotate(1deg);
 }
 
 /* TOP COMPARISON SPREAD: SIDE-BY-SIDE FLEX LAYOUT (ONLY ACTIVE AFTER UNSEALING) */
