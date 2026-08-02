@@ -5809,19 +5809,19 @@ button{
 .panchayat-teakwood-table {
   position: relative;
   width: min(1000px, 96vw);
-  height: min(600px, 82vh);
-  margin: 20px auto 0;
+  min-height: 580px;
+  margin: 15px auto 0;
   background: 
-    radial-gradient(ellipse at 50% 30%, rgba(255, 200, 120, 0.22) 0%, rgba(40, 20, 10, 0.75) 60%, rgba(15, 7, 3, 0.98) 95%),
-    linear-gradient(180deg, #3d2414 0%, #29160a 50%, #170b04 100%);
-  border: 5px solid #140903;
+    radial-gradient(ellipse at 50% 30%, rgba(255, 200, 120, 0.28) 0%, rgba(45, 25, 12, 0.85) 60%, rgba(18, 9, 4, 0.99) 95%),
+    linear-gradient(180deg, #442817 0%, #2e190c 50%, #1c0d05 100%);
+  border: 4px solid #aa7c11;
   border-radius: 8px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.95), inset 0 0 60px rgba(0,0,0,0.9);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.95), inset 0 0 70px rgba(0,0,0,0.85);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px 24px 20px;
-  overflow: hidden;
+  padding: 20px 24px 24px;
+  overflow: visible;
   z-index: 10;
 }
 
@@ -5868,82 +5868,87 @@ button{
   position: relative;
   flex: 1;
   width: 100%;
-  min-height: 240px;
-  background: rgba(0,0,0,0.15);
-  border: 1.5px dashed rgba(170, 124, 17, 0.25);
+  min-height: 250px;
+  background: rgba(10, 5, 2, 0.45);
+  border: 2px dashed #aa7c11;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
-  padding: 16px;
+  padding: 20px;
   transition: background 0.3s ease, border-color 0.3s ease;
   z-index: 15;
+  margin: 12px 0;
 }
 .table-drop-zone.drag-over-active {
-  background: rgba(170, 124, 17, 0.12);
-  border-color: #aa7c11;
+  background: rgba(170, 124, 17, 0.22);
+  border-color: #ffd894;
 }
 
 .table-drop-hint {
-  color: rgba(236, 224, 196, 0.45);
-  font-size: 0.85rem;
+  color: #fdfaf2;
+  font-size: 0.9rem;
   letter-spacing: 0.08em;
   pointer-events: none;
+  background: rgba(43, 23, 12, 0.7);
+  padding: 8px 18px;
+  border-radius: 4px;
+  border: 1px stroke #aa7c11;
 }
 
 /* MOTIBHAI PATEL NARRATIVE SUBTITLE BAR */
 .elder-narrative-bar {
-  background: rgba(20, 10, 5, 0.92);
-  border: 1.5px solid #aa7c11;
+  background: rgba(20, 10, 5, 0.95);
+  border: 2px solid #aa7c11;
   border-radius: 4px;
-  padding: 10px 20px;
+  padding: 12px 24px;
   text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-  margin: 10px auto;
-  width: min(650px, 90%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+  margin: 12px auto;
+  width: min(700px, 92%);
   z-index: 30;
 }
 .elder-speaker-name {
   color: #aa7c11;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: bold;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   display: block;
 }
 .elder-spoken-line {
   color: #fdfaf2;
   font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.98rem;
+  font-size: 1.05rem;
   margin-top: 4px;
 }
 
 /* OPEN INVESTIGATOR EVIDENCE FOLDER */
 .investigator-evidence-folder {
   position: relative;
-  background: #d4a96e;
-  border: 2px solid #5a3d28;
+  background: linear-gradient(180deg, #e6c58f 0%, #c9a363 100%);
+  border: 2.5px solid #5a3d28;
   border-radius: 6px 6px 0 0;
-  padding: 10px 16px 12px;
-  box-shadow: 0 -8px 25px rgba(0,0,0,0.7), inset 0 2px 4px rgba(255,255,255,0.4);
+  padding: 12px 18px 14px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.8), inset 0 2px 6px rgba(255,255,255,0.6);
   z-index: 20;
 }
 .folder-tab-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
-  border-bottom: 1px stroke #8b5a2b;
-  padding-bottom: 4px;
+  margin-bottom: 10px;
+  border-bottom: 1.5px solid #8b5a2b;
+  padding-bottom: 6px;
 }
 .folder-tag {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: bold;
-  letter-spacing: 0.14em;
-  color: #3c2416;
+  letter-spacing: 0.16em;
+  color: #2b170c;
 }
 .folder-count {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: #8b0000;
   font-weight: bold;
 }
