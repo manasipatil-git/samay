@@ -949,9 +949,15 @@ class Game {
   ------------------------------------------------------- */
   _enterMeeting() {
     this._goToScene("meeting");
-    this.el.meetingOptions.classList.remove("is-visible");
-    this.el.meetingOptions.innerHTML = "";
+    if (this.el.meetingOptions) {
+      this.el.meetingOptions.classList.remove("is-visible");
+      this.el.meetingOptions.innerHTML = "";
+    }
 
+    // Call _showEvidenceDock immediately so evidence folder & table are live
+    this._showEvidenceDock();
+
+    // Play Motibhai Patel intro line in dialogue
     this.dialogue.say(
       GAME_DATA.locations.hall.speaker,
       "elder",
@@ -959,8 +965,7 @@ class Game {
         "You have heard every witness.",
         "The village places its trust in your judgement.",
         "Show us what evidence supports your recommendation."
-      ],
-      () => this._showEvidenceDock()
+      ]
     );
   }
 
@@ -982,13 +987,16 @@ class Game {
     if (elderNarrativeBar) elderNarrativeBar.style.display = "none";
     if (threadPath) threadPath.classList.remove("is-active");
 
-    const allClues = [
+    const masterCluesList = [
       { id: "receipt", tag: "MILK RECEIPT #1402", title: "Contractor Receipt", desc: "Rs 1/6/0 for 8 seers (14 sent)" },
       { id: "ledger", tag: "POLSON PRICING LEDGER", title: "Price Breakdown", desc: "Bombay 12 Annas vs Farmer 3 Annas" },
       { id: "rejectedLog", tag: "MILK RECEIVING LOG", title: "Daily Rejection Log", desc: "Quotas fill at 08:15 AM, 100% loss" },
       { id: "manifest", tag: "B.B.&C.I. FREIGHT MANIFEST", title: "Railway Dispatch", desc: "Wagons sent only 45% loaded" },
       { id: "petition", tag: "FARMER UNION PETITION", title: "Village Council Petition", desc: "Sardar Patel strike advice" }
     ];
+
+    const availableClues = masterCluesList.filter(c => this.state.clues.length === 0 || this.state.clues.includes(c.id));
+    const allClues = availableClues.length > 0 ? availableClues : masterCluesList;
 
     let placedClues = [];
     let isEvaluating = false;
