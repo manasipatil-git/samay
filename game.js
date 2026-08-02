@@ -988,6 +988,8 @@ class Game {
       unfoldedSpread.classList.remove("is-unsealed");
       unfoldedSpread.style.display = "none";
     }
+    if (tuckedRecord) tuckedRecord.style.display = "none";
+    if (peekingCorner) peekingCorner.style.display = "block";
     if (stageArtifacts) stageArtifacts.style.display = "none";
     if (stageEnvelope) stageEnvelope.style.display = "none";
     if (sealedFolderBtn) sealedFolderBtn.style.display = "block";
@@ -1020,10 +1022,12 @@ class Game {
     }
 
     // PEEKING RESOLUTION SLIDER
+    const carbonMemo = document.getElementById("torn-carbon-memo");
     if (peekingCorner && tuckedRecord) {
       peekingCorner.onclick = () => {
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-        tuckedRecord.style.transform = "rotate(0deg) translateX(0)";
+        tuckedRecord.style.display = "flex";
+        if (carbonMemo) carbonMemo.style.display = "block";
         peekingCorner.style.display = "none";
       };
     }

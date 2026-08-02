@@ -4290,7 +4290,7 @@ button{
   transform: scale(1.02) rotate(1deg);
 }
 
-/* TOP COMPARISON SPREAD: SIDE-BY-SIDE FLEX LAYOUT (ONLY ACTIVE AFTER UNSEALING) */
+/* TOP COMPARISON SPREAD: TUCKED RESOLUTION SLIDER MECHANIC */
 .doc-comparison-spread {
   display: none;
 }
@@ -4298,34 +4298,41 @@ button{
 .doc-comparison-spread.is-unsealed {
   display: flex !important;
   flex-direction: row !important;
-  justify-content: space-between !important;
-  align-items: stretch !important;
+  justify-content: center !important;
+  align-items: center !important;
   gap: 24px !important;
   position: relative !important;
   width: 100% !important;
   margin-top: 10px !important;
 }
 
-.paper-your-report, .paper-archive-record {
-  flex: 1 1 0% !important;
-  min-width: 0 !important;
-  position: relative !important;
-}
-
 .paper-your-report {
+  flex: 0 1 540px !important;
   background: #faf6eb;
   border: 1.5px solid #c8ba9d;
   border-top: 4px solid #aa7c11;
-  padding: 24px 22px 20px;
-  transform: rotate(-2.2deg);
+  padding: 24px 28px 20px;
+  transform: rotate(-1.5deg);
+  position: relative !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  margin: 0 auto;
 }
 
 .paper-archive-record {
+  flex: 0 1 480px !important;
   background: #faf6eb;
   border: 1.5px solid #c8ba9d;
   border-top: 4px solid #8b0000;
-  padding: 24px 22px 20px !important;
+  padding: 24px 24px 20px !important;
   transform: rotate(1.8deg);
+  position: relative !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  animation: slideOutResolution 0.5s ease forwards;
+}
+
+@keyframes slideOutResolution {
+  from { opacity: 0; transform: translateX(-40px) scale(0.95) rotate(0deg); }
+  to { opacity: 1; transform: translateX(0) scale(1) rotate(1.8deg); }
 }
 
 .paperclip-corner-right {
@@ -4345,10 +4352,34 @@ button{
   font-weight: bold;
 }
 
-/* TORN CARBON MEMO SLIP WITH SAFETY PIN FIX */
+/* PEEKING CURLED RESOLUTION CORNER BUTTON */
+.peeking-resolution-corner {
+  position: absolute;
+  bottom: -12px;
+  right: 16px;
+  background: linear-gradient(135deg, #f4ebd7 0%, #e6dac0 100%);
+  border: 1.5px solid #aa7c11;
+  border-radius: 3px;
+  padding: 5px 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  cursor: pointer;
+  z-index: 25;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.peeking-resolution-corner:hover {
+  transform: scale(1.06) rotate(-2deg);
+  background: #fffdf8;
+}
+.corner-peek-label {
+  font-size: 0.72rem;
+  font-weight: bold;
+  color: #8b0000;
+}
+
+/* TORN CARBON MEMO SLIP WITH SAFETY PIN */
 .torn-carbon-memo {
   position: absolute !important;
-  bottom: -16px !important;
+  bottom: -18px !important;
   left: 50% !important;
   transform: translateX(-50%) rotate(-1deg) !important;
   z-index: 30 !important;
@@ -4357,7 +4388,7 @@ button{
   border: 1px dashed #aa7c11 !important;
   box-shadow: 0 8px 20px rgba(0,0,0,0.6) !important;
   border-radius: 2px !important;
-  padding: 8px 20px 8px 34px !important;
+  padding: 8px 22px 8px 34px !important;
   white-space: nowrap;
 }
 .safety-pin-clip {
@@ -4369,21 +4400,20 @@ button{
   z-index: 35;
 }
 
-/* ASYMMETRICAL PHYSICAL ARTIFACT LAYOUT & HIGH CONTRAST TYPOGRAPHY */
-.why-docs-grid {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between !important;
-  align-items: stretch !important;
-  gap: 18px !important;
-  width: 100% !important;
-  margin-top: 32px !important;
+/* LAYERED PHYSICAL EVIDENCE STACK (STACKED ARTIFACTS) */
+.layered-evidence-stack {
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  margin: 24px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .flip-card-container {
-  flex: 1 1 0% !important;
-  min-width: 0 !important;
-  height: 185px !important;
+  width: 100% !important;
+  height: 145px !important;
   perspective: 1000px;
   cursor: pointer;
   position: relative;
@@ -4391,25 +4421,27 @@ button{
 
 .flip-card-front {
   color: #1a0f08;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 .artifact-heading {
   font-family: var(--font-display);
-  font-size: 1.05rem !important;
+  font-size: 1.12rem !important;
   line-height: 1.35 !important;
-  margin: 10px 0 6px !important;
+  margin: 8px 0 4px !important;
   font-weight: bold;
 }
 
 /* CARD 1: LEATHER PROCUREMENT LEDGER BOOK */
 .leather-ledger-book {
-  transform: rotate(-3.5deg) translateY(-4px) !important;
+  transform: rotate(-1.5deg) !important;
 }
 .ledger-cover-front {
   background: linear-gradient(135deg, #2b170c 0%, #150a04 100%) !important;
-  border: 2px solid #3c2416 !important;
+  border: 2.5px solid #3c2416 !important;
   color: #f4ebd7 !important;
   box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 10px 25px rgba(0,0,0,0.5);
+  padding: 16px 24px !important;
 }
 .ledger-cover-front .artifact-heading {
   color: #fffdf8 !important;
@@ -4419,15 +4451,15 @@ button{
 }
 .ledger-open-prompt {
   color: #f7c873 !important;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   font-weight: bold;
-  margin-top: 6px;
+  margin-top: 4px;
   display: inline-block;
 }
 
 /* CARD 2: PERFORATED INDIAN TELEGRAPH WIRE SLIP */
 .telegraph-wire-slip {
-  transform: rotate(2.2deg) translateY(6px) !important;
+  transform: rotate(1.2deg) !important;
 }
 .wire-front {
   background: #f2e5c4 !important;
@@ -4435,6 +4467,7 @@ button{
   border-top: 4px solid #8b0000 !important;
   color: #1a0f08 !important;
   box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  padding: 16px 24px !important;
 }
 .wire-front .artifact-type-tag {
   color: #8b0000 !important;
@@ -4451,15 +4484,15 @@ button{
 }
 .wire-inspect-prompt {
   color: #8b0000 !important;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   font-weight: bold;
-  margin-top: 6px;
+  margin-top: 4px;
   display: inline-block;
 }
 
 /* CARD 3: B.B. & C.I. RAILWAY TRANSIT MANILA TAG */
 .railway-token-tag {
-  transform: rotate(-2.8deg) translateY(-2px) !important;
+  transform: rotate(-1.2deg) !important;
 }
 .tag-front {
   background: #e4d4b2 !important;
@@ -4467,6 +4500,7 @@ button{
   border-top: 4px solid #1b2a4a !important;
   color: #1a0f08 !important;
   box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  padding: 16px 24px !important;
 }
 .tag-front .artifact-type-tag {
   color: #1b2a4a !important;
@@ -4483,9 +4517,9 @@ button{
 }
 .tag-inspect-prompt {
   color: #1b2a4a !important;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   font-weight: bold;
-  margin-top: 6px;
+  margin-top: 4px;
   display: inline-block;
 }
 
