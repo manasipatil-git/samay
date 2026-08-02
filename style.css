@@ -4321,6 +4321,7 @@ button{
 }
 .binder-page-spread.is-active {
   display: block;
+}
 /* CO-AUTHORED PLAYER ANNOTATIONS & PENCIL MARKS */
 .player-pencil-annotation-block {
   margin: 10px 0 8px;
@@ -7766,10 +7767,6 @@ button{
 }
 .btn-seal-archive:active {
   transform: translateY(0) scale(0.98);
-};
-  border-top: 1px dashed rgba(95,58,38,0.2);
-  padding-top: 15px;
-  margin-top: 15px;
 }
 
 /* Timeline vertical layout */
