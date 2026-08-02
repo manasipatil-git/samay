@@ -5824,152 +5824,234 @@ button{
 }
 
 /* ============================================================
-   SLEEK & ATMOSPHERIC 1946 INVESTIGATOR DOSSIER SPREAD
+   PHYSICAL 1946 OPEN INVESTIGATOR CASEBOOK (THE NOTEBOOK IS THE UI)
    ============================================================ */
-.sleek-final-dossier {
+.physical-open-casebook {
   position: relative;
   width: 100%;
-  max-width: 900px;
-  margin: 15px auto 25px;
+  max-width: 940px;
+  margin: 10px auto 25px;
 }
 
-/* 2-PAGE DOSSIER SPREAD CONTAINER */
-.dossier-spread-container {
-  display: flex;
-  background: #f4ebd7; /* Manila Folder Paper */
-  border: 1px solid #d4c5a9;
-  border-top: 4px solid #aa7c11;
-  border-radius: 4px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.85), inset 0 0 30px rgba(139, 90, 43, 0.1);
-  min-height: 440px;
-}
-
-.dossier-page {
-  flex: 1;
-  padding: 28px 32px;
+/* LEATHER BINDER BACKING WITH BRASS CORNERS */
+.casebook-leather-frame {
   position: relative;
+  background: radial-gradient(circle at 50% 30%, #3d2212 0%, #201007 80%);
+  border: 5px solid #140a04;
+  border-radius: 8px;
+  padding: 18px 24px 28px;
+  box-shadow: 0 35px 90px rgba(0,0,0,0.95), inset 0 0 60px rgba(0,0,0,0.85);
 }
 
-.dossier-page-left {
-  border-right: 1.5px solid #d4c5a9;
-  background: linear-gradient(90deg, #efe4cc 0%, #f4ebd7 20%, #f4ebd7 100%);
+.brass-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid #aa7c11;
+  z-index: 20;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.7);
 }
+.brass-corner.top-left { top: 4px; left: 4px; border-right: none; border-bottom: none; }
+.brass-corner.top-right { top: 4px; right: 4px; border-left: none; border-bottom: none; }
+.brass-corner.bottom-left { bottom: 4px; left: 4px; border-right: none; border-top: none; }
+.brass-corner.bottom-right { bottom: 4px; right: 4px; border-left: none; border-top: none; }
 
-.dossier-page-right {
-  background: linear-gradient(-90deg, #efe4cc 0%, #f4ebd7 20%, #f4ebd7 100%);
-}
-
-.dossier-seam-divider {
-  width: 1px;
-  background: rgba(139, 90, 43, 0.25);
-  box-shadow: 0 0 8px rgba(0,0,0,0.3);
-}
-
-.dossier-header-bar {
+/* STACKED PAPER EDGES CONTAINER */
+.casebook-pages-container {
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #3c2416;
+  background: #faf4e6;
+  border-radius: 4px;
+  min-height: 480px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+.page-stack-edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  background-image: repeating-linear-gradient(90deg, #e4d3b8 0px, #e4d3b8 1px, #d8c4a4 2px, #faf4e6 3px);
+  z-index: 6;
+}
+.page-stack-edge.left-edge { left: 0; border-radius: 4px 0 0 4px; box-shadow: inset 4px 0 8px rgba(0,0,0,0.4); }
+.page-stack-edge.right-edge { right: 0; border-radius: 0 4px 4px 0; box-shadow: inset -4px 0 8px rgba(0,0,0,0.4); }
+
+/* INDIVIDUAL CASEBOOK PAGES */
+.casebook-page-sheet {
+  flex: 1;
+  padding: 26px 30px;
+  position: relative;
+  min-height: 460px;
+}
+
+.casebook-page-sheet.page-left {
+  background: linear-gradient(90deg, #efe2c8 0%, #faf4e6 12%, #faf4e6 100%);
+  border-right: 1px solid #d4c5a9;
+}
+
+.casebook-page-sheet.page-right {
+  background: linear-gradient(-90deg, #efe2c8 0%, #faf4e6 12%, #faf4e6 100%);
+  border-left: 1px solid #d4c5a9;
+}
+
+.page-header-stamp {
+  font-size: 0.62rem;
+  color: #8b0000;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  border-bottom: 1.5px solid #3c2416;
   padding-bottom: 6px;
   margin-bottom: 16px;
 }
 
-.dossier-dept { font-size: 0.62rem; color: #8b0000; font-weight: bold; letter-spacing: 0.1em; }
-.dossier-code { font-size: 0.62rem; color: #795548; font-weight: bold; letter-spacing: 0.12em; }
+/* CENTRAL STITCHED BINDING SEAM GUTTER */
+.spine-stitched-gutter {
+  position: relative;
+  width: 32px;
+  background: linear-gradient(90deg, rgba(60, 36, 22, 0.45) 0%, rgba(20, 10, 5, 0.8) 50%, rgba(60, 36, 22, 0.45) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 12;
+  box-shadow: inset 0 0 14px rgba(0,0,0,0.7);
+}
 
-.dossier-kicker { font-size: 0.68rem; color: #aa7c11; font-weight: bold; letter-spacing: 0.14em; display: block; margin-bottom: 4px; }
-.dossier-title { font-family: var(--font-display); font-size: 1.5rem; color: #2b170c; margin: 0 0 10px; line-height: 1.25; }
-.dossier-desc { font-family: 'Special Elite', Courier, monospace; font-size: 0.88rem; color: #2b170c; line-height: 1.45; font-weight: bold; margin-bottom: 20px; }
+.twine-stitch {
+  font-size: 1.6rem;
+  opacity: 0.88;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
+}
 
-.approval-stamp-badge {
+/* PASTED RECOMMENDATION MEMO (LEFT PAGE) */
+.crooked-pasted-memo {
+  position: relative;
+  background: #fdfaf2;
+  border: 1px dashed #aa7c11;
+  padding: 16px 20px;
+  transform: rotate(-3.2deg);
+  filter: drop-shadow(4px 8px 16px rgba(0,0,0,0.35));
+  margin-bottom: 16px;
+}
+
+.memo-kicker-tag { font-size: 0.6rem; color: #8b0000; font-weight: bold; letter-spacing: 0.12em; display: block; }
+.memo-title-text { font-family: var(--font-display); font-size: 1.35rem; color: #2b170c; margin: 4px 0 6px; }
+.memo-body-text { font-family: 'Special Elite', Courier, monospace; font-size: 0.82rem; color: #2b170c; line-height: 1.4; font-weight: bold; }
+
+.red-grease-stamp {
   display: inline-block;
   border: 2px solid #8b0000;
   color: #8b0000;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: bold;
-  letter-spacing: 0.12em;
-  padding: 6px 14px;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
   transform: rotate(-3deg);
-  border-radius: 2px;
-  background: rgba(139, 0, 0, 0.05);
-  margin-bottom: 20px;
-}
-
-.dossier-paperclip-note {
-  position: relative;
-  background: #faf4e6;
-  border-left: 3px solid #aa7c11;
-  padding: 10px 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   margin-top: 10px;
+  background: rgba(139, 0, 0, 0.05);
+  text-shadow: 0 0 1px rgba(139,0,0,0.3);
 }
-.paperclip-icon { position: absolute; top: -10px; left: 8px; font-size: 1.3rem; }
-.paperclip-text { font-size: 0.76rem; color: #3c2416; font-weight: bold; }
 
-.fountain-pen-sig-block {
-  margin-top: 14px;
+/* GLASSINE TAPE STRIPS */
+.glassine-tape {
+  position: absolute;
+  width: 42px;
+  height: 14px;
+  background: rgba(240, 220, 150, 0.65);
+  border: 1px solid rgba(200, 170, 100, 0.4);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+.glassine-tape.top-left { top: -6px; left: 12px; transform: rotate(-12deg); }
+.glassine-tape.top-right { top: -6px; right: 12px; transform: rotate(14deg); }
+
+/* TUCKED RAILWAY TRANSIT PERMIT & METAL PAPERCLIP */
+.tucked-railway-permit {
+  position: relative;
+  background: #f4ebd7;
+  border-left: 3.5px solid #8b0000;
+  padding: 8px 12px;
+  transform: rotate(1.4deg);
+  filter: drop-shadow(3px 6px 12px rgba(0,0,0,0.25));
+  margin-bottom: 14px;
+}
+
+.metal-paperclip-3d {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.7));
+  transform: rotate(-18deg);
+}
+
+.permit-text { font-size: 0.74rem; color: #2b170c; font-weight: bold; }
+
+.investigator-signature-line {
+  margin-top: 12px;
   text-align: right;
-  border-top: 1px dashed rgba(60, 36, 22, 0.3);
-  padding-top: 8px;
+  border-top: 1px dashed rgba(60, 36, 22, 0.25);
+  padding-top: 6px;
 }
-.fountain-pen-sig {
+.fountain-pen-script {
   font-family: 'Courier Prime', Courier, monospace !important;
-  font-size: 0.82rem !important;
-  color: #1a237e !important; /* Indigo Fountain Pen Ink */
-  font-style: italic !important;
-  font-weight: bold !important;
+  font-size: 0.8rem;
+  color: #1a237e;
+  font-style: italic;
+  font-weight: bold;
 }
 
-/* RIGHT PAGE ELEMENTS & PHOTO CORNERS */
-.dossier-photo-card {
+.thumb-wear-patina {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at bottom left, rgba(139, 90, 43, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* RIGHT PAGE: HISTORICAL EVIDENCE & PHYSICAL OVERLAPS */
+.overlapping-photo-group {
   position: relative;
   background: #ffffff;
   padding: 8px 8px 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-  transform: rotate(-1.5deg);
-  margin-bottom: 16px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  filter: drop-shadow(6px 12px 22px rgba(0,0,0,0.45));
+  transform: rotate(-2.8deg);
+  margin-bottom: -15px; /* Physical overlap with certificate beneath! */
+  z-index: 15;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
-.dossier-photo-card:hover {
-  transform: rotate(-0.5deg) scale(1.02);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+.overlapping-photo-group:hover {
+  transform: rotate(-1deg) translateY(-4px) scale(1.02);
+  filter: drop-shadow(8px 16px 28px rgba(0,0,0,0.55));
 }
 
-.photo-corner {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  background: #1a0f08;
-  z-index: 10;
+.archive-photo-img { width: 100%; height: 160px; object-fit: cover; border: 1px solid #1a0f08; filter: sepia(0.18) contrast(1.08); }
+.photo-caption-tag { font-size: 0.7rem; color: #1a0f08; font-weight: bold; display: block; text-align: center; margin-top: 6px; }
+
+/* TUCKED REGISTRATION DEED */
+.pasted-registration-deed {
+  position: relative;
+  background: #fdfaf2;
+  border: 1.5px solid #d4c5a9;
+  border-top: 3.5px solid #8b0000;
+  padding: 18px 20px 14px;
+  transform: rotate(1.2deg);
+  filter: drop-shadow(4px 8px 18px rgba(0,0,0,0.3));
+  margin-bottom: 12px;
+  z-index: 5;
 }
-.photo-corner.top-left { top: -2px; left: -2px; clip-path: polygon(0 0, 100% 0, 0 100%); }
-.photo-corner.top-right { top: -2px; right: -2px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
-.photo-corner.bottom-left { bottom: -2px; left: -2px; clip-path: polygon(0 0, 0 100%, 100% 100%); }
-.photo-corner.bottom-right { bottom: -2px; right: -2px; clip-path: polygon(100% 0, 0 100%, 100% 100%); }
+.deed-stamp-tag { font-size: 0.6rem; color: #8b0000; font-weight: bold; letter-spacing: 0.12em; display: block; border-bottom: 1px solid rgba(139,0,0,0.2); padding-bottom: 4px; margin-bottom: 6px; }
+.deed-title { font-family: var(--font-display); font-size: 1.15rem; color: #2b170c; margin: 4px 0 6px; line-height: 1.3; }
+.deed-body { font-family: 'Special Elite', Courier, monospace; font-size: 0.76rem; color: #3c2416; font-weight: bold; line-height: 1.4; }
 
-.dossier-photo-img { width: 100%; height: 165px; object-fit: cover; border: 1px solid #1a0f08; filter: sepia(0.15) contrast(1.05); }
-.photo-caption-text { font-size: 0.72rem; color: #1a0f08; font-weight: bold; display: block; text-align: center; margin-top: 6px; }
-
-.dossier-cert-card {
-  background: #fdfaf2 !important;
-  border: 1.5px solid #d4c5a9 !important;
-  border-top: 4px solid #8b0000 !important;
-  padding: 16px 20px !important;
-  transform: rotate(0.8deg) !important;
-  box-shadow: 0 8px 22px rgba(0,0,0,0.3) !important;
-  margin-bottom: 14px !important;
-  border-radius: 2px !important;
-  position: relative !important;
-}
-.cert-stamp-tag { font-size: 0.62rem !important; color: #8b0000 !important; font-weight: bold !important; letter-spacing: 0.12em !important; display: block !important; border-bottom: 1px solid rgba(139,0,0,0.2) !important; padding-bottom: 4px !important; margin-bottom: 6px !important; }
-.cert-name { font-family: var(--font-display) !important; font-size: 1.2rem !important; color: #2b170c !important; margin: 4px 0 6px !important; line-height: 1.3 !important; }
-.cert-sub { font-family: 'Special Elite', Courier, monospace !important; font-size: 0.78rem !important; color: #3c2416 !important; font-weight: bold !important; line-height: 1.4 !important; }
-
-.cert-seal-stamp {
-  margin-top: 10px;
-  font-size: 0.58rem !important;
-  color: #8b0000 !important;
-  font-weight: bold !important;
-  letter-spacing: 0.1em !important;
+.registrar-red-seal {
+  margin-top: 8px;
+  font-size: 0.56rem;
+  color: #8b0000;
+  font-weight: bold;
+  letter-spacing: 0.1em;
   border: 1.5px double #8b0000;
   padding: 4px 8px;
   display: inline-block;
@@ -5977,14 +6059,53 @@ button{
   background: rgba(139, 0, 0, 0.04);
 }
 
-.amul-ribbon-tag {
+.typewriter-ribbon-strip {
   background: #faf4e6;
   border-left: 3.5px solid #8b0000;
   padding: 8px 12px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: bold;
   color: #1a0f08;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.2));
+  transform: rotate(-0.8deg);
+  margin-bottom: 14px;
+}
+
+/* OVERLAPPING COFFEE STAIN */
+.overlapping-coffee-stain {
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid rgba(139, 90, 43, 0.18);
+  box-shadow: inset 0 0 10px rgba(139, 90, 43, 0.12);
+  pointer-events: none;
+  z-index: 18;
+}
+
+/* ARCHIVIST PINNED CATALOG CARD OVERLAPPING CORNER */
+.archivist-pinned-card {
+  position: relative;
+  background: #fff8c6;
+  border-top: 3.5px solid #d4b200;
+  padding: 14px 18px;
+  transform: rotate(2.2deg);
+  filter: drop-shadow(6px 12px 24px rgba(0,0,0,0.45));
+  color: #2b1d0c;
+  z-index: 20;
+}
+
+.brass-pushpin-3d { position: absolute; top: -10px; right: 14px; font-size: 1.3rem; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.7)); }
+.archivist-card-tag { font-size: 0.6rem; color: #8b0000; font-weight: bold; letter-spacing: 0.1em; display: block; }
+.archivist-card-body { font-size: 0.82rem; color: #2b1d0c; line-height: 1.4; font-weight: bold; margin: 4px 0 6px; }
+.archivist-card-by { font-size: 0.72rem; color: #5a4b3c; font-weight: bold; display: block; text-align: right; }
+
+@media (max-width: 768px) {
+  .casebook-pages-container { flex-direction: column !important; }
+  .spine-stitched-gutter { height: 16px !important; width: 100% !important; }
+  .overlapping-photo-group { margin-bottom: 12px !important; }
 }
 
 /* ARCHIVIST DESK SURFACE CARD */
