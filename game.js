@@ -1132,18 +1132,23 @@ class Game {
       if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
     };
 
-    document.querySelectorAll("#why-doc-price, #why-doc-patel, #why-doc-rail, .btn-inspect-artifact").forEach(el => {
-      el.onclick = (e) => {
-        e.stopPropagation();
-        const docTarget = el.dataset.doc || el.closest("[data-doc]")?.dataset.doc;
-        if (docTarget) {
+    // Robust event delegation for inspection modal triggers
+    document.addEventListener("click", (e) => {
+      // Check if clicking inside close button or backdrop
+      if (e.target.closest("#btn-close-inspect, #inspect-backdrop")) {
+        closeInspectionModal();
+        return;
+      }
+
+      // Check if clicking any inspect button or artifact card
+      const trigger = e.target.closest("#why-doc-price, #why-doc-patel, #why-doc-rail, .btn-inspect-artifact, [data-doc]");
+      if (trigger) {
+        const docTarget = trigger.dataset.doc || trigger.closest("[data-doc]")?.dataset.doc;
+        if (docTarget && artifactDetails[docTarget]) {
           openInspectionModal(docTarget);
         }
-      };
+      }
     });
-
-    if (inspectCloseBtn) inspectCloseBtn.onclick = closeInspectionModal;
-    if (inspectBackdrop) inspectBackdrop.onclick = closeInspectionModal;
 
     // 3. FLIPPABLE HISTORIC PHOTO CARD HANDLER
     const photoCard = document.getElementById("legacy-photo-card");

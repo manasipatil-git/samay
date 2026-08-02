@@ -4333,6 +4333,12 @@ button{
   padding: 22px 20px;
   position: relative;
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  cursor: pointer !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.museum-page:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.55);
 }
 
 .ledger-audit-page {
