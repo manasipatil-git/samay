@@ -1110,7 +1110,21 @@ class Game {
         if (envelopeBox) envelopeBox.style.display = "none";
         if (legacyContainer) legacyContainer.style.display = "block";
 
-        // Show specific branching outcome block matching player decision
+        // Show specific branching outcome block or update sleek final dossier
+        const playerTitle = document.getElementById("dossier-player-title");
+        const playerDesc = document.getElementById("dossier-player-desc");
+        
+        if (id === "cooperative") {
+          if (playerTitle) playerTitle.textContent = "Form a Cooperative Union";
+          if (playerDesc) playerDesc.textContent = "You recommended collective milk pooling, grading, and direct transport to Bombay Municipality, bypassing contractor monopoly.";
+        } else if (id === "accept") {
+          if (playerTitle) playerTitle.textContent = "Accept Polson's Contractor Rates";
+          if (playerDesc) playerDesc.textContent = "You recommended accepting contractor rates to avoid immediate conflict, leaving Kaira farmers in long-term economic distress.";
+        } else if (id === "cooling") {
+          if (playerTitle) playerTitle.textContent = "Build Cooling Tanks Only";
+          if (playerDesc) playerDesc.textContent = "You recommended technical cooling upgrades without farmer ownership; contractor Polson Ltd captured 100% of efficiency gains.";
+        }
+
         const branchOutcomeId = id === "cooperative" ? "branch-outcome-cooperative" :
                                 (id === "accept" ? "branch-outcome-accept" : "branch-outcome-cooling");
         const branchEl = document.getElementById(branchOutcomeId);
@@ -1125,20 +1139,20 @@ class Game {
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
         stampBtn.style.display = "none";
 
-        const casebook = document.getElementById("open-casebook-journal") || document.getElementById("final-dispatch-dossier");
-        if (casebook) {
-          casebook.style.transition = "transform 0.8s ease, opacity 0.8s ease";
-          casebook.style.transform = "rotateY(-75deg) translateY(60vh) scale(0.8)";
-          casebook.style.opacity = "0";
+        const dossier = document.getElementById("sleek-final-dossier") || document.getElementById("open-casebook-journal") || document.getElementById("final-dispatch-dossier");
+        if (dossier) {
+          dossier.style.transition = "transform 0.8s ease, opacity 0.8s ease";
+          dossier.style.transform = "translateY(60vh) scale(0.85)";
+          dossier.style.opacity = "0";
         }
 
         setTimeout(() => {
           if (window.SAMAY_SOUND) {
             window.SAMAY_SOUND.play("bell");
           }
-          if (casebook) {
-            casebook.style.transform = "none";
-            casebook.style.opacity = "1";
+          if (dossier) {
+            dossier.style.transform = "none";
+            dossier.style.opacity = "1";
           }
           this._goToScene("archive");
         }, 850);
