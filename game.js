@@ -1076,103 +1076,6 @@ class Game {
       };
     }
 
-  _setupInspectionModal() {
-    if (this._inspectionModalInitialized) return;
-    this._inspectionModalInitialized = true;
-
-    const inspectedSet = new Set();
-
-    const artifactDetails = {
-      price: {
-        title: "📕 BOMBAY PROCUREMENT LEDGER (1946)",
-        badge: "MARGIN ACCOUNTING AUDIT",
-        body: `<div class="ledger-modal-inspect font-type">
-                <h4 style="color:#8b0000;margin-bottom:12px;">BOMBAY MILK PROCUREMENT MARGINS</h4>
-                <p>Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay, paying Anand farmers only 3 Annas per seer.</p>
-                <div style="background:rgba(43,23,12,0.06);padding:12px;border-left:3px solid #aa7c11;margin:16px 0;">
-                  <strong style="color:#2b170c;display:block;">Graphite Audit Note:</strong>
-                  <em>"Contractor profit margins reached 75% of retail price. Middleman monopoly verified. See Transit Permit #402."</em>
-                </div>
-              </div>`
-      },
-      patel: {
-        title: "⚡ TELEGRAM DISPATCH #402",
-        badge: "INDIAN TELEGRAPH DEPT // 1946",
-        body: `<div class="wire-modal-inspect font-type">
-                <h4 style="color:#8b0000;margin-bottom:12px;">SARDAR VALLABHBHAI PATEL DIRECTIVE</h4>
-                <p>"Sardar Patel advised the Kaira farmers that only a <span class="pencil-underline">15-day complete milk strike</span> could break contractor monopoly power over Bombay supply lines."</p>
-                <div style="background:rgba(139,0,0,0.06);padding:12px;border-left:3px solid #8b0000;margin:16px 0;">
-                  <strong style="color:#8b0000;display:block;">Dispatch Priority: CONFIDENTIAL</strong>
-                  <em>"Prepare village committees for collective boycott of contractor milk collection centers."</em>
-                </div>
-              </div>`
-      },
-      rail: {
-        title: "🚂 B.B. & C.I. RAILWAY FREIGHT PASS #402",
-        badge: "TRANSIT FREIGHT CLEARANCE",
-        body: `<div class="rail-modal-inspect font-type">
-                <h4 style="color:#1b2a4a;margin-bottom:12px;">DIRECT RAIL TRANSIT PERMIT #402</h4>
-                <p>"Bombay Municipality granted <span class="pencil-underline">direct rail transit permits</span> exclusively to the independent Kaira Cooperative."</p>
-                <div style="background:rgba(27,42,74,0.06);padding:12px;border-left:3px solid #1b2a4a;margin:16px 0;">
-                  <strong style="color:#1b2a4a;display:block;">Freight Authorization: PASSED</strong>
-                  <em>"Allows cooperative milk tankers direct priority dispatch on Anand-Bombay express rail line."</em>
-                </div>
-              </div>`
-      }
-    };
-
-    const openInspectionModal = window.samayOpenInspect = (docId) => {
-      const inspectOverlay = document.getElementById("artifact-inspect-overlay");
-      const inspectContent = document.getElementById("inspect-content-body");
-      const approvalSlip = document.getElementById("approval-stamp-slip");
-
-      if (!inspectOverlay || !inspectContent) return;
-      const data = artifactDetails[docId];
-      if (!data) return;
-
-      inspectedSet.add(docId);
-      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
-
-      inspectContent.innerHTML = `
-        <span class="clipping-tag font-type" style="display:block;margin-bottom:4px;">${data.badge}</span>
-        <h3 style="font-family:var(--font-display);color:#3c2416;margin:0 0 16px;">${data.title}</h3>
-        ${data.body}
-      `;
-
-      inspectOverlay.classList.add("is-active");
-      inspectOverlay.style.setProperty("display", "flex", "important");
-
-      if (inspectedSet.size >= 2 && approvalSlip) {
-        approvalSlip.style.display = "block";
-      }
-    };
-
-    const closeInspectionModal = window.samayCloseInspect = () => {
-      const inspectOverlay = document.getElementById("artifact-inspect-overlay");
-      if (inspectOverlay) {
-        inspectOverlay.classList.remove("is-active");
-        inspectOverlay.style.setProperty("display", "none", "important");
-      }
-      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-    };
-
-    // Robust event delegation for inspection modal triggers
-    document.addEventListener("click", (e) => {
-      if (e.target.closest("#btn-close-inspect, #inspect-backdrop")) {
-        closeInspectionModal();
-        return;
-      }
-
-      const trigger = e.target.closest("#why-doc-price, #why-doc-patel, #why-doc-rail, .btn-inspect-artifact, [data-doc]");
-      if (trigger) {
-        const docTarget = trigger.dataset.doc || trigger.closest("[data-doc]")?.dataset.doc;
-        if (docTarget && artifactDetails[docTarget]) {
-          openInspectionModal(docTarget);
-        }
-      }
-    });
-  }
-
     // 3. FLIPPABLE HISTORIC PHOTO CARD HANDLER
     const photoCard = document.getElementById("legacy-photo-card");
     if (photoCard) {
@@ -1339,6 +1242,103 @@ class Game {
     };
 
     renderBlankOptions();
+  }
+
+  _setupInspectionModal() {
+    if (this._inspectionModalInitialized) return;
+    this._inspectionModalInitialized = true;
+
+    const inspectedSet = new Set();
+
+    const artifactDetails = {
+      price: {
+        title: "📕 BOMBAY PROCUREMENT LEDGER (1946)",
+        badge: "MARGIN ACCOUNTING AUDIT",
+        body: `<div class="ledger-modal-inspect font-type">
+                <h4 style="color:#8b0000;margin-bottom:12px;">BOMBAY MILK PROCUREMENT MARGINS</h4>
+                <p>Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay, paying Anand farmers only 3 Annas per seer.</p>
+                <div style="background:rgba(43,23,12,0.06);padding:12px;border-left:3px solid #aa7c11;margin:16px 0;">
+                  <strong style="color:#2b170c;display:block;">Graphite Audit Note:</strong>
+                  <em>"Contractor profit margins reached 75% of retail price. Middleman monopoly verified. See Transit Permit #402."</em>
+                </div>
+              </div>`
+      },
+      patel: {
+        title: "⚡ TELEGRAM DISPATCH #402",
+        badge: "INDIAN TELEGRAPH DEPT // 1946",
+        body: `<div class="wire-modal-inspect font-type">
+                <h4 style="color:#8b0000;margin-bottom:12px;">SARDAR VALLABHBHAI PATEL DIRECTIVE</h4>
+                <p>"Sardar Patel advised the Kaira farmers that only a <span class="pencil-underline">15-day complete milk strike</span> could break contractor monopoly power over Bombay supply lines."</p>
+                <div style="background:rgba(139,0,0,0.06);padding:12px;border-left:3px solid #8b0000;margin:16px 0;">
+                  <strong style="color:#8b0000;display:block;">Dispatch Priority: CONFIDENTIAL</strong>
+                  <em>"Prepare village committees for collective boycott of contractor milk collection centers."</em>
+                </div>
+              </div>`
+      },
+      rail: {
+        title: "🚂 B.B. & C.I. RAILWAY FREIGHT PASS #402",
+        badge: "TRANSIT FREIGHT CLEARANCE",
+        body: `<div class="rail-modal-inspect font-type">
+                <h4 style="color:#1b2a4a;margin-bottom:12px;">DIRECT RAIL TRANSIT PERMIT #402</h4>
+                <p>"Bombay Municipality granted <span class="pencil-underline">direct rail transit permits</span> exclusively to the independent Kaira Cooperative."</p>
+                <div style="background:rgba(27,42,74,0.06);padding:12px;border-left:3px solid #1b2a4a;margin:16px 0;">
+                  <strong style="color:#1b2a4a;display:block;">Freight Authorization: PASSED</strong>
+                  <em>"Allows cooperative milk tankers direct priority dispatch on Anand-Bombay express rail line."</em>
+                </div>
+              </div>`
+      }
+    };
+
+    const openInspectionModal = window.samayOpenInspect = (docId) => {
+      const inspectOverlay = document.getElementById("artifact-inspect-overlay");
+      const inspectContent = document.getElementById("inspect-content-body");
+      const approvalSlip = document.getElementById("approval-stamp-slip");
+
+      if (!inspectOverlay || !inspectContent) return;
+      const data = artifactDetails[docId];
+      if (!data) return;
+
+      inspectedSet.add(docId);
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
+
+      inspectContent.innerHTML = `
+        <span class="clipping-tag font-type" style="display:block;margin-bottom:4px;">${data.badge}</span>
+        <h3 style="font-family:var(--font-display);color:#3c2416;margin:0 0 16px;">${data.title}</h3>
+        ${data.body}
+      `;
+
+      inspectOverlay.classList.add("is-active");
+      inspectOverlay.style.setProperty("display", "flex", "important");
+
+      if (inspectedSet.size >= 2 && approvalSlip) {
+        approvalSlip.style.display = "block";
+      }
+    };
+
+    const closeInspectionModal = window.samayCloseInspect = () => {
+      const inspectOverlay = document.getElementById("artifact-inspect-overlay");
+      if (inspectOverlay) {
+        inspectOverlay.classList.remove("is-active");
+        inspectOverlay.style.setProperty("display", "none", "important");
+      }
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+    };
+
+    // Robust event delegation for inspection modal triggers
+    document.addEventListener("click", (e) => {
+      if (e.target.closest("#btn-close-inspect, #inspect-backdrop")) {
+        closeInspectionModal();
+        return;
+      }
+
+      const trigger = e.target.closest("#why-doc-price, #why-doc-patel, #why-doc-rail, .btn-inspect-artifact, [data-doc]");
+      if (trigger) {
+        const docTarget = trigger.dataset.doc || trigger.closest("[data-doc]")?.dataset.doc;
+        if (docTarget && artifactDetails[docTarget]) {
+          openInspectionModal(docTarget);
+        }
+      }
+    });
   }
 
   _inspectEvidence(clueId) {
