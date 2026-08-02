@@ -1489,25 +1489,21 @@ button{
    MEETING SCENE
 ============================================================ */
 #scene-meeting{
-  background: radial-gradient(ellipse at 50% 0%, #4a3a3c 0%, #241c1a 70%);
-  animation: meetingFlicker 5s infinite alternate;
+  background: radial-gradient(ellipse at 50% 20%, #301a14 0%, #150b07 75%, #0a0402 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 15px;
-  overflow-y: auto;
-}
-@keyframes meetingFlicker {
-  0%, 100% { filter: brightness(1); }
-  25% { filter: brightness(0.95); }
-  50% { filter: brightness(1.03); }
-  75% { filter: brightness(0.97); }
+  justify-content: center;
+  overflow: hidden;
+  position: absolute;
+  inset: 0;
 }
 .hall-bg {
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at 50% 30%, rgba(95, 58, 38, 0.15) 0%, transparent 80%);
+  opacity: 0.35;
+  pointer-events: none;
   z-index: 1;
 }
 .hall-pillar {
@@ -5808,21 +5804,22 @@ button{
    ============================================================ */
 .panchayat-teakwood-table {
   position: relative;
-  width: min(1000px, 96vw);
-  min-height: 580px;
-  margin: 15px auto 0;
+  width: min(980px, 92vw);
+  height: min(550px, 76vh);
+  margin: 0 auto;
   background: 
-    radial-gradient(ellipse at 50% 30%, rgba(255, 200, 120, 0.28) 0%, rgba(45, 25, 12, 0.85) 60%, rgba(18, 9, 4, 0.99) 95%),
-    linear-gradient(180deg, #442817 0%, #2e190c 50%, #1c0d05 100%);
-  border: 4px solid #aa7c11;
+    radial-gradient(ellipse at 50% 35%, rgba(255, 200, 120, 0.32) 0%, rgba(45, 25, 12, 0.88) 60%, rgba(18, 9, 4, 0.99) 95%),
+    linear-gradient(180deg, #4a2b19 0%, #2e170a 50%, #1a0b03 100%);
+  border: 4px solid #b8860b;
   border-radius: 8px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.95), inset 0 0 70px rgba(0,0,0,0.85);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.98), inset 0 0 70px rgba(0,0,0,0.9);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px 24px 24px;
-  overflow: visible;
+  padding: 18px 24px 20px;
+  overflow: hidden;
   z-index: 10;
+  flex-shrink: 0;
 }
 
 .assembly-thread-svg {
