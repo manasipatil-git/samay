@@ -82,8 +82,8 @@ class Game {
     this._renderNotebook();
     this._renderInventory();
 
-    if (this.state.scene === "ending" && this.state.ending) {
-      this._showEnding(this.state.ending);
+    if (this.state.scene === "ending") {
+      this._showEnding(this.state.ending || "cooperative");
     } else if (this.state.scene === "decision") {
       this._goToScene("decision");
     } else if (this.state.scene === "meeting") {
