@@ -976,6 +976,9 @@ class Game {
     const unfoldedSpread = document.getElementById("unfolded-comparison-spread");
     const stageArtifacts = document.getElementById("stage-artifacts");
     const stageEnvelope = document.getElementById("stage-envelope");
+    const peekingCorner = document.getElementById("peeking-resolution-corner");
+    const tuckedRecord = document.getElementById("tucked-archive-record");
+    const approvalSlip = document.getElementById("approval-stamp-slip");
 
     const compPlayerTitle = document.getElementById("comp-player-title");
     const compPlayerDesc = document.getElementById("comp-player-desc");
@@ -1016,15 +1019,50 @@ class Game {
       };
     }
 
-    // 2. PHYSICAL ARTIFACT FLIP / INSPECT HANDLERS
+    // PEEKING RESOLUTION SLIDER
+    if (peekingCorner && tuckedRecord) {
+      peekingCorner.onclick = () => {
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+        tuckedRecord.style.transform = "rotate(0deg) translateX(0)";
+        peekingCorner.style.display = "none";
+      };
+    }
+
+    // 2. LAYERED PHYSICAL ARTIFACT FLIP / INSPECT HANDLERS
+    const inspectedSet = new Set();
     document.querySelectorAll(".flip-card-container").forEach(card => {
       card.onclick = () => {
         card.classList.toggle("is-flipped");
+        inspectedSet.add(card.dataset.doc);
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
+
+        // When primary evidence is examined, reveal tiny ACCESS APPROVED slip on dusty envelope
+        if (inspectedSet.size >= 2 && approvalSlip) {
+          approvalSlip.style.display = "block";
+        }
       };
     });
 
-    // 3. LEGACY DOSSIER ENVELOPE UNWRAPPER
+    // 3. FLIPPABLE HISTORIC PHOTO CARD HANDLER
+    const photoCard = document.getElementById("legacy-photo-card");
+    if (photoCard) {
+      photoCard.onclick = () => {
+        const front = photoCard.querySelector(".photo-card-front");
+        const back = photoCard.querySelector(".photo-card-back");
+        if (front && back) {
+          if (front.style.display === "none") {
+            front.style.display = "block";
+            back.style.display = "none";
+          } else {
+            front.style.display = "none";
+            back.style.display = "block";
+          }
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
+        }
+      };
+    }
+
+    // 4. LEGACY DOSSIER ENVELOPE UNWRAPPER
     const envelopeBtn = document.getElementById("btn-open-amul-envelope");
     const envelopeBox = document.getElementById("amul-discovery-envelope");
     const legacyContainer = document.getElementById("legacy-reveal-container");
@@ -1047,7 +1085,7 @@ class Game {
       };
     }
 
-    // 4. UNIFIED PHYSICAL RUBBER STAMP & CABINET DRAWER CLOSING ACTION
+    // 5. UNIFIED PHYSICAL RUBBER STAMP & CABINET DRAWER CLOSING ACTION
     if (stampBtn) {
       stampBtn.onclick = (e) => {
         e.preventDefault();

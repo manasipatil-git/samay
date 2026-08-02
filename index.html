@@ -758,36 +758,45 @@
     </div>
   </section>
 
-  <!-- ============ SCENE: THE ENVIRONMENTAL DISCOVERY ARCHIVE DESK ============ -->
+  <!-- ============ SCENE: THE ACCIDENTAL ARCHIVE DESK (LIVED-IN 1946 ENVIRONMENT) ============ -->
   <section id="scene-ending" class="scene">
     <div class="oak-desk-surface" id="final-dispatch-dossier">
       <div class="archive-dust-layer"></div>
       <div class="desk-wood-grain"></div>
 
+      <!-- ENVIRONMENT PROPS LAYER (BELIEVABLE ACCIDENTAL TOUCHPOINTS) -->
+      <div class="desk-props-layer">
+        <div class="coffee-stain-ring"></div>
+        <div class="fountain-pen-prop">🖋️</div>
+        <div class="cracked-spectacles-prop">👓</div>
+        <div class="wax-flakes-spill"></div>
+        <div class="wooden-ruler-prop"></div>
+      </div>
+
       <!-- Top Desk Archive Reference Header -->
       <div class="desk-archive-ref-tag">
-        <span class="ref-tag">NATIONAL ARCHIVES OF INDIA // ENVIRONMENTAL DISCOVERY DESK</span>
+        <span class="ref-tag">NATIONAL ARCHIVES OF INDIA // ACCESSION DESK 04</span>
         <span class="ref-tag">CASE FILE 001 // KAIRA DISTRICT (1946)</span>
       </div>
 
-      <!-- ORGANIC ARCHIVAL ENVIRONMENT (ALL ARTIFACTS TOUCHABLE & EXPLORABLE) -->
+      <!-- ACCIDENTAL ENVIRONMENT DESK LAYOUT -->
       <div class="desk-scattered-spread" id="desk-scattered-spread">
         
-        <!-- MAIN DOSSIER: MY RECOMMENDATION VS HISTORICAL RESOLUTION -->
+        <!-- TOP: MY RECOMMENDATION WITH TUCKED GOVERNMENT RESOLUTION -->
         <div class="ending-stage-box stage-dossier">
           <div class="sealed-folder-interactive" id="unseal-historical-folder">
             <div class="folder-wax-seal" id="folder-wax-seal">
               <span class="seal-emblem">🏛️</span>
-              <span class="seal-text">UNSEAL HISTORICAL DOSSIER</span>
+              <span class="seal-text">UNSEAL CASE 001</span>
             </div>
             <div class="folder-cover-label">
               <span class="label-kicker">CONFIDENTIAL ACCESSION // 1946</span>
               <h3>OFFICIAL HISTORICAL RECORD</h3>
-              <p>Click seal to open dossier resolution</p>
+              <p>Click seal to open dossier spread</p>
             </div>
           </div>
 
-          <!-- Unfolded Comparison Papers (Revealed on Unsealing) -->
+          <!-- Unsealed Comparison Papers (Tucked Underneath Report) -->
           <div class="desk-doc doc-comparison-spread" id="unfolded-comparison-spread" style="display: none;">
             
             <!-- PHYSICAL RED THREAD SVG CONNECTING MY CASE TO HISTORICAL RESOLUTION -->
@@ -797,69 +806,76 @@
               <circle cx="580" cy="90" r="5" fill="#b82619" />
             </svg>
 
+            <!-- YOUR FILED RECOMMENDATION REPORT -->
             <div class="comp-paper paper-your-report">
               <div class="brass-tack-head">📍</div>
-              <span class="comp-paper-tag">MY RECOMMENDATION</span>
+              <span class="comp-paper-tag font-type">MY RECOMMENDATION</span>
               <h4 id="comp-player-title">Form a Cooperative</h4>
-              <p id="comp-player-desc">You recommended collecting, grading, and selling milk together.</p>
-              <div class="paper-stamp-rec">FILED // 1946</div>
+              <p id="comp-player-desc" class="font-type">You recommended collecting, grading, and selling milk together.</p>
+              <div class="paper-stamp-rec font-type">FILED // 1946</div>
+
+              <!-- PEEKING CURLED CORNER OF GOVERNMENT RESOLUTION UNDERNEATH -->
+              <div class="peeking-resolution-corner" id="peeking-resolution-corner">
+                <span class="corner-peek-label font-type">📜 Pull 1946 Resolution ↩</span>
+              </div>
             </div>
 
-            <!-- Integrated Torn Carbon Paper Annotation Slip -->
+            <!-- Integrated Carbon Paper Annotation Slip -->
             <div class="comp-pencil-annotation-strip torn-carbon-memo">
               <div class="safety-pin-clip">🧷</div>
-              <div class="comp-pencil-annotation" id="comp-pencil-text">"Your investigation reached the same conclusion recorded in the historical archive."</div>
+              <div class="comp-pencil-annotation font-type" id="comp-pencil-text">"Your investigation reached the same conclusion recorded in the historical archive."</div>
             </div>
 
-            <div class="comp-paper paper-archive-record">
+            <!-- OFFICIAL GOVERNMENT RESOLUTION (SLIDES OUT FROM UNDERNEATH) -->
+            <div class="comp-paper paper-archive-record" id="tucked-archive-record">
               <div class="paperclip-corner-right">📎</div>
-              <span class="comp-paper-tag history-tag">THE HISTORICAL DECISION</span>
+              <span class="comp-paper-tag history-tag font-type">THE HISTORICAL DECISION</span>
               <h4 class="history-title-heading">4 January 1946 Resolution</h4>
-              <p>The farmers of Kaira District resolved to form an independent cooperative union.</p>
-              <div class="paper-stamp-gov">ACCESSION RECORD // 1946</div>
+              <p class="font-type">The farmers of Kaira District resolved to form an independent cooperative union.</p>
+              <div class="paper-stamp-gov font-type">ACCESSION RECORD // 1946</div>
             </div>
           </div>
         </div>
 
-        <!-- 3 DISTINCT PHYSICAL ARCHIVAL ARTIFACTS (SITTING ON THE DESK FOR EXPLORATION) -->
+        <!-- CENTER DESK: LAYERED PHYSICAL EVIDENCE STACK (EXCAVATION SYSTEM) -->
         <div class="ending-stage-box stage-artifacts" id="stage-artifacts" style="display: none;">
-          <div class="why-docs-grid" id="why-docs-grid">
+          <div class="layered-evidence-stack" id="layered-evidence-stack">
             
-            <!-- ARTIFACT A: LEATHER-BOUND PROCUREMENT LEDGER BOOK -->
-            <div class="flip-card-container leather-ledger-book" id="why-doc-price" data-doc="price">
+            <!-- LAYER 1 (TOP): LEATHER-BOUND PROCUREMENT LEDGER BOOK -->
+            <div class="flip-card-container leather-ledger-book artifact-layer-1" id="why-doc-price" data-doc="price">
               <div class="brass-corner-bracket top-left"></div>
               <div class="brass-corner-bracket top-right"></div>
               <div class="brass-corner-bracket bottom-left"></div>
               <div class="brass-corner-bracket bottom-right"></div>
               <div class="flip-card-inner">
                 <div class="flip-card-front ledger-cover-front">
-                  <span class="artifact-type-tag font-type">📕 LEATHER PROCUREMENT LEDGER</span>
-                  <span class="doc-badge font-type">BOMBAY MARGIN AUDIT (1946)</span>
-                  <h4 class="artifact-heading">Why were farmers paid so little?</h4>
-                  <span class="ledger-open-prompt font-type">📖 Click to Open Ledger</span>
+                  <span class="artifact-type-tag font-type">📕 BOMBAY PROCUREMENT LEDGER</span>
+                  <span class="doc-badge font-type">LEDGER AUDIT (1946)</span>
+                  <h4 class="artifact-heading">Bombay Milk Margins</h4>
+                  <span class="ledger-open-prompt font-type">📖 Open Ledger Book</span>
                 </div>
                 <div class="flip-card-back ledger-page-back">
-                  <span class="back-tag font-type">AUDIT TABLE // MARGIN BREAKDOWN</span>
+                  <span class="back-tag font-type">MARGIN ACCOUNTING AUDIT</span>
                   <p class="doc-revealed-text font-type">
-                    "Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay, paying Anand farmers a mere 3 Annas."
+                    "Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay, paying Anand farmers 3 Annas. <span class="detective-lead font-type">See Freight Permit #402.</span>"
                   </p>
                 </div>
               </div>
             </div>
 
-            <!-- ARTIFACT B: PERFORATED INDIAN TELEGRAPH WIRE SLIP -->
-            <div class="flip-card-container telegraph-wire-slip" id="why-doc-patel" data-doc="patel">
+            <!-- LAYER 2 (MIDDLE): FOLDED PERFORATED TELEGRAPH WIRE -->
+            <div class="flip-card-container telegraph-wire-slip artifact-layer-2" id="why-doc-patel" data-doc="patel">
               <div class="perforated-edge top"></div>
               <div class="perforated-edge bottom"></div>
               <div class="flip-card-inner">
                 <div class="flip-card-front wire-front">
-                  <span class="artifact-type-tag font-type">⚡ INDIAN TELEGRAPH DEPT</span>
-                  <span class="doc-badge font-type">URGENT WIRE // PATEL DIRECTIVE</span>
-                  <h4 class="artifact-heading">Who showed the farmers another way?</h4>
-                  <span class="wire-inspect-prompt font-type">📜 Inspect Wire Dispatch</span>
+                  <span class="artifact-type-tag font-type">⚡ TELEGRAM DISPATCH #402</span>
+                  <span class="doc-badge font-type">INDIAN TELEGRAPH DEPT</span>
+                  <h4 class="artifact-heading">Sardar Patel Directive</h4>
+                  <span class="wire-inspect-prompt font-type">📜 Unfold Telegraph Wire</span>
                 </div>
                 <div class="flip-card-back wire-back">
-                  <span class="back-tag font-type">TELEGRAM DISPATCH #402</span>
+                  <span class="back-tag font-type">WIRE DISPATCH // 1946</span>
                   <p class="doc-revealed-text font-type">
                     "Sardar Patel advised that only a <span class="pencil-underline">15-day milk strike</span> could break contractor monopoly power."
                   </p>
@@ -867,19 +883,19 @@
               </div>
             </div>
 
-            <!-- ARTIFACT C: B.B. & C.I. RAILWAY TRANSIT MANILA TAG + BRASS TOKEN -->
-            <div class="flip-card-container railway-token-tag" id="why-doc-rail" data-doc="rail">
-              <div class="brass-token-icon">🏷️</div>
+            <!-- LAYER 3 (BOTTOM): B.B. & C.I. RAILWAY TRANSIT PASS #402 -->
+            <div class="flip-card-container railway-token-tag artifact-layer-3" id="why-doc-rail" data-doc="rail">
+              <div class="brass-token-icon">🪙</div>
               <div class="twine-string-loop"></div>
               <div class="flip-card-inner">
                 <div class="flip-card-front tag-front">
-                  <span class="artifact-type-tag font-type">🚂 B.B. & C.I. RAILWAY FREIGHT PASS</span>
-                  <span class="doc-badge font-type">TRANSIT PERMIT #1946</span>
-                  <h4 class="artifact-heading">Who controlled transport?</h4>
-                  <span class="tag-inspect-prompt font-type">🏷️ Inspect Transit Tag</span>
+                  <span class="artifact-type-tag font-type">🚂 RAILWAY FREIGHT PASS #402</span>
+                  <span class="doc-badge font-type">B.B. & C.I. RAILWAY PERMIT</span>
+                  <h4 class="artifact-heading">Direct Rail Pass</h4>
+                  <span class="tag-inspect-prompt font-type">🏷️ Turn Freight Tag</span>
                 </div>
                 <div class="flip-card-back tag-back">
-                  <span class="back-tag font-type">RAILWAY FREIGHT CLEARANCE</span>
+                  <span class="back-tag font-type">TRANSIT FREIGHT CLEARANCE</span>
                   <p class="doc-revealed-text font-type">
                     "Bombay Municipality granted <span class="pencil-underline">direct rail transit permits</span> exclusively to the Kaira Cooperative."
                   </p>
@@ -890,21 +906,117 @@
           </div>
         </div>
 
-        <!-- AUTHENTIC MANILA STRING ENVELOPE (REPLACES GIANT WEB BUTTON) -->
+        <!-- TOP RIGHT: THE FORGOTTEN DUSTY ENVELOPE (AMUL DISCOVERY) -->
         <div class="ending-stage-box stage-envelope" id="stage-envelope" style="display: none;">
-          <div class="physical-manila-envelope" id="amul-discovery-envelope">
-            <div class="envelope-stamp-restricted font-type">RESTRICTED // 1950 RECORDS</div>
+          <div class="physical-manila-envelope forgotten-dusty-envelope" id="amul-discovery-envelope">
+            <div class="approval-stamp-slip font-type" id="approval-stamp-slip" style="display:none;">ACCESS APPROVED // 1950 RECORDS</div>
             <button class="btn-unwrap-string-envelope" id="btn-open-amul-envelope">
               <div class="string-washer-button">
                 <div class="string-washer-outer">🧵</div>
               </div>
               <div class="envelope-label-block">
                 <span class="envelope-kicker font-type">NATIONAL ARCHIVES OF INDIA</span>
-                <span class="envelope-main-title">UNSEAL CONFIDENTIAL 1950 LEGACY DOSSIER</span>
-                <span class="envelope-sub-hint font-type">Click twine washer to unwrap dossier string</span>
+                <span class="envelope-main-title">CONFIDENTIAL 1950 DOSSIER</span>
+                <span class="envelope-sub-hint font-type">Unwrap twine washer</span>
               </div>
             </button>
           </div>
+
+          <!-- Unfolded Legacy Contents (Quiet Goosebumps Discovery) -->
+          <div class="legacy-reveal-container" id="legacy-reveal-container" style="display: none;">
+            
+            <!-- BRANCH OUTCOME 1: COOPERATIVE (HISTORICAL TRIUMPH) -->
+            <div class="branch-outcome-block" id="branch-outcome-cooperative" style="display:none;">
+              
+              <!-- FLIPPABLE HISTORIC PHOTOGRAPH -->
+              <div class="desk-doc legacy-photo-frame flippable-photo-card" id="legacy-photo-card">
+                <div class="photo-tape-corner top-left"></div>
+                <div class="photo-tape-corner top-right"></div>
+                <div class="photo-card-front">
+                  <img src="assests/amul_history.jpg" alt="1946 Anand Union Assembly" class="legacy-photo-img">
+                  <span class="photo-caption font-type">Click Photo to Inspect Reverse Side 🔄</span>
+                </div>
+                <div class="photo-card-back" style="display:none;">
+                  <span class="back-handwritten-note font-type">
+                    "Anand Milk Producers Assembly • 1946<br>
+                    Tribhuvandas Patel with Kaira Farmers"
+                  </span>
+                </div>
+              </div>
+
+              <div class="desk-doc legacy-cert-card">
+                <span class="cert-stamp font-type">REGISTRATION #402 // 1946</span>
+                <h4>Kaira District Cooperative Milk Producers' Union Ltd.</h4>
+                <p class="font-type">Duly registered under Bombay Cooperative Societies Act VII of 1925.</p>
+              </div>
+
+              <div class="desk-doc quiet-amul-footnote font-type">
+                "Later renamed AMUL — initiating India's White Revolution."
+              </div>
+            </div>
+
+            <!-- BRANCH OUTCOME 2: ACCEPT POLSON'S RATES (DARK ALTERNATE HISTORY) -->
+            <div class="branch-outcome-block" id="branch-outcome-accept" style="display:none;">
+              <div class="desk-doc legacy-cert-card dark-alt-card">
+                <span class="cert-stamp font-type">DISTRICT ECONOMIC AUDIT // 1948</span>
+                <h4>Kaira Milk Farmers Poverty Assessment</h4>
+                <p class="font-type">Contractor pricing maintained at 3 Annas. Middlemen profit margins expanded to 74% of retail milk value.</p>
+              </div>
+
+              <div class="desk-doc legacy-news-clipping dark-alt-news">
+                <span class="news-date font-type">GUJARAT SAMACHAR • 12 NOV 1947</span>
+                <h4>VILLAGE DISTRESS CONTINUES IN ANAND</h4>
+                <p class="font-type">"Monopoly milk contractor Polson Ltd. turns down farmer petitions for price relief."</p>
+              </div>
+
+              <div class="desk-doc legacy-handwritten-note font-type dark-alt-note">
+                "Accepting contractor terms avoided immediate conflict, but trapped Kaira's farmers in generational economic exploitation."
+              </div>
+            </div>
+
+            <!-- BRANCH OUTCOME 3: COOLING TANKS (TECHNICAL FAILURE) -->
+            <div class="branch-outcome-block" id="branch-outcome-cooling" style="display:none;">
+              <div class="desk-doc legacy-cert-card dark-alt-card">
+                <span class="cert-stamp font-type">TECHNICAL INSPECTION LOG // 1947</span>
+                <h4>Anand Cooling Depot Spoilage & Profit Audit</h4>
+                <p class="font-type">Cooling reduced milk souring during transit, but contractor Polson Ltd. captured 100% of efficiency gains.</p>
+              </div>
+
+              <div class="desk-doc legacy-news-clipping dark-alt-news">
+                <span class="news-date font-type">BOMBAY SENTINEL • 28 FEB 1947</span>
+                <h4>COOLING TANKS FAIL TO RESOLVE EXPLOITATION</h4>
+                <p class="font-type">"Technical upgrades without collective ownership leave procurement margins unchanged."</p>
+              </div>
+
+              <div class="desk-doc legacy-handwritten-note font-type dark-alt-note">
+                "Technical fixes reduced physical spoilage, but failed to address the root cause: middleman monopoly power."
+              </div>
+            </div>
+
+            <!-- Natural Archivist Sticky Note Placement -->
+            <div class="desk-doc doc-archivist-note">
+              <div class="sticky-pin">📌</div>
+              <span class="sticky-header font-type">ARCHIVIST'S NOTE</span>
+              <p class="sticky-body font-type">
+                "History is rarely inevitable. The evidence available to ordinary people is often incomplete. That is why these decisions mattered."
+              </p>
+              <span class="sticky-sig font-type">— National Archives of India (1951)</span>
+              <div class="sticky-coffee-stain"></div>
+            </div>
+
+            <!-- Physical Brass Rubber Stamp Action (Player-Initiated Case Closing) -->
+            <div class="stamp-action-block">
+              <button class="btn-stamp-case-closed" id="btn-stamp-case-closed">
+                <span class="stamp-icon">🔴</span>
+                <span class="stamp-label font-type">STAMP "CASE CLOSED" & FILE INTO CABINET</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
           <!-- Unfolded Legacy Contents (Explorable Archival Spread) -->
           <div class="legacy-reveal-container" id="legacy-reveal-container" style="display: none;">
