@@ -4761,19 +4761,19 @@ button{
 }
 
 /* TOP COMPARISON SPREAD: TUCKED RESOLUTION SLIDER MECHANIC */
-.doc-comparison-spread {
+.ending-comparison-spread {
   display: none;
 }
 
-.doc-comparison-spread.is-unsealed {
+.ending-comparison-spread.is-unsealed {
   display: flex !important;
   flex-direction: row !important;
   justify-content: center !important;
   align-items: center !important;
   gap: 24px !important;
-  position: relative !important;
+  margin: 10px auto 20px !important;
   width: 100% !important;
-  margin-top: 10px !important;
+  max-width: 900px !important;
 }
 
 .paper-your-report {
@@ -5612,7 +5612,7 @@ button{
 }
 
 /* HIGH CONTRAST ARCHIVAL COMPARISON SPREAD */
-.doc-comparison-spread {
+.archival-comparison-spread {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -5999,7 +5999,7 @@ button{
 }
 
 /* DOCUMENT 5: Two Separate Comparison Papers (Center Desk Spread) */
-.doc-comparison-spread {
+.evidence-comparison-spread {
   display: flex;
   align-items: center;
   gap: 16px;
