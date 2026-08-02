@@ -844,70 +844,76 @@
           </div>
         </div>
 
-        <!-- TAB PAGE 2: EVIDENCE RECORDS (LEDGER, TELEGRAM, RAILWAY PASS) -->
+        <!-- TAB PAGE 2: EVIDENCE RECORDS (DOUBLE-PAGE ARCHIVAL AUDIT SPREAD) -->
         <div class="binder-page-spread tab-page-content" id="tab-page-2" style="display: none;">
-          <div class="layered-evidence-stack" id="layered-evidence-stack">
+          <div class="museum-double-page-spread" id="museum-double-page-spread">
             
-            <!-- LAYER 1 (TOP): LEATHER-BOUND PROCUREMENT LEDGER BOOK -->
-            <div class="flip-card-container leather-ledger-book artifact-layer-1" id="why-doc-price" data-doc="price">
-              <div class="brass-corner-bracket top-left"></div>
-              <div class="brass-corner-bracket top-right"></div>
-              <div class="brass-corner-bracket bottom-left"></div>
-              <div class="brass-corner-bracket bottom-right"></div>
-              <div class="flip-card-inner">
-                <div class="flip-card-front ledger-cover-front">
-                  <span class="artifact-type-tag font-type">📕 BOMBAY PROCUREMENT LEDGER</span>
-                  <span class="doc-badge font-type">LEDGER AUDIT (1946)</span>
-                  <h4 class="artifact-heading">Bombay Milk Margins</h4>
-                  <span class="ledger-open-prompt font-type">📖 Open Ledger Book</span>
+            <!-- LEFT PAGE: BOMBAY MARGIN ACCOUNTING LEDGER PAGE -->
+            <div class="museum-page page-left ledger-audit-page" id="why-doc-price" data-doc="price">
+              <div class="page-corner-fold"></div>
+              <span class="museum-page-tag font-type">📕 BOMBAY PROCUREMENT LEDGER (1946)</span>
+              <div class="ledger-header-stamp font-type">AUDITED // MARGIN BREAKDOWN</div>
+              
+              <div class="ledger-table-block font-type">
+                <div class="ledger-row header-row">
+                  <span>PROCUREMENT STAGE</span>
+                  <span>RATE PER SEER</span>
                 </div>
-                <div class="flip-card-back ledger-page-back">
-                  <span class="back-tag font-type">MARGIN ACCOUNTING AUDIT</span>
-                  <p class="doc-revealed-text font-type">
-                    "Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay, paying Anand farmers 3 Annas. <span class="detective-lead font-type">See Freight Permit #402.</span>"
-                  </p>
+                <div class="ledger-row">
+                  <span>Anand Farmer Paid</span>
+                  <span class="highlight-red">3 Annas</span>
+                </div>
+                <div class="ledger-row">
+                  <span>Bombay Retail Price</span>
+                  <span>12 Annas</span>
+                </div>
+                <div class="ledger-row total-row">
+                  <span>Contractor Margin</span>
+                  <span class="highlight-dark">9 Annas (75%)</span>
                 </div>
               </div>
+
+              <p class="ledger-annotation-handwritten font-type">
+                "Private contractors retained <span class="pencil-underline">9 Annas margin</span> per seer in Bombay. <span class="detective-lead font-type">See Rail Permit #402.</span>"
+              </p>
+
+              <button class="btn-inspect-artifact font-type">
+                <span>🔍 Inspect Leather Ledger Book</span>
+              </button>
             </div>
 
-            <!-- LAYER 2 (MIDDLE): FOLDED PERFORATED TELEGRAPH WIRE -->
-            <div class="flip-card-container telegraph-wire-slip artifact-layer-2" id="why-doc-patel" data-doc="patel">
-              <div class="perforated-edge top"></div>
-              <div class="perforated-edge bottom"></div>
-              <div class="flip-card-inner">
-                <div class="flip-card-front wire-front">
-                  <span class="artifact-type-tag font-type">⚡ TELEGRAM DISPATCH #402</span>
-                  <span class="doc-badge font-type">INDIAN TELEGRAPH DEPT</span>
-                  <h4 class="artifact-heading">Sardar Patel Directive</h4>
-                  <span class="wire-inspect-prompt font-type">📜 Unfold Telegraph Wire</span>
-                </div>
-                <div class="flip-card-back wire-back">
-                  <span class="back-tag font-type">WIRE DISPATCH // 1946</span>
-                  <p class="doc-revealed-text font-type">
-                    "Sardar Patel advised that only a <span class="pencil-underline">15-day milk strike</span> could break contractor monopoly power."
-                  </p>
-                </div>
+            <!-- RIGHT PAGE: CLIPPED TELEGRAM WIRE & TIED RAILWAY PASS -->
+            <div class="museum-page page-right evidence-clippings-page">
+              
+              <!-- TOP CLIPPING: SARDAR PATEL TELEGRAM WIRE (PAPERCLIPPED 📎) -->
+              <div class="museum-clipping wire-clipping-card" id="why-doc-patel" data-doc="patel">
+                <div class="paperclip-corner-left">📎</div>
+                <div class="perforated-edge top"></div>
+                <div class="perforated-edge bottom"></div>
+                <span class="clipping-tag font-type">⚡ TELEGRAM DISPATCH #402</span>
+                <h4>Sardar Patel Directive</h4>
+                <p class="clipping-body font-type">
+                  "Sardar Patel advised that only a <span class="pencil-underline">15-day milk strike</span> could break contractor monopoly power."
+                </p>
+                <button class="btn-inspect-artifact font-type">
+                  <span>📜 Inspect Wire Dispatch</span>
+                </button>
               </div>
-            </div>
 
-            <!-- LAYER 3 (BOTTOM): B.B. & C.I. RAILWAY TRANSIT PASS #402 -->
-            <div class="flip-card-container railway-token-tag artifact-layer-3" id="why-doc-rail" data-doc="rail">
-              <div class="brass-token-icon">🪙</div>
-              <div class="twine-string-loop"></div>
-              <div class="flip-card-inner">
-                <div class="flip-card-front tag-front">
-                  <span class="artifact-type-tag font-type">🚂 RAILWAY FREIGHT PASS #402</span>
-                  <span class="doc-badge font-type">B.B. & C.I. RAILWAY PERMIT</span>
-                  <h4 class="artifact-heading">Direct Rail Pass</h4>
-                  <span class="tag-inspect-prompt font-type">🏷️ Turn Freight Tag</span>
-                </div>
-                <div class="flip-card-back tag-back">
-                  <span class="back-tag font-type">TRANSIT FREIGHT CLEARANCE</span>
-                  <p class="doc-revealed-text font-type">
-                    "Bombay Municipality granted <span class="pencil-underline">direct rail transit permits</span> exclusively to the Kaira Cooperative."
-                  </p>
-                </div>
+              <!-- BOTTOM TAG: B.B. & C.I. RAILWAY FREIGHT PASS #402 (TIED WITH TWINE 🧵) -->
+              <div class="museum-clipping railway-tag-card" id="why-doc-rail" data-doc="rail">
+                <div class="twine-string-loop">🧵</div>
+                <div class="brass-token-icon">🪙</div>
+                <span class="clipping-tag font-type">🚂 B.B. & C.I. RAILWAY PERMIT #402</span>
+                <h4>Direct Rail Transit Clearance</h4>
+                <p class="clipping-body font-type">
+                  "Bombay Municipality granted <span class="pencil-underline">direct rail transit permits</span> exclusively to the Kaira Cooperative."
+                </p>
+                <button class="btn-inspect-artifact font-type">
+                  <span>🏷️ Inspect Railway Pass Tag</span>
+                </button>
               </div>
+
             </div>
 
           </div>
@@ -1021,6 +1027,19 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- CINEMATIC 3D PHYSICAL INSPECTION OVERLAY MODAL (RESIDENT EVIL / LA NOIRE STYLE) -->
+    <div class="artifact-inspect-overlay" id="artifact-inspect-overlay" style="display: none;">
+      <div class="inspect-backdrop" id="inspect-backdrop"></div>
+      <div class="inspect-modal-card" id="inspect-modal-card">
+        <button class="btn-close-inspect" id="btn-close-inspect">
+          <span class="close-label font-type">✕ CLOSE INSPECTION</span>
+        </button>
+        <div class="inspect-content-body" id="inspect-content-body">
+          <!-- Dynamic high-detail artifact content injected via JS -->
+        </div>
       </div>
     </div>
   </section>
