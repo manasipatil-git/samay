@@ -4322,8 +4322,8 @@ button{
   line-height: 1.6;
 }
 
-/* MUSEUM DOUBLE-PAGE ARCHIVAL AUDIT SPREAD (TAB 2) */
-.museum-double-page-spread {
+/* 1946 OFFICIAL GOVERNMENT GAZETTE & DUAL-PAGE DISPATCH SPREAD (TAB 1) */
+.gazette-double-page-spread {
   display: flex !important;
   flex-direction: row !important;
   justify-content: space-between !important;
@@ -4331,6 +4331,96 @@ button{
   gap: 20px !important;
   width: 100% !important;
   margin-top: 10px !important;
+}
+
+.gazette-page {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  background: linear-gradient(135deg, #f4ecd8 0%, #eadaae 100%);
+  border: 1.5px solid #c8ba9d;
+  border-radius: 3px;
+  padding: 24px 22px;
+  position: relative;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+}
+
+.gazette-page.page-left {
+  border-left: 4px solid #aa7c11;
+  transform: rotate(-1deg);
+}
+
+.gazette-page.page-right {
+  border-top: 4px solid #8b0000;
+  transform: rotate(1deg);
+}
+
+.gazette-letterhead {
+  border-bottom: 2px double #aa7c11;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.emblem-stamp {
+  font-size: 0.72rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: #8b0000;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.serial-num {
+  font-size: 0.62rem;
+  color: #5c4228;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.gazette-letterhead h2 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: #2b170c;
+  margin: 0;
+  letter-spacing: 0.08em;
+}
+
+.gazette-heading {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: #1a0f08;
+  margin: 8px 0 6px;
+}
+
+.gazette-heading.history-heading {
+  color: #8b0000;
+}
+
+.gazette-paragraph {
+  font-size: 0.82rem;
+  color: #2b170c;
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.gazette-seal-stamp {
+  display: inline-block;
+  border: 2px solid #aa7c11;
+  color: #aa7c11;
+  font-size: 0.68rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  transform: rotate(-3deg);
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.gazette-seal-stamp.gov-seal {
+  border-color: #8b0000;
+  color: #8b0000;
+  transform: rotate(2deg);
 }
 
 .museum-page {
