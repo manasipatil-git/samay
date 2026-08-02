@@ -1125,19 +1125,20 @@ class Game {
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
         stampBtn.style.display = "none";
 
-        const dossierFrame = document.getElementById("final-dispatch-dossier");
-        if (dossierFrame) {
-          dossierFrame.style.transform = "translateY(100vh) scale(0.9)";
-          dossierFrame.style.opacity = "0";
+        const casebook = document.getElementById("open-casebook-journal") || document.getElementById("final-dispatch-dossier");
+        if (casebook) {
+          casebook.style.transition = "transform 0.8s ease, opacity 0.8s ease";
+          casebook.style.transform = "rotateY(-75deg) translateY(60vh) scale(0.8)";
+          casebook.style.opacity = "0";
         }
 
         setTimeout(() => {
           if (window.SAMAY_SOUND) {
             window.SAMAY_SOUND.play("bell");
           }
-          if (dossierFrame) {
-            dossierFrame.style.transform = "none";
-            dossierFrame.style.opacity = "1";
+          if (casebook) {
+            casebook.style.transform = "none";
+            casebook.style.opacity = "1";
           }
           this._goToScene("archive");
         }, 850);
