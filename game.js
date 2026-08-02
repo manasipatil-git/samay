@@ -954,18 +954,21 @@ class Game {
       this.el.meetingOptions.innerHTML = "";
     }
 
-    // Call _showEvidenceDock immediately so evidence folder & table are live
-    this._showEvidenceDock();
+    const tableSurface = document.getElementById("panchayat-table-surface");
+    if (tableSurface) tableSurface.style.display = "none";
 
-    // Play Motibhai Patel intro line in dialogue
+    // Play Motibhai Patel intro sequence via DialogueManager overlay
     this.dialogue.say(
       GAME_DATA.locations.hall.speaker,
       "elder",
       [
-        "You have heard every witness.",
-        "The village places its trust in your judgement.",
-        "Show us what evidence supports your recommendation."
-      ]
+        "You have gathered your records.",
+        "Place before the assembly the documents that support your findings."
+      ],
+      () => {
+        if (tableSurface) tableSurface.style.display = "flex";
+        this._showEvidenceDock();
+      }
     );
   }
 
@@ -973,10 +976,7 @@ class Game {
     const folderGrid = document.getElementById("evidence-folder-cards");
     const dropZone = document.getElementById("table-drop-zone");
     const countBadge = document.getElementById("folder-count-badge");
-    const elderNarrativeBar = document.getElementById("elder-narrative-bar");
-    const elderSpokenLine = document.getElementById("elder-spoken-line");
     const decisionOptions = document.getElementById("decision-options");
-    const threadSvg = id => document.getElementById(id);
     const threadPath = document.getElementById("crimson-investigation-thread");
 
     if (!folderGrid || !dropZone) return;
@@ -984,7 +984,6 @@ class Game {
     folderGrid.innerHTML = "";
     dropZone.innerHTML = "";
     if (decisionOptions) decisionOptions.style.display = "none";
-    if (elderNarrativeBar) elderNarrativeBar.style.display = "none";
     if (threadPath) threadPath.classList.remove("is-active");
 
     const masterCluesList = [
@@ -1099,7 +1098,7 @@ class Game {
       if (clueId) placeClueOnTable(clueId);
     };
 
-    // MOTIBHAI PATEL'S EVALUATION LOGIC & CRIMSON THREAD DRAW
+    // MOTIBHAI PATEL'S EVALUATION VIA DIALOGUE OVERLAY & CRIMSON THREAD DRAW
     const evaluateTableEvidence = () => {
       isEvaluating = true;
 
@@ -1112,8 +1111,6 @@ class Game {
 
         const isCorrectCombo = hasPriceProof && hasSpoilageProof && hasTransportProof;
 
-        if (elderNarrativeBar) elderNarrativeBar.style.display = "block";
-
         if (isCorrectCombo) {
           // Draw crimson thread connecting documents
           if (threadPath) {
@@ -1122,37 +1119,43 @@ class Game {
           }
           if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("pluck");
 
-          if (elderSpokenLine) {
-            elderSpokenLine.textContent = '"These records tell the same story. The assembly understands."';
-          }
-
-          setTimeout(() => {
-            if (decisionOptions) {
-              decisionOptions.style.display = "flex";
-              decisionOptions.style.animation = "introFade 1.2s ease forwards";
-              
-              // Bind recommendation options click handlers
-              decisionOptions.querySelectorAll(".conclusion-note").forEach(btn => {
-                btn.onclick = () => {
-                  const endingId = btn.dataset.ending;
-                  this._chooseEnding(endingId);
-                };
-              });
+          this.dialogue.say(
+            GAME_DATA.locations.hall.speaker,
+            "elder",
+            [
+              "These records tell the same story.",
+              "The assembly understands."
+            ],
+            () => {
+              if (decisionOptions) {
+                decisionOptions.style.display = "flex";
+                decisionOptions.style.animation = "introFade 1.2s ease forwards";
+                decisionOptions.querySelectorAll(".conclusion-note").forEach(btn => {
+                  btn.onclick = () => {
+                    const endingId = btn.dataset.ending;
+                    this._chooseEnding(endingId);
+                  };
+                });
+              }
             }
-          }, 1500);
+          );
         } else {
-          // Wrong combination — return 3rd document with calm Elder quote
-          if (elderSpokenLine) {
-            elderSpokenLine.textContent = '"This supports your argument... But something important is still missing to prove the monopoly."';
-          }
-
-          setTimeout(() => {
-            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-            placedClues.pop(); // return last placed document
-            renderTable();
-            renderFolder();
-            isEvaluating = false;
-          }, 1800);
+          // Wrong combination — Motibhai Patel speaks through Dialogue Overlay
+          this.dialogue.say(
+            GAME_DATA.locations.hall.speaker,
+            "elder",
+            [
+              "This supports your argument...",
+              "But something important is still missing to prove the monopoly."
+            ],
+            () => {
+              if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+              placedClues.pop(); // return last placed document
+              renderTable();
+              renderFolder();
+              isEvaluating = false;
+            }
+          );
         }
       }, 1200);
     };
