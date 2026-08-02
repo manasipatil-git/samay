@@ -19,56 +19,36 @@ const GAME_DATA = {
   locations: {
     home: {
       id: "home",
-      name: "Home",
-      sub: "Your family's house",
+      name: "Kasturba's House",
+      sub: "Household Perspective",
       x: 18,
       y: 72,
-      speaker: "Mother",
+      speaker: "Kasturba Ben (The Mother)",
       portrait: "mother",
       lines: [
-        "The milk came back again from the depot today.",
-        "We sent 14 seers of fresh milk...",
-        "Yet they only credited us for 8 seers, claiming variance.",
-        "Go to the Collection Centre. Ask why our payout is only 1 Rupee 6 Annas."
+        "The milk came back under-measured from the contractor depot again today.",
+        "We sent 14 seers of fresh morning milk, yet they only credited us for 8 seers, claiming 'fat variance'.",
+        "With contractor payouts cut to 1 Rupee 6 Annas, medicine and cattle feed are becoming unaffordable for our children.",
+        "Go to the Collection Depot. Ask why our hard-earned milk is being devalued while Bombay prices skyrocket."
       ],
       clue: {
         id: "receipt",
-        name: "Milk Receipt"
-      }
-    },
-
-    buyer: {
-      id: "buyer",
-      name: "Buyer's Office",
-      sub: "Private contractor",
-      x: 77,
-      y: 36,
-      speaker: "Buyer",
-      portrait: "buyer",
-      lines: [
-        "We pasteurise the milk here and ship it to the Bombay Municipal Milk Scheme.",
-        "The government pays us a contract rate of 12 Annas per seer.",
-        "But local transport and handling are extremely expensive for us.",
-        "We pay what we can. Take your complaints to the Village Hall if you must."
-      ],
-      clue: {
-        id: "ledger",
-        name: "Price Ledger"
+        name: "Milk Receipt #1402"
       }
     },
 
     collection: {
       id: "collection",
-      name: "Collection Centre",
-      sub: "Milk depot",
+      name: "Collection Depot",
+      sub: "Grassroots Organization",
       x: 38,
       y: 48,
-      speaker: "Collection Worker",
-      portrait: "worker",
+      speaker: "Sharda Ben (Cooperative Supervisor)",
+      portrait: "supervisor",
       lines: [
-        "Keep your voice down. We only log what the agent tells us.",
-        "Look at the Receiving Log. We turn away cans once the quota is hit.",
-        "The contractor blames transport limits. Go ask the Station master, or visit the Buyer's Office."
+        "Keep your voice steady. We log every bucket by hand in this ledger.",
+        "Look at the Receiving Log. The contractor arbitrarily rejects full cans at 08:15 AM once their daily pasteurizer quota is filled.",
+        "Polson's monopoly takes a 75% profit margin in Bombay while local farming families bear 100% of the spoilage losses."
       ],
       clue: {
         id: "rejectedLog",
@@ -76,40 +56,60 @@ const GAME_DATA = {
       }
     },
 
+    buyer: {
+      id: "buyer",
+      name: "Buyer's Office",
+      sub: "Market & Contractor Logistics",
+      x: 77,
+      y: 36,
+      speaker: "Gautam Seth & Mr. Deshmukh (Contractor Rep)",
+      portrait: "buyer",
+      lines: [
+        "We pasteurise milk here under an exclusive government contract for the Bombay Municipal Milk Scheme.",
+        "The Bombay Government pays us 12 Annas per seer. But local transport, refrigeration, and urban distribution are expensive.",
+        "We pay what the market contract permits. Centralized procurement is efficient—individual farmers cannot handle rail logistics alone."
+      ],
+      clue: {
+        id: "ledger",
+        name: "Polson Price Ledger"
+      }
+    },
+
     railway: {
       id: "railway",
-      name: "Railway Station",
-      sub: "Freight Yard",
+      name: "Railway Freight Yard",
+      sub: "Transport & Future Generation",
       x: 70,
       y: 70,
-      speaker: "Railway Worker",
-      portrait: "worker2",
+      speaker: "Lilavati (Young Girl) & Bhikhabhai (Farmer)",
+      portrait: "farmer",
       lines: [
-        "The contractor keeps claiming they lack rail space for Kaira milk.",
-        "But look at our waybills. Wagon #428 is dispatched half-empty to Bombay.",
-        "They have plenty of carriage space. Why lie to the farmers?"
+        "My mother leaves before sunrise every morning to carry milk cans. We don't get to keep milk at home anymore...",
+        "The contractor claims there is no rail space for Kaira milk. But look at these B.B.&C.I. Railway waybills!",
+        "Wagon #428 is dispatched to Bombay only half-full. They have plenty of carriage space—the bottleneck is a deliberate excuse to keep buy-prices low."
       ],
       clue: {
         id: "manifest",
-        name: "Freight Manifest"
+        name: "Freight Manifest #428"
       }
     },
 
     hall: {
       id: "hall",
-      name: "Village Hall",
-      sub: "Meeting Place",
+      name: "Village Panchayat Hall",
+      sub: "Community Facilitation",
       x: 52,
       y: 22,
-      speaker: "Village Elder",
+      speaker: "Motibhai Patel (Village Elder)",
       portrait: "elder",
       lines: [
-        "Tomorrow, on January 4, we decide our future here in the council.",
-        "Bring the evidence from your desk. We must show the village why we are in debt."
+        "The village council has gathered to hear your investigation findings.",
+        "I am here to facilitate, not to issue commands. The decision belongs to all of us.",
+        "Present your evidence. Show us whether we must accept contractor terms or unite under Sardar Patel's advice to form our own cooperative."
       ],
       clue: {
         id: "petition",
-        name: "Village Petition"
+        name: "Farmer Union Petition"
       }
     }
   },
