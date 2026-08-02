@@ -5823,20 +5823,185 @@ button{
   font-weight: bold;
 }
 
-/* 2-COLUMN DESK LAYOUT FOR HISTORICAL REVELATION SPREAD */
-#branch-outcome-cooperative {
-  display: grid !important;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 24px;
-  align-items: start;
+/* ============================================================
+   PHYSICAL 1946 INVESTIGATOR DESK COMPOSITION (TACTILE OVERLAPS)
+   ============================================================ */
+.physical-desk-composition {
+  position: relative;
   width: 100%;
-  max-width: 960px;
-  margin: 0 auto 20px;
+  max-width: 860px;
+  margin: 30px auto 40px;
+  padding: 40px 20px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BASE HERO LAYER: HEAVY LINEN CERTIFICATE STOCK (1946) */
+.hero-certificate-stock {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 680px !important;
+  background: #faf4e6 !important;
+  border: 1px solid #d8c8ab !important;
+  border-top: 4px solid #aa7c11 !important;
+  padding: 36px 42px 28px !important;
+  transform: rotate(-1.2deg) !important;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.85), inset 0 0 40px rgba(139, 90, 43, 0.08) !important;
+  border-radius: 2px !important;
+  z-index: 2;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease !important;
+}
+
+.hero-certificate-stock:hover {
+  transform: rotate(-1.2deg) translateY(-4px) scale(1.005) !important;
+  box-shadow: 0 35px 75px rgba(0,0,0,0.92), inset 0 0 40px rgba(139, 90, 43, 0.08) !important;
+}
+
+.cert-header-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid #3c2416;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.archival-catalog-id {
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  color: #795548;
+  font-weight: bold;
+}
+
+.cert-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  color: #2b170c;
+  margin: 12px 0 10px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.cert-legal {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.88rem;
+  color: #3c2416;
+  font-weight: bold;
+  line-height: 1.45;
+  margin-bottom: 24px;
+}
+
+/* EMBOSSED RED INK OFFICIAL REGISTRATION SEAL */
+.cert-seal-emboss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px double #8b0000;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  padding: 10px;
+  color: #8b0000;
+  transform: rotate(-8deg);
+  opacity: 0.88;
+  box-shadow: inset 0 0 8px rgba(139,0,0,0.15);
+  margin-top: 10px;
+}
+
+.seal-inner-text {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.52rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* PAPERCLIP RUST MARK & BRASS PAPERCLIP */
+.paperclip-rust-stain {
+  position: absolute;
+  top: 6px;
+  right: 28px;
+  width: 14px;
+  height: 38px;
+  background: radial-gradient(ellipse at center, rgba(160, 82, 45, 0.45) 0%, rgba(139, 69, 19, 0.2) 60%, transparent 100%);
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.brass-paperclip-icon {
+  position: absolute;
+  top: -14px;
+  right: 24px;
+  font-size: 1.8rem;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.7));
+  transform: rotate(25deg);
+  z-index: 12;
+  cursor: pointer;
+}
+
+/* OVERLAPPING LAYER 2A: GLOSSY SILVER-GELATIN PHOTOGRAPH (TOP-LEFT OVERLAP) */
+.overlapping-photo-layer {
+  position: absolute !important;
+  top: -30px !important;
+  left: -20px !important;
+  width: min(340px, 48vw) !important;
+  z-index: 6 !important;
+  transform: rotate(-5.5deg) !important;
+  filter: drop-shadow(-10px 18px 28px rgba(0,0,0,0.85)) !important;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s ease !important;
+}
+
+.overlapping-photo-layer:hover {
+  transform: rotate(-3.5deg) translateY(-8px) scale(1.03) !important;
+  filter: drop-shadow(-14px 26px 36px rgba(0,0,0,0.92)) !important;
+  z-index: 15 !important;
+}
+
+/* OVERLAPPING LAYER 2B: AGED YELLOW ARCHIVIST INDEX NOTE (BOTTOM-RIGHT OVERLAP) */
+.overlapping-archivist-layer {
+  position: absolute !important;
+  bottom: -35px !important;
+  right: -25px !important;
+  width: min(360px, 50vw) !important;
+  z-index: 10 !important;
+  transform: rotate(3.8deg) !important;
+  filter: drop-shadow(12px 20px 32px rgba(0,0,0,0.88)) !important;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s ease !important;
+}
+
+.overlapping-archivist-layer:hover {
+  transform: rotate(2.2deg) translateY(-8px) scale(1.03) !important;
+  filter: drop-shadow(16px 28px 42px rgba(0,0,0,0.95)) !important;
+  z-index: 16 !important;
 }
 
 @media (max-width: 768px) {
-  #branch-outcome-cooperative {
-    grid-template-columns: 1fr !important;
+  .physical-desk-composition {
+    flex-direction: column !important;
+    padding: 20px 10px !important;
+  }
+  .hero-certificate-stock {
+    transform: none !important;
+    padding: 24px 20px !important;
+  }
+  .overlapping-photo-layer {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    margin-bottom: 20px !important;
+    transform: rotate(-1.5deg) !important;
+  }
+  .overlapping-archivist-layer {
+    position: relative !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    margin-top: 20px !important;
+    transform: rotate(1.5deg) !important;
   }
 }
 
