@@ -97,8 +97,10 @@ button{
   transition: opacity 1.1s ease;
   z-index: 2;
   overflow: hidden;
+  display: none;
 }
 .scene.is-active{
+  display: flex;
   opacity:1;
   pointer-events:auto;
   z-index: 3;
