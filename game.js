@@ -964,6 +964,194 @@ class Game {
     );
   }
 
+  _showEvidenceDock() {
+    const folderGrid = document.getElementById("evidence-folder-cards");
+    const dropZone = document.getElementById("table-drop-zone");
+    const countBadge = document.getElementById("folder-count-badge");
+    const elderNarrativeBar = document.getElementById("elder-narrative-bar");
+    const elderSpokenLine = document.getElementById("elder-spoken-line");
+    const decisionOptions = document.getElementById("decision-options");
+    const threadSvg = id => document.getElementById(id);
+    const threadPath = document.getElementById("crimson-investigation-thread");
+
+    if (!folderGrid || !dropZone) return;
+
+    folderGrid.innerHTML = "";
+    dropZone.innerHTML = "";
+    if (decisionOptions) decisionOptions.style.display = "none";
+    if (elderNarrativeBar) elderNarrativeBar.style.display = "none";
+    if (threadPath) threadPath.classList.remove("is-active");
+
+    const allClues = [
+      { id: "receipt", tag: "MILK RECEIPT #1402", title: "Contractor Receipt", desc: "Rs 1/6/0 for 8 seers (14 sent)" },
+      { id: "ledger", tag: "POLSON PRICING LEDGER", title: "Price Breakdown", desc: "Bombay 12 Annas vs Farmer 3 Annas" },
+      { id: "rejectedLog", tag: "MILK RECEIVING LOG", title: "Daily Rejection Log", desc: "Quotas fill at 08:15 AM, 100% loss" },
+      { id: "manifest", tag: "B.B.&C.I. FREIGHT MANIFEST", title: "Railway Dispatch", desc: "Wagons sent only 45% loaded" },
+      { id: "petition", tag: "FARMER UNION PETITION", title: "Village Council Petition", desc: "Sardar Patel strike advice" }
+    ];
+
+    let placedClues = [];
+    let isEvaluating = false;
+
+    // Render clues into folder
+    const renderFolder = () => {
+      folderGrid.innerHTML = "";
+      const remainingClues = allClues.filter(c => !placedClues.some(p => p.id === c.id));
+      if (countBadge) countBadge.textContent = `${remainingClues.length} Collected Records`;
+
+      remainingClues.forEach(c => {
+        const card = document.createElement("div");
+        card.className = "evidence-card-drag font-type";
+        card.draggable = true;
+        card.dataset.id = c.id;
+        card.innerHTML = `
+          <span class="card-drag-tag font-type">${c.tag}</span>
+          <h4 class="card-drag-title font-type">${c.title}</h4>
+          <p class="card-drag-snippet font-type">${c.desc}</p>
+          <span class="card-drag-action font-type">Drag or Click to Place 🖈</span>
+        `;
+
+        card.ondragstart = (e) => {
+          if (isEvaluating) { e.preventDefault(); return; }
+          e.dataTransfer.setData("text/plain", c.id);
+        };
+
+        card.onclick = () => {
+          if (isEvaluating) return;
+          placeClueOnTable(c.id);
+        };
+
+        folderGrid.appendChild(card);
+      });
+    };
+
+    // Place clue onto table
+    const placeClueOnTable = (clueId) => {
+      if (placedClues.length >= 3 || isEvaluating) return;
+      const clue = allClues.find(c => c.id === clueId);
+      if (!clue) return;
+
+      placedClues.push(clue);
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+
+      // Hide default hint text if items on table
+      const dropHint = document.getElementById("table-drop-hint");
+      if (dropHint) dropHint.style.display = "none";
+
+      renderTable();
+      renderFolder();
+
+      if (placedClues.length === 3) {
+        evaluateTableEvidence();
+      }
+    };
+
+    // Render items placed on table
+    const renderTable = () => {
+      const dropHint = document.getElementById("table-drop-hint");
+      if (placedClues.length === 0 && dropHint) {
+        dropHint.style.display = "block";
+      }
+
+      // Keep existing drop hint element
+      dropZone.querySelectorAll(".evidence-card-drag").forEach(el => el.remove());
+
+      const tilts = ["tilt-left-1", "tilt-right-1", "tilt-left-2", "tilt-right-2"];
+
+      placedClues.forEach((c, idx) => {
+        const card = document.createElement("div");
+        card.className = `evidence-card-drag placed-on-table ${tilts[idx % tilts.length]} font-type`;
+        card.dataset.id = c.id;
+        card.innerHTML = `
+          <span class="card-drag-tag font-type">${c.tag}</span>
+          <h4 class="card-drag-title font-type">${c.title}</h4>
+          <p class="card-drag-snippet font-type">${c.desc}</p>
+          <span class="card-drag-action font-type">Click to Return ↩</span>
+        `;
+
+        card.onclick = () => {
+          if (isEvaluating) return;
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+          placedClues = placedClues.filter(p => p.id !== c.id);
+          renderTable();
+          renderFolder();
+        };
+
+        dropZone.appendChild(card);
+      });
+    };
+
+    // Setup drag and drop on table surface
+    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add("drag-over-active"); };
+    dropZone.ondragleave = () => { dropZone.classList.remove("drag-over-active"); };
+    dropZone.ondrop = (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("drag-over-active");
+      const clueId = e.dataTransfer.getData("text/plain");
+      if (clueId) placeClueOnTable(clueId);
+    };
+
+    // MOTIBHAI PATEL'S EVALUATION LOGIC & CRIMSON THREAD DRAW
+    const evaluateTableEvidence = () => {
+      isEvaluating = true;
+
+      // 1.2 Second Quiet Pacing Delay
+      setTimeout(() => {
+        const ids = placedClues.map(c => c.id);
+        const hasPriceProof = ids.includes("receipt") || ids.includes("ledger");
+        const hasSpoilageProof = ids.includes("rejectedLog");
+        const hasTransportProof = ids.includes("manifest") || ids.includes("petition");
+
+        const isCorrectCombo = hasPriceProof && hasSpoilageProof && hasTransportProof;
+
+        if (elderNarrativeBar) elderNarrativeBar.style.display = "block";
+
+        if (isCorrectCombo) {
+          // Draw crimson thread connecting documents
+          if (threadPath) {
+            threadPath.setAttribute("d", "M 180 180 L 500 180 L 820 180");
+            threadPath.classList.add("is-active");
+          }
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("pluck");
+
+          if (elderSpokenLine) {
+            elderSpokenLine.textContent = '"These records tell the same story. The assembly understands."';
+          }
+
+          setTimeout(() => {
+            if (decisionOptions) {
+              decisionOptions.style.display = "flex";
+              decisionOptions.style.animation = "introFade 1.2s ease forwards";
+              
+              // Bind recommendation options click handlers
+              decisionOptions.querySelectorAll(".conclusion-note").forEach(btn => {
+                btn.onclick = () => {
+                  const endingId = btn.dataset.ending;
+                  this._chooseEnding(endingId);
+                };
+              });
+            }
+          }, 1500);
+        } else {
+          // Wrong combination — return 3rd document with calm Elder quote
+          if (elderSpokenLine) {
+            elderSpokenLine.textContent = '"This supports your argument... But something important is still missing to prove the monopoly."';
+          }
+
+          setTimeout(() => {
+            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+            placedClues.pop(); // return last placed document
+            renderTable();
+            renderFolder();
+            isEvaluating = false;
+          }, 1800);
+        }
+      }, 1200);
+    };
+
+    renderFolder();
+  }
+
 
 
   /* -------------------------------------------------------

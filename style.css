@@ -5797,30 +5797,230 @@ button{
   letter-spacing: 0.12em;
 }
 
-.legacy-news-clipping {
-  background: #f4e8c1;
-  border: 1px solid #c8ba9d;
-  padding: 16px 20px;
-  transform: rotate(-2.5deg);
-  margin-bottom: 20px;
-  box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+/* ============================================================
+   PHYSICAL TEAKWOOD VILLAGE ASSEMBLY TABLE & SILHOUETTE CANVAS
+   ============================================================ */
+.panchayat-teakwood-table {
+  position: relative;
+  width: min(1000px, 96vw);
+  height: min(600px, 82vh);
+  margin: 20px auto 0;
+  background: 
+    radial-gradient(ellipse at 50% 30%, rgba(255, 200, 120, 0.22) 0%, rgba(40, 20, 10, 0.75) 60%, rgba(15, 7, 3, 0.98) 95%),
+    linear-gradient(180deg, #3d2414 0%, #29160a 50%, #170b04 100%);
+  border: 5px solid #140903;
+  border-radius: 8px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.95), inset 0 0 60px rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 24px 20px;
+  overflow: hidden;
+  z-index: 10;
 }
-.news-date {
-  font-size: 0.62rem;
+
+.assembly-thread-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.crimson-thread-path {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  transition: stroke-dashoffset 1.8s ease-in-out;
+}
+.crimson-thread-path.is-active {
+  stroke-dashoffset: 0;
+}
+
+/* TABLE HEADER & INSTRUCTION */
+.panchayat-table-header {
+  text-align: center;
+  z-index: 15;
+  margin-bottom: 8px;
+}
+.panchayat-table-header .table-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: #aa7c11;
+  display: block;
+}
+.panchayat-table-header .table-instruction {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.95rem;
+  color: #fdfaf2;
+  margin-top: 4px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* MAIN TABLE DROP ZONE */
+.table-drop-zone {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 240px;
+  background: rgba(0,0,0,0.15);
+  border: 1.5px dashed rgba(170, 124, 17, 0.25);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 16px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  z-index: 15;
+}
+.table-drop-zone.drag-over-active {
+  background: rgba(170, 124, 17, 0.12);
+  border-color: #aa7c11;
+}
+
+.table-drop-hint {
+  color: rgba(236, 224, 196, 0.45);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
+
+/* MOTIBHAI PATEL NARRATIVE SUBTITLE BAR */
+.elder-narrative-bar {
+  background: rgba(20, 10, 5, 0.92);
+  border: 1.5px solid #aa7c11;
+  border-radius: 4px;
+  padding: 10px 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+  margin: 10px auto;
+  width: min(650px, 90%);
+  z-index: 30;
+}
+.elder-speaker-name {
+  color: #aa7c11;
+  font-size: 0.72rem;
   font-weight: bold;
-  color: #6e0e06;
   letter-spacing: 0.12em;
+  display: block;
 }
-.legacy-news-clipping h4 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
+.elder-spoken-line {
+  color: #fdfaf2;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.98rem;
+  margin-top: 4px;
+}
+
+/* OPEN INVESTIGATOR EVIDENCE FOLDER */
+.investigator-evidence-folder {
+  position: relative;
+  background: #d4a96e;
+  border: 2px solid #5a3d28;
+  border-radius: 6px 6px 0 0;
+  padding: 10px 16px 12px;
+  box-shadow: 0 -8px 25px rgba(0,0,0,0.7), inset 0 2px 4px rgba(255,255,255,0.4);
+  z-index: 20;
+}
+.folder-tab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  border-bottom: 1px stroke #8b5a2b;
+  padding-bottom: 4px;
+}
+.folder-tag {
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.14em;
+  color: #3c2416;
+}
+.folder-count {
+  font-size: 0.65rem;
+  color: #8b0000;
+  font-weight: bold;
+}
+
+.evidence-folder-cards-grid {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+/* EVIDENCE DOCUMENT CARDS ON TABLE & IN FOLDER */
+.evidence-card-drag {
+  position: relative;
+  width: 145px;
+  height: 180px;
+  background: #faf6eb;
+  border: 1px solid #c4b595;
+  border-radius: 3px;
+  padding: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #1a0f08;
+}
+.evidence-card-drag:hover {
+  transform: translateY(-5px) scale(1.04) rotate(-1deg);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.6);
+  z-index: 25;
+}
+.evidence-card-drag.placed-on-table {
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.7);
+}
+
+.card-drag-tag {
+  font-size: 0.55rem;
+  font-weight: bold;
+  color: #8b0000;
+  letter-spacing: 0.1em;
+}
+.card-drag-title {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.8rem;
+  font-weight: bold;
   color: #1a0f08;
   margin: 4px 0;
+  line-height: 1.25;
 }
-.legacy-news-clipping p {
-  font-size: 0.82rem;
-  color: #2b1a0e;
+.card-drag-snippet {
+  font-size: 0.65rem;
+  color: #4a3625;
+  line-height: 1.3;
+}
+.card-drag-action {
+  font-size: 0.58rem;
+  color: #aa7c11;
+  text-align: right;
   font-weight: bold;
+}
+
+/* RANDOM NATURAL ROTATIONS */
+.tilt-left-1 { transform: rotate(-2.2deg); }
+.tilt-right-1 { transform: rotate(2.8deg); }
+.tilt-left-2 { transform: rotate(-1.5deg); }
+.tilt-right-2 { transform: rotate(1.8deg); }
+
+/* SILENT VILLAGER SILHOUETTES AT BOTTOM MARGIN */
+.villager-silhouettes-front {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 110px;
+  pointer-events: none;
+  z-index: 5;
+  filter: drop-shadow(0 -5px 15px rgba(0,0,0,0.8));
 }
 
 /* ============================================================
