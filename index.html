@@ -84,86 +84,231 @@
      PORTRAIT TEMPLATES — cloned into the dialogue box.
 ========================================================== -->
 
+<!-- =========================================================
+     PORTRAIT TEMPLATES — Hand-Drawn 1946 Archival Documentary Portraits
+========================================================== -->
+
+<!-- 1. Kasturba Ben (The Mother) -->
 <template id="portrait-mother">
-<svg viewBox="0 0 220 260" class="portrait-svg">
-  <ellipse cx="110" cy="248" rx="95" ry="14" fill="#000" opacity="0.25"/>
-  <path d="M20 260 C20 150 45 90 110 90 C175 90 200 150 200 260 Z" fill="#8a3b34"/>
-  <path d="M35 260 C40 175 55 120 110 118 C165 120 180 175 185 260 Z" fill="#b1523f"/>
-  <circle cx="110" cy="98" r="52" fill="url(#skinLight)"/>
-  <path d="M58 90 C58 40 162 40 162 90 C162 60 145 42 110 42 C75 42 58 60 58 90 Z" fill="#241a14"/>
-  <path d="M60 96 C55 60 80 38 110 38 C140 38 165 60 160 96 C158 70 138 52 110 52 C82 52 62 70 60 96Z" fill="#2c211a"/>
-  <path d="M84 108 q26 18 52 0" stroke="#5c3320" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <circle cx="88" cy="92" r="5" fill="#291c14"/>
-  <circle cx="132" cy="92" r="5" fill="#291c14"/>
-  <path d="M78 78 q10 -6 20 0" stroke="#291c14" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M122 78 q10 -6 20 0" stroke="#291c14" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <circle cx="110" cy="66" r="3" fill="#c0392b"/>
-  <path d="M60 130 q50 26 100 0 l6 18 q-56 30 -112 0 Z" fill="#d9a441"/>
+<svg viewBox="0 0 220 260" class="portrait-svg archival-portrait-sketch">
+  <defs>
+    <filter id="sepiaGrain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/>
+      <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 0.15 0"/>
+    </filter>
+  </defs>
+  <!-- Background Archival Vignette -->
+  <rect width="220" height="260" fill="#f4ebd7" rx="4"/>
+  <rect width="220" height="260" fill="#3c2416" opacity="0.06" filter="url(#sepiaGrain)"/>
+  
+  <!-- Kasturba Ben (The Mother) — Cotton Sari & Head Covering -->
+  <path d="M 30 260 C 30 180 50 115 110 115 C 170 115 190 180 190 260 Z" fill="#2b1a0e" opacity="0.85"/>
+  <!-- Draped Cotton Odhani / Pallu -->
+  <path d="M 25 260 C 25 155 55 95 110 95 C 165 95 195 155 195 260 Z" fill="#fdfaf2" stroke="#5a3d28" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 45 130 Q 110 110 175 130" stroke="#8b0000" stroke-width="3" fill="none" opacity="0.75"/>
+  
+  <!-- Face Contour & Deep Shading -->
+  <ellipse cx="110" cy="115" rx="40" ry="48" fill="#d8b28a" stroke="#3c2416" stroke-width="2.5"/>
+  <path d="M 80 115 Q 110 160 140 115" fill="rgba(60,36,22,0.08)"/>
+  
+  <!-- Expressive Eyes (Resilient & Hardworking) -->
+  <ellipse cx="94" cy="110" rx="7" ry="4.5" fill="#2b1a0e"/>
+  <ellipse cx="126" cy="110" rx="7" ry="4.5" fill="#2b1a0e"/>
+  <circle cx="95" cy="109" r="1.8" fill="#fdfaf2"/>
+  <circle cx="127" cy="109" r="1.8" fill="#fdfaf2"/>
+  <path d="M 85 101 Q 94 96 103 101" stroke="#2b1a0e" stroke-width="2.5" fill="none"/>
+  <path d="M 117 101 Q 126 96 135 101" stroke="#2b1a0e" stroke-width="2.5" fill="none"/>
+  
+  <!-- Nose, Crimson Bindi & Silver Nose Ring -->
+  <path d="M 110 108 L 107 122 L 114 122" stroke="#4a2e1b" stroke-width="2" fill="none"/>
+  <circle cx="110" cy="94" r="3.5" fill="#8b0000"/>
+  <circle cx="102" cy="122" r="2.5" fill="none" stroke="#aa7c11" stroke-width="1.8"/>
+  
+  <!-- Mouth (Firm Resilient Line) -->
+  <path d="M 96 138 Q 110 144 124 138" stroke="#4a2e1b" stroke-width="2.5" fill="none"/>
+  
+  <!-- Metal Milk Vessel Prop in Foreground -->
+  <ellipse cx="170" cy="225" rx="22" ry="14" fill="#a0a0a0" stroke="#2b1a0e" stroke-width="2"/>
+  <path d="M 148 225 L 152 260 L 188 260 L 192 225 Z" fill="#b8b8b8" stroke="#2b1a0e" stroke-width="2"/>
+  <rect x="154" y="215" width="32" height="10" rx="2" fill="#888" stroke="#2b1a0e" stroke-width="1.8"/>
+
+  <!-- Archival Ink Frame Outline -->
+  <rect width="216" height="256" x="2" y="2" fill="none" stroke="#3c2416" stroke-width="2" opacity="0.6"/>
 </svg>
 </template>
 
+<!-- 2. Sharda Ben (Cooperative Collection Supervisor) -->
+<template id="portrait-supervisor">
+<svg viewBox="0 0 220 260" class="portrait-svg archival-portrait-sketch">
+  <rect width="220" height="260" fill="#f4ebd7" rx="4"/>
+  
+  <!-- Sharda Ben (45yo Supervisor) — Khadi Sari & Confident Posture -->
+  <path d="M 25 260 C 25 170 50 110 110 110 C 170 110 195 170 195 260 Z" fill="#4a3625" stroke="#2b1a0e" stroke-width="2.5"/>
+  <path d="M 35 260 L 95 130 L 130 130 L 185 260 Z" fill="#7a5c43" stroke="#2b1a0e" stroke-width="1.8"/>
+  
+  <!-- Confident Facial Structure -->
+  <ellipse cx="110" cy="108" rx="42" ry="48" fill="#ce9e72" stroke="#2b1a0e" stroke-width="2.5"/>
+  <path d="M 68 85 C 68 55 152 55 152 85 Z" fill="#1f140b"/>
+  
+  <!-- Sharp Intelligent Eyes & Eyeglasses Frame -->
+  <rect x="80" y="98" width="24" height="18" rx="3" fill="none" stroke="#aa7c11" stroke-width="2.2"/>
+  <rect x="116" y="98" width="24" height="18" rx="3" fill="none" stroke="#aa7c11" stroke-width="2.2"/>
+  <line x1="104" y1="106" x2="116" y2="106" stroke="#aa7c11" stroke-width="2"/>
+  
+  <circle cx="92" cy="107" r="4" fill="#1f140b"/>
+  <circle cx="128" cy="107" r="4" fill="#1f140b"/>
+  
+  <!-- Firm Smile & Crimson Bindi -->
+  <circle cx="110" cy="86" r="3" fill="#8b0000"/>
+  <path d="M 95 133 Q 110 138 125 133" stroke="#2b1a0e" stroke-width="2.5" fill="none"/>
+  
+  <!-- Wooden Ledger Book Held in Hand -->
+  <rect x="40" y="190" width="75" height="65" rx="3" fill="#8b5a2b" stroke="#2b1a0e" stroke-width="2.2" transform="rotate(-8 77 222)"/>
+  <line x1="50" y1="210" x2="105" y2="200" stroke="#fdfaf2" stroke-width="2" stroke-dasharray="3 3"/>
+  <line x1="52" y1="225" x2="107" y2="215" stroke="#fdfaf2" stroke-width="2" stroke-dasharray="3 3"/>
+
+  <rect width="216" height="256" x="2" y="2" fill="none" stroke="#3c2416" stroke-width="2" opacity="0.6"/>
+</svg>
+</template>
+
+<!-- 3. Gautam Seth & Mr. Deshmukh (Contractor Rep & Buyer) -->
 <template id="portrait-buyer">
-<svg viewBox="0 0 220 260" class="portrait-svg">
-  <ellipse cx="110" cy="248" rx="95" ry="14" fill="#000" opacity="0.25"/>
-  <path d="M18 260 C18 165 50 108 110 108 C170 108 202 165 202 260 Z" fill="#e9e2ce"/>
-  <path d="M18 260 C18 190 40 140 70 118 L86 150 L74 260 Z" fill="#c9bfa0"/>
-  <path d="M202 260 C202 190 180 140 150 118 L134 150 L146 260 Z" fill="#c9bfa0"/>
-  <rect x="98" y="150" width="24" height="30" fill="#2c2620"/>
-  <circle cx="110" cy="98" r="50" fill="url(#skinDeep)"/>
-  <path d="M62 92 C62 55 158 55 158 92 C158 68 142 50 110 50 C78 50 62 68 62 92Z" fill="#171310"/>
-  <path d="M84 116 q26 14 52 0" stroke="#2a1a10" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <circle cx="90" cy="92" r="5" fill="#171310"/>
-  <circle cx="130" cy="92" r="5" fill="#171310"/>
-  <path d="M80 80 q10 -5 18 0" stroke="#171310" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M122 80 q10 -5 18 0" stroke="#171310" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M78 108 q32 10 64 0" stroke="#171310" stroke-width="5" fill="none" stroke-linecap="round"/>
+<svg viewBox="0 0 220 260" class="portrait-svg archival-portrait-sketch">
+  <rect width="220" height="260" fill="#f4ebd7" rx="4"/>
+  
+  <!-- Pressed Kurta & Waistcoat (Urban Merchant / Contractor Rep) -->
+  <path d="M 20 260 C 20 165 48 108 110 108 C 172 108 200 165 200 260 Z" fill="#fdfaf2" stroke="#3c2416" stroke-width="2.5"/>
+  <path d="M 50 260 L 75 140 L 145 140 L 170 260 Z" fill="#3c2a1e" stroke="#2b1a0e" stroke-width="2"/>
+  <path d="M 104 140 L 104 260" stroke="#aa7c11" stroke-width="2"/>
+  <circle cx="104" cy="165" r="2.5" fill="#aa7c11"/>
+  <circle cx="104" cy="195" r="2.5" fill="#aa7c11"/>
+  <circle cx="104" cy="225" r="2.5" fill="#aa7c11"/>
+  
+  <!-- Fountain Pen in Pocket -->
+  <rect x="148" y="160" width="6" height="24" rx="1.5" fill="#1a237e" stroke="#aa7c11" stroke-width="1.2"/>
+  
+  <!-- Head & Neat Haircut / Mustache -->
+  <ellipse cx="110" cy="100" rx="38" ry="46" fill="#d2a679" stroke="#3c2416" stroke-width="2.5"/>
+  <path d="M 72 82 C 72 50 148 50 148 82 C 148 62 135 48 110 48 C 85 48 72 62 72 82 Z" fill="#1a0f08"/>
+  
+  <!-- Analytical Eyes & Trimmed Mustache -->
+  <ellipse cx="94" cy="96" rx="5.5" ry="4" fill="#1a0f08"/>
+  <ellipse cx="126" cy="96" rx="5.5" ry="4" fill="#1a0f08"/>
+  <path d="M 85 88 Q 94 84 103 88" stroke="#1a0f08" stroke-width="2.2" fill="none"/>
+  <path d="M 117 88 Q 126 84 135 88" stroke="#1a0f08" stroke-width="2.2" fill="none"/>
+  
+  <!-- Groomed Mustache -->
+  <path d="M 90 116 Q 110 124 130 116 Q 110 110 90 116 Z" fill="#1a0f08"/>
+  <path d="M 96 128 Q 110 132 124 128" stroke="#3c2416" stroke-width="2" fill="none"/>
+
+  <rect width="216" height="256" x="2" y="2" fill="none" stroke="#3c2416" stroke-width="2" opacity="0.6"/>
+</svg>
+</template>
+
+<!-- 4. Bhikhabhai (The Farmer — Weathered Producer) -->
+<template id="portrait-farmer">
+<svg viewBox="0 0 220 260" class="portrait-svg archival-portrait-sketch">
+  <rect width="220" height="260" fill="#f4ebd7" rx="4"/>
+  
+  <!-- Bhikhabhai (50yo Farmer) — White Dhoti & Traditional Turban (Fenta) -->
+  <path d="M 20 260 C 20 160 48 104 110 104 C 172 104 200 160 200 260 Z" fill="#eee4d0" stroke="#3c2416" stroke-width="2.5"/>
+  <path d="M 45 260 L 80 145 L 140 145 L 175 260 Z" fill="#ded2b8" stroke="#3c2416" stroke-width="1.8"/>
+  
+  <!-- Large Gujarati White Turban (Fenta) -->
+  <path d="M 50 78 Q 110 32 170 78 Q 180 50 110 35 Q 40 50 50 78 Z" fill="#faf4e6" stroke="#3c2416" stroke-width="2.5"/>
+  <path d="M 55 65 Q 110 45 165 65" stroke="#aa7c11" stroke-width="2.5" fill="none"/>
+  
+  <!-- Sun-Weathered Face -->
+  <ellipse cx="110" cy="108" rx="40" ry="46" fill="#b88352" stroke="#3c2416" stroke-width="2.5"/>
+  <!-- Weathering Crease Lines -->
+  <path d="M 80 92 Q 88 95 96 92" stroke="#3c2416" stroke-width="1.8" fill="none"/>
+  <path d="M 124 92 Q 132 95 140 92" stroke="#3c2416" stroke-width="1.8" fill="none"/>
+  <path d="M 78 108 Q 84 110 90 108" stroke="#3c2416" stroke-width="1.5" fill="none"/>
+  <path d="M 130 108 Q 136 110 142 108" stroke="#3c2416" stroke-width="1.5" fill="none"/>
+  
+  <!-- Piercing Dark Eyes & Traditional Thick Mustache -->
+  <ellipse cx="94" cy="102" rx="5.5" ry="4" fill="#1a0f08"/>
+  <ellipse cx="126" cy="102" rx="5.5" ry="4" fill="#1a0f08"/>
+  
+  <!-- Thick Gujarati Farmer Mustache -->
+  <path d="M 82 122 Q 110 138 138 122 Q 110 114 82 122 Z" fill="#1a0f08" stroke="#3c2416" stroke-width="1.5"/>
+  
+  <!-- Coiled Jute Rope over Shoulder -->
+  <path d="M 155 155 Q 185 180 165 240" stroke="#aa7c11" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <path d="M 155 155 Q 185 180 165 240" stroke="#3c2416" stroke-width="1.8" stroke-dasharray="3 3" fill="none"/>
+
+  <rect width="216" height="256" x="2" y="2" fill="none" stroke="#3c2416" stroke-width="2" opacity="0.6"/>
 </svg>
 </template>
 
 <template id="portrait-worker">
-<svg viewBox="0 0 220 260" class="portrait-svg">
-  <ellipse cx="110" cy="248" rx="95" ry="14" fill="#000" opacity="0.25"/>
-  <path d="M20 260 C20 160 48 104 110 104 C172 104 200 160 200 260 Z" fill="#5f7161"/>
-  <path d="M40 260 C46 185 62 138 110 134 C158 138 174 185 180 260 Z" fill="#748a71"/>
-  <circle cx="110" cy="96" r="50" fill="url(#skinDeep)"/>
-  <path d="M58 96 C50 60 74 40 110 38 C150 40 172 62 162 98 C168 78 158 46 110 46 C64 46 54 76 58 96Z" fill="#d9a441"/>
-  <path d="M60 70 Q110 30 160 70" fill="none" stroke="#c98d33" stroke-width="10" stroke-linecap="round"/>
-  <circle cx="90" cy="94" r="5" fill="#171310"/>
-  <circle cx="130" cy="94" r="5" fill="#171310"/>
-  <path d="M86 116 q24 12 48 0" stroke="#2a1a10" stroke-width="4" fill="none" stroke-linecap="round"/>
-</svg>
+<!-- Alias to farmer portrait -->
+<use href="#portrait-farmer"/>
 </template>
 
+<!-- 5. Lilavati (Young Girl — 11yo Future Generation) -->
 <template id="portrait-worker2">
-<svg viewBox="0 0 220 260" class="portrait-svg">
-  <ellipse cx="110" cy="248" rx="95" ry="14" fill="#000" opacity="0.25"/>
-  <path d="M20 260 C20 160 48 104 110 104 C172 104 200 160 200 260 Z" fill="#39506b"/>
-  <path d="M40 260 C46 185 62 148 110 144 C158 148 174 185 180 260 Z" fill="#4c6885"/>
-  <circle cx="110" cy="98" r="50" fill="url(#skinLight)"/>
-  <path d="M58 88 C58 55 162 55 162 88 L162 78 Q110 58 58 78 Z" fill="#22314a"/>
-  <path d="M56 78 Q110 52 164 78 L168 92 Q110 66 52 92 Z" fill="#2c3d5c"/>
-  <circle cx="90" cy="96" r="5" fill="#171310"/>
-  <circle cx="130" cy="96" r="5" fill="#171310"/>
-  <path d="M86 118 q24 12 48 0" stroke="#2a1a10" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M78 80 q10 -5 18 0" stroke="#171310" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M122 80 q10 -5 18 0" stroke="#171310" stroke-width="3" fill="none" stroke-linecap="round"/>
+<svg viewBox="0 0 220 260" class="portrait-svg archival-portrait-sketch">
+  <rect width="220" height="260" fill="#f4ebd7" rx="4"/>
+  
+  <!-- Lilavati (11yo Girl) — Traditional Chaniya Choli -->
+  <path d="M 35 260 C 35 185 55 135 110 135 C 165 135 185 185 185 260 Z" fill="#8b3a2b" stroke="#3c2416" stroke-width="2.2"/>
+  <path d="M 45 155 Q 110 145 175 155" stroke="#d4a441" stroke-width="3" fill="none"/>
+  
+  <!-- Young Face with Curious Eyes -->
+  <ellipse cx="110" cy="115" rx="34" ry="40" fill="#d49e6a" stroke="#3c2416" stroke-width="2.2"/>
+  <!-- Braided Hair -->
+  <path d="M 72 105 C 72 75 148 75 148 105 Z" fill="#1f140b"/>
+  <path d="M 68 115 Q 55 160 58 210" stroke="#1f140b" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M 152 115 Q 165 160 162 210" stroke="#1f140b" stroke-width="7" stroke-linecap="round" fill="none"/>
+  
+  <!-- Big Curious Eyes -->
+  <ellipse cx="96" cy="112" rx="6" ry="6" fill="#1f140b"/>
+  <ellipse cx="124" cy="112" rx="6" ry="6" fill="#1f140b"/>
+  <circle cx="98" cy="110" r="2" fill="#fdfaf2"/>
+  <circle cx="126" cy="110" r="2" fill="#fdfaf2"/>
+  
+  <!-- Gentle Smile -->
+  <path d="M 100 135 Q 110 140 120 135" stroke="#3c2416" stroke-width="2" fill="none"/>
+  
+  <!-- Small Brass Milk Pail in Hand -->
+  <ellipse cx="110" cy="220" rx="16" ry="9" fill="#d4a441" stroke="#3c2416" stroke-width="1.8"/>
+  <path d="M 94 220 L 97 250 L 123 250 L 126 220 Z" fill="#b88a28" stroke="#3c2416" stroke-width="1.8"/>
+
+  <rect width="216" height="256" x="2" y="2" fill="none" stroke="#3c2416" stroke-width="2" opacity="0.6"/>
 </svg>
 </template>
 
+<!-- 6. Motibhai Patel (Village Elder — Facilitator & Wisdom) -->
 <template id="portrait-elder">
-<svg viewBox="0 0 220 260" class="portrait-svg">
-  <ellipse cx="110" cy="248" rx="95" ry="14" fill="#000" opacity="0.25"/>
-  <path d="M18 260 C18 158 48 100 110 100 C172 100 202 158 202 260 Z" fill="#e4ddc6"/>
-  <path d="M40 260 C46 180 62 132 110 128 C158 132 174 180 180 260 Z" fill="#f2ecd8"/>
-  <circle cx="110" cy="94" r="48" fill="url(#skinDeep)"/>
-  <path d="M60 88 C56 52 80 34 110 34 C140 34 164 52 160 88 C168 66 158 30 110 28 C62 30 52 66 60 88Z" fill="#f4f1ea"/>
-  <path d="M70 130 Q110 168 150 130 L154 168 Q110 200 66 168 Z" fill="#f4f1ea"/>
-  <circle cx="90" cy="92" r="4.5" fill="#171310"/>
-  <circle cx="130" cy="92" r="4.5" fill="#171310"/>
-  <path d="M78 82 q10 -5 18 0" stroke="#4a4238" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M122 82 q10 -5 18 0" stroke="#4a4238" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M64 76 Q84 58 110 60" stroke="#e8e3d2" stroke-width="6" fill="none" stroke-linecap="round"/>
-  <path d="M156 76 Q136 58 110 60" stroke="#e8e3d2" stroke-width="6" fill="none" stroke-linecap="round"/>
+<svg viewBox="0 0 220 260" class="portrait-svg archival-portrait-sketch">
+  <rect width="220" height="260" fill="#f4ebd7" rx="4"/>
+  
+  <!-- Motibhai Patel (65yo Elder) — Khadi Kurta & Traditional Shawl -->
+  <path d="M 18 260 C 18 158 48 100 110 100 C 172 100 202 158 202 260 Z" fill="#eee4d0" stroke="#3c2416" stroke-width="2.5"/>
+  <path d="M 35 260 Q 60 140 110 135 Q 160 140 185 260 Z" fill="#fdfaf2" stroke="#3c2416" stroke-width="1.8"/>
+  <path d="M 25 180 Q 110 150 195 180" stroke="#aa7c11" stroke-width="4" fill="none"/>
+  
+  <!-- Elder White Turban (Pugree) -->
+  <path d="M 52 75 Q 110 32 168 75 Q 175 48 110 32 Q 45 48 52 75 Z" fill="#f8f4eb" stroke="#3c2416" stroke-width="2.5"/>
+  
+  <!-- Wise Experienced Face -->
+  <ellipse cx="110" cy="100" rx="42" ry="46" fill="#c69263" stroke="#3c2416" stroke-width="2.5"/>
+  
+  <!-- Silver Beard & Eyebrows -->
+  <path d="M 66 94 Q 110 168 154 94 C 160 135 142 162 110 162 C 78 162 60 135 66 94 Z" fill="#f0ece1" stroke="#3c2416" stroke-width="1.5"/>
+  <path d="M 80 84 Q 94 78 104 82" stroke="#f0ece1" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M 116 82 Q 126 78 140 84" stroke="#f0ece1" stroke-width="4" stroke-linecap="round" fill="none"/>
+  
+  <!-- Calm Wise Eyes -->
+  <circle cx="94" cy="94" r="4.5" fill="#1a0f08"/>
+  <circle cx="126" cy="94" r="4.5" fill="#1a0f08"/>
+  
+  <!-- Brass-Topped Walking Stick in Hand -->
+  <line x1="180" y1="130" x2="180" y2="260" stroke="#5a3d28" stroke-width="7"/>
+  <circle cx="180" cy="128" r="8" fill="#aa7c11" stroke="#2b1a0e" stroke-width="1.8"/>
+
+  <rect width="216" height="256" x="2" y="2" fill="none" stroke="#3c2416" stroke-width="2" opacity="0.6"/>
 </svg>
 </template>
 
