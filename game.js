@@ -1138,6 +1138,10 @@ class Game {
       if (clueId) placeClueOnTable(clueId);
     };
 
+    // Initial render of folder and table cards on scene load
+    renderFolder();
+    renderTable();
+
     // MOTIBHAI PATEL'S EVALUATION VIA DIALOGUE OVERLAY & CRIMSON THREAD DRAW
     const evaluateTableEvidence = () => {
       isEvaluating = true;

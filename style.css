@@ -5967,6 +5967,35 @@ button{
   z-index: 20;
   transition: transform 0.35s cubic-bezier(.2,.85,.3,1), height 0.35s ease;
   cursor: pointer;
+  pointer-events: auto !important;
+}
+
+.evidence-folder-cards-grid {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 6px 2px 4px;
+  pointer-events: auto !important;
+}
+
+/* DISTINCT ARCHIVAL DOCUMENT STYLES */
+.evidence-card-drag {
+  position: relative;
+  width: 155px;
+  height: 185px;
+  border-radius: 3px;
+  padding: 12px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #1a0f08;
+  flex-shrink: 0;
+  pointer-events: auto !important;
+  z-index: 30;
 }
 .investigator-evidence-folder.is-closed .evidence-folder-cards-grid {
   display: none;
