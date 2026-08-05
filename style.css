@@ -5809,7 +5809,7 @@ button{
 .panchayat-teakwood-table {
   position: relative;
   width: min(980px, 92vw);
-  height: min(550px, 76vh);
+  height: min(680px, 86vh);
   margin: 0 auto;
   background: 
     radial-gradient(ellipse at 50% 35%, rgba(255, 200, 120, 0.32) 0%, rgba(45, 25, 12, 0.88) 60%, rgba(18, 9, 4, 0.99) 95%),
@@ -5821,7 +5821,7 @@ button{
   flex-direction: column !important;
   justify-content: space-between !important;
   align-items: stretch !important;
-  padding: 18px 24px 20px;
+  padding: 14px 20px 14px;
   overflow: hidden;
   z-index: 10;
   flex-shrink: 0;
@@ -5899,17 +5899,17 @@ button{
   position: relative;
   flex: 1;
   width: 100%;
-  min-height: 250px;
+  min-height: 160px;
   background: radial-gradient(ellipse at 50% 40%, rgba(35, 18, 9, 0.4) 0%, rgba(12, 6, 2, 0.8) 100%);
   border: 1.5px dashed rgba(184, 134, 11, 0.5);
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 16px;
+  padding: 12px;
   transition: background 0.3s ease, border-color 0.3s ease;
   z-index: 15;
-  margin: 6px 0 10px;
+  margin: 4px 0 8px;
 }
 .table-drop-zone.drag-over-active {
   background: rgba(170, 124, 17, 0.18);

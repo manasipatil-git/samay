@@ -985,6 +985,8 @@ class Game {
 
     if (!folderGrid || !dropZone) return;
 
+    console.log("🔍 _showEvidenceDock executing. folderGrid:", folderGrid, "dropZone:", dropZone);
+
     folderGrid.innerHTML = "";
     dropZone.innerHTML = "";
     if (decisionOptions) decisionOptions.style.display = "none";
@@ -1026,7 +1028,8 @@ class Game {
     const renderFolder = () => {
       folderGrid.innerHTML = "";
       const remainingClues = allClues.filter(c => !placedClues.some(p => p.id === c.id));
-      if (countBadge) countBadge.textContent = `${remainingClues.length} Collected Records`;
+      console.log(`📂 renderFolder called. Rendering ${remainingClues.length} cards into #evidence-folder-cards.`);
+      if (countBadge) countBadge.textContent = `${remainingClues.length} Records Ready`;
 
       remainingClues.forEach(c => {
         const card = document.createElement("div");
