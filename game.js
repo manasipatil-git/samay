@@ -2302,31 +2302,23 @@ class Game {
     if (stampBtn) {
       stampBtn.onclick = (e) => {
         e.preventDefault();
+        
+        // 1. Play paper stamp audio
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
+
+        // 2. Animate physical red rubber stamp impression onto paper
+        const paperStamp = document.getElementById("paper-stamp-impression");
+        if (paperStamp) paperStamp.style.display = "block";
+
+        // 3. Hide button and reveal closing line
         stampBtn.style.display = "none";
+        const closingLine = document.getElementById("final-closing-line");
+        if (closingLine) closingLine.style.display = "block";
 
-        const dossier = document.getElementById("sleek-final-dossier") || document.getElementById("open-casebook-journal") || document.getElementById("final-dispatch-dossier");
-        if (dossier) {
-          dossier.style.transition = "transform 0.8s ease, opacity 0.8s ease";
-          dossier.style.transform = "translateY(60vh) scale(0.85)";
-          dossier.style.opacity = "0";
-        }
-
+        // 4. Smooth Cabinet Drawer Closure after player reads the closure payoff
         setTimeout(() => {
-          if (window.SAMAY_SOUND) {
-            window.SAMAY_SOUND.play("stamp");
-          }
-
-          // 1. Reset dossier transform
-          if (dossier) {
-            dossier.style.transform = "none";
-            dossier.style.opacity = "1";
-          }
-
-          // 2. Go to Archive scene
           this._goToScene("archive");
 
-          // 3. Smooth Mechanical Cabinet Drawer Slam & Lock Sequence
           const drawer1 = document.getElementById("drawer-case1");
           const cabinetEl = document.querySelector(".cabinet");
           

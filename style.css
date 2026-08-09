@@ -7763,97 +7763,94 @@ button{
   z-index: 8 !important;
 }
 
-/* DIEGETIC MAHOGANY & BRASS RUBBER STAMP ACTION TOOL (DESK SURFACE) */
+/* ============================================================
+   1950 FINAL ARCHIVAL EPILOGUE & AMUL REVEAL (TAB 3 OVERHAUL)
+   ============================================================ */
 .legacy-reveal-container {
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 20px;
+  gap: 24px;
   width: 100%;
-  padding-bottom: 30px;
+  padding-bottom: 40px;
 }
 .legacy-reveal-container.is-revealed {
   display: flex !important;
 }
 
-.stamp-action-block {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 16px !important;
-  margin: 24px auto 10px !important;
-  position: relative !important;
-  z-index: 100 !important;
-  width: 100% !important;
-  clear: both !important;
-}
-
 .physical-open-casebook {
   position: relative;
   width: 100%;
-  max-width: 880px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
+/* SYMMETRICAL DUAL-PAGE BOOK SPREAD */
 .casebook-pages-container {
-  min-height: 460px !important;
-  height: auto !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  background: #faf4e6 !important;
+  border-radius: 4px !important;
+  min-height: 480px !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), inset 0 0 35px rgba(0, 0, 0, 0.15) !important;
+  position: relative !important;
 }
 
 .casebook-page-sheet {
-  flex: 1;
-  padding: 20px 24px !important;
-  position: relative;
-  min-height: 460px !important;
+  flex: 1 !important;
+  width: 50% !important;
+  padding: 22px 26px !important;
+  position: relative !important;
+  min-height: 480px !important;
+  box-sizing: border-box !important;
+}
+
+.casebook-page-sheet.page-left {
+  background: linear-gradient(90deg, #efe2c8 0%, #faf4e6 10%, #faf4e6 100%) !important;
+  border-right: 1px solid #d4c5a9 !important;
+}
+
+.casebook-page-sheet.page-right {
+  background: linear-gradient(-90deg, #efe2c8 0%, #faf4e6 10%, #faf4e6 100%) !important;
+  border-left: 1px solid #d4c5a9 !important;
 }
 
 .archive-photo-img {
-  max-height: 120px !important;
+  max-height: 110px !important;
   width: 100% !important;
   object-fit: cover !important;
 }
 
-/* CLEAN ARCHIVAL DEED TEXT (ZERO BOX-IN-BOX CLUTTER) */
 .pasted-registration-deed {
   background: transparent !important;
   border: none !important;
   border-left: 3px solid #8b0000 !important;
   padding: 4px 0 4px 12px !important;
-  margin: 14px 0 !important;
+  margin: 10px 0 !important;
   box-shadow: none !important;
 }
 
 .deed-title {
-  font-size: 0.95rem !important;
+  font-size: 0.9rem !important;
   color: #1a0f08 !important;
   margin: 2px 0 !important;
   font-weight: bold !important;
 }
 
 .deed-body {
-  font-size: 0.78rem !important;
-  line-height: 1.4 !important;
+  font-size: 0.74rem !important;
+  line-height: 1.35 !important;
   color: #2b170c !important;
-}
-
-.typewriter-ribbon-strip {
-  font-family: 'Special Elite', Courier, monospace !important;
-  font-size: 0.76rem !important;
-  color: #1a0f08 !important;
-  background: rgba(60, 36, 22, 0.06) !important;
-  border-left: 3px solid #3c2416 !important;
-  padding: 6px 12px !important;
-  margin: 12px 0 !important;
-  box-shadow: none !important;
 }
 
 .pinned-sticky-note {
   background: linear-gradient(135deg, #fff9e6 0%, #f7eaad 100%) !important;
   border: 1px solid #d4b86a !important;
   border-top: 3px solid #aa7c11 !important;
-  padding: 10px 14px !important;
-  margin-top: 14px !important;
+  padding: 8px 12px !important;
+  margin-top: 10px !important;
   border-radius: 3px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
   position: relative !important;
@@ -7861,11 +7858,210 @@ button{
 
 .pinned-sticky-note .sticky-body-text {
   font-family: 'Special Elite', Courier, monospace !important;
-  font-size: 0.78rem !important;
-  line-height: 1.4 !important;
+  font-size: 0.74rem !important;
+  line-height: 1.35 !important;
   color: #1a0f08 !important;
   margin: 0 !important;
   opacity: 1 !important;
+}
+
+/* TIMELINE & NARRATIVE FLOW (LEFT PAGE) */
+.epilogue-timeline-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.epilogue-step-block {
+  border-left: 2.5px solid #8b0000;
+  padding-left: 8px;
+}
+
+.epilogue-year {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #8b0000;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.epilogue-body {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: #1a0f08;
+  margin: 0;
+}
+
+.epilogue-body.epilogue-bold {
+  font-weight: bold;
+  color: #140a04;
+}
+
+.epilogue-arrow-divider {
+  text-align: center;
+  color: #8b0000;
+  font-size: 0.85rem;
+  font-weight: bold;
+  opacity: 0.75;
+  margin: -4px 0;
+}
+
+/* AMUL GRAND REVEAL BLOCK (EMOTIONAL PAYOFF) */
+.amul-grand-reveal-block {
+  background: radial-gradient(circle, #fffdf8 0%, #f7eaad 100%);
+  border: 1.5px solid #aa7c11;
+  border-radius: 4px;
+  padding: 10px 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  margin-top: 2px;
+  position: relative;
+}
+
+.amul-transition-sub {
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #7c5c36;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.amul-title-display {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 2.1rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.14em !important;
+  color: #8b0000 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.amul-full-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #3c2416;
+  display: block;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+.amul-tagline-text {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.68rem;
+  line-height: 1.3;
+  color: #1a0f08;
+  margin: 4px 0 0;
+}
+
+/* DIEGETIC PAPER STAMP IMPRESSION (REAL RUBBER STAMP ON RIGHT PAGE) */
+.diegetic-paper-stamp-impression {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  transform: rotate(-7deg);
+  z-index: 50;
+  pointer-events: none;
+  animation: slamPaperStamp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.stamp-border-box {
+  border: 3.5px double #8b0000;
+  padding: 6px 12px;
+  background: rgba(139, 0, 0, 0.04);
+  text-align: center;
+  border-radius: 2px;
+  box-shadow: 0 0 1px rgba(139, 0, 0, 0.3);
+  opacity: 0.92;
+  mix-blend-mode: multiply;
+}
+
+.stamp-main-text {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #8b0000;
+  line-height: 1;
+}
+
+.stamp-sub-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #8b0000;
+  margin-top: 3px;
+}
+
+.stamp-date-text {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.64rem;
+  font-weight: bold;
+  color: #8b0000;
+  margin-top: 2px;
+}
+
+@keyframes slamPaperStamp {
+  0% { transform: scale(2.2) rotate(-15deg); opacity: 0; }
+  70% { transform: scale(0.95) rotate(-6deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-7deg); opacity: 0.92; }
+}
+
+/* SAFE DESK FOOTER AREA (BELOW THE BINDER) */
+.epilogue-desk-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.btn-stamp-case-closed-control {
+  background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%) !important;
+  color: #fffdf8 !important;
+  border: 2.5px solid #aa7c11 !important;
+  padding: 12px 28px !important;
+  border-radius: 6px !important;
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.88rem !important;
+  font-weight: bold !important;
+  letter-spacing: 0.1em !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75), inset 0 0 10px rgba(255, 255, 255, 0.2) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.btn-stamp-case-closed-control:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+  box-shadow: 0 14px 35px rgba(139, 0, 0, 0.6), inset 0 0 12px rgba(255, 255, 255, 0.3) !important;
+}
+
+.final-player-closing-line {
+  font-family: 'Courier Prime', Courier, monospace !important;
+  font-size: 0.92rem !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+  color: #aa7c11 !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+  margin: 4px 0 0 !important;
+  letter-spacing: 0.04em !important;
+  animation: fadeInClosingLine 1s ease forwards !important;
+}
+
+@keyframes fadeInClosingLine {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .diegetic-stamp-pad {
