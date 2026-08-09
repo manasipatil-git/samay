@@ -6180,18 +6180,32 @@ button{
   opacity: 0.85;
 }
 .assembly-crimson-thread.is-unresolved {
-  stroke: #a0522d;
-  stroke-width: 1.8;
-  stroke-dasharray: 5 4;
-  opacity: 0.70;
-  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.4));
+  stroke: rgba(160, 82, 45, 0.45);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  opacity: 0.45;
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
 }
 .assembly-crimson-thread.is-verified {
   stroke: #8b0000;
-  stroke-width: 3.5;
+  stroke-width: 3.8;
   stroke-dasharray: none;
   opacity: 1;
-  filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.75));
+  filter: drop-shadow(0px 0px 8px rgba(255, 215, 0, 0.6)) drop-shadow(0px 3px 8px rgba(139, 0, 0, 0.8));
+}
+
+/* CASE SOLVED MUTED TRIAL THREADS & GLOWING VERIFIED THREADS */
+.case-solved .assembly-crimson-thread.is-unresolved {
+  opacity: 0.15 !important;
+  stroke-width: 1.2 !important;
+}
+.case-solved .assembly-thread-tag.is-unresolved {
+  opacity: 0.25 !important;
+}
+.case-solved .assembly-crimson-thread.is-verified {
+  stroke: #a80000 !important;
+  stroke-width: 4.2px !important;
+  filter: drop-shadow(0px 0px 12px rgba(255, 215, 0, 0.9)) drop-shadow(0px 4px 10px rgba(0,0,0,0.9)) !important;
 }
 
 /* PHYSICAL THREAD-ATTACHED STATE TAGS (PINNED TO BEZIER MIDPOINT) */
@@ -6211,7 +6225,7 @@ button{
   cursor: pointer !important;
   user-select: none !important;
   white-space: nowrap !important;
-  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.3s ease !important;
 }
 .assembly-thread-tag:hover {
   transform: translate(-50%, -50%) scale(1.08) rotate(-1deg) !important;
@@ -6238,8 +6252,9 @@ button{
 
 /* State 2: Unresolved */
 .assembly-thread-tag.is-unresolved {
-  background: linear-gradient(135deg, #faf2e1 0%, #eddcb9 100%) !important;
-  border: 1px dashed #8b5a2b !important;
+  background: rgba(250, 242, 225, 0.6) !important;
+  border: 1px dashed rgba(139, 90, 43, 0.5) !important;
+  opacity: 0.65 !important;
 }
 .assembly-thread-tag.is-unresolved .tag-label {
   color: #8b5a2b !important;
@@ -6247,8 +6262,9 @@ button{
 
 /* State 3: Verified */
 .assembly-thread-tag.is-verified {
-  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
-  border: 1px solid #8b0000 !important;
+  background: linear-gradient(135deg, #fffcf5 0%, #f7ebd0 100%) !important;
+  border: 1.5px solid #8b0000 !important;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4), 0 4px 10px rgba(0, 0, 0, 0.8) !important;
 }
 .assembly-thread-tag.is-verified .tag-label {
   color: #8b0000 !important;

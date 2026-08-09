@@ -1105,6 +1105,14 @@ class Game {
       };
     };
 
+    // Helper: Calculate point along quadratic Bezier curve M(x1,y1) Q(cx,cy) (x2,y2) at parameter t
+    const getQuadraticBezierPoint = (x1, y1, cx, cy, x2, y2, t) => {
+      const oneMinusT = 1 - t;
+      const bx = oneMinusT * oneMinusT * x1 + 2 * oneMinusT * t * cx + t * t * x2;
+      const by = oneMinusT * oneMinusT * y1 + 2 * oneMinusT * t * cy + t * t * y2;
+      return { x: bx, y: by };
+    };
+
     // Redraw all player-created evidence threads and deduction slips (IDEMPOTENT RENDERER)
     const redrawAssemblyThreads = () => {
       const threadSvgCanvas = document.getElementById("assembly-thread-canvas");
@@ -1112,6 +1120,13 @@ class Game {
 
       const tableSurfaceBox = document.getElementById("panchayat-table-surface") || dropZone;
       const surfaceRect = tableSurfaceBox.getBoundingClientRect();
+
+      // Case Solved Celebration Toggle
+      if (verifiedDeductionIds.size >= 3) {
+        dropZone.classList.add("case-solved");
+      } else {
+        dropZone.classList.remove("case-solved");
+      }
 
       // Remove orphaned annotation tags/slips for deleted threads
       const currentThreadIds = new Set(assemblyThreads.map(tr => tr.threadId || `thread_${[tr.fromId, tr.toId].sort().join('_')}`));
@@ -1127,6 +1142,9 @@ class Game {
           el.remove();
         }
       });
+
+      // Array to track placed tag coordinates for intelligent collision staggering
+      const placedTagCoords = [];
 
       assemblyThreads.forEach(t => {
         t.threadId = t.threadId || `thread_${[t.fromId, t.toId].sort().join('_')}`;
@@ -1152,8 +1170,24 @@ class Game {
         const cx = (x1 + x2) / 2;
         const cy = (y1 + y2) / 2 + sag;
 
-        const midX = (x1 + x2) / 2;
-        const midY = (y1 + y2) / 2 + sag * 0.4;
+        // Intelligent Staggering: Test t-parameters [0.5, 0.35, 0.65, 0.25, 0.75] to avoid tag overlap
+        const tCandidates = [0.5, 0.35, 0.65, 0.25, 0.75];
+        let chosenT = 0.5;
+        let chosenTagPoint = getQuadraticBezierPoint(x1, y1, cx, cy, x2, y2, 0.5);
+
+        for (const tVal of tCandidates) {
+          const pt = getQuadraticBezierPoint(x1, y1, cx, cy, x2, y2, tVal);
+          const hasCollision = placedTagCoords.some(c => Math.hypot(c.x - pt.x, c.y - pt.y) < 55);
+          if (!hasCollision) {
+            chosenT = tVal;
+            chosenTagPoint = pt;
+            break;
+          }
+        }
+        placedTagCoords.push(chosenTagPoint);
+
+        const midX = chosenTagPoint.x;
+        const midY = chosenTagPoint.y;
 
         // Determine exact thread state
         let threadClass = "assembly-crimson-thread is-under-investigation";
@@ -1168,18 +1202,10 @@ class Game {
         if (!path) {
           path = document.createElementNS("http://www.w3.org/2000/svg", "path");
           path.dataset.threadId = t.threadId;
-          path.setAttribute("title", "Click to inspect connection | Double-click to remove thread");
+          path.setAttribute("title", "Click to inspect connection | Double-click or Right-click to snip thread");
 
-          path.onclick = (e) => {
-            e.stopPropagation();
-            const wasActive = t.isActive;
-            assemblyThreads.forEach(tr => tr.isActive = false);
-            t.isActive = !wasActive;
-            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-            redrawAssemblyThreads();
-          };
-
-          path.ondblclick = (e) => {
+          const removeThread = (e) => {
+            e.preventDefault();
             e.stopPropagation();
             assemblyThreads = assemblyThreads.filter(tr => tr !== t);
             verifiedDeductionIds.clear();
@@ -1194,6 +1220,18 @@ class Game {
             if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
             redrawAssemblyThreads();
           };
+
+          path.onclick = (e) => {
+            e.stopPropagation();
+            const wasActive = t.isActive;
+            assemblyThreads.forEach(tr => tr.isActive = false);
+            t.isActive = !wasActive;
+            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+            redrawAssemblyThreads();
+          };
+
+          path.ondblclick = removeThread;
+          path.oncontextmenu = removeThread;
 
           threadSvgCanvas.appendChild(path);
         }
@@ -1383,6 +1421,23 @@ class Game {
           let tag = dropZone.querySelector(`.assembly-thread-tag[data-thread-id="${t.threadId}"]`);
           const isNewTag = !tag;
 
+          const removeThread = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            assemblyThreads = assemblyThreads.filter(tr => tr !== t);
+            verifiedDeductionIds.clear();
+            assemblyThreads.forEach(tr => {
+              if (tr.verified && tr.deductionId) {
+                verifiedDeductionIds.add(tr.deductionId);
+              }
+            });
+            const uniqueVerifiedCount = verifiedDeductionIds.size;
+            const hudCount = document.getElementById("hud-verified-count");
+            if (hudCount) hudCount.textContent = `${uniqueVerifiedCount} / 3 Connections Verified`;
+            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+            redrawAssemblyThreads();
+          };
+
           if (isNewTag) {
             tag = document.createElement("div");
             tag.dataset.threadId = t.threadId;
@@ -1395,6 +1450,9 @@ class Game {
               if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
               redrawAssemblyThreads();
             };
+
+            tag.ondblclick = removeThread;
+            tag.oncontextmenu = removeThread;
           }
 
           tag.style.left = `${midX}px`;
