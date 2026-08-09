@@ -7097,18 +7097,62 @@ button{
 
 .permit-text { font-size: 0.74rem; color: #2b170c; font-weight: bold; }
 
-.investigator-signature-line {
-  margin-top: 12px;
-  text-align: right;
-  border-top: 1px dashed rgba(60, 36, 22, 0.25);
-  padding-top: 6px;
+/* HIGH-CONTRAST DARK INK STICKY NOTES (ZERO GHOST TEXT) */
+.pinned-sticky-note {
+  background: linear-gradient(135deg, #fff9e6 0%, #f7eaad 100%) !important;
+  border: 1px solid #d4b86a !important;
+  border-top: 3px solid #aa7c11 !important;
+  padding: 10px 14px !important;
+  margin-top: 14px !important;
+  border-radius: 3px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  position: relative !important;
 }
+
+.pinned-sticky-note .sticky-kicker {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.65rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #8b0000 !important;
+  display: block !important;
+  margin-bottom: 4px !important;
+}
+
+.pinned-sticky-note .sticky-body-text {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.78rem !important;
+  line-height: 1.4 !important;
+  color: #1a0f08 !important; /* CRISP DARK INK! ZERO GHOST TEXT! */
+  margin: 0 !important;
+  opacity: 1 !important;
+}
+
+.pinned-sticky-note .sticky-by {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.62rem !important;
+  font-weight: 800 !important;
+  color: #7c5c36 !important;
+  display: block !important;
+  margin-top: 4px !important;
+}
+
+.investigator-signature-line {
+  margin-top: 16px !important;
+  padding-top: 8px !important;
+  border-top: 1.5px dashed rgba(60, 36, 22, 0.3) !important;
+  text-align: right !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
 .fountain-pen-script {
   font-family: 'Courier Prime', Courier, monospace !important;
-  font-size: 0.8rem;
-  color: #1a237e;
-  font-style: italic;
-  font-weight: bold;
+  font-size: 0.82rem !important;
+  color: #1b2a4a !important; /* ROYAL FOUNTAIN PEN INK! */
+  font-style: italic !important;
+  font-weight: bold !important;
 }
 
 .thumb-wear-patina {
@@ -7708,36 +7752,52 @@ button{
   z-index: 8 !important;
 }
 
-/* PHYSICAL BRASS & MAHOGANY RUBBER STAMP ACTION TOOL */
+/* DIEGETIC MAHOGANY & BRASS RUBBER STAMP ACTION TOOL */
 .stamp-action-block {
-  text-align: center;
-  margin: 35px auto 20px;
-  position: relative;
-  z-index: 20;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  margin: 20px auto 10px !important;
+  position: relative !important;
+  z-index: 25 !important;
+}
+
+.diegetic-stamp-pad {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.64rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+  color: #fffdf8 !important;
+  background: #8b0000 !important;
+  border: 1.5px solid #aa7c11 !important;
+  padding: 4px 10px !important;
+  border-radius: 3px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important;
 }
 
 .btn-stamp-case-closed {
   background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%) !important;
   color: #fffdf8 !important;
   border: 2.5px solid #aa7c11 !important;
-  padding: 14px 28px !important;
+  padding: 12px 24px !important;
   border-radius: 6px !important;
   font-family: 'Special Elite', Courier, monospace !important;
-  font-size: 0.9rem !important;
+  font-size: 0.88rem !important;
   font-weight: bold !important;
   letter-spacing: 0.08em !important;
   cursor: pointer !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 12px !important;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.85), inset 0 0 10px rgba(255,255,255,0.2) !important;
+  gap: 10px !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85), inset 0 0 10px rgba(255, 255, 255, 0.2) !important;
   transform: rotate(-1deg);
   transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s ease !important;
 }
 
 .btn-stamp-case-closed:hover {
   transform: rotate(0deg) scale(1.04) translateY(-3px) !important;
-  box-shadow: 0 18px 40px rgba(139,0,0,0.6), inset 0 0 15px rgba(255,255,255,0.3) !important;
+  box-shadow: 0 18px 40px rgba(139, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.3) !important;
 }
 
 .legacy-handwritten-note {
