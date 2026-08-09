@@ -1472,12 +1472,12 @@ class Game {
 
           if (isNewSlip) dropZone.appendChild(slip);
 
-        } else if (t.verified) {
-          // Remove active slip if present for verified thread
+        } else {
+          // Remove active slip if present for inactive thread
           const activeSlip = dropZone.querySelector(`.assembly-deduction-slip[data-thread-id="${t.threadId}"]`);
           if (activeSlip) activeSlip.remove();
 
-          // Render Midpoint Pinned Verified Tag ONLY for VERIFIED connections
+          // Render Midpoint Pinned State Tag (.assembly-thread-tag) for all threads
           let tag = dropZone.querySelector(`.assembly-thread-tag[data-thread-id="${t.threadId}"]`);
           const isNewTag = !tag;
 
@@ -1502,8 +1502,16 @@ class Game {
           tag.style.left = `${midX}px`;
           tag.style.top = `${midY}px`;
 
-          const tagStateClass = "assembly-thread-tag is-verified font-type";
-          const tagText = `✓ VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}`;
+          let tagStateClass = "assembly-thread-tag is-under-investigation font-type";
+          let tagText = "✦ UNDER INVESTIGATION";
+
+          if (t.verified) {
+            tagStateClass = "assembly-thread-tag is-verified font-type";
+            tagText = `✓ VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}`;
+          } else if (t.attempted) {
+            tagStateClass = "assembly-thread-tag is-unresolved font-type";
+            tagText = "✦ UNRESOLVED";
+          }
 
           if (tag.className !== tagStateClass) {
             tag.className = tagStateClass;
@@ -1514,13 +1522,6 @@ class Game {
           }
 
           if (isNewTag) dropZone.appendChild(tag);
-        } else {
-          // UNRESOLVED / UNCONFIRMED CONNECTION: Render ZERO rectangular tag boxes!
-          const activeSlip = dropZone.querySelector(`.assembly-deduction-slip[data-thread-id="${t.threadId}"]`);
-          if (activeSlip) activeSlip.remove();
-
-          const oldTag = dropZone.querySelector(`.assembly-thread-tag[data-thread-id="${t.threadId}"]`);
-          if (oldTag) oldTag.remove();
         }
       });
     };
