@@ -5904,7 +5904,7 @@ button{
   padding: 4px;
   margin: 2px 0 4px;
   z-index: 15;
-  overflow: hidden !important;
+  overflow: visible;
   touch-action: none;
 }
 
@@ -6099,12 +6099,14 @@ button{
   position: absolute !important;
   width: 290px !important;
   max-width: 290px !important;
+  max-height: 220px !important;
+  overflow-y: auto !important;
   background: linear-gradient(135deg, #fdf7e7 0%, #f4e7c3 100%) !important;
   border: 1.5px solid #6b4c27 !important;
   border-radius: 4px !important;
   padding: 10px 14px !important;
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.85), inset 0 0 12px rgba(184, 134, 11, 0.2) !important;
-  z-index: 80 !important;
+  z-index: 95 !important;
   pointer-events: auto !important;
   transform: rotate(-1.5deg) !important;
   animation: slipAppear 0.3s cubic-bezier(.2,.85,.3,1) forwards;

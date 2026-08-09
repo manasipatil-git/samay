@@ -1168,34 +1168,40 @@ class Game {
         const slip = document.createElement("div");
         slip.className = "assembly-deduction-slip font-type";
 
+        const dropW = dropZone.clientWidth || 900;
+        const dropH = dropZone.clientHeight || 340;
+        const estimatedSlipWidth = 290;
+        const estimatedSlipHeight = 190;
+
         // Gather all placed document bounding boxes relative to dropZone
         const cardBoxes = Array.from(dropZone.querySelectorAll(".placed-on-table")).map(el => ({
-          left: el.offsetLeft - 6,
-          right: el.offsetLeft + el.offsetWidth + 6,
-          top: el.offsetTop - 6,
-          bottom: el.offsetTop + el.offsetHeight + 6
+          left: el.offsetLeft - 8,
+          right: el.offsetLeft + el.offsetWidth + 8,
+          top: el.offsetTop - 8,
+          bottom: el.offsetTop + el.offsetHeight + 8
         }));
 
-        const candidateL = cx - 110;
-        const candidateT = cy - 20;
+        // Candidate placement logic: if thread is in lower half of table, place slip ABOVE thread!
+        const baseL = cx - 145;
+        const baseT = cy > (dropH * 0.5) ? (cy - estimatedSlipHeight - 15) : (cy + 25);
 
-        // Offsets to test to avoid covering documents
         const offsets = [
           { dx: 0, dy: 0 },
-          { dx: 140, dy: 0 },
-          { dx: -140, dy: 0 },
-          { dx: 0, dy: 95 },
-          { dx: 0, dy: -95 }
+          { dx: 0, dy: (cy > dropH * 0.5 ? 210 : -210) },
+          { dx: 160, dy: 0 },
+          { dx: -160, dy: 0 },
+          { dx: 160, dy: -100 },
+          { dx: -160, dy: -100 }
         ];
 
-        let chosenL = candidateL;
-        let chosenT = candidateT;
+        let chosenL = baseL;
+        let chosenT = baseT;
 
         for (const off of offsets) {
-          const testL = candidateL + off.dx;
-          const testT = candidateT + off.dy;
-          const testR = testL + 220;
-          const testB = testT + 110;
+          const testL = baseL + off.dx;
+          const testT = baseT + off.dy;
+          const testR = testL + estimatedSlipWidth;
+          const testB = testT + estimatedSlipHeight;
 
           const hasCollision = cardBoxes.some(box => 
             !(testR < box.left || testL > box.right || testB < box.top || testT > box.bottom)
@@ -1208,11 +1214,9 @@ class Game {
           }
         }
 
-        // Clamp strictly inside Desk Zone B boundary
-        const dropW = dropZone.clientWidth || 900;
-        const dropH = dropZone.clientHeight || 300;
-        chosenL = Math.max(12, Math.min(chosenL, dropW - 235));
-        chosenT = Math.max(6, Math.min(chosenT, dropH - 120));
+        // Clamp strictly inside Desk Zone B boundary (guaranteeing 100% visibility)
+        chosenL = Math.max(10, Math.min(chosenL, dropW - estimatedSlipWidth - 10));
+        chosenT = Math.max(5, Math.min(chosenT, dropH - estimatedSlipHeight - 5));
 
         slip.style.left = `${chosenL}px`;
         slip.style.top = `${chosenT}px`;
