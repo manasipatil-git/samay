@@ -1539,7 +1539,9 @@ class Game {
 
         card.innerHTML = `
           <span class="doc-pin font-type">📌</span>
-          <span class="doc-thread-anchor font-type" title="Drag string to another evidence card to cross-reference">📍</span>
+          <span class="doc-thread-anchor font-type" title="Drag string to another evidence card to cross-reference">
+            <div class="anchor-pin-visual"><div class="anchor-pin-head"></div></div>
+          </span>
           <span class="card-drag-tag font-type">${c.tag}</span>
           <h4 class="card-drag-title font-type">${c.title}</h4>
           <p class="card-drag-snippet font-type">${c.desc}</p>
@@ -1573,6 +1575,20 @@ class Game {
             const midX = (startX + curX) / 2;
             const midY = (startY + curY) / 2 + sag;
             activeTempPath.setAttribute("d", `M ${startX} ${startY} Q ${midX} ${midY} ${curX} ${curY}`);
+
+            // Bounding Box Hit Testing for Target Card Highlight
+            const clientX = moveEv.clientX;
+            const clientY = moveEv.clientY;
+            dropZone.querySelectorAll(".placed-on-table").forEach(cardEl => {
+              if (cardEl.dataset.id === c.id) return;
+              const rect = cardEl.getBoundingClientRect();
+              const isInside = clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
+              if (isInside) {
+                cardEl.classList.add("is-connection-target");
+              } else {
+                cardEl.classList.remove("is-connection-target");
+              }
+            });
           };
 
           const handleThreadEnd = (ev) => {
@@ -1581,10 +1597,26 @@ class Game {
             try { anchorEl.releasePointerCapture(ev.pointerId); } catch (_) {}
             if (activeTempPath) { activeTempPath.remove(); activeTempPath = null; }
             anchorEl.onpointermove = null;
+            anchorEl.onpointerup = null;
+            anchorEl.onpointercancel = null;
 
-            const targetEl = document.elementFromPoint(ev.clientX, ev.clientY);
-            const targetCard = targetEl ? targetEl.closest(".placed-on-table") : null;
-            if (targetCard && targetCard.dataset.id !== c.id) {
+            // Clear target highlights
+            dropZone.querySelectorAll(".placed-on-table.is-connection-target").forEach(el => el.classList.remove("is-connection-target"));
+
+            // Explicit Bounding Box Hit Testing
+            const clientX = ev.clientX;
+            const clientY = ev.clientY;
+            let targetCard = null;
+
+            dropZone.querySelectorAll(".placed-on-table").forEach(cardEl => {
+              if (cardEl.dataset.id === c.id) return;
+              const rect = cardEl.getBoundingClientRect();
+              if (clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom) {
+                targetCard = cardEl;
+              }
+            });
+
+            if (targetCard) {
               const targetId = targetCard.dataset.id;
               const exists = assemblyThreads.some(t => 
                 (t.fromId === c.id && t.toId === targetId) || (t.fromId === targetId && t.toId === c.id)
@@ -1592,10 +1624,19 @@ class Game {
               if (!exists) {
                 assemblyThreads.forEach(tr => tr.isActive = false);
                 assemblyThreads.push({ fromId: c.id, toId: targetId, isActive: true });
+                
+                // Hide tutorial card after first connection
+                const tutCard = document.getElementById("connection-tutorial-card");
+                if (tutCard) tutCard.style.display = "none";
+
                 triggerLinkRecordedToast();
-                if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+                if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("pluck");
                 redrawAssemblyThreads();
+              } else {
+                if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
               }
+            } else {
+              if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
             }
           };
 
