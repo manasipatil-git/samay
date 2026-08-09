@@ -5895,37 +5895,24 @@ button{
   line-height: 1.25;
 }
 
-/* MAIN TABLE CONTINUOUS TEAKWOOD SURFACE & CHALMED SLOTS */
+/* MAIN TABLE PHYSICAL DESK SURFACE (HERO INVESTIGATION AREA) */
 .table-drop-zone {
   position: relative;
   width: 100%;
-  height: 185px;
-  flex: none;
-  background: radial-gradient(ellipse at 50% 40%, rgba(35, 18, 9, 0.4) 0%, rgba(12, 6, 2, 0.8) 100%);
-  border: 1.5px dashed rgba(184, 134, 11, 0.5);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 10px;
-  transition: background 0.3s ease, border-color 0.3s ease;
-  z-index: 15;
+  flex: 1;
+  min-height: 320px;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  display: block;
+  padding: 8px;
   margin: 4px 0 8px;
-}
-.table-drop-zone.drag-over-active {
-  background: rgba(170, 124, 17, 0.18);
-  border-color: #ffd894;
+  z-index: 15;
+  overflow: visible;
 }
 
 .assembly-chalk-slots {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5;
 }
 .chalk-slot {
   flex: 1;
@@ -6023,30 +6010,78 @@ button{
 /* SUBTLE BRASS PIN THREAD ANCHOR ON PLACED DOCUMENTS */
 .doc-thread-anchor {
   position: absolute;
-  bottom: 8px;
+  top: 8px;
   right: 8px;
-  width: 15px;
-  height: 15px;
+  bottom: auto;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #ffd700 0%, #aa7c11 60%, #4a3203 100%);
   border: 1px solid #3c2416;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.7);
   cursor: crosshair;
-  opacity: 0.7;
+  opacity: 0.75;
   transition: opacity 0.2s ease, transform 0.2s ease;
   z-index: 40;
   pointer-events: auto !important;
 }
 .doc-thread-anchor:hover {
   opacity: 1;
-  transform: scale(1.3);
+  transform: scale(1.35);
 }
 .anchor-pin-head {
   width: 5px;
   height: 5px;
   border-radius: 50%;
   background: #8b0000;
-  margin: 4px auto;
+  margin: 4.5px auto;
+}
+
+/* FIRST-TIME DISCOVERABLE HINT TOOLTIP */
+.anchor-hint-tag {
+  position: absolute;
+  top: -24px;
+  right: -6px;
+  white-space: nowrap;
+  background: #8b0000;
+  color: #fdfaf2;
+  font-size: 0.58rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+  animation: anchorPulse 1.8s infinite ease-in-out;
+  pointer-events: none;
+}
+@keyframes anchorPulse {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.9; }
+  50% { transform: translateY(-3px) scale(1.05); opacity: 1; }
+}
+
+/* TACTILE FIRST LINK TOAST NOTE */
+.link-recorded-toast {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2e170a;
+  border: 1.5px solid #aa7c11;
+  color: #ffd700;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  padding: 6px 16px;
+  border-radius: 3px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+  z-index: 90;
+  animation: toastFade 1.8s ease forwards;
+}
+@keyframes toastFade {
+  0% { opacity: 0; transform: translate(-50%, -10px); }
+  20%, 80% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -10px); }
 }
 
 /* ORGANIC PHYSICAL CRIMSON THREAD PATHS */

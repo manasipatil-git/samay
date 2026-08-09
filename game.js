@@ -1026,6 +1026,18 @@ class Game {
     let placedClues = [];
     let assemblyThreads = [];
     let isEvaluating = false;
+    let hasCreatedFirstThread = false;
+
+    // Toast feedback for first-time thread connection
+    const triggerLinkRecordedToast = () => {
+      if (hasCreatedFirstThread) return;
+      hasCreatedFirstThread = true;
+      const toast = document.createElement("div");
+      toast.className = "link-recorded-toast font-type";
+      toast.textContent = "LINK RECORDED 🖈";
+      dropZone.appendChild(toast);
+      setTimeout(() => toast.remove(), 1850);
+    };
 
     // Historical Deduction Interpretations Map per evidence pair
     const getDeductionData = (fromId, toId) => {
@@ -1328,11 +1340,11 @@ class Game {
           <span class="card-drag-action font-type" style="color: #aa7c11; font-weight: bold;">${pencilNotes[idx % pencilNotes.length]}</span>
         `;
 
-        // Physical Brass Pin Thread Anchor
+        // Physical Brass Pin Thread Anchor (Top Right Corner)
         const anchorEl = document.createElement("div");
         anchorEl.className = "doc-thread-anchor";
         anchorEl.title = "Drag thread to connect evidence";
-        anchorEl.innerHTML = `<div class="anchor-pin-head"></div>`;
+        anchorEl.innerHTML = `<div class="anchor-pin-head"></div>${!hasCreatedFirstThread ? '<span class="anchor-hint-tag font-type">CONNECT EVIDENCE 📌</span>' : ''}`;
 
         let isDrawingThread = false;
         let activeTempPath = null;
@@ -1383,6 +1395,7 @@ class Game {
               );
               if (!exists) {
                 assemblyThreads.push({ fromId: c.id, toId: targetId });
+                triggerLinkRecordedToast();
                 if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
                 redrawAssemblyThreads();
               }
