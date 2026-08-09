@@ -2138,6 +2138,12 @@ class Game {
     if (stageEnvelope) stageEnvelope.style.display = "block";
     if (sealedFolderBtn) sealedFolderBtn.style.display = "block";
 
+    // Tab 3 Envelope reset
+    const amulEnvelopeEl = document.getElementById("amul-discovery-envelope");
+    const legacyRevealEl = document.getElementById("legacy-reveal-container");
+    if (amulEnvelopeEl) amulEnvelopeEl.style.display = "block";
+    if (legacyRevealEl) legacyRevealEl.style.display = "none";
+
     const gazetteStampRec = document.getElementById("gazette-stamp-rec");
     const gazetteStampHistory = document.getElementById("gazette-stamp-history");
 
@@ -2250,7 +2256,7 @@ class Game {
       if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
       if (envelopeEl) envelopeEl.style.display = "none";
       if (legacyEl) {
-        legacyEl.style.display = "block";
+        legacyEl.style.display = "flex";
         legacyEl.style.animation = "slideOutHistoricalDeed 0.6s ease forwards";
       }
 
