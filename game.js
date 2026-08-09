@@ -1310,21 +1310,8 @@ class Game {
               <span class="tag-label font-type">VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}</span>
             `;
           }
-        } else if (t.attempted) {
-          // Player answered hypothesis: Compress into compact physical unresolved archival note
-          const targetClass = "assembly-deduction-slip font-type";
-          if (slip.className !== targetClass || !slip.querySelector(".slip-result-text")) {
-            slip.className = targetClass;
-            slip.innerHTML = `
-              <div class="slip-header-strip unresolved-header font-type">
-                <span class="slip-pin-head font-type">📌</span>
-                <span class="slip-title font-type">HYPOTHESIS // UNRESOLVED</span>
-              </div>
-              <p class="slip-result-text font-type">"No corroborating record found for this connection."</p>
-            `;
-          }
-        } else {
-          // Interactive Hypothesis Note with Typewritten Paper Choice Strips
+        } else if (t.isActive && !t.attempted) {
+          // ONE ACTIVE INTERACTIVE HYPOTHESIS NOTE ON THE DESK
           const targetClass = "assembly-deduction-slip font-type";
           if (slip.className !== targetClass || !slip.querySelector(".slip-choices-box")) {
             slip.className = targetClass;
@@ -1346,6 +1333,7 @@ class Game {
 
               strip.onclick = (e) => {
                 e.stopPropagation();
+                t.isActive = false;
                 t.attempted = true;
                 if (deductionData.isCanonical && choice.isCorrect) {
                   t.verified = true;
@@ -1377,6 +1365,23 @@ class Game {
 
               choicesBox.appendChild(strip);
             });
+          }
+        } else {
+          // Collapsed Physical Unconfirmed/Unresolved Annotation Tag
+          const targetClass = "assembly-verified-tag is-unconfirmed font-type";
+          if (slip.className !== targetClass) {
+            slip.className = targetClass;
+            slip.innerHTML = `
+              <span class="tag-pin font-type">📌</span>
+              <span class="tag-label font-type">${t.attempted ? 'HYPOTHESIS // UNRESOLVED' : 'HYPOTHESIS // UNCONFIRMED'}</span>
+            `;
+
+            slip.onclick = (e) => {
+              e.stopPropagation();
+              assemblyThreads.forEach(tr => tr.isActive = false);
+              t.isActive = true;
+              redrawAssemblyThreads();
+            };
           }
         }
 
@@ -1513,11 +1518,6 @@ class Game {
       const tilts = [-2.5, 1.8, -1.2, 3.2, -2.0];
       const posXList = [25, 195, 365, 535, 705];
       const posYList = [10, 45, 12, 50, 18];
-      const pencilNotes = [
-        "✏️ Verified Contractor Discrepancy",
-        "✏️ Verified Spoilage Quota Bottleneck",
-        "✏️ Verified Transport Monopoly Proof"
-      ];
 
       placedClues.forEach((c, idx) => {
         // Initialize default organic coordinates on table if not set
@@ -1538,44 +1538,38 @@ class Game {
         card.dataset.id = c.id;
 
         card.innerHTML = `
+          <span class="doc-pin font-type">📌</span>
+          <span class="doc-thread-anchor font-type" title="Drag string to another evidence card to cross-reference">📍</span>
           <span class="card-drag-tag font-type">${c.tag}</span>
           <h4 class="card-drag-title font-type">${c.title}</h4>
           <p class="card-drag-snippet font-type">${c.desc}</p>
-          <span class="card-drag-action font-type" style="color: #aa7c11; font-weight: bold;">${pencilNotes[idx % pencilNotes.length]}</span>
+          <span class="card-drag-action font-type">Click to Inspect 🔍</span>
         `;
 
-        // Physical Brass Pin Thread Anchor (Top Right Corner)
-        const anchorEl = document.createElement("div");
-        anchorEl.className = "doc-thread-anchor";
-        anchorEl.title = "Drag thread to connect evidence";
-        anchorEl.innerHTML = `<div class="anchor-pin-head"></div>${!hasCreatedFirstThread ? '<span class="anchor-hint-tag font-type">CONNECT EVIDENCE 📌</span>' : ''}`;
+        // Interactive Red-Thread String Dragging Handler from Document Anchor
+        const anchorEl = card.querySelector(".doc-thread-anchor");
+        anchorEl.onpointerdown = (ev) => {
+          ev.stopPropagation();
+          try { anchorEl.setPointerCapture(ev.pointerId); } catch (_) {}
 
-        let isDrawingThread = false;
-        let activeTempPath = null;
-
-        anchorEl.onpointerdown = (e) => {
-          e.stopPropagation();
-          isDrawingThread = true;
-          try { anchorEl.setPointerCapture(e.pointerId); } catch (_) {}
-
-          const threadSvgCanvas = document.getElementById("assembly-thread-canvas");
+          let isDrawingThread = true;
           const tableSurfaceBox = document.getElementById("panchayat-table-surface") || dropZone;
           const surfaceRect = tableSurfaceBox.getBoundingClientRect();
-          const rectA = anchorEl.getBoundingClientRect();
-          const startX = (rectA.left + rectA.width / 2) - surfaceRect.left;
-          const startY = (rectA.top + rectA.height / 2) - surfaceRect.top;
+          const anchorRect = anchorEl.getBoundingClientRect();
 
-          activeTempPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-          activeTempPath.setAttribute("class", "assembly-crimson-thread");
-          activeTempPath.setAttribute("d", `M ${startX} ${startY} L ${startX} ${startY}`);
-          if (threadSvgCanvas) threadSvgCanvas.appendChild(activeTempPath);
+          const startX = (anchorRect.left + anchorRect.width / 2) - surfaceRect.left;
+          const startY = (anchorRect.top + anchorRect.height / 2) - surfaceRect.top;
 
-          anchorEl.onpointermove = (ev) => {
-            if (!isDrawingThread || !activeTempPath) return;
-            const curX = ev.clientX - surfaceRect.left;
-            const curY = ev.clientY - surfaceRect.top;
+          let activeTempPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          activeTempPath.setAttribute("class", "assembly-crimson-thread is-drawing");
+          document.getElementById("assembly-thread-canvas").appendChild(activeTempPath);
+
+          anchorEl.onpointermove = (moveEv) => {
+            if (!isDrawingThread) return;
+            const curX = moveEv.clientX - surfaceRect.left;
+            const curY = moveEv.clientY - surfaceRect.top;
             const dist = Math.hypot(curX - startX, curY - startY);
-            const sag = Math.min(25, dist * 0.1);
+            const sag = Math.min(30, Math.max(10, dist * 0.12));
             const midX = (startX + curX) / 2;
             const midY = (startY + curY) / 2 + sag;
             activeTempPath.setAttribute("d", `M ${startX} ${startY} Q ${midX} ${midY} ${curX} ${curY}`);
@@ -1587,8 +1581,6 @@ class Game {
             try { anchorEl.releasePointerCapture(ev.pointerId); } catch (_) {}
             if (activeTempPath) { activeTempPath.remove(); activeTempPath = null; }
             anchorEl.onpointermove = null;
-            anchorEl.onpointerup = null;
-            anchorEl.onpointercancel = null;
 
             const targetEl = document.elementFromPoint(ev.clientX, ev.clientY);
             const targetCard = targetEl ? targetEl.closest(".placed-on-table") : null;
@@ -1598,7 +1590,8 @@ class Game {
                 (t.fromId === c.id && t.toId === targetId) || (t.fromId === targetId && t.toId === c.id)
               );
               if (!exists) {
-                assemblyThreads.push({ fromId: c.id, toId: targetId });
+                assemblyThreads.forEach(tr => tr.isActive = false);
+                assemblyThreads.push({ fromId: c.id, toId: targetId, isActive: true });
                 triggerLinkRecordedToast();
                 if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
                 redrawAssemblyThreads();

@@ -6125,7 +6125,7 @@ button{
   filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.75));
 }
 
-/* COMPACT ARCHIVAL VERIFIED ANNOTATION TAG ON DESK */
+/* COMPACT ARCHIVAL VERIFIED & UNCONFIRMED ANNOTATION TAGS ON DESK */
 .assembly-verified-tag {
   position: absolute !important;
   display: inline-flex !important;
@@ -6139,7 +6139,7 @@ button{
   z-index: 85 !important;
   pointer-events: auto !important;
   transform: rotate(-1deg) !important;
-  cursor: grab !important;
+  cursor: pointer !important;
   user-select: none !important;
   white-space: nowrap !important;
 }
@@ -6152,6 +6152,13 @@ button{
   font-weight: 800 !important;
   letter-spacing: 0.12em !important;
   color: #8b0000 !important;
+}
+.assembly-verified-tag.is-unconfirmed {
+  background: linear-gradient(135deg, #faf2e1 0%, #eddcb9 100%) !important;
+  border: 1px dashed #8b5a2b !important;
+}
+.assembly-verified-tag.is-unconfirmed .tag-label {
+  color: #6b4c27 !important;
 }
 
 /* PHYSICAL COMPACT INVESTIGATOR ANNOTATION SLIP */
