@@ -985,6 +985,17 @@ class Game {
 
     if (!folderGrid || !dropZone) return;
 
+    const masterCluesList = [
+      { id: "receipt", tag: "MILK RECEIPT #1402", title: "Contractor Receipt", desc: "Rs 1/6/0 for 8 seers (14 sent)" },
+      { id: "ledger", tag: "POLSON PRICING LEDGER", title: "Price Breakdown", desc: "Bombay 12 Annas vs Farmer 3 Annas" },
+      { id: "rejectedLog", tag: "MILK RECEIVING LOG", title: "Daily Rejection Log", desc: "Quotas fill at 08:15 AM, 100% loss" },
+      { id: "manifest", tag: "B.B.&C.I. FREIGHT MANIFEST", title: "Railway Dispatch", desc: "Wagons sent only 45% loaded" },
+      { id: "petition", tag: "FARMER UNION PETITION", title: "Village Council Petition", desc: "Sardar Patel strike advice" }
+    ];
+
+    const availableClues = masterCluesList.filter(c => this.state.clues.length === 0 || this.state.clues.includes(c.id));
+    const allClues = availableClues.length > 0 ? availableClues : masterCluesList;
+
     console.log("MEETING: new _showEvidenceDock()");
     console.log("MEETING: evidence folder:", folderGrid);
     console.log("MEETING: available clues:", allClues.length);
@@ -1011,17 +1022,6 @@ class Game {
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
       };
     }
-
-    const masterCluesList = [
-      { id: "receipt", tag: "MILK RECEIPT #1402", title: "Contractor Receipt", desc: "Rs 1/6/0 for 8 seers (14 sent)" },
-      { id: "ledger", tag: "POLSON PRICING LEDGER", title: "Price Breakdown", desc: "Bombay 12 Annas vs Farmer 3 Annas" },
-      { id: "rejectedLog", tag: "MILK RECEIVING LOG", title: "Daily Rejection Log", desc: "Quotas fill at 08:15 AM, 100% loss" },
-      { id: "manifest", tag: "B.B.&C.I. FREIGHT MANIFEST", title: "Railway Dispatch", desc: "Wagons sent only 45% loaded" },
-      { id: "petition", tag: "FARMER UNION PETITION", title: "Village Council Petition", desc: "Sardar Patel strike advice" }
-    ];
-
-    const availableClues = masterCluesList.filter(c => this.state.clues.length === 0 || this.state.clues.includes(c.id));
-    const allClues = availableClues.length > 0 ? availableClues : masterCluesList;
 
     let placedClues = [];
     let isEvaluating = false;
