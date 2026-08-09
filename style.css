@@ -6155,12 +6155,12 @@ button{
   z-index: 35 !important;
 }
 
-/* ORGANIC PHYSICAL CRIMSON THREAD PATHS */
+/* 3 PERSISTENT THREAD VISUAL STATES & MIDPOINT TAGS */
 .assembly-crimson-thread {
   stroke: #b84a3e;
   stroke-width: 2.0;
-  stroke-dasharray: 6 3;
-  opacity: 0.82;
+  stroke-dasharray: none;
+  opacity: 0.85;
   stroke-linecap: round;
   fill: none;
   filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.5));
@@ -6173,6 +6173,19 @@ button{
   stroke-width: 3.0;
   opacity: 1;
 }
+.assembly-crimson-thread.is-under-investigation {
+  stroke: #b84a3e;
+  stroke-width: 2.0;
+  stroke-dasharray: none;
+  opacity: 0.85;
+}
+.assembly-crimson-thread.is-unresolved {
+  stroke: #a0522d;
+  stroke-width: 1.8;
+  stroke-dasharray: 5 4;
+  opacity: 0.70;
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.4));
+}
 .assembly-crimson-thread.is-verified {
   stroke: #8b0000;
   stroke-width: 3.5;
@@ -6181,40 +6194,64 @@ button{
   filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.75));
 }
 
-/* COMPACT ARCHIVAL VERIFIED & UNCONFIRMED ANNOTATION TAGS ON DESK */
-.assembly-verified-tag {
+/* PHYSICAL THREAD-ATTACHED STATE TAGS (PINNED TO BEZIER MIDPOINT) */
+.assembly-thread-tag {
   position: absolute !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 5px !important;
+  gap: 4px !important;
   background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
-  border: 1px solid #8b5a2b !important;
+  border: 1px solid #7c5c36 !important;
   border-radius: 3px !important;
-  padding: 4px 8px !important;
+  padding: 3px 7px !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7) !important;
-  z-index: 85 !important;
+  z-index: 70 !important;
   pointer-events: auto !important;
-  transform: rotate(-1deg) !important;
+  transform: translate(-50%, -50%) rotate(-1deg) !important;
   cursor: pointer !important;
   user-select: none !important;
   white-space: nowrap !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
 }
-.assembly-verified-tag .tag-pin {
-  font-size: 0.72rem !important;
+.assembly-thread-tag:hover {
+  transform: translate(-50%, -50%) scale(1.08) rotate(-1deg) !important;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.85) !important;
 }
-.assembly-verified-tag .tag-label {
+.assembly-thread-tag .tag-pin {
+  font-size: 0.68rem !important;
+}
+.assembly-thread-tag .tag-label {
   font-family: 'Outfit', sans-serif !important;
-  font-size: 0.62rem !important;
+  font-size: 0.60rem !important;
   font-weight: 800 !important;
-  letter-spacing: 0.12em !important;
-  color: #8b0000 !important;
+  letter-spacing: 0.1em !important;
 }
-.assembly-verified-tag.is-unconfirmed {
+
+/* State 1: Under Investigation */
+.assembly-thread-tag.is-under-investigation {
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
+  border: 1px solid #7c5c36 !important;
+}
+.assembly-thread-tag.is-under-investigation .tag-label {
+  color: #7c5c36 !important;
+}
+
+/* State 2: Unresolved */
+.assembly-thread-tag.is-unresolved {
   background: linear-gradient(135deg, #faf2e1 0%, #eddcb9 100%) !important;
   border: 1px dashed #8b5a2b !important;
 }
-.assembly-verified-tag.is-unconfirmed .tag-label {
-  color: #6b4c27 !important;
+.assembly-thread-tag.is-unresolved .tag-label {
+  color: #8b5a2b !important;
+}
+
+/* State 3: Verified */
+.assembly-thread-tag.is-verified {
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
+  border: 1px solid #8b0000 !important;
+}
+.assembly-thread-tag.is-verified .tag-label {
+  color: #8b0000 !important;
 }
 
 /* PHYSICAL COMPACT INVESTIGATOR ANNOTATION SLIP */

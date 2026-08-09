@@ -1113,9 +1113,9 @@ class Game {
       const tableSurfaceBox = document.getElementById("panchayat-table-surface") || dropZone;
       const surfaceRect = tableSurfaceBox.getBoundingClientRect();
 
-      // Remove orphaned annotation slips for deleted threads
+      // Remove orphaned annotation tags/slips for deleted threads
       const currentThreadIds = new Set(assemblyThreads.map(tr => tr.threadId || `thread_${[tr.fromId, tr.toId].sort().join('_')}`));
-      dropZone.querySelectorAll(".assembly-deduction-slip, .assembly-verified-tag").forEach(el => {
+      dropZone.querySelectorAll(".assembly-deduction-slip, .assembly-thread-tag, .assembly-verified-tag").forEach(el => {
         if (!currentThreadIds.has(el.dataset.threadId)) {
           el.remove();
         }
@@ -1151,6 +1151,17 @@ class Game {
         const sag = Math.min(30, Math.max(10, dist * 0.12));
         const cx = (x1 + x2) / 2;
         const cy = (y1 + y2) / 2 + sag;
+
+        const midX = (x1 + x2) / 2;
+        const midY = (y1 + y2) / 2 + sag * 0.4;
+
+        // Determine exact thread state
+        let threadClass = "assembly-crimson-thread is-under-investigation";
+        if (t.verified) {
+          threadClass = "assembly-crimson-thread is-verified";
+        } else if (t.attempted) {
+          threadClass = "assembly-crimson-thread is-unresolved";
+        }
 
         // Idempotent Organic Crimson SVG Thread Element
         let path = threadSvgCanvas.querySelector(`path[data-thread-id="${t.threadId}"]`);
@@ -1188,133 +1199,124 @@ class Game {
         }
 
         path.setAttribute("d", `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`);
-        path.setAttribute("class", `assembly-crimson-thread ${t.verified ? "is-verified" : ""}`);
+        path.setAttribute("class", threadClass);
 
-        // Idempotent Investigator Annotation Slip / Verified Tag Element
         const deductionData = getDeductionData(t.fromId, t.toId);
-        let slip = dropZone.querySelector(`[data-thread-id="${t.threadId}"]`);
-        const isNewSlip = !slip;
 
-        if (isNewSlip) {
-          slip = document.createElement("div");
-          slip.dataset.threadId = t.threadId;
+        // Render ONE ACTIVE INTERACTIVE HYPOTHESIS NOTE if t.isActive === true
+        if (t.isActive && !t.verified) {
+          // Remove any existing midpoint tag for this active thread
+          const oldTag = dropZone.querySelector(`.assembly-thread-tag[data-thread-id="${t.threadId}"]`);
+          if (oldTag) oldTag.remove();
 
-          // Physical Free Dragging Handler for Slip
-          let isSlipDragging = false;
-          let startX = 0;
-          let startY = 0;
-          let initialL = 0;
-          let initialT = 0;
+          let slip = dropZone.querySelector(`.assembly-deduction-slip[data-thread-id="${t.threadId}"]`);
+          const isNewSlip = !slip;
 
-          slip.onpointerdown = (e) => {
-            if (e.target.closest(".slip-choice-btn")) return;
-            e.stopPropagation();
-            isSlipDragging = true;
-            startX = e.clientX;
-            startY = e.clientY;
-            initialL = slip.offsetLeft;
-            initialT = slip.offsetTop;
-            slip.classList.add("is-physically-lifted");
-            try { slip.setPointerCapture(e.pointerId); } catch (_) {}
-          };
+          if (isNewSlip) {
+            slip = document.createElement("div");
+            slip.dataset.threadId = t.threadId;
 
-          slip.onpointermove = (e) => {
-            if (!isSlipDragging) return;
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
+            // Physical Free Dragging Handler for Active Slip
+            let isSlipDragging = false;
+            let startX = 0;
+            let startY = 0;
+            let initialL = 0;
+            let initialT = 0;
 
-            let newL = initialL + dx;
-            let newT = initialT + dy;
+            slip.onpointerdown = (e) => {
+              if (e.target.closest(".slip-choice-strip")) return;
+              e.stopPropagation();
+              isSlipDragging = true;
+              startX = e.clientX;
+              startY = e.clientY;
+              initialL = slip.offsetLeft;
+              initialT = slip.offsetTop;
+              slip.classList.add("is-physically-lifted");
+              try { slip.setPointerCapture(e.pointerId); } catch (_) {}
+            };
 
-            const maxL = (dropZone.clientWidth || 900) - slip.offsetWidth;
-            const maxT = (dropZone.clientHeight || 340) - slip.offsetHeight;
+            slip.onpointermove = (e) => {
+              if (!isSlipDragging) return;
+              const dx = e.clientX - startX;
+              const dy = e.clientY - startY;
 
-            newL = Math.max(5, Math.min(newL, maxL));
-            newT = Math.max(5, Math.min(newT, maxT));
+              let newL = initialL + dx;
+              let newT = initialT + dy;
 
-            slip.style.left = `${newL}px`;
-            slip.style.top = `${newT}px`;
+              const maxL = (dropZone.clientWidth || 900) - slip.offsetWidth;
+              const maxT = (dropZone.clientHeight || 340) - slip.offsetHeight;
 
-            t.customLeft = newL;
-            t.customTop = newT;
-          };
+              newL = Math.max(5, Math.min(newL, maxL));
+              newT = Math.max(5, Math.min(newT, maxT));
 
-          const handleSlipDragEnd = (e) => {
-            if (!isSlipDragging) return;
-            isSlipDragging = false;
-            slip.classList.remove("is-physically-lifted");
-            try { slip.releasePointerCapture(e.pointerId); } catch (_) {}
-            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-          };
+              slip.style.left = `${newL}px`;
+              slip.style.top = `${newT}px`;
 
-          slip.onpointerup = handleSlipDragEnd;
-          slip.onpointercancel = handleSlipDragEnd;
-        }
+              t.customLeft = newL;
+              t.customTop = newT;
+            };
 
-        const dropW = dropZone.clientWidth || 900;
-        const dropH = dropZone.clientHeight || 340;
-        const estimatedSlipWidth = 290;
-        const estimatedSlipHeight = 190;
+            const handleSlipDragEnd = (e) => {
+              if (!isSlipDragging) return;
+              isSlipDragging = false;
+              slip.classList.remove("is-physically-lifted");
+              try { slip.releasePointerCapture(e.pointerId); } catch (_) {}
+              if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+            };
 
-        // Gather all placed document bounding boxes relative to dropZone
-        const cardBoxes = Array.from(dropZone.querySelectorAll(".placed-on-table")).map(el => ({
-          left: el.offsetLeft - 8,
-          right: el.offsetLeft + el.offsetWidth + 8,
-          top: el.offsetTop - 8,
-          bottom: el.offsetTop + el.offsetHeight + 8
-        }));
-
-        const baseL = cx - 145;
-        const baseT = cy > (dropH * 0.5) ? (cy - estimatedSlipHeight - 15) : (cy + 25);
-
-        const offsets = [
-          { dx: 0, dy: 0 },
-          { dx: 0, dy: (cy > dropH * 0.5 ? 210 : -210) },
-          { dx: 160, dy: 0 },
-          { dx: -160, dy: 0 },
-          { dx: 160, dy: -100 },
-          { dx: -160, dy: -100 }
-        ];
-
-        let chosenL = baseL;
-        let chosenT = baseT;
-
-        for (const off of offsets) {
-          const testL = baseL + off.dx;
-          const testT = baseT + off.dy;
-          const testR = testL + estimatedSlipWidth;
-          const testB = testT + estimatedSlipHeight;
-
-          const hasCollision = cardBoxes.some(box => 
-            !(testR < box.left || testL > box.right || testB < box.top || testT > box.bottom)
-          );
-
-          if (!hasCollision) {
-            chosenL = testL;
-            chosenT = testT;
-            break;
+            slip.onpointerup = handleSlipDragEnd;
+            slip.onpointercancel = handleSlipDragEnd;
           }
-        }
 
-        if (t.customLeft !== undefined && t.customTop !== undefined) {
-          chosenL = t.customLeft;
-          chosenT = t.customTop;
-        }
+          const dropH = dropZone.clientHeight || 340;
+          const estimatedSlipWidth = 220;
+          const estimatedSlipHeight = 150;
 
-        slip.style.left = `${chosenL}px`;
-        slip.style.top = `${chosenT}px`;
+          const cardBoxes = Array.from(dropZone.querySelectorAll(".placed-on-table")).map(el => ({
+            left: el.offsetLeft - 8,
+            right: el.offsetLeft + el.offsetWidth + 8,
+            top: el.offsetTop - 8,
+            bottom: el.offsetTop + el.offsetHeight + 8
+          }));
 
-        if (t.verified) {
-          const targetClass = "assembly-verified-tag font-type";
-          if (slip.className !== targetClass) {
-            slip.className = targetClass;
-            slip.innerHTML = `
-              <span class="tag-pin font-type">📌</span>
-              <span class="tag-label font-type">VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}</span>
-            `;
+          const baseL = cx - 110;
+          const baseT = cy > (dropH * 0.5) ? (cy - estimatedSlipHeight - 15) : (cy + 25);
+
+          const offsets = [
+            { dx: 0, dy: 0 },
+            { dx: 0, dy: (cy > dropH * 0.5 ? 180 : -180) },
+            { dx: 150, dy: 0 },
+            { dx: -150, dy: 0 }
+          ];
+
+          let chosenL = baseL;
+          let chosenT = baseT;
+
+          for (const off of offsets) {
+            const testL = baseL + off.dx;
+            const testT = baseT + off.dy;
+            const testR = testL + estimatedSlipWidth;
+            const testB = testT + estimatedSlipHeight;
+
+            const hasCollision = cardBoxes.some(box => 
+              !(testR < box.left || testL > box.right || testB < box.top || testT > box.bottom)
+            );
+
+            if (!hasCollision) {
+              chosenL = testL;
+              chosenT = testT;
+              break;
+            }
           }
-        } else if (t.isActive && !t.attempted) {
-          // ONE ACTIVE INTERACTIVE HYPOTHESIS NOTE ON THE DESK
+
+          if (t.customLeft !== undefined && t.customTop !== undefined) {
+            chosenL = t.customLeft;
+            chosenT = t.customTop;
+          }
+
+          slip.style.left = `${chosenL}px`;
+          slip.style.top = `${chosenT}px`;
+
           const targetClass = "assembly-deduction-slip font-type";
           if (slip.className !== targetClass || !slip.querySelector(".slip-choices-box")) {
             slip.className = targetClass;
@@ -1369,27 +1371,55 @@ class Game {
               choicesBox.appendChild(strip);
             });
           }
-        } else {
-          // Collapsed Physical Unconfirmed/Unresolved Annotation Tag
-          const targetClass = "assembly-verified-tag is-unconfirmed font-type";
-          if (slip.className !== targetClass) {
-            slip.className = targetClass;
-            slip.innerHTML = `
-              <span class="tag-pin font-type">📌</span>
-              <span class="tag-label font-type">${t.attempted ? 'HYPOTHESIS // UNRESOLVED' : 'HYPOTHESIS // UNCONFIRMED'}</span>
-            `;
 
-            slip.onclick = (e) => {
+          if (isNewSlip) dropZone.appendChild(slip);
+
+        } else {
+          // Remove active slip if present for inactive thread
+          const activeSlip = dropZone.querySelector(`.assembly-deduction-slip[data-thread-id="${t.threadId}"]`);
+          if (activeSlip) activeSlip.remove();
+
+          // Render Midpoint Pinned State Tag (.assembly-thread-tag)
+          let tag = dropZone.querySelector(`.assembly-thread-tag[data-thread-id="${t.threadId}"]`);
+          const isNewTag = !tag;
+
+          if (isNewTag) {
+            tag = document.createElement("div");
+            tag.dataset.threadId = t.threadId;
+
+            tag.onclick = (e) => {
               e.stopPropagation();
+              const wasActive = t.isActive;
               assemblyThreads.forEach(tr => tr.isActive = false);
-              t.isActive = true;
+              t.isActive = !wasActive;
+              if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
               redrawAssemblyThreads();
             };
           }
-        }
 
-        if (isNewSlip) {
-          dropZone.appendChild(slip);
+          tag.style.left = `${midX}px`;
+          tag.style.top = `${midY}px`;
+
+          let tagStateClass = "assembly-thread-tag is-under-investigation font-type";
+          let tagText = "✦ UNDER INVESTIGATION";
+
+          if (t.verified) {
+            tagStateClass = "assembly-thread-tag is-verified font-type";
+            tagText = `✓ VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}`;
+          } else if (t.attempted) {
+            tagStateClass = "assembly-thread-tag is-unresolved font-type";
+            tagText = "✦ UNRESOLVED";
+          }
+
+          if (tag.className !== tagStateClass) {
+            tag.className = tagStateClass;
+            tag.innerHTML = `
+              <span class="tag-pin font-type">📌</span>
+              <span class="tag-label font-type">${tagText}</span>
+            `;
+          }
+
+          if (isNewTag) dropZone.appendChild(tag);
         }
       });
     };
