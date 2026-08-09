@@ -1027,7 +1027,79 @@ class Game {
     let assemblyThreads = [];
     let isEvaluating = false;
 
-    // Redraw all player-created evidence threads connecting placed documents
+    // Historical Deduction Interpretations Map per evidence pair
+    const getDeductionData = (fromId, toId) => {
+      const pairKey = [fromId, toId].sort().join("_");
+      const map = {
+        "ledger_receipt": {
+          prompt: "What does connecting the Milk Receipt and Price Ledger prove?",
+          choices: [
+            { text: "Farmers received Rs 1/6/0 per seer while Polson sold for 12 Annas in Bombay.", isCorrect: true },
+            { text: "Bombay milk demand was declining in 1946.", isCorrect: false },
+            { text: "Farmers voluntarily accepted contractor handling levies.", isCorrect: false }
+          ],
+          quote: "The price ledger confirms local farmers received only 25% of retail value while contractor margins captured 75%.",
+          elder: '"That proves what our local farming families were losing to contractor price margins."'
+        },
+        "ledger_rejectedLog": {
+          prompt: "What does connecting the Daily Rejection Log with the Price Ledger reveal?",
+          choices: [
+            { text: "Contractors filled pasteurizer quotas by 08:15 AM, passing 100% of spoilage losses onto farmers.", isCorrect: true },
+            { text: "Farmers delayed morning milk delivery to the collection depot.", isCorrect: false },
+            { text: "Milk spoilage only occurred during severe winter months.", isCorrect: false }
+          ],
+          quote: "Rejection logs prove arbitrary morning cutoff times forced individual farmers to bear all spoilage risks.",
+          elder: '"And when milk was arbitrarily rejected at 08:15 AM, individual families had no power to challenge it."'
+        },
+        "receipt_rejectedLog": {
+          prompt: "What does connecting the Milk Receipt with the Rejection Log demonstrate?",
+          choices: [
+            { text: "Arbitrary daily rejection quotas combined with 6 Pice handling levies ruined local farm income.", isCorrect: true },
+            { text: "Contractors reimbursed farmers for rejected morning milk.", isCorrect: false },
+            { text: "Handling levies were collected directly by the Bombay Municipality.", isCorrect: false }
+          ],
+          quote: "Rejection quotas and handling fees created unavoidable financial losses for small dairy producers.",
+          elder: '"And when milk was arbitrarily rejected at 08:15 AM, individual families had no power to challenge it."'
+        },
+        "manifest_petition": {
+          prompt: "What does connecting the Freight Manifest with the Union Petition demonstrate?",
+          choices: [
+            { text: "Railway bottlenecks were manufactured to prevent farmers from bypassing middlemen, advising a cooperative strike.", isCorrect: true },
+            { text: "B.B.&C.I. Railways had zero freight wagons available for agricultural transit.", isCorrect: false },
+            { text: "Farmers petitioned to increase railway freight tariffs.", isCorrect: false }
+          ],
+          quote: "Freight manifest #428 proves wagon space existed, confirming monopolistic transport control.",
+          elder: '"Now you have shown the assembly why we must bypass the contractor and form our own cooperative under Sardar Patel\'s guidance!"'
+        },
+        "ledger_manifest": {
+          prompt: "What does connecting the Price Ledger with the Freight Manifest prove?",
+          choices: [
+            { text: "Contractor monopolies relied on exclusive railway transit rights to enforce low village buy-prices.", isCorrect: true },
+            { text: "Railway transport costs exceeded the value of urban milk distribution.", isCorrect: false },
+            { text: "Contractors shipped milk only to local village markets.", isCorrect: false }
+          ],
+          quote: "Wagon dispatches dispatched half-full prove transport bottlenecks were artificially created to lock prices.",
+          elder: '"Now you have shown the assembly why we must bypass the contractor and form our own cooperative under Sardar Patel\'s guidance!"'
+        }
+      };
+
+      if (map[pairKey]) return map[pairKey];
+
+      // Fallback for any other custom evidence pair
+      const nameA = masterCluesList.find(c => c.id === fromId)?.title || fromId;
+      const nameB = masterCluesList.find(c => c.id === toId)?.title || toId;
+      return {
+        prompt: `How does ${nameA} connect with ${nameB}?`,
+        choices: [
+          { text: `Together, these records establish the economic pattern of the contractor monopoly.`, isCorrect: true },
+          { text: `These records are completely unrelated historical artifacts.`, isCorrect: false }
+        ],
+        quote: `Cross-referencing ${nameA} and ${nameB} confirms the systemic exploitation of local milk producers.`,
+        elder: '"These records tell the same story—the contractor monopoly relies on isolated farmers."'
+      };
+    };
+
+    // Redraw all player-created evidence threads and deduction slips
     const redrawAssemblyThreads = () => {
       const threadSvgCanvas = document.getElementById("assembly-thread-canvas");
       if (!threadSvgCanvas) return;
@@ -1035,6 +1107,9 @@ class Game {
 
       const tableSurfaceBox = document.getElementById("panchayat-table-surface") || dropZone;
       const surfaceRect = tableSurfaceBox.getBoundingClientRect();
+
+      // Clear existing deduction slips from DOM before re-rendering
+      dropZone.querySelectorAll(".assembly-deduction-slip").forEach(el => el.remove());
 
       assemblyThreads.forEach(t => {
         const cardA = dropZone.querySelector(`.placed-on-table[data-id="${t.fromId}"]`);
@@ -1061,7 +1136,7 @@ class Game {
         // Create organic curved crimson thread element
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`);
-        path.setAttribute("class", "assembly-crimson-thread");
+        path.setAttribute("class", `assembly-crimson-thread ${t.verified ? "is-verified" : ""}`);
         path.setAttribute("title", "Click to remove evidence connection thread");
 
         const removeThreadAction = (e) => {
@@ -1075,6 +1150,80 @@ class Game {
         path.ondblclick = removeThreadAction;
 
         threadSvgCanvas.appendChild(path);
+
+        // Render Investigator's Pencil Annotation Slip beside connection thread
+        const deductionData = getDeductionData(t.fromId, t.toId);
+        const slip = document.createElement("div");
+        slip.className = "assembly-deduction-slip font-type";
+        slip.style.left = `${Math.max(10, Math.min(cx - 120, surfaceRect.width - 270))}px`;
+        slip.style.top = `${Math.max(10, Math.min(cy - 20, surfaceRect.height - 180))}px`;
+
+        if (t.verified) {
+          // Already Verified Against Record
+          slip.innerHTML = `
+            <div class="slip-header-strip font-type">
+              <span class="slip-pin-head font-type">📌</span>
+              <span class="slip-title font-type">VERIFIED AGAINST RECORD 🖈</span>
+            </div>
+            <p class="slip-verification-quote font-type">"${t.verifiedQuote || deductionData.quote}"</p>
+          `;
+        } else {
+          // Unverified Hypothesis: Present 2-4 possible interpretations
+          slip.innerHTML = `
+            <div class="slip-header-strip font-type">
+              <span class="slip-pin-head font-type">📌</span>
+              <span class="slip-title font-type">YOUR NOTE // HYPOTHESIS</span>
+            </div>
+            <div class="slip-prompt-question font-type">${deductionData.prompt}</div>
+            <div class="slip-choices-box"></div>
+            <div class="slip-feedback font-type" style="margin-top: 4px; font-size: 0.68rem; font-weight: bold;"></div>
+          `;
+
+          const choicesBox = slip.querySelector(".slip-choices-box");
+          const feedbackBox = slip.querySelector(".slip-feedback");
+
+          deductionData.choices.forEach(choice => {
+            const btn = document.createElement("button");
+            btn.className = "slip-choice-btn font-type";
+            btn.textContent = choice.text;
+
+            btn.onclick = (e) => {
+              e.stopPropagation();
+              if (choice.isCorrect) {
+                t.verified = true;
+                t.verifiedQuote = deductionData.quote;
+                if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("pluck");
+
+                // Update Elder reaction subtitle based on verified count
+                const verifiedCount = assemblyThreads.filter(tr => tr.verified).length;
+                const elderFeedbackText = document.getElementById("elder-feedback-text");
+                if (elderFeedbackText) {
+                  if (verifiedCount === 1) elderFeedbackText.textContent = '"That proves what our local farming families were losing to contractor price margins."';
+                  else if (verifiedCount === 2) elderFeedbackText.textContent = '"And when milk was arbitrarily rejected at 08:15 AM, individual families had no power to challenge it."';
+                  else elderFeedbackText.textContent = deductionData.elder;
+                }
+
+                // Unlock recommendations when 3 connections are verified
+                if (verifiedCount >= 3 && decisionOptions) {
+                  decisionOptions.style.display = "flex";
+                  decisionOptions.style.animation = "introFade 1.2s ease forwards";
+                }
+
+                redrawAssemblyThreads();
+              } else {
+                if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
+                if (feedbackBox) {
+                  feedbackBox.style.color = "#8b0000";
+                  feedbackBox.textContent = "NOT SUPPORTED BY THIS RECORD — Look again at the figures on the document.";
+                }
+              }
+            };
+
+            choicesBox.appendChild(btn);
+          });
+        }
+
+        dropZone.appendChild(slip);
       });
     };
 
