@@ -7753,14 +7753,58 @@ button{
 }
 
 /* DIEGETIC MAHOGANY & BRASS RUBBER STAMP ACTION TOOL */
+.legacy-reveal-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.physical-open-casebook {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.casebook-pages-container {
+  min-height: 440px !important;
+}
+
+.casebook-page-sheet {
+  flex: 1;
+  padding: 16px 20px !important;
+  position: relative;
+}
+
+.archive-photo-img {
+  max-height: 105px !important;
+  width: 100% !important;
+  object-fit: cover !important;
+}
+
+.pasted-registration-deed {
+  padding: 10px 14px !important;
+  margin: 8px 0 !important;
+}
+
+.typewriter-ribbon-strip {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.72rem !important;
+  padding: 4px 10px !important;
+  margin: 6px 0 !important;
+}
+
 .stamp-action-block {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   gap: 12px !important;
-  margin: 20px auto 10px !important;
+  margin: 10px auto 0 !important;
   position: relative !important;
-  z-index: 25 !important;
+  z-index: 50 !important;
 }
 
 .diegetic-stamp-pad {
@@ -7780,10 +7824,10 @@ button{
   background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%) !important;
   color: #fffdf8 !important;
   border: 2.5px solid #aa7c11 !important;
-  padding: 12px 24px !important;
+  padding: 10px 22px !important;
   border-radius: 6px !important;
   font-family: 'Special Elite', Courier, monospace !important;
-  font-size: 0.88rem !important;
+  font-size: 0.84rem !important;
   font-weight: bold !important;
   letter-spacing: 0.08em !important;
   cursor: pointer !important;
@@ -7791,7 +7835,7 @@ button{
   align-items: center !important;
   gap: 10px !important;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85), inset 0 0 10px rgba(255, 255, 255, 0.2) !important;
-  transform: rotate(-1deg);
+  transform: none !important;
   transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s ease !important;
 }
 
