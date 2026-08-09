@@ -2299,45 +2299,48 @@ class Game {
     }
 
     // 5. UNIFIED PHYSICAL RUBBER STAMP & CABINET DRAWER CLOSING ACTION
-    if (stampBtn) {
-      stampBtn.onclick = (e) => {
+    window.samayStampCaseClosed = (e) => {
+      if (e) {
         e.preventDefault();
+        e.stopPropagation();
+      }
+      
+      // 1. Play paper stamp audio
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
+
+      // 2. Animate physical red rubber stamp impression onto paper
+      const paperStamp = document.getElementById("paper-stamp-impression");
+      if (paperStamp) paperStamp.style.display = "block";
+
+      // 3. Hide button and reveal closing line
+      const stampBtnEl = document.getElementById("btn-stamp-case-closed");
+      if (stampBtnEl) stampBtnEl.style.display = "none";
+      const closingLine = document.getElementById("final-closing-line");
+      if (closingLine) closingLine.style.display = "block";
+
+      // 4. Smooth Cabinet Drawer Closure after player reads the closure payoff
+      setTimeout(() => {
+        this._goToScene("archive");
+
+        const drawer1 = document.getElementById("drawer-case1");
+        const cabinetEl = document.querySelector(".cabinet");
         
-        // 1. Play paper stamp audio
-        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
-
-        // 2. Animate physical red rubber stamp impression onto paper
-        const paperStamp = document.getElementById("paper-stamp-impression");
-        if (paperStamp) paperStamp.style.display = "block";
-
-        // 3. Hide button and reveal closing line
-        stampBtn.style.display = "none";
-        const closingLine = document.getElementById("final-closing-line");
-        if (closingLine) closingLine.style.display = "block";
-
-        // 4. Smooth Cabinet Drawer Closure after player reads the closure payoff
-        setTimeout(() => {
-          this._goToScene("archive");
-
-          const drawer1 = document.getElementById("drawer-case1");
-          const cabinetEl = document.querySelector(".cabinet");
+        if (drawer1) {
+          drawer1.classList.remove("is-open");
+          drawer1.classList.add("case-completed");
           
-          if (drawer1) {
-            drawer1.classList.remove("is-open");
-            drawer1.classList.add("case-completed");
-            
-            const drawerLabel = drawer1.querySelector(".drawer-label");
-            if (drawerLabel) {
-              drawerLabel.innerHTML = `<span style="color:#aa7c11; font-weight:bold;">✔ CASE 001 RESOLVED</span><br>Foundation of AMUL (1946-1950)`;
-            }
+          const drawerLabel = drawer1.querySelector(".drawer-label");
+          if (drawerLabel) {
+            drawerLabel.innerHTML = `<span style="color:#aa7c11; font-weight:bold;">✔ CASE 001 RESOLVED</span><br>Foundation of AMUL (1946-1950)`;
           }
-          if (cabinetEl) {
-            cabinetEl.classList.remove("drawer-open-active");
-          }
+        }
+        if (cabinetEl) {
+          cabinetEl.classList.remove("drawer-open-active");
+        }
 
-          // 4. Update Archive Room Header Status & Show Restart Button
-          const archiveHint = document.querySelector(".archive-hint");
-          if (archiveHint) {
+        // 4. Update Archive Room Header Status & Show Restart Button
+        const archiveHint = document.querySelector(".archive-hint");
+        if (archiveHint) {
             archiveHint.innerHTML = `<span style="color:#aa7c11; font-weight:bold;">✔ CASE #001 OFFICIALLY RESOLVED & FILED IN THE NATIONAL ARCHIVES</span>`;
           }
 
@@ -2346,10 +2349,9 @@ class Game {
             btnRestart.style.display = "inline-flex";
             btnRestart.style.margin = "12px auto 0";
           }
-        }, 850);
+        }, 2600);
       };
     }
-  }
 
   _findLocationByClue(clueId) {
     const loc = Object.values(GAME_DATA.locations).find(l => l.clue.id === clueId);
