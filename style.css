@@ -8935,34 +8935,38 @@ button{
   white-space: nowrap;
 }
 
-/* CASE RECONSTRUCTION HUD PROGRESS INDICATOR */
+/* CASE RECONSTRUCTION HUD PROGRESS INDICATOR (ARCHIVAL PARCHMENT STAMP) */
 .case-reconstruction-hud {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  background: rgba(18, 9, 4, 0.92);
-  border: 1px dashed #b8860b;
-  border-radius: 4px;
-  padding: 4px 10px;
-  text-align: right;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.8);
-  z-index: 35;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  pointer-events: none;
+  position: absolute !important;
+  top: 42px !important;
+  right: 24px !important;
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
+  border: 1.5px solid #8b5a2b !important;
+  border-radius: 3px !important;
+  padding: 5px 10px !important;
+  text-align: right !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.75), inset 0 0 8px rgba(184, 134, 11, 0.2) !important;
+  z-index: 40 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  pointer-events: none !important;
+  transform: rotate(1deg) !important;
 }
 .hud-title {
-  color: #aa7c11;
-  font-size: 0.58rem;
-  font-weight: bold;
-  letter-spacing: 0.14em;
+  color: #8b0000 !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.6rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  text-shadow: none !important;
 }
 .hud-count {
-  color: #fdfaf2;
-  font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.74rem;
-  font-weight: bold;
+  color: #1a0b03 !important;
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.76rem !important;
+  font-weight: bold !important;
+  text-shadow: none !important;
 }
 
 /* PHYSICAL LAMP DOCUMENT INSPECTION MODAL OVERLAY */
