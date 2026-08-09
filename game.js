@@ -2259,14 +2259,14 @@ class Game {
       const playerDesc = document.getElementById("dossier-player-desc");
 
       if (id === "cooperative") {
-        if (playerTitle) playerTitle.textContent = "Form a Cooperative Union";
-        if (playerDesc) playerDesc.textContent = "You recommended collective milk pooling, grading, and direct transport to Bombay Municipality, bypassing contractor monopoly.";
+        if (playerTitle) playerTitle.textContent = "Genesis of the Anand Model";
+        if (playerDesc) playerDesc.textContent = "The 1946 Kaira Farmers' Union grew from 2 village societies collecting 250 liters into Anand Milk Union Limited (AMUL) — establishing the nationwide cooperative dairy model across India.";
       } else if (id === "accept") {
-        if (playerTitle) playerTitle.textContent = "Accept Polson's Contractor Rates";
-        if (playerDesc) playerDesc.textContent = "You recommended accepting contractor rates to avoid immediate conflict, leaving Kaira farmers in long-term economic distress.";
+        if (playerTitle) playerTitle.textContent = "Alternate Historical Path: Contractor Hegemony";
+        if (playerDesc) playerDesc.textContent = "By accepting contractor rates, Kaira farmers remained reliant on middlemen until the eventual 1946 historical cooperative boycott broke private monopoly power.";
       } else if (id === "cooling") {
-        if (playerTitle) playerTitle.textContent = "Build Cooling Tanks Only";
-        if (playerDesc) playerDesc.textContent = "You recommended technical cooling upgrades without farmer ownership; contractor Polson Ltd captured 100% of efficiency gains.";
+        if (playerTitle) playerTitle.textContent = "Alternate Historical Path: Technical Upgrades Only";
+        if (playerDesc) playerDesc.textContent = "Technical cooling reduced spoilage, but private middlemen captured 100% of profit margins until collective farmer ownership was established.";
       }
 
       const branchOutcomeId = id === "cooperative" ? "branch-outcome-cooperative" :
