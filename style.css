@@ -7757,54 +7757,88 @@ button{
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  justify-content: center !important;
-  gap: 12px !important;
+  justify-content: flex-start !important;
+  gap: 16px !important;
   width: 100% !important;
+  padding-bottom: 20px !important;
 }
 
 .physical-open-casebook {
   position: relative;
   width: 100%;
-  max-width: 880px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
 .casebook-pages-container {
-  min-height: 440px !important;
+  min-height: 360px !important;
 }
 
 .casebook-page-sheet {
   flex: 1;
-  padding: 16px 20px !important;
+  padding: 12px 18px !important;
   position: relative;
+  min-height: 360px !important;
 }
 
 .archive-photo-img {
-  max-height: 105px !important;
+  max-height: 75px !important;
   width: 100% !important;
   object-fit: cover !important;
 }
 
 .pasted-registration-deed {
-  padding: 10px 14px !important;
-  margin: 8px 0 !important;
+  padding: 6px 10px !important;
+  margin: 4px 0 !important;
+}
+
+.deed-title {
+  font-size: 0.88rem !important;
+  margin: 2px 0 !important;
+}
+
+.deed-body {
+  font-size: 0.72rem !important;
+  line-height: 1.3 !important;
 }
 
 .typewriter-ribbon-strip {
   font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.68rem !important;
+  padding: 3px 8px !important;
+  margin: 4px 0 !important;
+}
+
+.pinned-sticky-note {
+  background: linear-gradient(135deg, #fff9e6 0%, #f7eaad 100%) !important;
+  border: 1px solid #d4b86a !important;
+  border-top: 3px solid #aa7c11 !important;
+  padding: 6px 10px !important;
+  margin-top: 6px !important;
+  border-radius: 3px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  position: relative !important;
+}
+
+.pinned-sticky-note .sticky-body-text {
+  font-family: 'Special Elite', Courier, monospace !important;
   font-size: 0.72rem !important;
-  padding: 4px 10px !important;
-  margin: 6px 0 !important;
+  line-height: 1.3 !important;
+  color: #1a0f08 !important;
+  margin: 0 !important;
+  opacity: 1 !important;
 }
 
 .stamp-action-block {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 12px !important;
-  margin: 10px auto 0 !important;
+  gap: 14px !important;
+  margin: 20px auto 10px !important;
   position: relative !important;
-  z-index: 50 !important;
+  z-index: 100 !important;
+  width: 100% !important;
+  clear: both !important;
 }
 
 .diegetic-stamp-pad {
