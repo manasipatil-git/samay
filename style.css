@@ -5894,7 +5894,7 @@ button{
 .elder-memo-prop {
   position: absolute;
   top: 12px;
-  right: 20px;
+  left: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -5967,6 +5967,45 @@ button{
   z-index: 15;
   overflow: visible;
   touch-action: none;
+}
+
+/* SUBTLE BRASS PIN THREAD ANCHOR ON PLACED DOCUMENTS */
+/* FIRST-TIME CONNECTION TUTORIAL INSTRUCTION CARD */
+.connection-tutorial-card {
+  position: absolute;
+  top: 58px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%);
+  border: 1px solid #8b5a2b;
+  border-radius: 3px;
+  padding: 6px 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+  z-index: 90;
+  pointer-events: none;
+  animation: tutorialPulse 2s infinite ease-in-out;
+}
+@keyframes tutorialPulse {
+  0%, 100% { opacity: 0.92; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+.connection-tutorial-card .tutorial-pin {
+  font-size: 0.85rem;
+}
+.connection-tutorial-card strong {
+  display: block;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #8b0000;
+  letter-spacing: 0.1em;
+}
+.connection-tutorial-card span {
+  font-family: 'Courier Prime', Courier, monospace;
+  font-size: 0.62rem;
+  color: #2b1e10;
 }
 
 /* ZONE C: BOTTOM COMPACT MANILA DOSSIER FOLDER */
