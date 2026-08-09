@@ -1606,6 +1606,7 @@ class Game {
 
     // Render clues into folder
     const renderFolder = () => {
+      folderGrid.innerHTML = "";
       const remainingClues = allClues.filter(c => !placedClues.some(p => p.id === c.id));
       console.log(`📂 renderFolder called. Rendering ${remainingClues.length} cards into #evidence-folder-cards.`);
       if (countBadge) {
