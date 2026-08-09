@@ -4773,44 +4773,56 @@ button{
   transform: scale(1.02) rotate(1deg);
 }
 
-/* TOP COMPARISON SPREAD: TUCKED RESOLUTION SLIDER MECHANIC */
-.ending-comparison-spread {
-  display: none;
-}
-
-.ending-comparison-spread.is-unsealed {
+/* TOP COMPARISON SPREAD: CLEAN DUAL-PAGE SIDE-BY-SIDE ARCHIVAL DOSSIER SPREAD */
+.ending-comparison-spread,
+.archival-comparison-spread {
   display: flex !important;
   flex-direction: row !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 24px !important;
-  margin: 10px auto 20px !important;
+  justify-content: space-between !important;
+  align-items: stretch !important;
+  gap: 20px !important;
+  margin: 14px auto 18px !important;
   width: 100% !important;
   max-width: 900px !important;
+  position: relative !important;
+  box-sizing: border-box !important;
 }
 
 .paper-your-report {
-  flex: 0 1 540px !important;
-  background: #faf6eb;
-  border: 1.5px solid #c8ba9d;
-  border-top: 4px solid #aa7c11;
-  padding: 24px 28px 20px;
-  transform: rotate(-1.5deg);
+  flex: 1 1 48% !important;
+  width: 48% !important;
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
+  border: 1.5px solid #7c5c36 !important;
+  border-top: 4px solid #aa7c11 !important;
+  border-radius: 4px !important;
+  padding: 20px 22px !important;
+  transform: rotate(-1.5deg) !important;
   position: relative !important;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
-  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  z-index: 10 !important;
 }
 
 .paper-archive-record {
-  flex: 0 1 480px !important;
-  background: #faf6eb;
-  border: 1.5px solid #c8ba9d;
-  border-top: 4px solid #8b0000;
-  padding: 24px 24px 20px !important;
-  transform: rotate(1.8deg);
+  flex: 1 1 48% !important;
+  width: 48% !important;
+  display: block !important;
+  background: linear-gradient(135deg, #fbf3d5 0%, #edd8a5 100%) !important;
+  border: 1.5px solid #8b5a2b !important;
+  border-top: 4px solid #8b0000 !important;
+  border-radius: 4px !important;
+  padding: 20px 22px !important;
+  transform: rotate(1.5deg) !important;
   position: relative !important;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
-  animation: slideOutResolution 0.5s ease forwards;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  z-index: 10 !important;
+}
+
+.peeking-resolution-corner {
+  display: none !important;
 }
 
 @keyframes slideOutResolution {
@@ -4861,24 +4873,26 @@ button{
 
 /* TORN CARBON MEMO SLIP WITH SAFETY PIN */
 .torn-carbon-memo {
-  position: absolute !important;
-  bottom: -18px !important;
-  left: 50% !important;
-  transform: translateX(-50%) rotate(-1deg) !important;
+  position: relative !important;
+  inset: auto !important;
+  transform: rotate(-0.5deg) !important;
   z-index: 30 !important;
   background: linear-gradient(135deg, #2b2622 0%, #1a1614 100%) !important;
   color: #f4ebd7 !important;
-  border: 1px dashed #aa7c11 !important;
+  border: 1.5px solid #aa7c11 !important;
   box-shadow: 0 8px 20px rgba(0,0,0,0.6) !important;
-  border-radius: 2px !important;
-  padding: 8px 22px 8px 34px !important;
-  white-space: nowrap;
+  border-radius: 4px !important;
+  padding: 12px 22px 12px 36px !important;
+  margin: 16px auto 0 !important;
+  width: min(860px, 94%) !important;
+  white-space: normal !important;
+  text-align: center !important;
 }
 .safety-pin-clip {
   position: absolute;
-  top: -10px;
-  left: 10px;
-  font-size: 1.3rem;
+  top: -8px;
+  left: 12px;
+  font-size: 1.2rem;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
   z-index: 35;
 }

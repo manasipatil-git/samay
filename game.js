@@ -2158,17 +2158,19 @@ class Game {
           unfoldedSpread.classList.add("is-unsealed");
           unfoldedSpread.style.display = "flex";
         }
+        if (tuckedRecord) tuckedRecord.style.display = "block";
+        if (carbonMemo) carbonMemo.style.display = "block";
+        if (peekingCorner) peekingCorner.style.display = "none";
         if (stageArtifacts) stageArtifacts.style.display = "block";
         if (stageEnvelope) stageEnvelope.style.display = "block";
       };
     }
 
-    // PEEKING RESOLUTION SLIDER
-    const carbonMemo = document.getElementById("torn-carbon-memo");
+    // Direct revelation fallback for peeking resolution
     if (peekingCorner && tuckedRecord) {
       peekingCorner.onclick = () => {
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-        tuckedRecord.style.display = "flex";
+        tuckedRecord.style.display = "block";
         if (carbonMemo) carbonMemo.style.display = "block";
         peekingCorner.style.display = "none";
       };
