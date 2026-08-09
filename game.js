@@ -2368,9 +2368,13 @@ class Game {
       if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("page");
 
       inspectContent.innerHTML = `
-        <span class="clipping-tag font-type" style="display:block;margin-bottom:4px;">${data.badge}</span>
-        <h3 style="font-family:var(--font-display);color:#3c2416;margin:0 0 16px;">${data.title}</h3>
-        ${data.body}
+        <div style="border-bottom: 1.5px dashed #b8860b; padding-bottom: 8px; margin-bottom: 14px;">
+          <span class="clipping-tag font-type" style="display:block; font-family:'Outfit', sans-serif; font-size:0.68rem; font-weight:800; letter-spacing:0.14em; color:#8b0000; margin-bottom:4px;">${data.badge}</span>
+          <h3 style="font-family:'Special Elite', Courier, monospace; font-size:1.2rem; font-weight:bold; color:#1a0b03; margin:0;">${data.title}</h3>
+        </div>
+        <div class="face-body font-type" style="font-family:'Special Elite', Courier, monospace; font-size:0.86rem; line-height:1.45; color:#2b170c;">
+          ${data.body}
+        </div>
       `;
 
       inspectOverlay.classList.add("is-active");

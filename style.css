@@ -4706,11 +4706,11 @@ button{
   max-height: 85vh !important;
   overflow-y: auto !important;
   margin: auto !important;
-  background: url('assests/torn_parchment.jpg') center/cover no-repeat, #faf4e6 !important;
-  border: 3.5px solid #aa7c11 !important;
-  border-radius: 6px !important;
-  box-shadow: 0 35px 95px rgba(0,0,0,0.95), inset 0 0 30px rgba(0,0,0,0.3) !important;
-  padding: 28px 30px 28px !important;
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 50%, #edd8a5 100%) !important;
+  border: 2px solid #7c5c36 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 35px 95px rgba(0,0,0,0.95), inset 0 0 30px rgba(184, 134, 11, 0.25) !important;
+  padding: 28px 32px !important;
   animation: inspectPopIn 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards !important;
 }
 
@@ -4723,34 +4723,38 @@ button{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1.5px solid #d4c5a9;
+  border-bottom: 1.5px dashed #b8860b;
   padding-bottom: 12px;
   margin-bottom: 18px;
 }
 
 .parchment-archive-badge {
-  font-size: 0.65rem;
-  font-weight: bold;
-  letter-spacing: 0.12em;
-  color: #aa7c11;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.68rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  color: #8b0000 !important;
 }
 
 .btn-close-inspect-brass {
-  background: linear-gradient(135deg, #aa7c11 0%, #7a5808 100%);
-  color: #ffffff;
-  border: 1.5px solid #f7c873;
-  border-radius: 3px;
-  padding: 6px 14px;
-  font-size: 0.72rem;
-  font-weight: bold;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease, background 0.2s ease;
+  background: #2b170c !important;
+  color: #ffd700 !important;
+  border: 1.5px solid #aa7c11 !important;
+  border-radius: 3px !important;
+  padding: 6px 14px !important;
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.74rem !important;
+  font-weight: bold !important;
+  letter-spacing: 0.08em !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease !important;
 }
 .btn-close-inspect-brass:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #c49418 0%, #856018 100%);
+  background: #8b0000 !important;
+  color: #fdfaf2 !important;
+  border-color: #8b0000 !important;
+  transform: translateY(-2px) !important;
 }
 
 /* DUSTY UNLABELLED FORGOTTEN ENVELOPE */
