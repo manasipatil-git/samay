@@ -5808,9 +5808,9 @@ button{
 #panchayat-table-surface,
 .panchayat-teakwood-table {
   position: relative;
-  width: min(980px, 92vw);
-  min-height: 620px;
-  height: min(720px, 90vh);
+  width: min(1120px, 96vw);
+  height: 100vh !important;
+  max-height: 100vh !important;
   margin: 0 auto;
   background: 
     radial-gradient(ellipse at 50% 35%, rgba(255, 200, 120, 0.32) 0%, rgba(45, 25, 12, 0.88) 60%, rgba(18, 9, 4, 0.99) 95%),
@@ -5822,8 +5822,8 @@ button{
   flex-direction: column !important;
   justify-content: space-between !important;
   align-items: stretch !important;
-  padding: 12px 18px 12px;
-  overflow: visible;
+  padding: 8px 14px 8px;
+  overflow: hidden !important;
   z-index: 10;
   flex-shrink: 0;
 }
@@ -5866,121 +5866,85 @@ button{
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-/* MOTIBHAI PATEL LIVE FEEDBACK SUBTITLE BAR */
+/* ZONE A: TOP CONTEXT & ELDER SUBTITLE BAR */
+.panchayat-table-header {
+  text-align: center;
+  z-index: 15;
+  margin-bottom: 2px;
+  flex: none;
+}
 .elder-feedback-bar {
   background: rgba(18, 9, 4, 0.92);
   border: 1.5px solid #b8860b;
   border-radius: 4px;
-  padding: 8px 18px;
+  padding: 5px 14px;
   text-align: center;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.8);
-  margin: 6px auto 10px;
-  width: min(780px, 94%);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+  margin: 2px auto 4px;
+  width: min(840px, 96%);
   z-index: 30;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-}
-.elder-feedback-speaker {
-  color: #aa7c11;
-  font-size: 0.65rem;
-  font-weight: bold;
-  letter-spacing: 0.16em;
-}
-.elder-feedback-text {
-  color: #fdfaf2;
-  font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.92rem;
-  line-height: 1.25;
+  gap: 1px;
+  flex: none;
 }
 
-/* MAIN TABLE PHYSICAL DESK SURFACE (HERO INVESTIGATION AREA) */
+/* ZONE B: CENTER HERO PHYSICAL DESK WORKSPACE (65% VIEWPORT HEIGHT) */
 .table-drop-zone {
   position: relative;
   width: 100%;
   flex: 1;
-  min-height: 320px;
+  min-height: 260px;
   background: transparent !important;
   border: none !important;
   border-radius: 0;
   box-shadow: none !important;
   display: block;
-  padding: 8px;
-  margin: 4px 0 8px;
+  padding: 4px;
+  margin: 2px 0 4px;
   z-index: 15;
-  overflow: visible;
+  overflow: hidden !important;
+  touch-action: none;
 }
 
-.assembly-chalk-slots {
-}
-.chalk-slot {
-  flex: 1;
-  height: 100%;
-  border: 1.5px dashed rgba(184, 134, 11, 0.35);
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  box-shadow: inset 0 0 15px rgba(0,0,0,0.7);
-  transition: border-color 0.3s ease, background 0.3s ease;
-}
-.chalk-slot.is-filled {
-  border-color: #aa7c11;
-  background: rgba(170, 124, 17, 0.12);
-}
-.chalk-slot-title {
-  font-size: 0.7rem;
-  font-weight: bold;
-  letter-spacing: 0.12em;
-  color: #aa7c11;
-  margin-bottom: 4px;
-}
-.chalk-slot-hint {
-  font-size: 0.62rem;
-  color: rgba(253, 250, 242, 0.5);
-}
-
-/* INTERACTIVE MANILA EVIDENCE DOSSIER FOLDER */
+/* ZONE C: BOTTOM COMPACT INVESTIGATOR DOSSIER FOLDER */
 .investigator-evidence-folder {
   position: relative;
-  flex: 1;
-  min-height: 250px;
+  flex: none;
+  max-height: 185px;
   background: linear-gradient(180deg, #dfc08a 0%, #c9a363 100%);
-  border: 2.5px solid #5a3d28;
+  border: 2px solid #5a3d28;
   border-radius: 6px 6px 0 0;
-  padding: 10px 16px 14px;
-  box-shadow: 0 -12px 35px rgba(0,0,0,0.85), inset 0 2px 6px rgba(255,255,255,0.5);
+  padding: 6px 12px 6px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.85);
   z-index: 20;
-  transition: transform 0.35s cubic-bezier(.2,.85,.3,1), height 0.35s ease;
-  cursor: pointer;
   pointer-events: auto !important;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .evidence-folder-cards-grid {
   display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding: 8px 4px 10px;
+  gap: 10px;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 4px;
   pointer-events: auto !important;
   flex: 1;
-  min-height: 200px;
+  max-height: 140px;
   align-items: center;
 }
 
-/* DISTINCT ARCHIVAL DOCUMENT STYLES */
+/* DISTINCT ARCHIVAL DOCUMENT STYLES (COMPACT & READABLE) */
 .evidence-card-drag {
   position: relative;
-  width: 155px;
-  height: 185px;
+  width: 140px;
+  height: 165px;
   border-radius: 3px;
-  padding: 12px;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  padding: 8px 10px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.45);
   cursor: grab;
   user-select: none;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -5991,6 +5955,7 @@ button{
   flex-shrink: 0;
   pointer-events: auto !important;
   z-index: 30;
+  font-size: 0.72rem;
 }
 .evidence-card-drag.placed-on-table {
   position: absolute !important;
@@ -6002,7 +5967,7 @@ button{
 }
 .evidence-card-drag.placed-on-table.is-physically-lifted {
   cursor: grabbing !important;
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 215, 0, 0.3) !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 215, 0, 0.3) !important;
   transform: scale(1.06) !important;
   transition: none !important;
 }
@@ -6107,24 +6072,6 @@ button{
   filter: drop-shadow(0px 0px 8px rgba(201, 56, 43, 0.75));
 }
 
-/* PHYSICAL INVESTIGATOR DEDUCTION ANNOTATION SLIP */
-.assembly-deduction-slip {
-  position: absolute;
-  width: 250px;
-  background: #fbf5e6;
-  border: 1.5px solid #8b5a2b;
-  border-radius: 4px;
-  padding: 10px 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.8), inset 0 0 10px rgba(184,134,11,0.2);
-  z-index: 60;
-  pointer-events: auto !important;
-  transform: rotate(-1deg);
-  animation: slipAppear 0.3s cubic-bezier(.2,.85,.3,1) forwards;
-}
-@keyframes slipAppear {
-  from { opacity: 0; transform: scale(0.9) translateY(8px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
 .slip-header-strip {
   display: flex;
   align-items: center;

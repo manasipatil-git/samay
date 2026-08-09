@@ -1163,12 +1163,17 @@ class Game {
 
         threadSvgCanvas.appendChild(path);
 
-        // Render Investigator's Pencil Annotation Slip beside connection thread
+        // Render Investigator's Pencil Annotation Slip beside connection thread (Clamped to Desk Zone B)
         const deductionData = getDeductionData(t.fromId, t.toId);
         const slip = document.createElement("div");
         slip.className = "assembly-deduction-slip font-type";
-        slip.style.left = `${Math.max(10, Math.min(cx - 120, surfaceRect.width - 270))}px`;
-        slip.style.top = `${Math.max(10, Math.min(cy - 20, surfaceRect.height - 180))}px`;
+
+        const dropRect = dropZone.getBoundingClientRect();
+        const slipLeft = Math.max(10, Math.min(cx - 100, (dropRect.width || surfaceRect.width) - 230));
+        const slipTop = Math.max(5, Math.min(cy - 20, (dropRect.height || 300) - 130));
+
+        slip.style.left = `${slipLeft}px`;
+        slip.style.top = `${slipTop}px`;
 
         if (t.verified) {
           // Already Verified Against Record
@@ -1309,6 +1314,8 @@ class Game {
       dropZone.querySelectorAll(".evidence-card-drag.placed-on-table").forEach(el => el.remove());
 
       const tilts = [-2.5, 1.8, -1.2, 3.2, -2.0];
+      const posXList = [25, 195, 365, 535, 705];
+      const posYList = [10, 45, 12, 50, 18];
       const pencilNotes = [
         "✏️ Verified Contractor Discrepancy",
         "✏️ Verified Spoilage Quota Bottleneck",
@@ -1318,8 +1325,8 @@ class Game {
       placedClues.forEach((c, idx) => {
         // Initialize default organic coordinates on table if not set
         if (c.posX === undefined) {
-          c.posX = Math.round(35 + idx * 250);
-          c.posY = Math.round(8 + (idx % 2) * 14);
+          c.posX = Math.round(posXList[idx % posXList.length]);
+          c.posY = Math.round(posYList[idx % posYList.length]);
           c.rot = tilts[idx % tilts.length];
           c.zIndex = 20 + idx;
         }
