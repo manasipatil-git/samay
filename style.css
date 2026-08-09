@@ -5890,56 +5890,133 @@ button{
   flex: none;
 }
 
-.elder-bar-header {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  width: 100% !important;
-  margin-bottom: 2px !important;
+/* DIEGETIC PHYSICAL ARCHIVAL PROP: THE PANCHAYAT NOTE */
+.panchayat-note-prop {
+  position: absolute !important;
+  top: 14px !important;
+  left: 20px !important;
+  z-index: 85 !important;
+  pointer-events: auto !important;
+  user-select: none !important;
+  cursor: pointer !important;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease !important;
 }
 
-/* PHYSICAL ELDER'S MEMO NOTE PROP IN DIALOGUE HEADER */
-.elder-memo-prop {
+/* FOLDED STATE (CLOSED NOTE WITH PAPERCLIP) */
+.panchayat-note-folded {
   position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 4px !important;
-  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  width: 140px !important;
+  padding: 6px 10px 6px 24px !important;
+  background: linear-gradient(135deg, #fbf3d5 0%, #edd8a5 100%) !important;
   border: 1px solid #7c5c36 !important;
-  border-radius: 3px !important;
-  padding: 2px 8px !important;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6) !important;
-  z-index: 80 !important;
-  pointer-events: auto !important;
-  transform: rotate(-1deg) !important;
-  cursor: pointer !important;
-  user-select: none !important;
+  border-radius: 2px !important;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.75), inset 0 0 10px rgba(124, 92, 54, 0.15) !important;
+  transform: rotate(-2.5deg) !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-.elder-memo-prop:hover {
-  transform: scale(1.06) rotate(0deg) !important;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8) !important;
-  background: linear-gradient(135deg, #fffcf5 0%, #f7ebd0 100%) !important;
+.panchayat-note-prop:hover .panchayat-note-folded {
+  transform: translateY(-2px) rotate(-1deg) scale(1.04) !important;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.5), 0 8px 20px rgba(0, 0, 0, 0.85) !important;
 }
 
-.elder-memo-prop:active {
-  transform: scale(0.98) !important;
+.note-paperclip {
+  position: absolute !important;
+  left: 4px !important;
+  top: 50% !important;
+  transform: translateY(-50%) rotate(15deg) !important;
+  font-size: 0.95rem !important;
+  opacity: 0.85 !important;
 }
 
-.elder-memo-prop .memo-pin {
-  font-size: 0.68rem !important;
-}
-
-.elder-memo-prop .memo-title {
+.note-folded-title {
   font-family: 'Outfit', sans-serif !important;
-  font-size: 0.60rem !important;
+  font-size: 0.62rem !important;
   font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #7c2d12 !important;
+  line-height: 1.1 !important;
+}
+
+.note-folded-sub {
+  font-family: 'Courier Prime', Courier, monospace !important;
+  font-size: 0.54rem !important;
+  color: #5c3c1b !important;
+  font-style: italic !important;
+  margin-top: 1px !important;
+}
+
+/* UNFOLDED STATE (OPEN PHYSICAL ARCHIVAL SHEET) */
+.panchayat-note-unfolded {
+  position: relative !important;
+  width: 240px !important;
+  padding: 12px 14px !important;
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
+  border: 1px solid #7c5c36 !important;
+  border-radius: 3px !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85), inset 0 0 15px rgba(124, 92, 54, 0.12) !important;
+  transform: rotate(-1deg) !important;
+  animation: noteUnfold 0.3s ease-out forwards !important;
+}
+
+@keyframes noteUnfold {
+  0% { opacity: 0; transform: scale(0.85) rotate(-4deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-1deg); }
+}
+
+.panchayat-note-unfolded .note-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  border-bottom: 1px dashed rgba(124, 92, 54, 0.4) !important;
+  padding-bottom: 5px !important;
+  margin-bottom: 8px !important;
+}
+
+.panchayat-note-unfolded .note-pin {
+  font-size: 0.75rem !important;
+}
+
+.panchayat-note-unfolded .note-title {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.68rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
   color: #8b0000 !important;
-  letter-spacing: 0.08em !important;
+  margin: 0 !important;
+}
+
+.panchayat-note-unfolded .note-body-text {
+  font-family: 'Courier Prime', Courier, monospace !important;
+  font-size: 0.65rem !important;
+  line-height: 1.35 !important;
+  color: #2b1e10 !important;
+  margin: 0 0 10px 0 !important;
+  font-style: italic !important;
+}
+
+.panchayat-note-unfolded .note-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-top: 1px dashed rgba(124, 92, 54, 0.3) !important;
+  padding-top: 5px !important;
+}
+
+.panchayat-note-unfolded .note-signature {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.62rem !important;
+  font-weight: bold !important;
+  color: #8b0000 !important;
+}
+
+.panchayat-note-unfolded .note-date {
+  font-family: 'Courier Prime', Courier, monospace !important;
+  font-size: 0.52rem !important;
+  color: #6b4c27 !important;
 }
 
 .elder-feedback-text.is-hint-active {

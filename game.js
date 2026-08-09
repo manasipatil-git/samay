@@ -1038,33 +1038,51 @@ class Game {
       setTimeout(() => toast.remove(), 1850);
     };
 
-    // CONCEPT A: PHYSICAL ELDER'S MEMO NOTE PROP ON TEAKWOOD DESK
-    const memoProp = document.getElementById("elder-memo-prop") || document.getElementById("motibhai-hint-btn");
-    if (memoProp) {
-      memoProp.onclick = (e) => {
+    // DIEGETIC PHYSICAL ARCHIVAL PROP: THE PANCHAYAT NOTE INTERACTION
+    const noteProp = document.getElementById("panchayat-note-prop");
+    if (noteProp) {
+      const foldedEl = noteProp.querySelector(".panchayat-note-folded");
+      const unfoldedEl = noteProp.querySelector(".panchayat-note-unfolded");
+      const noteTextEl = document.getElementById("panchayat-note-text");
+
+      const updatePanchayatNoteText = () => {
+        if (!noteTextEl) return;
+        if (!verifiedDeductionIds.has("price_discrepancy")) {
+          noteTextEl.textContent = '"Examine the Polson Price Ledger alongside the Contractor\'s Milk Receipt—the contractor claims high overheads, but the receipt proves a massive 6 Pice margin profit!"';
+        } else if (!verifiedDeductionIds.has("supply_control")) {
+          noteTextEl.textContent = '"Cross-reference the Daily Rejection Log with the Price Ledger—notice how full milk cans are rejected at 08:15 AM every morning to force price drops!"';
+        } else if (!verifiedDeductionIds.has("transport_control")) {
+          noteTextEl.textContent = '"Compare the B.B.&C.I. Freight Manifest with the Village Council Petition—wagon #428 was sent half-empty to Bombay to manufacture transport bottlenecks!"';
+        } else {
+          noteTextEl.textContent = '"All three evidence connections are verified! Formulate your final case theory below to unite the village assembly."';
+        }
+      };
+
+      noteProp.onclick = (e) => {
         e.stopPropagation();
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
 
-        const elderFeedbackText = document.getElementById("elder-feedback-text");
-        if (!elderFeedbackText) return;
-
-        // Determine first unverified canonical deduction for contextual guidance
-        if (!verifiedDeductionIds.has("price_discrepancy")) {
-          elderFeedbackText.textContent = '"Elder Clue: Examine the Polson Price Ledger alongside the Contractor\'s Milk Receipt—the contractor claims high overheads, but the receipt proves a massive 6 Pice margin profit!"';
-        } else if (!verifiedDeductionIds.has("supply_control")) {
-          elderFeedbackText.textContent = '"Elder Clue: Cross-reference the Daily Rejection Log with the Price Ledger—notice how full milk cans are rejected at 08:15 AM every morning to force price drops!"';
-        } else if (!verifiedDeductionIds.has("transport_control")) {
-          elderFeedbackText.textContent = '"Elder Clue: Compare the B.B.&C.I. Freight Manifest with the Village Council Petition—wagon #428 was sent half-empty to Bombay to manufacture transport bottlenecks!"';
+        const isCurrentlyUnfolded = unfoldedEl.style.display !== "none";
+        if (isCurrentlyUnfolded) {
+          // Re-fold paper note
+          unfoldedEl.style.display = "none";
+          foldedEl.style.display = "flex";
         } else {
-          elderFeedbackText.textContent = '"Elder Clue: All three evidence connections are verified! Formulate your final case theory below to unite the village assembly."';
+          // Unfold physical paper note & update contextual advice
+          updatePanchayatNoteText();
+          foldedEl.style.display = "none";
+          unfoldedEl.style.display = "block";
         }
-
-        elderFeedbackText.classList.remove("is-hint-active");
-        void elderFeedbackText.offsetWidth; // Force DOM reflow for re-triggering animation
-        elderFeedbackText.classList.add("is-hint-active");
-
-        triggerLinkRecordedToast("MOTIBHAI PATEL OFFERS ADVICE 💡");
       };
+
+      // Click outside refolds the Panchayat Note
+      document.addEventListener("click", (e) => {
+        if (!noteProp.contains(e.target) && unfoldedEl.style.display !== "none") {
+          unfoldedEl.style.display = "none";
+          foldedEl.style.display = "flex";
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+        }
+      });
     }
 
     // 1-to-1 Canonical Deductions Registry
