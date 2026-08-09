@@ -1163,17 +1163,59 @@ class Game {
 
         threadSvgCanvas.appendChild(path);
 
-        // Render Investigator's Pencil Annotation Slip beside connection thread (Clamped to Desk Zone B)
+        // Render Investigator's Pencil Annotation Slip beside connection thread (Intelligently Placed to Avoid Overlaps)
         const deductionData = getDeductionData(t.fromId, t.toId);
         const slip = document.createElement("div");
         slip.className = "assembly-deduction-slip font-type";
 
-        const dropRect = dropZone.getBoundingClientRect();
-        const slipLeft = Math.max(10, Math.min(cx - 100, (dropRect.width || surfaceRect.width) - 230));
-        const slipTop = Math.max(5, Math.min(cy - 20, (dropRect.height || 300) - 130));
+        // Gather all placed document bounding boxes relative to dropZone
+        const cardBoxes = Array.from(dropZone.querySelectorAll(".placed-on-table")).map(el => ({
+          left: el.offsetLeft - 6,
+          right: el.offsetLeft + el.offsetWidth + 6,
+          top: el.offsetTop - 6,
+          bottom: el.offsetTop + el.offsetHeight + 6
+        }));
 
-        slip.style.left = `${slipLeft}px`;
-        slip.style.top = `${slipTop}px`;
+        const candidateL = cx - 110;
+        const candidateT = cy - 20;
+
+        // Offsets to test to avoid covering documents
+        const offsets = [
+          { dx: 0, dy: 0 },
+          { dx: 140, dy: 0 },
+          { dx: -140, dy: 0 },
+          { dx: 0, dy: 95 },
+          { dx: 0, dy: -95 }
+        ];
+
+        let chosenL = candidateL;
+        let chosenT = candidateT;
+
+        for (const off of offsets) {
+          const testL = candidateL + off.dx;
+          const testT = candidateT + off.dy;
+          const testR = testL + 220;
+          const testB = testT + 110;
+
+          const hasCollision = cardBoxes.some(box => 
+            !(testR < box.left || testL > box.right || testB < box.top || testT > box.bottom)
+          );
+
+          if (!hasCollision) {
+            chosenL = testL;
+            chosenT = testT;
+            break;
+          }
+        }
+
+        // Clamp strictly inside Desk Zone B boundary
+        const dropW = dropZone.clientWidth || 900;
+        const dropH = dropZone.clientHeight || 300;
+        chosenL = Math.max(12, Math.min(chosenL, dropW - 235));
+        chosenT = Math.max(6, Math.min(chosenT, dropH - 120));
+
+        slip.style.left = `${chosenL}px`;
+        slip.style.top = `${chosenT}px`;
 
         if (t.verified) {
           // Already Verified Against Record

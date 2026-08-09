@@ -5908,21 +5908,27 @@ button{
   touch-action: none;
 }
 
-/* ZONE C: BOTTOM COMPACT INVESTIGATOR DOSSIER FOLDER */
+/* ZONE C: BOTTOM COMPACT MANILA DOSSIER FOLDER */
 .investigator-evidence-folder {
   position: relative;
   flex: none;
-  max-height: 185px;
-  background: linear-gradient(180deg, #dfc08a 0%, #c9a363 100%);
-  border: 2px solid #5a3d28;
+  max-height: 145px;
+  min-height: 125px;
+  background: linear-gradient(180deg, #b08d57 0%, #8c6a38 100%);
+  border: 2px solid #4a321a;
   border-radius: 6px 6px 0 0;
-  padding: 6px 12px 6px;
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.85);
+  padding: 4px 10px 6px;
+  box-shadow: 0 -8px 25px rgba(0,0,0,0.85);
   z-index: 20;
   pointer-events: auto !important;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.investigator-evidence-folder.is-closed {
+  max-height: 36px !important;
+  min-height: 36px !important;
 }
 
 .evidence-folder-cards-grid {
@@ -5930,14 +5936,30 @@ button{
   gap: 10px;
   overflow-x: auto !important;
   overflow-y: hidden !important;
-  padding: 4px;
+  padding: 2px 4px 4px;
   pointer-events: auto !important;
   flex: 1;
-  max-height: 140px;
+  max-height: 105px;
   align-items: center;
+  justify-content: flex-start;
+}
+/* Unplaced Evidence Cards inside Dossier Folder Deck */
+.evidence-folder-cards-grid .evidence-card-drag {
+  width: 120px;
+  height: 95px;
+  padding: 6px 8px;
+  border-radius: 3px;
+  font-size: 0.62rem;
+  flex-shrink: 0;
+  transform: rotate(-1deg);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.evidence-folder-cards-grid .evidence-card-drag:hover {
+  transform: rotate(0deg) translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.7);
 }
 
-/* DISTINCT ARCHIVAL DOCUMENT STYLES (COMPACT & READABLE) */
+/* DISTINCT ARCHIVAL DOCUMENT STYLES (COMPACT & READABLE ON TABLE) */
 .evidence-card-drag {
   position: relative;
   width: 140px;
