@@ -4776,6 +4776,11 @@ button{
 /* TOP COMPARISON SPREAD: CLEAN DUAL-PAGE SIDE-BY-SIDE ARCHIVAL DOSSIER SPREAD */
 .ending-comparison-spread,
 .archival-comparison-spread {
+  display: none;
+}
+
+.ending-comparison-spread.is-unsealed,
+.archival-comparison-spread.is-unsealed {
   display: flex !important;
   flex-direction: row !important;
   justify-content: space-between !important;
@@ -4786,6 +4791,12 @@ button{
   max-width: 900px !important;
   position: relative !important;
   box-sizing: border-box !important;
+  animation: spreadPopIn 0.5s ease forwards !important;
+}
+
+@keyframes spreadPopIn {
+  from { opacity: 0; transform: translateY(15px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .paper-your-report {

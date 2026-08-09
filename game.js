@@ -2131,7 +2131,9 @@ class Game {
       unfoldedSpread.style.display = "none";
     }
     if (tuckedRecord) tuckedRecord.style.display = "none";
-    if (peekingCorner) peekingCorner.style.display = "block";
+    const carbonMemo = document.getElementById("torn-carbon-memo");
+    if (carbonMemo) carbonMemo.style.display = "none";
+    if (peekingCorner) peekingCorner.style.display = "none";
     if (stageArtifacts) stageArtifacts.style.display = "block";
     if (stageEnvelope) stageEnvelope.style.display = "block";
     if (sealedFolderBtn) sealedFolderBtn.style.display = "block";
