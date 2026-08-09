@@ -9471,13 +9471,15 @@ button{
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -55%) rotate(-1deg) !important;
-  width: 320px !important;
+  width: 340px !important;
+  max-width: 90vw !important;
   background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
   border: 1.5px solid #6b4c27 !important;
   border-radius: 4px !important;
   padding: 14px 16px !important;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(184, 134, 11, 0.2) !important;
-  z-index: 98 !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 20px rgba(255, 215, 0, 0.3) !important;
+  z-index: 150 !important;
+  pointer-events: auto !important;
   animation: theorySlideIn 0.5s cubic-bezier(0.2, 0.85, 0.3, 1) forwards;
 }
 
@@ -9548,16 +9550,17 @@ button{
 /* HISTORICAL ARCHIVAL VERIFICATION BANNER */
 .archival-verification-banner {
   position: absolute !important;
-  bottom: 12px !important;
+  bottom: 20px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  background: rgba(18, 9, 4, 0.94) !important;
+  background: rgba(18, 9, 4, 0.95) !important;
   border: 1.5px solid #b8860b !important;
   border-radius: 4px !important;
   padding: 8px 18px !important;
   text-align: center !important;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85) !important;
-  z-index: 99 !important;
+  z-index: 160 !important;
+  pointer-events: auto !important;
   animation: bannerFadeUp 0.6s ease forwards;
 }
 

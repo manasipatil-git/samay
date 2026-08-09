@@ -1029,6 +1029,12 @@ class Game {
     let hasCreatedFirstThread = false;
     let verifiedDeductionIds = new Set(); // Tracks 3 canonical deduction IDs strictly
 
+    // EXPLICIT GAME PROGRESSION STATE FLAGS
+    let caseEvidenceSolved = false;
+    let caseTheoryUnlocked = false;
+    let caseTheorySolved = false;
+    let recommendationUnlocked = false;
+
     // Toast feedback for thread connection or elder advice
     const triggerLinkRecordedToast = (msg = "LINK RECORDED 🖈") => {
       const toast = document.createElement("div");
@@ -1091,7 +1097,7 @@ class Game {
         isCanonical: true,
         deductionId: "price_discrepancy",
         categoryLabel: "PRICE DISCREPANCY",
-        prompt: "What does connecting the Milk Receipt and Price Ledger prove?",
+        prompt: "What does connecting the Contractor's Milk Receipt with the Polson Price Ledger reveal?",
         choices: [
           { text: "Farmers received Rs 1/6/0 per seer while Polson sold for 12 Annas in Bombay.", isCorrect: true },
           { text: "Bombay milk demand was declining in 1946.", isCorrect: false },
@@ -1181,15 +1187,12 @@ class Game {
         }
       });
 
-      // Remove orphaned SVG paths for deleted threads
-      threadSvgCanvas.querySelectorAll("path").forEach(el => {
-        if (!currentThreadIds.has(el.dataset.threadId)) {
-          el.remove();
-        }
-      });
+      // Clear existing SVG paths
+      threadSvgCanvas.innerHTML = "";
 
-      // Array to track placed tag coordinates for intelligent collision staggering
+      // Intelligent Bezier Tag Staggering (Collision avoidance)
       const placedTagCoords = [];
+      const tCandidates = [0.5, 0.35, 0.65, 0.25, 0.75];
 
       assemblyThreads.forEach(t => {
         t.threadId = t.threadId || `thread_${[t.fromId, t.toId].sort().join('_')}`;
@@ -1198,9 +1201,8 @@ class Game {
         const cardB = dropZone.querySelector(`.placed-on-table[data-id="${t.toId}"]`);
         if (!cardA || !cardB) return;
 
-        const anchorA = cardA.querySelector(".doc-thread-anchor");
-        const anchorB = cardB.querySelector(".doc-thread-anchor");
-        if (!anchorA || !anchorB) return;
+        const anchorA = cardA.querySelector(".doc-thread-anchor") || cardA;
+        const anchorB = cardB.querySelector(".doc-thread-anchor") || cardB;
 
         const rectA = anchorA.getBoundingClientRect();
         const rectB = anchorB.getBoundingClientRect();
@@ -1211,83 +1213,74 @@ class Game {
         const y2 = (rectB.top + rectB.height / 2) - surfaceRect.top;
 
         const dist = Math.hypot(x2 - x1, y2 - y1);
-        const sag = Math.min(30, Math.max(10, dist * 0.12));
+        const sag = Math.min(45, Math.max(15, dist * 0.15));
+
         const cx = (x1 + x2) / 2;
         const cy = (y1 + y2) / 2 + sag;
 
-        // Intelligent Staggering: Test t-parameters [0.5, 0.35, 0.65, 0.25, 0.75] to avoid tag overlap
-        const tCandidates = [0.5, 0.35, 0.65, 0.25, 0.75];
+        // Choose t parameter along Bezier curve to stagger tags
         let chosenT = 0.5;
-        let chosenTagPoint = getQuadraticBezierPoint(x1, y1, cx, cy, x2, y2, 0.5);
-
-        for (const tVal of tCandidates) {
-          const pt = getQuadraticBezierPoint(x1, y1, cx, cy, x2, y2, tVal);
-          const hasCollision = placedTagCoords.some(c => Math.hypot(c.x - pt.x, c.y - pt.y) < 55);
+        for (const candidateT of tCandidates) {
+          const pt = getQuadraticBezierPoint(x1, y1, cx, cy, x2, y2, candidateT);
+          const hasCollision = placedTagCoords.some(coord => Math.hypot(coord.x - pt.x, coord.y - pt.y) < 55);
           if (!hasCollision) {
-            chosenT = tVal;
-            chosenTagPoint = pt;
+            chosenT = candidateT;
             break;
           }
         }
-        placedTagCoords.push(chosenTagPoint);
 
-        const midX = chosenTagPoint.x;
-        const midY = chosenTagPoint.y;
+        const tagPt = getQuadraticBezierPoint(x1, y1, cx, cy, x2, y2, chosenT);
+        placedTagCoords.push(tagPt);
 
-        // Determine exact thread state
-        let threadClass = "assembly-crimson-thread is-under-investigation";
-        if (t.verified) {
-          threadClass = "assembly-crimson-thread is-verified";
-        } else if (t.attempted) {
-          threadClass = "assembly-crimson-thread is-unresolved";
-        }
+        const midX = tagPt.x;
+        const midY = tagPt.y;
 
-        // Idempotent Organic Crimson SVG Thread Element
-        let path = threadSvgCanvas.querySelector(`path[data-thread-id="${t.threadId}"]`);
-        if (!path) {
-          path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-          path.dataset.threadId = t.threadId;
-          path.setAttribute("title", "Click to inspect connection | Double-click or Right-click to snip thread");
+        // Render SVG Path
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const pathClass = t.verified 
+          ? "assembly-crimson-thread is-verified" 
+          : (t.attempted ? "assembly-crimson-thread is-unresolved" : "assembly-crimson-thread is-under-investigation");
 
-          const removeThread = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            assemblyThreads = assemblyThreads.filter(tr => tr !== t);
-            verifiedDeductionIds.clear();
-            assemblyThreads.forEach(tr => {
-              if (tr.verified && tr.deductionId) {
-                verifiedDeductionIds.add(tr.deductionId);
-              }
-            });
-            const uniqueVerifiedCount = verifiedDeductionIds.size;
-            const hudCount = document.getElementById("hud-verified-count");
-            if (hudCount) hudCount.textContent = `${uniqueVerifiedCount} / 3 Connections Verified`;
-            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
-            redrawAssemblyThreads();
-          };
-
-          path.onclick = (e) => {
-            e.stopPropagation();
-            const wasActive = t.isActive;
-            assemblyThreads.forEach(tr => tr.isActive = false);
-            t.isActive = !wasActive;
-            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-            redrawAssemblyThreads();
-          };
-
-          path.ondblclick = removeThread;
-          path.oncontextmenu = removeThread;
-
-          threadSvgCanvas.appendChild(path);
-        }
-
+        path.setAttribute("class", pathClass);
         path.setAttribute("d", `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`);
-        path.setAttribute("class", threadClass);
+
+        const removeThreadHandler = (e) => {
+          if (caseEvidenceSolved) return; // Locked once evidence phase is solved
+          e.preventDefault();
+          e.stopPropagation();
+          assemblyThreads = assemblyThreads.filter(tr => tr !== t);
+          verifiedDeductionIds.clear();
+          assemblyThreads.forEach(tr => {
+            if (tr.verified && tr.deductionId) {
+              verifiedDeductionIds.add(tr.deductionId);
+            }
+          });
+          const uniqueVerifiedCount = verifiedDeductionIds.size;
+          const hudCount = document.getElementById("hud-verified-count");
+          if (hudCount) hudCount.textContent = `${uniqueVerifiedCount} / 3 Connections Verified`;
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+          redrawAssemblyThreads();
+        };
+
+        path.onclick = (e) => {
+          e.stopPropagation();
+          if (caseEvidenceSolved) return;
+          const wasActive = t.isActive;
+          assemblyThreads.forEach(tr => tr.isActive = false);
+          t.isActive = !wasActive;
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+          redrawAssemblyThreads();
+        };
+
+        path.ondblclick = removeThreadHandler;
+        path.oncontextmenu = removeThreadHandler;
+
+        threadSvgCanvas.appendChild(path);
 
         const deductionData = getDeductionData(t.fromId, t.toId);
 
-        // Render ONE ACTIVE INTERACTIVE HYPOTHESIS NOTE if t.isActive === true
-        if (t.isActive && !t.verified) {
+        // Render ONE ACTIVE INTERACTIVE HYPOTHESIS NOTE if t.isActive === true && !caseEvidenceSolved
+        if (t.isActive && !t.verified && !caseEvidenceSolved) {
           // Remove any existing midpoint tag for this active thread
           const oldTag = dropZone.querySelector(`.assembly-thread-tag[data-thread-id="${t.threadId}"]`);
           if (oldTag) oldTag.remove();
@@ -1362,12 +1355,12 @@ class Game {
             bottom: el.offsetTop + el.offsetHeight + 8
           }));
 
-          const baseL = cx - 110;
-          const baseT = cy > (dropH * 0.5) ? (cy - estimatedSlipHeight - 15) : (cy + 25);
+          const baseL = midX - 110;
+          const baseT = midY > (dropH * 0.5) ? (midY - estimatedSlipHeight - 15) : (midY + 25);
 
           const offsets = [
             { dx: 0, dy: 0 },
-            { dx: 0, dy: (cy > dropH * 0.5 ? 180 : -180) },
+            { dx: 0, dy: (midY > dropH * 0.5 ? 180 : -180) },
             { dx: 150, dy: 0 },
             { dx: -150, dy: 0 }
           ];
@@ -1442,8 +1435,30 @@ class Game {
                     else elderFeedbackText.textContent = deductionData.elder;
                   }
 
-                  if (uniqueVerifiedCount >= 3) {
-                    triggerInvestigatorCaseTheoryModal();
+                  // STATE TRANSITION: WHEN 3RD CANONICAL DEDUCTION IS VERIFIED
+                  if (verifiedDeductionIds.size >= 3 && !caseEvidenceSolved) {
+                    caseEvidenceSolved = true;
+
+                    // 1. Clean up active/unconfirmed slips
+                    dropZone.querySelectorAll(".assembly-deduction-slip").forEach(el => el.remove());
+
+                    // 2. Hide any unverified/inactive thread tags
+                    assemblyThreads.forEach(tr => {
+                      if (!tr.verified) {
+                        tr.isActive = false;
+                      }
+                    });
+
+                    // 3. Update HUD text
+                    if (hudCount) hudCount.textContent = "3 / 3 CONNECTIONS VERIFIED";
+
+                    // 4. Update Motibhai Elder line
+                    if (elderFeedbackText) {
+                      elderFeedbackText.textContent = '"Now you have shown the assembly why we must bypass the contractor and form our own cooperative under Sardar Patel\'s guidance!"';
+                    }
+
+                    // 5. Unlock and reveal Case Theory Note
+                    unlockCaseTheory();
                   }
                 } else {
                   if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
@@ -1457,31 +1472,14 @@ class Game {
 
           if (isNewSlip) dropZone.appendChild(slip);
 
-        } else {
-          // Remove active slip if present for inactive thread
+        } else if (t.verified) {
+          // Remove active slip if present for verified thread
           const activeSlip = dropZone.querySelector(`.assembly-deduction-slip[data-thread-id="${t.threadId}"]`);
           if (activeSlip) activeSlip.remove();
 
-          // Render Midpoint Pinned State Tag (.assembly-thread-tag)
+          // Render Midpoint Pinned Verified Tag ONLY for VERIFIED connections
           let tag = dropZone.querySelector(`.assembly-thread-tag[data-thread-id="${t.threadId}"]`);
           const isNewTag = !tag;
-
-          const removeThread = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            assemblyThreads = assemblyThreads.filter(tr => tr !== t);
-            verifiedDeductionIds.clear();
-            assemblyThreads.forEach(tr => {
-              if (tr.verified && tr.deductionId) {
-                verifiedDeductionIds.add(tr.deductionId);
-              }
-            });
-            const uniqueVerifiedCount = verifiedDeductionIds.size;
-            const hudCount = document.getElementById("hud-verified-count");
-            if (hudCount) hudCount.textContent = `${uniqueVerifiedCount} / 3 Connections Verified`;
-            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
-            redrawAssemblyThreads();
-          };
 
           if (isNewTag) {
             tag = document.createElement("div");
@@ -1489,6 +1487,7 @@ class Game {
 
             tag.onclick = (e) => {
               e.stopPropagation();
+              if (caseEvidenceSolved) return;
               const wasActive = t.isActive;
               assemblyThreads.forEach(tr => tr.isActive = false);
               t.isActive = !wasActive;
@@ -1496,23 +1495,15 @@ class Game {
               redrawAssemblyThreads();
             };
 
-            tag.ondblclick = removeThread;
-            tag.oncontextmenu = removeThread;
+            tag.ondblclick = removeThreadHandler;
+            tag.oncontextmenu = removeThreadHandler;
           }
 
           tag.style.left = `${midX}px`;
           tag.style.top = `${midY}px`;
 
-          let tagStateClass = "assembly-thread-tag is-under-investigation font-type";
-          let tagText = "✦ UNDER INVESTIGATION";
-
-          if (t.verified) {
-            tagStateClass = "assembly-thread-tag is-verified font-type";
-            tagText = `✓ VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}`;
-          } else if (t.attempted) {
-            tagStateClass = "assembly-thread-tag is-unresolved font-type";
-            tagText = "✦ UNRESOLVED";
-          }
+          const tagStateClass = "assembly-thread-tag is-verified font-type";
+          const tagText = `✓ VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}`;
 
           if (tag.className !== tagStateClass) {
             tag.className = tagStateClass;
@@ -1523,6 +1514,13 @@ class Game {
           }
 
           if (isNewTag) dropZone.appendChild(tag);
+        } else {
+          // UNRESOLVED / UNCONFIRMED CONNECTION: Render ZERO rectangular tag boxes!
+          const activeSlip = dropZone.querySelector(`.assembly-deduction-slip[data-thread-id="${t.threadId}"]`);
+          if (activeSlip) activeSlip.remove();
+
+          const oldTag = dropZone.querySelector(`.assembly-thread-tag[data-thread-id="${t.threadId}"]`);
+          if (oldTag) oldTag.remove();
         }
       });
     };
@@ -1533,15 +1531,26 @@ class Game {
       hudBox.style.cursor = "pointer";
       hudBox.onclick = (e) => {
         e.stopPropagation();
-        triggerInvestigatorCaseTheoryModal();
+        unlockCaseTheory();
       };
     }
 
-    // Trigger Investigator's Case Theory Note & Archival Verification Sequence
-    const triggerInvestigatorCaseTheoryModal = () => {
+    // PHASE 2 & 3: UNLOCK & DISPLAY CASE THEORY NOTE (#investigator-case-theory-note)
+    const unlockCaseTheory = () => {
+      if (caseTheoryUnlocked) return;
+      caseTheoryUnlocked = true;
+
       const theoryNote = document.getElementById("investigator-case-theory-note");
       if (!theoryNote) return;
+
+      // Reveal Case Theory Note in physical center negative space on table surface
       theoryNote.style.display = "block";
+      theoryNote.style.position = "absolute";
+      theoryNote.style.left = "50%";
+      theoryNote.style.top = "45%";
+      theoryNote.style.transform = "translate(-50%, -50%) rotate(-1deg)";
+      theoryNote.style.zIndex = "150";
+
       if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
 
       const buttons = theoryNote.querySelectorAll(".theory-choice-btn");
@@ -1552,6 +1561,9 @@ class Game {
           e.stopPropagation();
           const isCorrect = btn.dataset.correct === "true";
           if (isCorrect) {
+            if (caseTheorySolved) return;
+            caseTheorySolved = true;
+
             if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
             if (feedback) {
               feedback.style.color = "#2e7d32";
@@ -1563,16 +1575,20 @@ class Game {
               elderFeedbackText.textContent = '"Then you understand what the records were telling us. The farmers could not bargain with the system individually."';
             }
 
-            // Show Archival Verification Banner after 1 second
+            // PHASE 3 -> PHASE 4: ARCHIVAL VERIFICATION & RECOMMENDATION CARDS
             setTimeout(() => {
               const banner = document.getElementById("archival-verification-banner");
-              if (banner) banner.style.display = "block";
+              if (banner) {
+                banner.style.display = "block";
+                banner.style.zIndex = "160";
+              }
 
-              // Unlock final recommendation decision cards after banner
               setTimeout(() => {
-                if (decisionOptions) {
+                if (decisionOptions && !recommendationUnlocked) {
+                  recommendationUnlocked = true;
                   decisionOptions.style.display = "flex";
                   decisionOptions.style.animation = "introFade 1.2s ease forwards";
+                  decisionOptions.scrollIntoView({ behavior: "smooth", block: "center" });
                 }
               }, 1200);
             }, 1000);
@@ -1590,7 +1606,6 @@ class Game {
 
     // Render clues into folder
     const renderFolder = () => {
-      folderGrid.innerHTML = "";
       const remainingClues = allClues.filter(c => !placedClues.some(p => p.id === c.id));
       console.log(`📂 renderFolder called. Rendering ${remainingClues.length} cards into #evidence-folder-cards.`);
       if (countBadge) {
