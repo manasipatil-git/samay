@@ -4373,11 +4373,15 @@ button{
 }
 
 .pencil-underline {
-  color: #8b0000;
-  font-weight: bold;
-  border-bottom: 2px dashed #8b0000;
+  color: #8b0000 !important;
+  font-weight: bold !important;
+  text-decoration: underline !important;
+  text-decoration-color: #8b0000 !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+  border-bottom: none !important;
   display: inline !important;
-  padding-bottom: 1px;
+  width: auto !important;
 }
 
 /* DETECTIVE CROSS-REFERENCE LEAD */
@@ -5085,9 +5089,27 @@ button{
 
 /* GRAPHITE PENCIL UNDERLINE */
 .pencil-underline {
-  border-bottom: 2px solid #8b0000;
-  padding-bottom: 1px;
-  font-weight: bold;
+  color: #8b0000 !important;
+  font-weight: bold !important;
+  text-decoration: underline !important;
+  text-decoration-color: #8b0000 !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+  border-bottom: none !important;
+  display: inline !important;
+  width: auto !important;
+}
+
+.wire-clipping-card h4,
+.railway-tag-card h4,
+.museum-clipping h4 {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 1.05rem !important;
+  font-weight: bold !important;
+  color: #2b170c !important;
+  margin: 6px 0 10px 0 !important;
+  line-height: 1.25 !important;
+  opacity: 1 !important;
 }
 
 /* 3D INTERACTIVE FLIP CARD STYLES FOR QUESTION 2 */
