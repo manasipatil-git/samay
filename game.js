@@ -1179,6 +1179,22 @@ class Game {
           const removeThreadAction = (e) => {
             e.stopPropagation();
             assemblyThreads = assemblyThreads.filter(tr => tr !== t);
+
+            // Recalculate verified canonical categories after thread removal
+            verifiedDeductionCategories.clear();
+            assemblyThreads.forEach(tr => {
+              if (tr.verified) {
+                const data = getDeductionData(tr.fromId, tr.toId);
+                if (data && data.category) {
+                  verifiedDeductionCategories.add(data.category);
+                }
+              }
+            });
+
+            const uniqueVerifiedCount = verifiedDeductionCategories.size;
+            const hudCount = document.getElementById("hud-verified-count");
+            if (hudCount) hudCount.textContent = `${uniqueVerifiedCount} / 3 Connections Verified`;
+
             if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
             redrawAssemblyThreads();
           };
@@ -1321,7 +1337,7 @@ class Game {
             slip.innerHTML = `
               <div class="slip-header-strip font-type">
                 <span class="slip-pin-head font-type">📌</span>
-                <span class="slip-title font-type">YOUR NOTE // HYPOTHESIS</span>
+                <span class="slip-title font-type">HYPOTHESIS // UNCONFIRMED</span>
               </div>
               <div class="slip-prompt-question font-type">${deductionData.prompt}</div>
               <div class="slip-choices-box"></div>
@@ -1366,7 +1382,7 @@ class Game {
                   if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
                   if (feedbackBox) {
                     feedbackBox.style.color = "#8b0000";
-                    feedbackBox.textContent = "INSUFFICIENT EVIDENCE — Look again at the figures on the document.";
+                    feedbackBox.textContent = "HYPOTHESIS UNCONFIRMED — No corroborating record found for this connection.";
                   }
                 }
               };
