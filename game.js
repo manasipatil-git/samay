@@ -1157,30 +1157,33 @@ class Game {
         if (!path) {
           path = document.createElementNS("http://www.w3.org/2000/svg", "path");
           path.dataset.threadId = t.threadId;
-          path.setAttribute("title", "Click to remove evidence connection thread");
+          path.setAttribute("title", "Click to inspect connection | Double-click to remove thread");
 
-          const removeThreadAction = (e) => {
+          path.onclick = (e) => {
+            e.stopPropagation();
+            const wasActive = t.isActive;
+            assemblyThreads.forEach(tr => tr.isActive = false);
+            t.isActive = !wasActive;
+            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+            redrawAssemblyThreads();
+          };
+
+          path.ondblclick = (e) => {
             e.stopPropagation();
             assemblyThreads = assemblyThreads.filter(tr => tr !== t);
-
-            // Recalculate verified canonical deduction IDs after thread removal
             verifiedDeductionIds.clear();
             assemblyThreads.forEach(tr => {
               if (tr.verified && tr.deductionId) {
                 verifiedDeductionIds.add(tr.deductionId);
               }
             });
-
             const uniqueVerifiedCount = verifiedDeductionIds.size;
             const hudCount = document.getElementById("hud-verified-count");
             if (hudCount) hudCount.textContent = `${uniqueVerifiedCount} / 3 Connections Verified`;
-
             if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
             redrawAssemblyThreads();
           };
 
-          path.onclick = removeThreadAction;
-          path.ondblclick = removeThreadAction;
           threadSvgCanvas.appendChild(path);
         }
 
@@ -1623,7 +1626,7 @@ class Game {
               );
               if (!exists) {
                 assemblyThreads.forEach(tr => tr.isActive = false);
-                assemblyThreads.push({ fromId: c.id, toId: targetId, isActive: true });
+                assemblyThreads.push({ fromId: c.id, toId: targetId, isActive: false });
                 
                 // Hide tutorial card after first connection
                 const tutCard = document.getElementById("connection-tutorial-card");

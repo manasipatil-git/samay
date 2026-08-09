@@ -6144,26 +6144,40 @@ button{
   100% { opacity: 0; transform: translate(-50%, -10px); }
 }
 
+/* ASSEMBLY THREAD SVG CANVAS LAYER (PASSES BEHIND EVIDENCE CARDS) */
+#assembly-thread-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 35 !important;
+}
+
 /* ORGANIC PHYSICAL CRIMSON THREAD PATHS */
 .assembly-crimson-thread {
-  stroke: #aa382b;
-  stroke-width: 2.2;
+  stroke: #b84a3e;
+  stroke-width: 2.0;
   stroke-dasharray: 6 3;
+  opacity: 0.82;
   stroke-linecap: round;
   fill: none;
-  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.5));
   cursor: pointer;
   pointer-events: stroke !important;
-  transition: stroke 0.3s ease, stroke-width 0.3s ease;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease;
 }
 .assembly-crimson-thread:hover {
   stroke: #ff4d39;
-  stroke-width: 3.2;
+  stroke-width: 3.0;
+  opacity: 1;
 }
 .assembly-crimson-thread.is-verified {
   stroke: #8b0000;
-  stroke-width: 3.2;
+  stroke-width: 3.5;
   stroke-dasharray: none;
+  opacity: 1;
   filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.75));
 }
 
