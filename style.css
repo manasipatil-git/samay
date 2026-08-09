@@ -9102,4 +9102,129 @@ button{
   background: #8b0000;
   transform: translateY(-2px);
 }
+
+/* INVESTIGATOR'S CASE THEORY PAPER NOTE */
+.investigator-case-theory-note {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -55%) rotate(-1deg) !important;
+  width: 320px !important;
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
+  border: 1.5px solid #6b4c27 !important;
+  border-radius: 4px !important;
+  padding: 14px 16px !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(184, 134, 11, 0.2) !important;
+  z-index: 98 !important;
+  animation: theorySlideIn 0.5s cubic-bezier(0.2, 0.85, 0.3, 1) forwards;
+}
+
+@keyframes theorySlideIn {
+  from { opacity: 0; transform: translate(-50%, -70%) rotate(-4deg) scale(0.9); }
+  to { opacity: 1; transform: translate(-50%, -55%) rotate(-1deg) scale(1); }
+}
+
+.case-theory-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1.5px dashed #b8860b;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+.theory-pin {
+  font-size: 0.9rem;
+}
+.theory-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #8b0000;
+}
+.theory-prompt {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.82rem;
+  font-weight: bold;
+  color: #1a0b03;
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+.theory-options-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.theory-choice-btn {
+  background: #ffffff;
+  border: 1px solid #c9a363;
+  border-radius: 3px;
+  padding: 8px 12px;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.74rem;
+  color: #2b170c;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.25;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+.theory-choice-btn:hover {
+  background: #fffdf7;
+  border-color: #8b0000;
+  color: #8b0000;
+  transform: translateX(3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.theory-feedback {
+  margin-top: 8px;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.72rem;
+  font-weight: bold;
+}
+
+/* HISTORICAL ARCHIVAL VERIFICATION BANNER */
+.archival-verification-banner {
+  position: absolute !important;
+  bottom: 12px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: rgba(18, 9, 4, 0.94) !important;
+  border: 1.5px solid #b8860b !important;
+  border-radius: 4px !important;
+  padding: 8px 18px !important;
+  text-align: center !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85) !important;
+  z-index: 99 !important;
+  animation: bannerFadeUp 0.6s ease forwards;
+}
+
+@keyframes bannerFadeUp {
+  from { opacity: 0; transform: translate(-50%, 15px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.banner-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #b8860b;
+  display: block;
+  margin-bottom: 4px;
+}
+.banner-steps {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.72rem;
+  color: #d4af37;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.banner-stamp {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: #2e7d32;
+}
 

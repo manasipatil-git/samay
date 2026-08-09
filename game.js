@@ -1311,8 +1311,11 @@ class Game {
                 t.verifiedQuote = deductionData.quote;
                 if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("pluck");
 
-                // Update Elder reaction subtitle based on verified count
+                // Update Elder reaction subtitle & HUD counter based on verified count
                 const verifiedCount = assemblyThreads.filter(tr => tr.verified).length;
+                const hudCount = document.getElementById("hud-verified-count");
+                if (hudCount) hudCount.textContent = `${verifiedCount} / 3 Connections Verified`;
+
                 const elderFeedbackText = document.getElementById("elder-feedback-text");
                 if (elderFeedbackText) {
                   if (verifiedCount === 1) elderFeedbackText.textContent = '"That proves what our local farming families were losing to contractor price margins."';
@@ -1320,10 +1323,9 @@ class Game {
                   else elderFeedbackText.textContent = deductionData.elder;
                 }
 
-                // Unlock recommendations when 3 connections are verified
-                if (verifiedCount >= 3 && decisionOptions) {
-                  decisionOptions.style.display = "flex";
-                  decisionOptions.style.animation = "introFade 1.2s ease forwards";
+                // Trigger Investigator Case Theory Note when 3 connections are verified
+                if (verifiedCount >= 3) {
+                  triggerInvestigatorCaseTheoryModal();
                 }
 
                 redrawAssemblyThreads();
@@ -1331,7 +1333,7 @@ class Game {
                 if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
                 if (feedbackBox) {
                   feedbackBox.style.color = "#8b0000";
-                  feedbackBox.textContent = "NOT SUPPORTED BY THIS RECORD — Look again at the figures on the document.";
+                  feedbackBox.textContent = "INSUFFICIENT EVIDENCE — Look again at the figures on the document.";
                 }
               }
             };
@@ -1341,6 +1343,57 @@ class Game {
         }
 
         dropZone.appendChild(slip);
+      });
+    };
+
+    // Trigger Investigator's Case Theory Note & Archival Verification Sequence
+    const triggerInvestigatorCaseTheoryModal = () => {
+      const theoryNote = document.getElementById("investigator-case-theory-note");
+      if (!theoryNote) return;
+      theoryNote.style.display = "block";
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+
+      const buttons = theoryNote.querySelectorAll(".theory-choice-btn");
+      const feedback = document.getElementById("theory-feedback");
+
+      buttons.forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const isCorrect = btn.dataset.correct === "true";
+          if (isCorrect) {
+            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
+            if (feedback) {
+              feedback.style.color = "#2e7d32";
+              feedback.textContent = "✔ FINDING SUPPORTED 🖈 — Case theory confirmed by historical records.";
+            }
+
+            const elderFeedbackText = document.getElementById("elder-feedback-text");
+            if (elderFeedbackText) {
+              elderFeedbackText.textContent = '"Then you understand what the records were telling us. The farmers could not bargain with the system individually."';
+            }
+
+            // Show Archival Verification Banner after 1 second
+            setTimeout(() => {
+              const banner = document.getElementById("archival-verification-banner");
+              if (banner) banner.style.display = "block";
+
+              // Unlock final recommendation decision cards after banner
+              setTimeout(() => {
+                if (decisionOptions) {
+                  decisionOptions.style.display = "flex";
+                  decisionOptions.style.animation = "introFade 1.2s ease forwards";
+                }
+              }, 1200);
+            }, 1000);
+
+          } else {
+            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+            if (feedback) {
+              feedback.style.color = "#8b0000";
+              feedback.textContent = "The evidence does not support this conclusion — examine the records again.";
+            }
+          }
+        };
       });
     };
 
