@@ -5890,6 +5890,51 @@ button{
   flex: none;
 }
 
+.elder-bar-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  margin-bottom: 2px !important;
+}
+
+.motibhai-hint-btn {
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
+  border: 1px solid #7c5c36 !important;
+  border-radius: 3px !important;
+  color: #8b0000 !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.62rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  padding: 2px 8px !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease !important;
+}
+
+.motibhai-hint-btn:hover {
+  transform: translateY(-1px) scale(1.04) !important;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 4px 10px rgba(0, 0, 0, 0.8) !important;
+  background: linear-gradient(135deg, #fffcf5 0%, #f7ebd0 100%) !important;
+}
+
+.motibhai-hint-btn:active {
+  transform: translateY(0) scale(0.98) !important;
+}
+
+.elder-feedback-text.is-hint-active {
+  color: #ffd700 !important;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6) !important;
+  animation: hintGlow 1.5s ease-in-out !important;
+}
+
+@keyframes hintGlow {
+  0% { color: #fdfaf2; text-shadow: none; }
+  30%, 70% { color: #ffd700; text-shadow: 0 0 12px rgba(255, 215, 0, 0.8); }
+  100% { color: #ffd700; text-shadow: 0 0 6px rgba(255, 215, 0, 0.4); }
+}
+
 /* ZONE B: CENTER HERO PHYSICAL DESK WORKSPACE (65% VIEWPORT HEIGHT) */
 .table-drop-zone {
   position: relative;

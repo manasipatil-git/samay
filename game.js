@@ -1029,16 +1029,43 @@ class Game {
     let hasCreatedFirstThread = false;
     let verifiedDeductionIds = new Set(); // Tracks 3 canonical deduction IDs strictly
 
-    // Toast feedback for first-time thread connection
-    const triggerLinkRecordedToast = () => {
-      if (hasCreatedFirstThread) return;
-      hasCreatedFirstThread = true;
+    // Toast feedback for thread connection or elder advice
+    const triggerLinkRecordedToast = (msg = "LINK RECORDED 🖈") => {
       const toast = document.createElement("div");
       toast.className = "link-recorded-toast font-type";
-      toast.textContent = "LINK RECORDED 🖈";
+      toast.textContent = msg;
       dropZone.appendChild(toast);
       setTimeout(() => toast.remove(), 1850);
     };
+
+    // CONCEPT 1: MOTIBHAI PATEL VILLAGE ELDER CONTEXTUAL HINT SYSTEM
+    const hintBtn = document.getElementById("motibhai-hint-btn");
+    if (hintBtn) {
+      hintBtn.onclick = (e) => {
+        e.stopPropagation();
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+
+        const elderFeedbackText = document.getElementById("elder-feedback-text");
+        if (!elderFeedbackText) return;
+
+        // Determine first unverified canonical deduction for contextual guidance
+        if (!verifiedDeductionIds.has("price_discrepancy")) {
+          elderFeedbackText.textContent = '"Elder Clue: Examine the Polson Price Ledger alongside the Contractor\'s Milk Receipt—the contractor claims high overheads, but the receipt proves a massive 6 Pice margin profit!"';
+        } else if (!verifiedDeductionIds.has("supply_control")) {
+          elderFeedbackText.textContent = '"Elder Clue: Cross-reference the Daily Rejection Log with the Price Ledger—notice how full milk cans are rejected at 08:15 AM every morning to force price drops!"';
+        } else if (!verifiedDeductionIds.has("transport_control")) {
+          elderFeedbackText.textContent = '"Elder Clue: Compare the B.B.&C.I. Freight Manifest with the Village Council Petition—wagon #428 was sent half-empty to Bombay to manufacture transport bottlenecks!"';
+        } else {
+          elderFeedbackText.textContent = '"Elder Clue: All three evidence connections are verified! Formulate your final case theory below to unite the village assembly."';
+        }
+
+        elderFeedbackText.classList.remove("is-hint-active");
+        void elderFeedbackText.offsetWidth; // Force DOM reflow for re-triggering animation
+        elderFeedbackText.classList.add("is-hint-active");
+
+        triggerLinkRecordedToast("MOTIBHAI PATEL OFFERS ADVICE 💡");
+      };
+    }
 
     // 1-to-1 Canonical Deductions Registry
     const CANONICAL_DEDUCTIONS = {
