@@ -1093,9 +1093,9 @@ class Game {
     // Render items placed on table
     const renderTable = () => {
       // Clear previous placed cards
-      dropZone.querySelectorAll(".evidence-card-drag").forEach(el => el.remove());
+      dropZone.querySelectorAll(".evidence-card-drag.placed-on-table").forEach(el => el.remove());
 
-      const tilts = ["transform: rotate(-2.5deg);", "transform: rotate(1.8deg);", "transform: rotate(-1.2deg);"];
+      const tilts = [-2.5, 1.8, -1.2, 3.2, -2.0];
       const pencilNotes = [
         "✏️ Verified Contractor Discrepancy",
         "✏️ Verified Spoilage Quota Bottleneck",
@@ -1103,10 +1103,23 @@ class Game {
       ];
 
       placedClues.forEach((c, idx) => {
+        // Initialize default organic coordinates on table if not set
+        if (c.posX === undefined) {
+          c.posX = Math.round(35 + idx * 250);
+          c.posY = Math.round(8 + (idx % 2) * 14);
+          c.rot = tilts[idx % tilts.length];
+          c.zIndex = 20 + idx;
+        }
+
         const card = document.createElement("div");
         card.className = `evidence-card-drag doc-style-${c.id} placed-on-table font-type`;
-        card.style.cssText = tilts[idx % tilts.length];
+        card.style.position = "absolute";
+        card.style.left = `${c.posX}px`;
+        card.style.top = `${c.posY}px`;
+        card.style.transform = `rotate(${c.rot}deg)`;
+        card.style.zIndex = c.zIndex;
         card.dataset.id = c.id;
+
         card.innerHTML = `
           <span class="card-drag-tag font-type">${c.tag}</span>
           <h4 class="card-drag-title font-type">${c.title}</h4>
@@ -1114,23 +1127,93 @@ class Game {
           <span class="card-drag-action font-type" style="color: #aa7c11; font-weight: bold;">${pencilNotes[idx % pencilNotes.length]}</span>
         `;
 
-        card.onclick = () => {
+        // Physical Free Dragging Handler
+        let isPointerDown = false;
+        let hasMoved = false;
+        let startX = 0;
+        let startY = 0;
+        let initialLeft = 0;
+        let initialTop = 0;
+
+        card.onpointerdown = (e) => {
           if (isEvaluating) return;
-          placedClues = placedClues.filter(p => p.id !== c.id);
-          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-          const elderFeedbackText = document.getElementById("elder-feedback-text");
-          if (elderFeedbackText) {
-            elderFeedbackText.textContent = '"Place your collected evidence upon the assembly table to prove the contractor\'s monopoly."';
-          }
-          renderTable();
-          renderFolder();
+          isPointerDown = true;
+          hasMoved = false;
+          startX = e.clientX;
+          startY = e.clientY;
+          initialLeft = card.offsetLeft;
+          initialTop = card.offsetTop;
+
+          try { card.setPointerCapture(e.pointerId); } catch (_) {}
+
+          // Bring card to top layer
+          const maxZ = Math.max(20, ...placedClues.map(p => p.zIndex || 20));
+          c.zIndex = maxZ + 1;
+          card.style.zIndex = c.zIndex;
         };
+
+        card.onpointermove = (e) => {
+          if (!isPointerDown) return;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+
+          if (Math.hypot(dx, dy) > 4) {
+            if (!hasMoved) {
+              hasMoved = true;
+              card.classList.add("is-physically-lifted");
+            }
+
+            let newLeft = initialLeft + dx;
+            let newTop = initialTop + dy;
+
+            // Clamp bounds within dropZone boundary
+            const maxLeft = dropZone.clientWidth - card.offsetWidth;
+            const maxTop = dropZone.clientHeight - card.offsetHeight;
+            newLeft = Math.max(-10, Math.min(newLeft, maxLeft + 10));
+            newTop = Math.max(-5, Math.min(newTop, maxTop + 5));
+
+            card.style.left = `${newLeft}px`;
+            card.style.top = `${newTop}px`;
+
+            c.posX = newLeft;
+            c.posY = newTop;
+          }
+        };
+
+        const handlePointerEnd = (e) => {
+          if (!isPointerDown) return;
+          isPointerDown = false;
+          try { card.releasePointerCapture(e.pointerId); } catch (_) {}
+          card.classList.remove("is-physically-lifted");
+
+          if (hasMoved) {
+            // Settle document on table with paper sound
+            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+          } else {
+            // Pure click without dragging -> Return document to dossier deck
+            if (!isEvaluating) {
+              placedClues = placedClues.filter(p => p.id !== c.id);
+              delete c.posX;
+              delete c.posY;
+              if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+              const elderFeedbackText = document.getElementById("elder-feedback-text");
+              if (elderFeedbackText) {
+                elderFeedbackText.textContent = '"Place your collected evidence upon the assembly table to prove the contractor\'s monopoly."';
+              }
+              renderTable();
+              renderFolder();
+            }
+          }
+        };
+
+        card.onpointerup = handlePointerEnd;
+        card.onpointercancel = handlePointerEnd;
 
         dropZone.appendChild(card);
       });
     };
 
-    // Setup drag and drop on table surface
+    // Setup drag and drop from folder onto table surface
     dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add("drag-over-active"); };
     dropZone.ondragleave = () => { dropZone.classList.remove("drag-over-active"); };
     dropZone.ondrop = (e) => {
@@ -1144,7 +1227,7 @@ class Game {
     renderFolder();
     renderTable();
 
-    // MOTIBHAI PATEL'S EVALUATION VIA DIALOGUE OVERLAY & CRIMSON THREAD DRAW
+    // MOTIBHAI PATEL'S EVALUATION VIA DIALOGUE OVERLAY & RECOMMENDATION UNLOCK
     const evaluateTableEvidence = () => {
       isEvaluating = true;
 
@@ -1158,11 +1241,6 @@ class Game {
         const isCorrectCombo = hasPriceProof && hasSpoilageProof && hasTransportProof;
 
         if (isCorrectCombo) {
-          // Draw crimson thread connecting documents
-          if (threadPath) {
-            threadPath.setAttribute("d", "M 180 180 L 500 180 L 820 180");
-            threadPath.classList.add("is-active");
-          }
           if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("pluck");
 
           this.dialogue.say(

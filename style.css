@@ -6005,6 +6005,20 @@ button{
   pointer-events: auto !important;
   z-index: 30;
 }
+.evidence-card-drag.placed-on-table {
+  position: absolute !important;
+  margin: 0;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+.evidence-card-drag.placed-on-table.is-physically-lifted {
+  cursor: grabbing !important;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 215, 0, 0.3) !important;
+  transform: scale(1.06) !important;
+  transition: none !important;
+}
 .investigator-evidence-folder.is-closed .evidence-folder-cards-grid {
   display: none;
 }
