@@ -4107,10 +4107,10 @@ button{
   height: 100%;
   background: radial-gradient(ellipse at 50% 45%, #3a2314 0%, #120904 65%, #050201 100%);
   display: flex;
-  align-items: center;
+  align-items: flex-start !important;
   justify-content: center;
-  padding: 30px 20px;
-  overflow-y: auto;
+  padding: 50px 20px 60px !important;
+  overflow-y: auto !important;
   overflow-x: hidden;
   opacity: 0;
   pointer-events: none;
@@ -4129,10 +4129,10 @@ button{
   max-width: 980px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start !important;
   position: relative;
   margin: 0 auto;
-  padding: 50px 20px 30px;
+  padding: 45px 20px 30px !important;
   overflow: visible !important;
   background: radial-gradient(circle at 50% 45%, rgba(255, 235, 185, 0.09) 0%, rgba(12, 6, 2, 0.95) 75%);
   border-radius: 12px;
@@ -4185,7 +4185,7 @@ button{
   box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 25px 60px rgba(0,0,0,0.85);
   position: relative;
   padding: 32px 35px 32px 55px;
-  margin-top: 50px !important;
+  margin-top: 40px !important;
   overflow: visible !important;
   transition: transform 0.6s ease, opacity 0.5s ease;
 }
@@ -4269,44 +4269,45 @@ button{
   letter-spacing: -0.05em;
 }
 
-/* TOP PHYSICAL TAB NAVIGATION (ARCHIVAL NOTEBOOK DIVIDERS - ALWAYS VISIBLE) */
+/* TOP PHYSICAL TAB NAVIGATION (ARCHIVAL NOTEBOOK DIVIDERS - ALWAYS VISIBLE & UNCLIPPED) */
 .dossier-tab-navigation {
   position: absolute !important;
-  top: -44px !important;
-  right: 24px !important;
+  top: -38px !important;
+  right: 20px !important;
   display: flex !important;
   flex-direction: row !important;
   gap: 8px !important;
-  z-index: 500 !important; /* ALWAYS SIT ABOVE BINDER & CASEBOOK ENTIRELY */
+  z-index: 9999 !important; /* ABSOLUTE TOP HIGHEST Z-INDEX */
 }
 
 .binder-tab-btn {
-  background: linear-gradient(135deg, #d8c5a0 0%, #bfae8c 100%);
-  border: 1.5px solid #8c7958;
-  border-bottom: none;
-  border-radius: 4px 4px 0 0;
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease, background 0.2s ease;
-  position: relative;
-  z-index: 501 !important;
+  background: linear-gradient(135deg, #d8c5a0 0%, #bfae8c 100%) !important;
+  color: #2b170c !important;
+  border: 1.5px solid #8c7958 !important;
+  border-bottom: none !important;
+  border-radius: 6px 6px 0 0 !important;
+  padding: 8px 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.6) !important;
+  transition: transform 0.2s ease, background 0.2s ease !important;
+  position: relative !important;
+  z-index: 10000 !important;
 }
 
 .binder-tab-btn:hover {
-  transform: translateY(-3px);
-  background: #f2e5c4;
+  transform: translateY(-3px) !important;
+  background: #f2e5c4 !important;
 }
 
 .binder-tab-btn.is-active {
-  background: linear-gradient(135deg, #aa7c11 0%, #7a5808 100%);
-  border-color: #f7c873;
+  background: linear-gradient(135deg, #aa7c11 0%, #7a5808 100%) !important;
+  border-color: #f7c873 !important;
   color: #ffffff !important;
-  transform: translateY(-5px);
-  z-index: 502 !important;
+  transform: translateY(-4px) !important;
+  z-index: 10001 !important;
 }
 
 .tab-number {
