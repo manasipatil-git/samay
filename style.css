@@ -4322,7 +4322,14 @@ button{
   display: none;
 }
 .binder-page-spread.is-active {
-  display: block;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 520px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 20px 10px !important;
 }
 /* CO-AUTHORED PLAYER ANNOTATIONS & PENCIL MARKS */
 .player-pencil-annotation-block {
@@ -5609,16 +5616,16 @@ button{
 
 /* QUESTION 1: Sealed Folder Unseal Interaction */
 .sealed-folder-interactive {
-  background: linear-gradient(135deg, #3c2416 0%, #1a0f08 100%);
-  border: 3px solid #aa7c11;
-  border-radius: 4px;
-  padding: 30px 40px;
-  text-align: center;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.85);
-  cursor: pointer;
-  max-width: 540px;
-  margin: 20px auto;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  background: linear-gradient(135deg, #3c2416 0%, #1a0f08 100%) !important;
+  border: 3px solid #aa7c11 !important;
+  border-radius: 6px !important;
+  padding: 36px 44px !important;
+  text-align: center !important;
+  box-shadow: 0 25px 65px rgba(0,0,0,0.9) !important;
+  cursor: pointer !important;
+  width: min(560px, 92%) !important;
+  margin: auto !important;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
 }
 .sealed-folder-interactive:hover {
   transform: scale(1.02);
