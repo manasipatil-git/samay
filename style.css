@@ -4185,7 +4185,8 @@ button{
   box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 25px 60px rgba(0,0,0,0.85);
   position: relative;
   padding: 32px 35px 32px 55px;
-  margin-top: 45px;
+  margin-top: 50px !important;
+  overflow: visible !important;
   transition: transform 0.6s ease, opacity 0.5s ease;
 }
 
@@ -4268,15 +4269,15 @@ button{
   letter-spacing: -0.05em;
 }
 
-/* TOP PHYSICAL TAB NAVIGATION (ARCHIVAL NOTEBOOK DIVIDERS - NO CLIPPING) */
+/* TOP PHYSICAL TAB NAVIGATION (ARCHIVAL NOTEBOOK DIVIDERS - ALWAYS VISIBLE) */
 .dossier-tab-navigation {
-  position: absolute;
-  top: -42px;
-  right: 24px;
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  z-index: 35;
+  position: absolute !important;
+  top: -44px !important;
+  right: 24px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 8px !important;
+  z-index: 500 !important; /* ALWAYS SIT ABOVE BINDER & CASEBOOK ENTIRELY */
 }
 
 .binder-tab-btn {
@@ -4291,6 +4292,8 @@ button{
   cursor: pointer;
   box-shadow: 0 -4px 10px rgba(0,0,0,0.4);
   transition: transform 0.2s ease, background 0.2s ease;
+  position: relative;
+  z-index: 501 !important;
 }
 
 .binder-tab-btn:hover {
@@ -4303,6 +4306,7 @@ button{
   border-color: #f7c873;
   color: #ffffff !important;
   transform: translateY(-5px);
+  z-index: 502 !important;
 }
 
 .tab-number {
