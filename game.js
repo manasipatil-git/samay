@@ -1306,12 +1306,10 @@ class Game {
         `;
 
         card.ondragstart = (e) => {
-          if (isEvaluating) { e.preventDefault(); return; }
           e.dataTransfer.setData("text/plain", c.id);
         };
 
         card.onclick = () => {
-          if (isEvaluating) return;
           placeClueOnTable(c.id);
         };
 
@@ -1327,9 +1325,9 @@ class Game {
       petition: '"The petition shows every farmer family in Kaira is ready to unite under Sardar Patel\'s strike advice."'
     };
 
-    // Place clue onto table
+    // Place clue onto table (Allow placing all available 5 evidence items)
     const placeClueOnTable = (clueId) => {
-      if (placedClues.length >= 3 || isEvaluating) return;
+      if (placedClues.length >= allClues.length) return;
       const clue = allClues.find(c => c.id === clueId);
       if (!clue) return;
 
@@ -1344,10 +1342,6 @@ class Game {
 
       renderTable();
       renderFolder();
-
-      if (placedClues.length === 3) {
-        evaluateTableEvidence();
-      }
     };
 
     // Render items placed on table
@@ -1466,7 +1460,6 @@ class Game {
         let initialTop = 0;
 
         card.onpointerdown = (e) => {
-          if (isEvaluating) return;
           isPointerDown = true;
           hasMoved = false;
           startX = e.clientX;
@@ -1525,20 +1518,18 @@ class Game {
             redrawAssemblyThreads();
           } else {
             // Pure click without dragging -> Return document to dossier deck
-            if (!isEvaluating) {
-              placedClues = placedClues.filter(p => p.id !== c.id);
-              assemblyThreads = assemblyThreads.filter(t => t.fromId !== c.id && t.toId !== c.id);
-              delete c.posX;
-              delete c.posY;
-              if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-              const elderFeedbackText = document.getElementById("elder-feedback-text");
-              if (elderFeedbackText) {
-                elderFeedbackText.textContent = '"Place your collected evidence upon the assembly table to prove the contractor\'s monopoly."';
-              }
-              renderTable();
-              renderFolder();
-              redrawAssemblyThreads();
+            placedClues = placedClues.filter(p => p.id !== c.id);
+            assemblyThreads = assemblyThreads.filter(t => t.fromId !== c.id && t.toId !== c.id);
+            delete c.posX;
+            delete c.posY;
+            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+            const elderFeedbackText = document.getElementById("elder-feedback-text");
+            if (elderFeedbackText) {
+              elderFeedbackText.textContent = '"Place your collected evidence upon the assembly table to prove the contractor\'s monopoly."';
             }
+            renderTable();
+            renderFolder();
+            redrawAssemblyThreads();
           }
         };
 
