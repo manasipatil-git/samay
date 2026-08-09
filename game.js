@@ -1038,10 +1038,10 @@ class Game {
       setTimeout(() => toast.remove(), 1850);
     };
 
-    // CONCEPT 1: MOTIBHAI PATEL VILLAGE ELDER CONTEXTUAL HINT SYSTEM
-    const hintBtn = document.getElementById("motibhai-hint-btn");
-    if (hintBtn) {
-      hintBtn.onclick = (e) => {
+    // CONCEPT A: PHYSICAL ELDER'S MEMO NOTE PROP ON TEAKWOOD DESK
+    const memoProp = document.getElementById("elder-memo-prop") || document.getElementById("motibhai-hint-btn");
+    if (memoProp) {
+      memoProp.onclick = (e) => {
         e.stopPropagation();
         if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
 
