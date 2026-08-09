@@ -2138,18 +2138,51 @@ class Game {
     if (stageEnvelope) stageEnvelope.style.display = "block";
     if (sealedFolderBtn) sealedFolderBtn.style.display = "block";
 
+    const gazetteStampRec = document.getElementById("gazette-stamp-rec");
+    const gazetteStampHistory = document.getElementById("gazette-stamp-history");
+
     if (id === "cooperative") {
-      if (compPlayerTitle) compPlayerTitle.textContent = "Form a Cooperative";
-      if (compPlayerDesc) compPlayerDesc.textContent = "You recommended collecting, grading, and selling milk together.";
-      if (compPencilText) compPencilText.textContent = '"Your investigation reached the same conclusion recorded in the historical archive."';
+      if (compPlayerTitle) compPlayerTitle.textContent = "Form a Cooperative Union";
+      if (compPlayerDesc) compPlayerDesc.textContent = "You recommended collecting, grading, and marketing milk directly to break contractor monopoly power.";
+      if (compPencilText) compPencilText.textContent = '"Your investigation reached the exact historical resolution recorded in the 1946 archive."';
+      if (gazetteStampRec) {
+        gazetteStampRec.textContent = "✔ HISTORIC CHOICE";
+        gazetteStampRec.style.color = "#2e7d32";
+        gazetteStampRec.style.borderColor = "#2e7d32";
+      }
+      if (gazetteStampHistory) {
+        gazetteStampHistory.textContent = "✔ HISTORICALLY VERIFIED";
+        gazetteStampHistory.style.color = "#2e7d32";
+        gazetteStampHistory.style.borderColor = "#2e7d32";
+      }
     } else if (id === "accept") {
-      if (compPlayerTitle) compPlayerTitle.textContent = "Accept Polson's Rates";
-      if (compPlayerDesc) compPlayerDesc.textContent = "You recommended accepting contractor terms to avoid immediate dispute.";
-      if (compPencilText) compPencilText.textContent = '"Your investigation reached a different conclusion."';
+      if (compPlayerTitle) compPlayerTitle.textContent = "Accept Contractor Terms";
+      if (compPlayerDesc) compPlayerDesc.textContent = "You recommended accepting contractor terms and requesting lower handling levies.";
+      if (compPencilText) compPencilText.textContent = '"Your investigation reached an alternate pathway. Though it avoided immediate conflict, the contractor monopoly remained unbroken."';
+      if (gazetteStampRec) {
+        gazetteStampRec.textContent = "✦ ALTERNATE CHOICE";
+        gazetteStampRec.style.color = "#aa7c11";
+        gazetteStampRec.style.borderColor = "#aa7c11";
+      }
+      if (gazetteStampHistory) {
+        gazetteStampHistory.textContent = "✔ HISTORICAL REALITY — COOPERATIVE FORMED";
+        gazetteStampHistory.style.color = "#8b0000";
+        gazetteStampHistory.style.borderColor = "#8b0000";
+      }
     } else if (id === "cooling") {
-      if (compPlayerTitle) compPlayerTitle.textContent = "Install Cooling Tanks";
+      if (compPlayerTitle) compPlayerTitle.textContent = "Install Technical Cooling Tanks";
       if (compPlayerDesc) compPlayerDesc.textContent = "You recommended technical cooling upgrades to prevent milk spoilage.";
-      if (compPencilText) compPencilText.textContent = '"Your investigation reached a different conclusion."';
+      if (compPencilText) compPencilText.textContent = '"Your investigation reached an alternate pathway. Technical cooling reduced spoilage, but individual farmers remained bound to private middlemen."';
+      if (gazetteStampRec) {
+        gazetteStampRec.textContent = "✦ ALTERNATE CHOICE";
+        gazetteStampRec.style.color = "#aa7c11";
+        gazetteStampRec.style.borderColor = "#aa7c11";
+      }
+      if (gazetteStampHistory) {
+        gazetteStampHistory.textContent = "✔ HISTORICAL REALITY — COOPERATIVE FORMED";
+        gazetteStampHistory.style.color = "#8b0000";
+        gazetteStampHistory.style.borderColor = "#8b0000";
+      }
     }
 
     if (sealedFolderBtn) {
@@ -2160,9 +2193,6 @@ class Game {
           unfoldedSpread.classList.add("is-unsealed");
           unfoldedSpread.style.display = "flex";
         }
-        if (tuckedRecord) tuckedRecord.style.display = "block";
-        if (carbonMemo) carbonMemo.style.display = "block";
-        if (peekingCorner) peekingCorner.style.display = "none";
         if (stageArtifacts) stageArtifacts.style.display = "block";
         if (stageEnvelope) stageEnvelope.style.display = "block";
       };

@@ -4773,63 +4773,173 @@ button{
   transform: scale(1.02) rotate(1deg);
 }
 
-/* TOP COMPARISON SPREAD: CLEAN DUAL-PAGE SIDE-BY-SIDE ARCHIVAL DOSSIER SPREAD */
-.ending-comparison-spread,
-.archival-comparison-spread {
+/* CONCEPT A: SINGLE OFFICIAL 1946 GOVERNMENT GAZETTE REPORT SHEET */
+.gazette-report-sheet {
   display: none;
 }
 
-.ending-comparison-spread.is-unsealed,
-.archival-comparison-spread.is-unsealed {
+.gazette-report-sheet.is-unsealed {
   display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between !important;
-  align-items: stretch !important;
-  gap: 20px !important;
-  margin: 14px auto 18px !important;
-  width: 100% !important;
-  max-width: 900px !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  width: min(720px, 94%) !important;
+  margin: 10px auto 20px !important;
+  padding: 24px 28px !important;
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 50%, #edd8a5 100%) !important;
+  border: 2px solid #7c5c36 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 25px 75px rgba(0, 0, 0, 0.9), inset 0 0 25px rgba(184, 134, 11, 0.25) !important;
   position: relative !important;
   box-sizing: border-box !important;
-  animation: spreadPopIn 0.5s ease forwards !important;
+  animation: gazettePopIn 0.5s ease forwards !important;
 }
 
-@keyframes spreadPopIn {
-  from { opacity: 0; transform: translateY(15px) scale(0.97); }
+@keyframes gazettePopIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.paper-your-report {
-  flex: 1 1 48% !important;
-  width: 48% !important;
-  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%) !important;
-  border: 1.5px solid #7c5c36 !important;
-  border-top: 4px solid #aa7c11 !important;
-  border-radius: 4px !important;
-  padding: 20px 22px !important;
-  transform: rotate(-1.5deg) !important;
-  position: relative !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
-  margin: 0 !important;
-  box-sizing: border-box !important;
-  z-index: 10 !important;
+.gazette-header-block {
+  border-bottom: 2px solid #8b5a2b;
+  padding-bottom: 12px;
+  margin-bottom: 4px;
 }
 
-.paper-archive-record {
-  flex: 1 1 48% !important;
-  width: 48% !important;
-  display: block !important;
-  background: linear-gradient(135deg, #fbf3d5 0%, #edd8a5 100%) !important;
-  border: 1.5px solid #8b5a2b !important;
-  border-top: 4px solid #8b0000 !important;
-  border-radius: 4px !important;
-  padding: 20px 22px !important;
-  transform: rotate(1.5deg) !important;
-  position: relative !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+.gazette-emblem-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.gazette-emblem {
+  font-size: 1.1rem;
+}
+
+.gazette-header-badge {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.64rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.16em !important;
+  color: #8b0000 !important;
+  flex: 1;
+}
+
+.gazette-accession-stamp {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.68rem !important;
+  font-weight: bold !important;
+  color: #aa7c11 !important;
+  letter-spacing: 0.1em !important;
+  background: rgba(43, 23, 12, 0.08);
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px solid #c9a363;
+}
+
+.gazette-main-title {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  color: #1a0b03 !important;
+  letter-spacing: 0.04em !important;
+  margin: 4px 0 0 !important;
+}
+
+.gazette-section-block {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #c9a363;
+  border-radius: 3px;
+  padding: 14px 16px;
+  position: relative;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.gazette-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed #b8860b;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+.gazette-section-tag {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.66rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #7c5c36 !important;
+}
+
+.gazette-section-tag.history-tag {
+  color: #8b0000 !important;
+}
+
+.gazette-stamp-rec {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.64rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #aa7c11 !important;
+  border: 1.5px solid #aa7c11 !important;
+  padding: 2px 8px !important;
+  border-radius: 2px !important;
+  transform: rotate(-1deg);
+}
+
+.gazette-stamp-history {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.64rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #2e7d32 !important;
+  border: 1.5px solid #2e7d32 !important;
+  padding: 2px 8px !important;
+  border-radius: 2px !important;
+  transform: rotate(1deg);
+}
+
+.gazette-doc-title {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 1.05rem !important;
+  font-weight: bold !important;
+  color: #1a0b03 !important;
+  margin: 0 0 6px !important;
+}
+
+.gazette-doc-body {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.84rem !important;
+  line-height: 1.45 !important;
+  color: #2b170c !important;
   margin: 0 !important;
-  box-sizing: border-box !important;
-  z-index: 10 !important;
+}
+
+.gazette-footer-annotation {
+  border-top: 1.5px dashed #8b5a2b;
+  padding-top: 10px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-style: italic !important;
+  font-size: 0.82rem !important;
+  color: #4a3319 !important;
+}
+
+.gazette-annotation-text {
+  flex: 1;
+}
+
+.gazette-signoff {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.64rem !important;
+  font-weight: 800 !important;
+  font-style: normal !important;
+  letter-spacing: 0.1em !important;
+  color: #8b5a2b !important;
 }
 
 .peeking-resolution-corner {
