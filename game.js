@@ -1310,30 +1310,43 @@ class Game {
               <span class="tag-label font-type">VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}</span>
             `;
           }
+        } else if (t.attempted) {
+          // Player answered hypothesis: Compress into compact physical unresolved archival note
+          const targetClass = "assembly-deduction-slip font-type";
+          if (slip.className !== targetClass || !slip.querySelector(".slip-result-text")) {
+            slip.className = targetClass;
+            slip.innerHTML = `
+              <div class="slip-header-strip unresolved-header font-type">
+                <span class="slip-pin-head font-type">📌</span>
+                <span class="slip-title font-type">HYPOTHESIS // UNRESOLVED</span>
+              </div>
+              <p class="slip-result-text font-type">"No corroborating record found for this connection."</p>
+            `;
+          }
         } else {
+          // Interactive Hypothesis Note with Typewritten Paper Choice Strips
           const targetClass = "assembly-deduction-slip font-type";
           if (slip.className !== targetClass || !slip.querySelector(".slip-choices-box")) {
             slip.className = targetClass;
             slip.innerHTML = `
               <div class="slip-header-strip font-type">
                 <span class="slip-pin-head font-type">📌</span>
-                <span class="slip-title font-type">HYPOTHESIS // UNCONFIRMED</span>
+                <span class="slip-title font-type">HYPOTHESIS</span>
               </div>
               <div class="slip-prompt-question font-type">${deductionData.prompt}</div>
               <div class="slip-choices-box"></div>
-              <div class="slip-feedback font-type" style="margin-top: 4px; font-size: 0.68rem; font-weight: bold;"></div>
             `;
 
             const choicesBox = slip.querySelector(".slip-choices-box");
-            const feedbackBox = slip.querySelector(".slip-feedback");
 
             deductionData.choices.forEach(choice => {
-              const btn = document.createElement("button");
-              btn.className = "slip-choice-btn font-type";
-              btn.textContent = choice.text;
+              const strip = document.createElement("div");
+              strip.className = "slip-choice-strip font-type";
+              strip.textContent = `"${choice.text}"`;
 
-              btn.onclick = (e) => {
+              strip.onclick = (e) => {
                 e.stopPropagation();
+                t.attempted = true;
                 if (deductionData.isCanonical && choice.isCorrect) {
                   t.verified = true;
                   t.deductionId = deductionData.deductionId;
@@ -1356,18 +1369,13 @@ class Game {
                   if (uniqueVerifiedCount >= 3) {
                     triggerInvestigatorCaseTheoryModal();
                   }
-
-                  redrawAssemblyThreads();
                 } else {
                   if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
-                  if (feedbackBox) {
-                    feedbackBox.style.color = "#8b0000";
-                    feedbackBox.textContent = "HYPOTHESIS UNCONFIRMED — No corroborating record found for this connection.";
-                  }
                 }
+                redrawAssemblyThreads();
               };
 
-              choicesBox.appendChild(btn);
+              choicesBox.appendChild(strip);
             });
           }
         }
