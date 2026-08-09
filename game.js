@@ -2227,10 +2227,13 @@ class Game {
       };
     }
 
-    // 4. STRING WASHER UNWRAPPER (CONCEPT 1 DISCOVERY RITUAL)
+    // 4. STRING WASHER UNWRAPPER (TAB 3 DISCOVERY RITUAL)
     const stringWasherBtn = document.getElementById("string-washer-btn");
     const sealedSleeve = document.getElementById("sealed-discovery-sleeve");
     const unfoldedRecord = document.getElementById("unfolded-historical-record");
+    const envelopeBox = document.getElementById("amul-discovery-envelope");
+    const legacyContainer = document.getElementById("legacy-reveal-container");
+    const envelopeBtn = document.getElementById("btn-open-amul-envelope");
 
     if (stringWasherBtn) {
       stringWasherBtn.onclick = () => {
@@ -2240,39 +2243,48 @@ class Game {
       };
     }
 
-    // Global samayOpenEnvelope helper for Tab 3 discovery button
     window.samayOpenEnvelope = () => {
+      const envelopeEl = document.getElementById("amul-discovery-envelope");
+      const legacyEl = document.getElementById("legacy-reveal-container");
+
       if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-      if (envelopeBox) envelopeBox.style.display = "none";
-      if (legacyContainer) {
-        legacyContainer.style.display = "block";
-        legacyContainer.style.animation = "slideOutHistoricalDeed 0.6s ease forwards";
+      if (envelopeEl) envelopeEl.style.display = "none";
+      if (legacyEl) {
+        legacyEl.style.display = "block";
+        legacyEl.style.animation = "slideOutHistoricalDeed 0.6s ease forwards";
       }
+
+      // Show specific branching outcome block or update sleek final dossier
+      const playerTitle = document.getElementById("dossier-player-title");
+      const playerDesc = document.getElementById("dossier-player-desc");
+
+      if (id === "cooperative") {
+        if (playerTitle) playerTitle.textContent = "Form a Cooperative Union";
+        if (playerDesc) playerDesc.textContent = "You recommended collective milk pooling, grading, and direct transport to Bombay Municipality, bypassing contractor monopoly.";
+      } else if (id === "accept") {
+        if (playerTitle) playerTitle.textContent = "Accept Polson's Contractor Rates";
+        if (playerDesc) playerDesc.textContent = "You recommended accepting contractor rates to avoid immediate conflict, leaving Kaira farmers in long-term economic distress.";
+      } else if (id === "cooling") {
+        if (playerTitle) playerTitle.textContent = "Build Cooling Tanks Only";
+        if (playerDesc) playerDesc.textContent = "You recommended technical cooling upgrades without farmer ownership; contractor Polson Ltd captured 100% of efficiency gains.";
+      }
+
+      const branchOutcomeId = id === "cooperative" ? "branch-outcome-cooperative" :
+                              (id === "accept" ? "branch-outcome-accept" : "branch-outcome-cooling");
+      const branchEl = document.getElementById(branchOutcomeId);
+      if (branchEl) branchEl.style.display = "block";
     };
 
     if (envelopeBtn) {
-      envelopeBtn.onclick = () => {
+      envelopeBtn.onclick = (e) => {
+        e.stopPropagation();
         window.samayOpenEnvelope();
-
-        // Show specific branching outcome block or update sleek final dossier
-        const playerTitle = document.getElementById("dossier-player-title");
-        const playerDesc = document.getElementById("dossier-player-desc");
-        
-        if (id === "cooperative") {
-          if (playerTitle) playerTitle.textContent = "Form a Cooperative Union";
-          if (playerDesc) playerDesc.textContent = "You recommended collective milk pooling, grading, and direct transport to Bombay Municipality, bypassing contractor monopoly.";
-        } else if (id === "accept") {
-          if (playerTitle) playerTitle.textContent = "Accept Polson's Contractor Rates";
-          if (playerDesc) playerDesc.textContent = "You recommended accepting contractor rates to avoid immediate conflict, leaving Kaira farmers in long-term economic distress.";
-        } else if (id === "cooling") {
-          if (playerTitle) playerTitle.textContent = "Build Cooling Tanks Only";
-          if (playerDesc) playerDesc.textContent = "You recommended technical cooling upgrades without farmer ownership; contractor Polson Ltd captured 100% of efficiency gains.";
-        }
-
-        const branchOutcomeId = id === "cooperative" ? "branch-outcome-cooperative" :
-                                (id === "accept" ? "branch-outcome-accept" : "branch-outcome-cooling");
-        const branchEl = document.getElementById(branchOutcomeId);
-        if (branchEl) branchEl.style.display = "block";
+      };
+    }
+    if (envelopeBox) {
+      envelopeBox.onclick = (e) => {
+        e.stopPropagation();
+        window.samayOpenEnvelope();
       };
     }
 
