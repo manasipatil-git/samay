@@ -1024,7 +1024,59 @@ class Game {
     }
 
     let placedClues = [];
+    let assemblyThreads = [];
     let isEvaluating = false;
+
+    // Redraw all player-created evidence threads connecting placed documents
+    const redrawAssemblyThreads = () => {
+      const threadSvgCanvas = document.getElementById("assembly-thread-canvas");
+      if (!threadSvgCanvas) return;
+      threadSvgCanvas.innerHTML = "";
+
+      const tableSurfaceBox = document.getElementById("panchayat-table-surface") || dropZone;
+      const surfaceRect = tableSurfaceBox.getBoundingClientRect();
+
+      assemblyThreads.forEach(t => {
+        const cardA = dropZone.querySelector(`.placed-on-table[data-id="${t.fromId}"]`);
+        const cardB = dropZone.querySelector(`.placed-on-table[data-id="${t.toId}"]`);
+        if (!cardA || !cardB) return;
+
+        const anchorA = cardA.querySelector(".doc-thread-anchor");
+        const anchorB = cardB.querySelector(".doc-thread-anchor");
+        if (!anchorA || !anchorB) return;
+
+        const rectA = anchorA.getBoundingClientRect();
+        const rectB = anchorB.getBoundingClientRect();
+
+        const x1 = (rectA.left + rectA.width / 2) - surfaceRect.left;
+        const y1 = (rectA.top + rectA.height / 2) - surfaceRect.top;
+        const x2 = (rectB.left + rectB.width / 2) - surfaceRect.left;
+        const y2 = (rectB.top + rectB.height / 2) - surfaceRect.top;
+
+        const dist = Math.hypot(x2 - x1, y2 - y1);
+        const sag = Math.min(30, Math.max(10, dist * 0.12));
+        const cx = (x1 + x2) / 2;
+        const cy = (y1 + y2) / 2 + sag;
+
+        // Create organic curved crimson thread element
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`);
+        path.setAttribute("class", "assembly-crimson-thread");
+        path.setAttribute("title", "Click to remove evidence connection thread");
+
+        const removeThreadAction = (e) => {
+          e.stopPropagation();
+          assemblyThreads = assemblyThreads.filter(tr => tr !== t);
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+          redrawAssemblyThreads();
+        };
+
+        path.onclick = removeThreadAction;
+        path.ondblclick = removeThreadAction;
+
+        threadSvgCanvas.appendChild(path);
+      });
+    };
 
     // Render clues into folder
     const renderFolder = () => {
@@ -1127,6 +1179,73 @@ class Game {
           <span class="card-drag-action font-type" style="color: #aa7c11; font-weight: bold;">${pencilNotes[idx % pencilNotes.length]}</span>
         `;
 
+        // Physical Brass Pin Thread Anchor
+        const anchorEl = document.createElement("div");
+        anchorEl.className = "doc-thread-anchor";
+        anchorEl.title = "Drag thread to connect evidence";
+        anchorEl.innerHTML = `<div class="anchor-pin-head"></div>`;
+
+        let isDrawingThread = false;
+        let activeTempPath = null;
+
+        anchorEl.onpointerdown = (e) => {
+          e.stopPropagation();
+          isDrawingThread = true;
+          try { anchorEl.setPointerCapture(e.pointerId); } catch (_) {}
+
+          const threadSvgCanvas = document.getElementById("assembly-thread-canvas");
+          const tableSurfaceBox = document.getElementById("panchayat-table-surface") || dropZone;
+          const surfaceRect = tableSurfaceBox.getBoundingClientRect();
+          const rectA = anchorEl.getBoundingClientRect();
+          const startX = (rectA.left + rectA.width / 2) - surfaceRect.left;
+          const startY = (rectA.top + rectA.height / 2) - surfaceRect.top;
+
+          activeTempPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          activeTempPath.setAttribute("class", "assembly-crimson-thread");
+          activeTempPath.setAttribute("d", `M ${startX} ${startY} L ${startX} ${startY}`);
+          if (threadSvgCanvas) threadSvgCanvas.appendChild(activeTempPath);
+
+          anchorEl.onpointermove = (ev) => {
+            if (!isDrawingThread || !activeTempPath) return;
+            const curX = ev.clientX - surfaceRect.left;
+            const curY = ev.clientY - surfaceRect.top;
+            const dist = Math.hypot(curX - startX, curY - startY);
+            const sag = Math.min(25, dist * 0.1);
+            const midX = (startX + curX) / 2;
+            const midY = (startY + curY) / 2 + sag;
+            activeTempPath.setAttribute("d", `M ${startX} ${startY} Q ${midX} ${midY} ${curX} ${curY}`);
+          };
+
+          const handleThreadEnd = (ev) => {
+            if (!isDrawingThread) return;
+            isDrawingThread = false;
+            try { anchorEl.releasePointerCapture(ev.pointerId); } catch (_) {}
+            if (activeTempPath) { activeTempPath.remove(); activeTempPath = null; }
+            anchorEl.onpointermove = null;
+            anchorEl.onpointerup = null;
+            anchorEl.onpointercancel = null;
+
+            const targetEl = document.elementFromPoint(ev.clientX, ev.clientY);
+            const targetCard = targetEl ? targetEl.closest(".placed-on-table") : null;
+            if (targetCard && targetCard.dataset.id !== c.id) {
+              const targetId = targetCard.dataset.id;
+              const exists = assemblyThreads.some(t => 
+                (t.fromId === c.id && t.toId === targetId) || (t.fromId === targetId && t.toId === c.id)
+              );
+              if (!exists) {
+                assemblyThreads.push({ fromId: c.id, toId: targetId });
+                if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+                redrawAssemblyThreads();
+              }
+            }
+          };
+
+          anchorEl.onpointerup = handleThreadEnd;
+          anchorEl.onpointercancel = handleThreadEnd;
+        };
+
+        card.appendChild(anchorEl);
+
         // Physical Free Dragging Handler
         let isPointerDown = false;
         let hasMoved = false;
@@ -1177,6 +1296,9 @@ class Game {
 
             c.posX = newLeft;
             c.posY = newTop;
+
+            // Update thread endpoint positions live as document moves
+            redrawAssemblyThreads();
           }
         };
 
@@ -1189,10 +1311,12 @@ class Game {
           if (hasMoved) {
             // Settle document on table with paper sound
             if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+            redrawAssemblyThreads();
           } else {
             // Pure click without dragging -> Return document to dossier deck
             if (!isEvaluating) {
               placedClues = placedClues.filter(p => p.id !== c.id);
+              assemblyThreads = assemblyThreads.filter(t => t.fromId !== c.id && t.toId !== c.id);
               delete c.posX;
               delete c.posY;
               if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
@@ -1202,6 +1326,7 @@ class Game {
               }
               renderTable();
               renderFolder();
+              redrawAssemblyThreads();
             }
           }
         };
@@ -1211,6 +1336,8 @@ class Game {
 
         dropZone.appendChild(card);
       });
+
+      redrawAssemblyThreads();
     };
 
     // Setup drag and drop from folder onto table surface
