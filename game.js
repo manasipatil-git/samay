@@ -1652,8 +1652,8 @@ class Game {
       dropZone.querySelectorAll(".evidence-card-drag.placed-on-table").forEach(el => el.remove());
 
       const tilts = [-2.5, 1.8, -1.2, 3.2, -2.0];
-      const posXList = [25, 195, 365, 535, 705];
-      const posYList = [10, 45, 12, 50, 18];
+      const posXList = [185, 355, 525, 695, 865];
+      const posYList = [12, 45, 15, 50, 20];
 
       placedClues.forEach((c, idx) => {
         // Initialize default organic coordinates on table if not set
