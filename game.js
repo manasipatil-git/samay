@@ -1122,19 +1122,32 @@ class Game {
       };
     };
 
-    // Redraw all player-created evidence threads and deduction slips
+    // Redraw all player-created evidence threads and deduction slips (IDEMPOTENT RENDERER)
     const redrawAssemblyThreads = () => {
       const threadSvgCanvas = document.getElementById("assembly-thread-canvas");
       if (!threadSvgCanvas) return;
-      threadSvgCanvas.innerHTML = "";
 
       const tableSurfaceBox = document.getElementById("panchayat-table-surface") || dropZone;
       const surfaceRect = tableSurfaceBox.getBoundingClientRect();
 
-      // Clear existing deduction slips from DOM before re-rendering
-      dropZone.querySelectorAll(".assembly-deduction-slip").forEach(el => el.remove());
+      // Remove orphaned annotation slips for deleted threads
+      const currentThreadIds = new Set(assemblyThreads.map(tr => tr.threadId || `thread_${[tr.fromId, tr.toId].sort().join('_')}`));
+      dropZone.querySelectorAll(".assembly-deduction-slip, .assembly-verified-tag").forEach(el => {
+        if (!currentThreadIds.has(el.dataset.threadId)) {
+          el.remove();
+        }
+      });
+
+      // Remove orphaned SVG paths for deleted threads
+      threadSvgCanvas.querySelectorAll("path").forEach(el => {
+        if (!currentThreadIds.has(el.dataset.threadId)) {
+          el.remove();
+        }
+      });
 
       assemblyThreads.forEach(t => {
+        t.threadId = t.threadId || `thread_${[t.fromId, t.toId].sort().join('_')}`;
+
         const cardA = dropZone.querySelector(`.placed-on-table[data-id="${t.fromId}"]`);
         const cardB = dropZone.querySelector(`.placed-on-table[data-id="${t.toId}"]`);
         if (!cardA || !cardB) return;
@@ -1156,28 +1169,88 @@ class Game {
         const cx = (x1 + x2) / 2;
         const cy = (y1 + y2) / 2 + sag;
 
-        // Create organic curved crimson thread element
-        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        // Idempotent Organic Crimson SVG Thread Element
+        let path = threadSvgCanvas.querySelector(`path[data-thread-id="${t.threadId}"]`);
+        if (!path) {
+          path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.dataset.threadId = t.threadId;
+          path.setAttribute("title", "Click to remove evidence connection thread");
+
+          const removeThreadAction = (e) => {
+            e.stopPropagation();
+            assemblyThreads = assemblyThreads.filter(tr => tr !== t);
+            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+            redrawAssemblyThreads();
+          };
+
+          path.onclick = removeThreadAction;
+          path.ondblclick = removeThreadAction;
+          threadSvgCanvas.appendChild(path);
+        }
+
         path.setAttribute("d", `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`);
         path.setAttribute("class", `assembly-crimson-thread ${t.verified ? "is-verified" : ""}`);
-        path.setAttribute("title", "Click to remove evidence connection thread");
 
-        const removeThreadAction = (e) => {
-          e.stopPropagation();
-          assemblyThreads = assemblyThreads.filter(tr => tr !== t);
-          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
-          redrawAssemblyThreads();
-        };
-
-        path.onclick = removeThreadAction;
-        path.ondblclick = removeThreadAction;
-
-        threadSvgCanvas.appendChild(path);
-
-        // Render Investigator's Pencil Annotation Slip beside connection thread (Intelligently Placed to Avoid Overlaps)
+        // Idempotent Investigator Annotation Slip / Verified Tag Element
         const deductionData = getDeductionData(t.fromId, t.toId);
-        const slip = document.createElement("div");
-        slip.className = "assembly-deduction-slip font-type";
+        let slip = dropZone.querySelector(`[data-thread-id="${t.threadId}"]`);
+        const isNewSlip = !slip;
+
+        if (isNewSlip) {
+          slip = document.createElement("div");
+          slip.dataset.threadId = t.threadId;
+
+          // Physical Free Dragging Handler for Slip
+          let isSlipDragging = false;
+          let startX = 0;
+          let startY = 0;
+          let initialL = 0;
+          let initialT = 0;
+
+          slip.onpointerdown = (e) => {
+            if (e.target.closest(".slip-choice-btn")) return;
+            e.stopPropagation();
+            isSlipDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            initialL = slip.offsetLeft;
+            initialT = slip.offsetTop;
+            slip.classList.add("is-physically-lifted");
+            try { slip.setPointerCapture(e.pointerId); } catch (_) {}
+          };
+
+          slip.onpointermove = (e) => {
+            if (!isSlipDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+
+            let newL = initialL + dx;
+            let newT = initialT + dy;
+
+            const maxL = (dropZone.clientWidth || 900) - slip.offsetWidth;
+            const maxT = (dropZone.clientHeight || 340) - slip.offsetHeight;
+
+            newL = Math.max(5, Math.min(newL, maxL));
+            newT = Math.max(5, Math.min(newT, maxT));
+
+            slip.style.left = `${newL}px`;
+            slip.style.top = `${newT}px`;
+
+            t.customLeft = newL;
+            t.customTop = newT;
+          };
+
+          const handleSlipDragEnd = (e) => {
+            if (!isSlipDragging) return;
+            isSlipDragging = false;
+            slip.classList.remove("is-physically-lifted");
+            try { slip.releasePointerCapture(e.pointerId); } catch (_) {}
+            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+          };
+
+          slip.onpointerup = handleSlipDragEnd;
+          slip.onpointercancel = handleSlipDragEnd;
+        }
 
         const dropW = dropZone.clientWidth || 900;
         const dropH = dropZone.clientHeight || 340;
@@ -1192,7 +1265,6 @@ class Game {
           bottom: el.offsetTop + el.offsetHeight + 8
         }));
 
-        // Candidate placement logic: if thread is in lower half of table, place slip ABOVE thread!
         const baseL = cx - 145;
         const baseT = cy > (dropH * 0.5) ? (cy - estimatedSlipHeight - 15) : (cy + 25);
 
@@ -1225,7 +1297,6 @@ class Game {
           }
         }
 
-        // Check if user manually dragged this slip position previously
         if (t.customLeft !== undefined && t.customTop !== undefined) {
           chosenL = t.customLeft;
           chosenT = t.customTop;
@@ -1234,128 +1305,80 @@ class Game {
         slip.style.left = `${chosenL}px`;
         slip.style.top = `${chosenT}px`;
 
-        // Physical Free Dragging Handler for Hypothesis Note Slip
-        let isSlipDragging = false;
-        let startX = 0;
-        let startY = 0;
-        let initialL = 0;
-        let initialT = 0;
-
-        slip.onpointerdown = (e) => {
-          // If clicked inside a choice button, don't trigger drag
-          if (e.target.closest(".slip-choice-btn")) return;
-          e.stopPropagation();
-          isSlipDragging = true;
-          startX = e.clientX;
-          startY = e.clientY;
-          initialL = slip.offsetLeft;
-          initialT = slip.offsetTop;
-          slip.classList.add("is-physically-lifted");
-          try { slip.setPointerCapture(e.pointerId); } catch (_) {}
-        };
-
-        slip.onpointermove = (e) => {
-          if (!isSlipDragging) return;
-          const dx = e.clientX - startX;
-          const dy = e.clientY - startY;
-
-          let newL = initialL + dx;
-          let newT = initialT + dy;
-
-          const maxL = (dropZone.clientWidth || 900) - slip.offsetWidth;
-          const maxT = (dropZone.clientHeight || 340) - slip.offsetHeight;
-
-          newL = Math.max(5, Math.min(newL, maxL));
-          newT = Math.max(5, Math.min(newT, maxT));
-
-          slip.style.left = `${newL}px`;
-          slip.style.top = `${newT}px`;
-
-          t.customLeft = newL;
-          t.customTop = newT;
-        };
-
-        const handleSlipDragEnd = (e) => {
-          if (!isSlipDragging) return;
-          isSlipDragging = false;
-          slip.classList.remove("is-physically-lifted");
-          try { slip.releasePointerCapture(e.pointerId); } catch (_) {}
-          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-        };
-
-        slip.onpointerup = handleSlipDragEnd;
-        slip.onpointercancel = handleSlipDragEnd;
-
         if (t.verified) {
-          // Render compact physical archival annotation tag on desk
-          slip.className = "assembly-verified-tag font-type";
-          slip.innerHTML = `
-            <span class="tag-pin font-type">📌</span>
-            <span class="tag-label font-type">VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}</span>
-          `;
+          const targetClass = "assembly-verified-tag font-type";
+          if (slip.className !== targetClass) {
+            slip.className = targetClass;
+            slip.innerHTML = `
+              <span class="tag-pin font-type">📌</span>
+              <span class="tag-label font-type">VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}</span>
+            `;
+          }
         } else {
-          // Unverified Hypothesis: Present compact 2-3 possible interpretations
-          slip.className = "assembly-deduction-slip font-type";
-          slip.innerHTML = `
-            <div class="slip-header-strip font-type">
-              <span class="slip-pin-head font-type">📌</span>
-              <span class="slip-title font-type">YOUR NOTE // HYPOTHESIS</span>
-            </div>
-            <div class="slip-prompt-question font-type">${deductionData.prompt}</div>
-            <div class="slip-choices-box"></div>
-            <div class="slip-feedback font-type" style="margin-top: 4px; font-size: 0.68rem; font-weight: bold;"></div>
-          `;
+          const targetClass = "assembly-deduction-slip font-type";
+          if (slip.className !== targetClass || !slip.querySelector(".slip-choices-box")) {
+            slip.className = targetClass;
+            slip.innerHTML = `
+              <div class="slip-header-strip font-type">
+                <span class="slip-pin-head font-type">📌</span>
+                <span class="slip-title font-type">YOUR NOTE // HYPOTHESIS</span>
+              </div>
+              <div class="slip-prompt-question font-type">${deductionData.prompt}</div>
+              <div class="slip-choices-box"></div>
+              <div class="slip-feedback font-type" style="margin-top: 4px; font-size: 0.68rem; font-weight: bold;"></div>
+            `;
 
-          const choicesBox = slip.querySelector(".slip-choices-box");
-          const feedbackBox = slip.querySelector(".slip-feedback");
+            const choicesBox = slip.querySelector(".slip-choices-box");
+            const feedbackBox = slip.querySelector(".slip-feedback");
 
-          deductionData.choices.forEach(choice => {
-            const btn = document.createElement("button");
-            btn.className = "slip-choice-btn font-type";
-            btn.textContent = choice.text;
+            deductionData.choices.forEach(choice => {
+              const btn = document.createElement("button");
+              btn.className = "slip-choice-btn font-type";
+              btn.textContent = choice.text;
 
-            btn.onclick = (e) => {
-              e.stopPropagation();
-              if (choice.isCorrect) {
-                t.verified = true;
-                t.verifiedQuote = deductionData.quote;
-                if (deductionData.category) {
-                  verifiedDeductionCategories.add(deductionData.category);
+              btn.onclick = (e) => {
+                e.stopPropagation();
+                if (choice.isCorrect) {
+                  t.verified = true;
+                  t.verifiedQuote = deductionData.quote;
+                  if (deductionData.category) {
+                    verifiedDeductionCategories.add(deductionData.category);
+                  }
+                  if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("pluck");
+
+                  const uniqueVerifiedCount = verifiedDeductionCategories.size;
+                  const hudCount = document.getElementById("hud-verified-count");
+                  if (hudCount) hudCount.textContent = `${uniqueVerifiedCount} / 3 Connections Verified`;
+
+                  const elderFeedbackText = document.getElementById("elder-feedback-text");
+                  if (elderFeedbackText) {
+                    if (uniqueVerifiedCount === 1) elderFeedbackText.textContent = '"That proves what our local farming families were losing to contractor price margins."';
+                    else if (uniqueVerifiedCount === 2) elderFeedbackText.textContent = '"And when milk was arbitrarily rejected at 08:15 AM, individual families had no power to challenge it."';
+                    else elderFeedbackText.textContent = deductionData.elder;
+                  }
+
+                  if (uniqueVerifiedCount >= 3) {
+                    triggerInvestigatorCaseTheoryModal();
+                  }
+
+                  redrawAssemblyThreads();
+                } else {
+                  if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
+                  if (feedbackBox) {
+                    feedbackBox.style.color = "#8b0000";
+                    feedbackBox.textContent = "INSUFFICIENT EVIDENCE — Look again at the figures on the document.";
+                  }
                 }
-                if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("pluck");
+              };
 
-                // Update Elder reaction subtitle & HUD counter based on unique canonical category count
-                const uniqueVerifiedCount = verifiedDeductionCategories.size;
-                const hudCount = document.getElementById("hud-verified-count");
-                if (hudCount) hudCount.textContent = `${uniqueVerifiedCount} / 3 Connections Verified`;
-
-                const elderFeedbackText = document.getElementById("elder-feedback-text");
-                if (elderFeedbackText) {
-                  if (uniqueVerifiedCount === 1) elderFeedbackText.textContent = '"That proves what our local farming families were losing to contractor price margins."';
-                  else if (uniqueVerifiedCount === 2) elderFeedbackText.textContent = '"And when milk was arbitrarily rejected at 08:15 AM, individual families had no power to challenge it."';
-                  else elderFeedbackText.textContent = deductionData.elder;
-                }
-
-                // Trigger Investigator Case Theory Note ONLY when 3 canonical connections are verified
-                if (uniqueVerifiedCount >= 3) {
-                  triggerInvestigatorCaseTheoryModal();
-                }
-
-                redrawAssemblyThreads();
-              } else {
-                if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
-                if (feedbackBox) {
-                  feedbackBox.style.color = "#8b0000";
-                  feedbackBox.textContent = "INSUFFICIENT EVIDENCE — Look again at the figures on the document.";
-                }
-              }
-            };
-
-            choicesBox.appendChild(btn);
-          });
+              choicesBox.appendChild(btn);
+            });
+          }
         }
 
-        dropZone.appendChild(slip);
+        if (isNewSlip) {
+          dropZone.appendChild(slip);
+        }
       });
     };
 
