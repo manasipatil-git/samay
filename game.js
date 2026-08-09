@@ -1214,12 +1214,66 @@ class Game {
           }
         }
 
-        // Clamp strictly inside Desk Zone B boundary (guaranteeing 100% visibility)
-        chosenL = Math.max(10, Math.min(chosenL, dropW - estimatedSlipWidth - 10));
-        chosenT = Math.max(5, Math.min(chosenT, dropH - estimatedSlipHeight - 5));
+        // Check if user manually dragged this slip position previously
+        if (t.customLeft !== undefined && t.customTop !== undefined) {
+          chosenL = t.customLeft;
+          chosenT = t.customTop;
+        }
 
         slip.style.left = `${chosenL}px`;
         slip.style.top = `${chosenT}px`;
+
+        // Physical Free Dragging Handler for Hypothesis Note Slip
+        let isSlipDragging = false;
+        let startX = 0;
+        let startY = 0;
+        let initialL = 0;
+        let initialT = 0;
+
+        slip.onpointerdown = (e) => {
+          // If clicked inside a choice button, don't trigger drag
+          if (e.target.closest(".slip-choice-btn")) return;
+          e.stopPropagation();
+          isSlipDragging = true;
+          startX = e.clientX;
+          startY = e.clientY;
+          initialL = slip.offsetLeft;
+          initialT = slip.offsetTop;
+          slip.classList.add("is-physically-lifted");
+          try { slip.setPointerCapture(e.pointerId); } catch (_) {}
+        };
+
+        slip.onpointermove = (e) => {
+          if (!isSlipDragging) return;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+
+          let newL = initialL + dx;
+          let newT = initialT + dy;
+
+          const maxL = (dropZone.clientWidth || 900) - slip.offsetWidth;
+          const maxT = (dropZone.clientHeight || 340) - slip.offsetHeight;
+
+          newL = Math.max(5, Math.min(newL, maxL));
+          newT = Math.max(5, Math.min(newT, maxT));
+
+          slip.style.left = `${newL}px`;
+          slip.style.top = `${newT}px`;
+
+          t.customLeft = newL;
+          t.customTop = newT;
+        };
+
+        const handleSlipDragEnd = (e) => {
+          if (!isSlipDragging) return;
+          isSlipDragging = false;
+          slip.classList.remove("is-physically-lifted");
+          try { slip.releasePointerCapture(e.pointerId); } catch (_) {}
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+        };
+
+        slip.onpointerup = handleSlipDragEnd;
+        slip.onpointercancel = handleSlipDragEnd;
 
         if (t.verified) {
           // Already Verified Against Record

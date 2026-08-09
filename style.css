@@ -5912,12 +5912,12 @@ button{
 .investigator-evidence-folder {
   position: relative;
   flex: none;
-  max-height: 145px;
-  min-height: 125px;
+  max-height: 165px;
+  min-height: 150px;
   background: linear-gradient(180deg, #b08d57 0%, #8c6a38 100%);
   border: 2px solid #4a321a;
   border-radius: 6px 6px 0 0;
-  padding: 4px 10px 6px;
+  padding: 6px 12px 6px;
   box-shadow: 0 -8px 25px rgba(0,0,0,0.85);
   z-index: 20;
   pointer-events: auto !important;
@@ -5936,27 +5936,32 @@ button{
   gap: 10px;
   overflow-x: auto !important;
   overflow-y: hidden !important;
-  padding: 2px 4px 4px;
+  padding: 4px;
   pointer-events: auto !important;
   flex: 1;
-  max-height: 105px;
+  max-height: 125px;
   align-items: center;
   justify-content: flex-start;
 }
 /* Unplaced Evidence Cards inside Dossier Folder Deck */
 .evidence-folder-cards-grid .evidence-card-drag {
-  width: 120px;
-  height: 95px;
-  padding: 6px 8px;
-  border-radius: 3px;
-  font-size: 0.62rem;
-  flex-shrink: 0;
+  width: 125px !important;
+  height: 110px !important;
+  min-height: 110px !important;
+  max-height: 110px !important;
+  padding: 6px 8px !important;
+  border-radius: 3px !important;
+  font-size: 0.62rem !important;
+  flex-shrink: 0 !important;
   transform: rotate(-1deg);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
 }
 .evidence-folder-cards-grid .evidence-card-drag:hover {
-  transform: rotate(0deg) translateY(-3px) scale(1.04);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.7);
+  transform: rotate(0deg) translateY(-3px) scale(1.04) !important;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.7) !important;
 }
 
 /* DISTINCT ARCHIVAL DOCUMENT STYLES (COMPACT & READABLE ON TABLE) */
@@ -6111,6 +6116,14 @@ button{
   transform: rotate(-1.5deg) !important;
   animation: slipAppear 0.3s cubic-bezier(.2,.85,.3,1) forwards;
   flex: none !important;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+.assembly-deduction-slip.is-physically-lifted {
+  cursor: grabbing !important;
+  box-shadow: 0 22px 45px rgba(0,0,0,0.9), inset 0 0 12px rgba(184, 134, 11, 0.3) !important;
+  transform: scale(1.04) rotate(-1.5deg) !important;
 }
 
 @keyframes slipAppear {
