@@ -985,7 +985,9 @@ class Game {
 
     if (!folderGrid || !dropZone) return;
 
-    console.log("🔍 _showEvidenceDock executing. folderGrid:", folderGrid, "dropZone:", dropZone);
+    console.log("MEETING: new _showEvidenceDock()");
+    console.log("MEETING: evidence folder:", folderGrid);
+    console.log("MEETING: available clues:", allClues.length);
 
     folderGrid.innerHTML = "";
     dropZone.innerHTML = "";
@@ -1453,99 +1455,7 @@ class Game {
     return loc ? loc.id : null;
   }
 
-  _showSentencePrompt(pair, node, prevNode) {
-    const overlay = document.getElementById("deduction-prompt-overlay");
-    const question = document.getElementById("prompt-question");
-    const sentenceText = document.getElementById("prompt-sentence-text");
-    const optionsBox = document.getElementById("prompt-options");
 
-    overlay.classList.add("is-active");
-    question.textContent = `Correlation: ${GAME_DATA.locations[this._findLocationByClue(pair.a)].clue.name} & ${GAME_DATA.locations[this._findLocationByClue(pair.b)].clue.name}`;
-
-    let tempText = pair.sentence.text;
-    let blankIndex = 0;
-    while (tempText.includes("[ _____ ]")) {
-      tempText = tempText.replace("[ _____ ]", `<span class="blank-slot" id="blank-${blankIndex}">[ Slot ]</span>`);
-      blankIndex++;
-    }
-    sentenceText.innerHTML = tempText;
-
-    const selectedAnswers = Array(pair.sentence.blanks.length).fill(null);
-    let currentBlank = 0;
-
-    const renderBlankOptions = () => {
-      optionsBox.innerHTML = "";
-      if (currentBlank < pair.sentence.blanks.length) {
-        const blankData = pair.sentence.blanks[currentBlank];
-        const label = document.createElement("div");
-        label.className = "prompt-blank-label";
-        label.style.fontWeight = "bold";
-        label.style.fontSize = "0.75rem";
-        label.style.color = "#7d6542";
-        label.style.marginBottom = "8px";
-        label.textContent = `CHOOSE TERM FOR SLOT ${currentBlank + 1}:`;
-        optionsBox.appendChild(label);
-
-        const choices = [...blankData.choices].sort(() => Math.random() - 0.5);
-
-        choices.forEach(choice => {
-          const btn = document.createElement("button");
-          btn.className = "prompt-option-btn";
-          btn.textContent = choice;
-          btn.addEventListener("click", () => {
-            selectedAnswers[currentBlank] = choice;
-            const slotEl = document.getElementById(`blank-${currentBlank}`);
-            if (slotEl) {
-              slotEl.textContent = choice;
-              slotEl.style.color = "#4e8068";
-            }
-            if (window.SAMAY_SOUND) {
-              window.SAMAY_SOUND.play("clack");
-            }
-            currentBlank++;
-            renderBlankOptions();
-          });
-          optionsBox.appendChild(btn);
-        });
-      } else {
-        const isCorrect = pair.sentence.blanks.every((b, idx) => selectedAnswers[idx] === b.answer);
-        if (isCorrect) {
-          setTimeout(() => {
-            overlay.classList.remove("is-active");
-            
-            this.state.connectedPairs.push(pair.id);
-            node.classList.add("is-linked");
-            prevNode.classList.add("is-linked");
-            this._renderDeductionCard(pair.id);
-            this._redrawConnections();
-            this._checkFinalDeduction();
-            this._updateInsightScore();
-
-            if (window.SAMAY_SOUND) {
-              window.SAMAY_SOUND.play("pluck");
-            }
-            if (this.el.board) {
-              this.el.board.classList.add("board-shake");
-              setTimeout(() => this.el.board.classList.remove("board-shake"), 450);
-            }
-            this._save();
-          }, 600);
-        } else {
-          setTimeout(() => {
-            overlay.classList.remove("is-active");
-            this.state.wrongGuesses = (this.state.wrongGuesses || 0) + 1;
-            this._flashWrongGuess();
-            if (window.SAMAY_SOUND) {
-              window.SAMAY_SOUND.play("stamp");
-            }
-            this._save();
-          }, 800);
-        }
-      }
-    };
-
-    renderBlankOptions();
-  }
 
   _setupInspectionModal() {
     if (this._inspectionModalInitialized) return;
@@ -1827,108 +1737,6 @@ class Game {
         window.SAMAY_SOUND.play("clack");
       }
     };
-
-    flipBtn.addEventListener("click", flipAction);
-    closeBtn.addEventListener("click", closeAction);
-  }
-
-  _showEvidenceDock() {
-    const dock = document.getElementById("meeting-evidence-dock");
-    const grid = document.getElementById("evidence-dock-grid");
-    const submitBtn = document.getElementById("btn-submit-evidence");
-
-    grid.innerHTML = "";
-    dock.classList.add("is-active");
-
-    const selectedClues = [];
-
-    this.state.clues.forEach(clueId => {
-      const loc = Object.values(GAME_DATA.locations).find(l => l.clue.id === clueId);
-      const card = document.createElement("div");
-      card.className = "evidence-dock-card";
-      card.innerHTML = `
-        <div class="evidence-dock-checkbox"></div>
-        <span>${loc.clue.name}</span>
-      `;
-      card.addEventListener("click", () => {
-        if (card.classList.contains("is-selected")) {
-          card.classList.remove("is-selected");
-          const idx = selectedClues.indexOf(clueId);
-          if (idx > -1) selectedClues.splice(idx, 1);
-        } else {
-          card.classList.add("is-selected");
-          selectedClues.push(clueId);
-        }
-        const count = selectedClues.length;
-        submitBtn.disabled = count !== 3;
-        submitBtn.textContent = count === 3 ? "Present 3 Key Evidences to Assembly ➔" : `Select Evidence (${count} / 3 Selected)`;
-        if (window.SAMAY_SOUND) {
-          window.SAMAY_SOUND.play("clack");
-        }
-      });
-      grid.appendChild(card);
-    });
-
-    submitBtn.textContent = `Select Evidence (0 / 3 Selected)`;
-
-    const submitAction = () => {
-      const correct = selectedClues.includes("ledger") && 
-                      selectedClues.includes("rejectedLog") && 
-                      selectedClues.includes("petition");
-
-      if (correct) {
-        // Disable evidence cards so they stay fixed on the table
-        grid.querySelectorAll(".evidence-dock-card").forEach(c => {
-          c.style.pointerEvents = "none";
-          c.style.opacity = "0.85";
-        });
-        submitBtn.style.display = "none";
-        submitBtn.removeEventListener("click", submitAction);
-
-        if (window.SAMAY_SOUND) {
-          window.SAMAY_SOUND.play("stamp");
-        }
-        this.dialogue.say(
-          GAME_DATA.locations.hall.speaker,
-          "elder",
-          [
-            "The proof is clear.",
-            "Polson charges 12 Annas in Bombay while paying us 3 Annas, rejects our milk arbitrarily at 08:15 AM, and Sardar Patel advises us to bypass the middlemen.",
-            "What is our final recommendation?"
-          ],
-          () => {
-            const instText = document.getElementById("panchayat-instruction-text");
-            if (instText) {
-              instText.textContent = "Pin your final recommendation to the assembly table:";
-            }
-            const decisionOptions = document.getElementById("decision-options");
-            if (decisionOptions) {
-              decisionOptions.style.display = "flex";
-              if (window.SAMAY_SOUND) {
-                window.SAMAY_SOUND.play("paper");
-              }
-            }
-          }
-        );
-      } else {
-        dock.classList.remove("is-active");
-        submitBtn.removeEventListener("click", submitAction);
-        if (window.SAMAY_SOUND) {
-          window.SAMAY_SOUND.play("stamp");
-        }
-        this.dialogue.say(
-          GAME_DATA.locations.hall.speaker,
-          "elder",
-          [
-            "These documents do not form a complete proof of the economic forces.",
-            "We need to show the price margin ledger, the arbitrary rejection log, and the union petition."
-          ],
-          () => this._showEvidenceDock()
-        );
-      }
-    };
-
-    submitBtn.addEventListener("click", submitAction);
   }
 
   /* -------------------------------------------------------
