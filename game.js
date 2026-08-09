@@ -1027,6 +1027,7 @@ class Game {
     let assemblyThreads = [];
     let isEvaluating = false;
     let hasCreatedFirstThread = false;
+    let verifiedDeductionCategories = new Set(); // Tracks 3 canonical categories max
 
     // Toast feedback for first-time thread connection
     const triggerLinkRecordedToast = () => {
@@ -1044,6 +1045,8 @@ class Game {
       const pairKey = [fromId, toId].sort().join("_");
       const map = {
         "ledger_receipt": {
+          category: "price_exploitation",
+          categoryLabel: "PRICE DISCREPANCY",
           prompt: "What does connecting the Milk Receipt and Price Ledger prove?",
           choices: [
             { text: "Farmers received Rs 1/6/0 per seer while Polson sold for 12 Annas in Bombay.", isCorrect: true },
@@ -1054,6 +1057,8 @@ class Game {
           elder: '"That proves what our local farming families were losing to contractor price margins."'
         },
         "ledger_rejectedLog": {
+          category: "supply_control",
+          categoryLabel: "SUPPLY CONTROL",
           prompt: "What does connecting the Daily Rejection Log with the Price Ledger reveal?",
           choices: [
             { text: "Contractors filled pasteurizer quotas by 08:15 AM, passing 100% of spoilage losses onto farmers.", isCorrect: true },
@@ -1064,6 +1069,8 @@ class Game {
           elder: '"And when milk was arbitrarily rejected at 08:15 AM, individual families had no power to challenge it."'
         },
         "receipt_rejectedLog": {
+          category: "supply_control",
+          categoryLabel: "SUPPLY CONTROL",
           prompt: "What does connecting the Milk Receipt with the Rejection Log demonstrate?",
           choices: [
             { text: "Arbitrary daily rejection quotas combined with 6 Pice handling levies ruined local farm income.", isCorrect: true },
@@ -1074,6 +1081,8 @@ class Game {
           elder: '"And when milk was arbitrarily rejected at 08:15 AM, individual families had no power to challenge it."'
         },
         "manifest_petition": {
+          category: "transport_monopoly",
+          categoryLabel: "TRANSPORT CONTROL",
           prompt: "What does connecting the Freight Manifest with the Union Petition demonstrate?",
           choices: [
             { text: "Railway bottlenecks were manufactured to prevent farmers from bypassing middlemen, advising a cooperative strike.", isCorrect: true },
@@ -1084,6 +1093,8 @@ class Game {
           elder: '"Now you have shown the assembly why we must bypass the contractor and form our own cooperative under Sardar Patel\'s guidance!"'
         },
         "ledger_manifest": {
+          category: "price_exploitation",
+          categoryLabel: "PRICE DISCREPANCY",
           prompt: "What does connecting the Price Ledger with the Freight Manifest prove?",
           choices: [
             { text: "Contractor monopolies relied on exclusive railway transit rights to enforce low village buy-prices.", isCorrect: true },
@@ -1276,16 +1287,15 @@ class Game {
         slip.onpointercancel = handleSlipDragEnd;
 
         if (t.verified) {
-          // Already Verified Against Record
+          // Render compact physical archival annotation tag on desk
+          slip.className = "assembly-verified-tag font-type";
           slip.innerHTML = `
-            <div class="slip-header-strip font-type">
-              <span class="slip-pin-head font-type">📌</span>
-              <span class="slip-title font-type">VERIFIED AGAINST RECORD 🖈</span>
-            </div>
-            <p class="slip-verification-quote font-type">"${t.verifiedQuote || deductionData.quote}"</p>
+            <span class="tag-pin font-type">📌</span>
+            <span class="tag-label font-type">VERIFIED // ${deductionData.categoryLabel || 'RECORD CROSS-CHECKED'}</span>
           `;
         } else {
-          // Unverified Hypothesis: Present 2-4 possible interpretations
+          // Unverified Hypothesis: Present compact 2-3 possible interpretations
+          slip.className = "assembly-deduction-slip font-type";
           slip.innerHTML = `
             <div class="slip-header-strip font-type">
               <span class="slip-pin-head font-type">📌</span>
@@ -1309,22 +1319,25 @@ class Game {
               if (choice.isCorrect) {
                 t.verified = true;
                 t.verifiedQuote = deductionData.quote;
+                if (deductionData.category) {
+                  verifiedDeductionCategories.add(deductionData.category);
+                }
                 if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("pluck");
 
-                // Update Elder reaction subtitle & HUD counter based on verified count
-                const verifiedCount = assemblyThreads.filter(tr => tr.verified).length;
+                // Update Elder reaction subtitle & HUD counter based on unique canonical category count
+                const uniqueVerifiedCount = verifiedDeductionCategories.size;
                 const hudCount = document.getElementById("hud-verified-count");
-                if (hudCount) hudCount.textContent = `${verifiedCount} / 3 Connections Verified`;
+                if (hudCount) hudCount.textContent = `${uniqueVerifiedCount} / 3 Connections Verified`;
 
                 const elderFeedbackText = document.getElementById("elder-feedback-text");
                 if (elderFeedbackText) {
-                  if (verifiedCount === 1) elderFeedbackText.textContent = '"That proves what our local farming families were losing to contractor price margins."';
-                  else if (verifiedCount === 2) elderFeedbackText.textContent = '"And when milk was arbitrarily rejected at 08:15 AM, individual families had no power to challenge it."';
+                  if (uniqueVerifiedCount === 1) elderFeedbackText.textContent = '"That proves what our local farming families were losing to contractor price margins."';
+                  else if (uniqueVerifiedCount === 2) elderFeedbackText.textContent = '"And when milk was arbitrarily rejected at 08:15 AM, individual families had no power to challenge it."';
                   else elderFeedbackText.textContent = deductionData.elder;
                 }
 
-                // Trigger Investigator Case Theory Note when 3 connections are verified
-                if (verifiedCount >= 3) {
+                // Trigger Investigator Case Theory Note ONLY when 3 canonical connections are verified
+                if (uniqueVerifiedCount >= 3) {
                   triggerInvestigatorCaseTheoryModal();
                 }
 
@@ -1402,7 +1415,17 @@ class Game {
       folderGrid.innerHTML = "";
       const remainingClues = allClues.filter(c => !placedClues.some(p => p.id === c.id));
       console.log(`📂 renderFolder called. Rendering ${remainingClues.length} cards into #evidence-folder-cards.`);
-      if (countBadge) countBadge.textContent = `${remainingClues.length} Records Ready`;
+      if (countBadge) {
+        const unplacedCount = remainingClues.length;
+        const placedCount = placedClues.length;
+        if (placedCount === 0) {
+          countBadge.textContent = "5 RECORDS AVAILABLE IN DOSSIER";
+        } else if (unplacedCount === 0) {
+          countBadge.textContent = "ALL 5 RECORDS PLACED ON TABLE";
+        } else {
+          countBadge.textContent = `${unplacedCount} IN DOSSIER (${placedCount} ON TABLE)`;
+        }
+      }
 
       remainingClues.forEach(c => {
         const card = document.createElement("div");
