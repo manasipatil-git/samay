@@ -2142,7 +2142,10 @@ class Game {
     const amulEnvelopeEl = document.getElementById("amul-discovery-envelope");
     const legacyRevealEl = document.getElementById("legacy-reveal-container");
     if (amulEnvelopeEl) amulEnvelopeEl.style.display = "block";
-    if (legacyRevealEl) legacyRevealEl.style.display = "none";
+    if (legacyRevealEl) {
+      legacyRevealEl.style.display = "none";
+      legacyRevealEl.classList.remove("is-revealed");
+    }
 
     const gazetteStampRec = document.getElementById("gazette-stamp-rec");
     const gazetteStampHistory = document.getElementById("gazette-stamp-history");
@@ -2257,6 +2260,7 @@ class Game {
       if (envelopeEl) envelopeEl.style.display = "none";
       if (legacyEl) {
         legacyEl.style.display = "flex";
+        legacyEl.classList.add("is-revealed");
         legacyEl.style.animation = "slideOutHistoricalDeed 0.6s ease forwards";
       }
 

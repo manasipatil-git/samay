@@ -7765,13 +7765,16 @@ button{
 
 /* DIEGETIC MAHOGANY & BRASS RUBBER STAMP ACTION TOOL (TOP DESK TOOLBAR) */
 .legacy-reveal-container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding-bottom: 20px;
+}
+.legacy-reveal-container.is-revealed {
   display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-  gap: 16px !important;
-  width: 100% !important;
-  padding-bottom: 20px !important;
 }
 
 .stamp-action-block {
