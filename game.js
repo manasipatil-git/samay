@@ -1000,8 +1000,10 @@ class Game {
     console.log("MEETING: evidence folder:", folderGrid);
     console.log("MEETING: available clues:", allClues.length);
 
+    const dynamicContent = document.getElementById("assembly-dynamic-content") || dropZone;
+
     folderGrid.innerHTML = "";
-    dropZone.innerHTML = "";
+    dynamicContent.innerHTML = "";
     if (decisionOptions) decisionOptions.style.display = "none";
     if (threadPath) threadPath.classList.remove("is-active");
 
@@ -1538,11 +1540,14 @@ class Game {
 
     // PHASE 2 & 3: UNLOCK & DISPLAY CASE THEORY NOTE (#investigator-case-theory-note)
     const unlockCaseTheory = () => {
+      const theoryNote = document.getElementById("investigator-case-theory-note");
+      if (!theoryNote) {
+        console.error("SAMAY CRITICAL ERROR: Case Theory Note missing from DOM.");
+        return;
+      }
+
       if (caseTheoryUnlocked) return;
       caseTheoryUnlocked = true;
-
-      const theoryNote = document.getElementById("investigator-case-theory-note");
-      if (!theoryNote) return;
 
       // Reveal Case Theory Note in physical center negative space on table surface
       theoryNote.style.display = "block";
@@ -1976,7 +1981,8 @@ class Game {
         card.onpointerup = handlePointerEnd;
         card.onpointercancel = handlePointerEnd;
 
-        dropZone.appendChild(card);
+        const dynamicContent = document.getElementById("assembly-dynamic-content") || dropZone;
+        dynamicContent.appendChild(card);
       });
 
       redrawAssemblyThreads();
