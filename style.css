@@ -5912,12 +5912,12 @@ button{
 .investigator-evidence-folder {
   position: relative;
   flex: none;
-  max-height: 165px;
-  min-height: 150px;
+  max-height: 185px;
+  min-height: 165px;
   background: linear-gradient(180deg, #b08d57 0%, #8c6a38 100%);
   border: 2px solid #4a321a;
   border-radius: 6px 6px 0 0;
-  padding: 6px 12px 6px;
+  padding: 6px 12px 8px;
   box-shadow: 0 -8px 25px rgba(0,0,0,0.85);
   z-index: 20;
   pointer-events: auto !important;
@@ -5933,35 +5933,61 @@ button{
 
 .evidence-folder-cards-grid {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   overflow-x: auto !important;
   overflow-y: hidden !important;
-  padding: 4px;
+  padding: 6px 6px 8px;
   pointer-events: auto !important;
   flex: 1;
-  max-height: 125px;
-  align-items: center;
+  max-height: 140px;
+  align-items: flex-start;
   justify-content: flex-start;
 }
 /* Unplaced Evidence Cards inside Dossier Folder Deck */
 .evidence-folder-cards-grid .evidence-card-drag {
-  width: 125px !important;
-  height: 110px !important;
-  min-height: 110px !important;
-  max-height: 110px !important;
-  padding: 6px 8px !important;
+  width: 135px !important;
+  height: 125px !important;
+  min-height: 125px !important;
+  max-height: 125px !important;
+  padding: 8px 10px !important;
   border-radius: 3px !important;
-  font-size: 0.62rem !important;
+  font-size: 0.65rem !important;
   flex-shrink: 0 !important;
   transform: rotate(-1deg);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
 }
 .evidence-folder-cards-grid .evidence-card-drag:hover {
   transform: rotate(0deg) translateY(-3px) scale(1.04) !important;
   box-shadow: 0 8px 18px rgba(0,0,0,0.7) !important;
+}
+.evidence-folder-cards-grid .evidence-card-drag .card-drag-tag {
+  font-size: 0.58rem !important;
+  line-height: 1 !important;
+  margin-bottom: 2px !important;
+}
+.evidence-folder-cards-grid .evidence-card-drag .card-drag-title {
+  font-size: 0.72rem !important;
+  line-height: 1.15 !important;
+  margin: 2px 0 !important;
+  font-weight: bold !important;
+}
+.evidence-folder-cards-grid .evidence-card-drag .card-drag-snippet {
+  font-size: 0.6rem !important;
+  line-height: 1.15 !important;
+  margin: 2px 0 !important;
+  color: #3c2416 !important;
+}
+.evidence-folder-cards-grid .evidence-card-drag .card-drag-action {
+  font-size: 0.58rem !important;
+  color: #aa7c11 !important;
+  line-height: 1 !important;
+  margin-top: 2px !important;
+  font-weight: bold !important;
 }
 
 /* DISTINCT ARCHIVAL DOCUMENT STYLES (COMPACT & READABLE ON TABLE) */
