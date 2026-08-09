@@ -5881,7 +5881,7 @@ button{
   text-align: center;
   box-shadow: 0 4px 15px rgba(0,0,0,0.8);
   margin: 2px auto 4px;
-  width: min(840px, 96%);
+  width: min(660px, 65vw) !important;
   z-index: 30;
   display: flex;
   flex-direction: column;
@@ -6208,9 +6208,10 @@ button{
 /* SUBTLE BRASS PIN THREAD ANCHOR ON PLACED DOCUMENTS */
 /* FIRST-TIME CONNECTION TUTORIAL INSTRUCTION CARD */
 .connection-tutorial-card {
-  position: absolute;
-  top: 12px;
-  left: 20px;
+  position: absolute !important;
+  top: 64px !important;
+  left: 20px !important;
+  max-width: 340px !important;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -6219,7 +6220,7 @@ button{
   border-radius: 3px;
   padding: 6px 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.7);
-  z-index: 90;
+  z-index: 85 !important;
   pointer-events: none;
   animation: tutorialPulse 2s infinite ease-in-out;
 }
