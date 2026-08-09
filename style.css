@@ -8934,4 +8934,168 @@ button{
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
   white-space: nowrap;
 }
+
+/* CASE RECONSTRUCTION HUD PROGRESS INDICATOR */
+.case-reconstruction-hud {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: rgba(18, 9, 4, 0.92);
+  border: 1px dashed #b8860b;
+  border-radius: 4px;
+  padding: 4px 10px;
+  text-align: right;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+  z-index: 35;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  pointer-events: none;
+}
+.hud-title {
+  color: #aa7c11;
+  font-size: 0.58rem;
+  font-weight: bold;
+  letter-spacing: 0.14em;
+}
+.hud-count {
+  color: #fdfaf2;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.74rem;
+  font-weight: bold;
+}
+
+/* PHYSICAL LAMP DOCUMENT INSPECTION MODAL OVERLAY */
+.document-inspection-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+.modal-lamp-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 200, 120, 0.22) 0%, rgba(10, 5, 2, 0.92) 65%, rgba(0, 0, 0, 0.98) 100%);
+  animation: modalFadeIn 0.3s ease forwards;
+}
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-card-flipper-container {
+  position: relative;
+  width: 350px;
+  height: 440px;
+  perspective: 1000px;
+  z-index: 510;
+}
+.inspection-card-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.inspection-card-3d.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 6px;
+  padding: 20px 22px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.95), inset 0 0 20px rgba(184, 134, 11, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.card-face-front {
+  background: linear-gradient(135deg, #fdf8eb 0%, #f4e8c1 100%);
+  border: 2px solid #8b5a2b;
+  color: #1a0f08;
+}
+.card-face-back {
+  background: linear-gradient(135deg, #f5ebd2 0%, #e2d1a4 100%);
+  border: 2px solid #6b4c27;
+  color: #1a0f08;
+  transform: rotateY(180deg);
+}
+
+.face-header-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px dashed #b8860b;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+.face-tag {
+  font-size: 0.68rem;
+  font-weight: bold;
+  letter-spacing: 0.14em;
+  color: #8b0000;
+}
+.face-close-btn {
+  background: transparent;
+  border: 1px solid #8b5a2b;
+  color: #5a3d28;
+  font-size: 0.62rem;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.face-close-btn:hover {
+  background: #8b0000;
+  color: #fdfaf2;
+  border-color: #8b0000;
+}
+.face-title {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #1a0b03;
+  margin-bottom: 10px;
+}
+.face-body {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  color: #2b170c;
+  flex: 1;
+}
+.face-marginalia {
+  font-style: italic;
+  font-size: 0.74rem;
+  color: #aa7c11;
+  border-top: 1px dashed #c9a363;
+  padding-top: 6px;
+  margin-top: 8px;
+}
+.face-flip-btn {
+  background: #2b170c;
+  color: #ffd700;
+  border: 1px solid #aa7c11;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.78rem;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s, transform 0.15s;
+  text-align: center;
+}
+.face-flip-btn:hover {
+  background: #8b0000;
+  transform: translateY(-2px);
+}
 

@@ -1564,6 +1564,99 @@ class Game {
           }
         };
 
+    // 1946 Historical Archival Reverse-Side Data Map
+    const documentBackData = {
+      receipt: {
+        backTitle: "Anand Collection Depot Levy Register 1946",
+        backBody: "Official Archival Record #1402: Issued by contractor agent in Anand. Local farmers were paid Rs 1/6/0 per 8 seers of raw milk. However, contractors deducted a mandatory 6 Pice handling & transport levy per seer before payout.",
+        marginalia: "✏️ Marginalia Note: 'Handling levies are pocketed directly by contractors without receipt stub returns.'"
+      },
+      ledger: {
+        backTitle: "Bombay Municipal Milk Scheme Audit 1946",
+        backBody: "Financial Audit Report 1946: Polson Dairy purchased raw Anand village milk at 3 Annas per seer and retailed pasteurized milk in Bombay at 12 Annas per seer, capturing a 75% gross profit margin.",
+        marginalia: "✏️ Marginalia Note: 'Proves contractor monopoly pricing margin of 4x village buy-rate.'"
+      },
+      rejectedLog: {
+        backTitle: "Anand Pasteurizer Daily Cutoff Logbook",
+        backBody: "Depot Logbook 1946: Contractor pasteurizing plants filled daily Bombay supply quotas by 08:15 AM each morning. All farmer milk brought to collection centers after 08:15 AM was summarily logged as 'soured' with 100% loss borne by local farmers.",
+        marginalia: "✏️ Marginalia Note: 'Arbitrary morning cutoff forced small producers to absorb all spoilage risk.'"
+      },
+      manifest: {
+        backTitle: "B.B.&C.I. Railway Station Wagon Dispatch",
+        backBody: "Railway Freight Record #428: Inspected at Anand Junction Station. Insulated milk wagons bound for Bombay Central were intentionally dispatched at only 45% container capacity.",
+        marginalia: "✏️ Marginalia Note: 'Wagon dispatches dispatched half-full prove transport bottlenecks were manufactured to lock prices.'"
+      },
+      petition: {
+        backTitle: "Kaira District Cooperative Union Minutes 1946",
+        backBody: "Village Assembly Minutes 1946: Signed by over 2,000 dairy farming families of Kaira District following Sardar Vallabhbhai Patel's counsel to demand direct marketing rights or launch a total milk strike.",
+        marginalia: "✏️ Marginalia Note: 'Unanimous resolution to bypass contractors and form an independent cooperative union.'"
+      }
+    };
+
+    // Open Physical Lamp Document Inspection Overlay
+    const openDocumentInspectionModal = (c) => {
+      const modal = document.getElementById("document-inspection-modal");
+      const card3d = document.getElementById("inspection-card-3d");
+      if (!modal || !card3d) return;
+
+      const backData = documentBackData[c.id] || {
+        backTitle: `${c.title} — Archival Notes`,
+        backBody: `Historical Record ${c.tag}: Contains verified archival documentation regarding the 1946 Kaira Milk Union movement.`,
+        marginalia: "✏️ Marginalia Note: 'Verified archival evidence record.'"
+      };
+
+      const tagEl = document.getElementById("inspect-tag");
+      const titleEl = document.getElementById("inspect-title");
+      const bodyEl = document.getElementById("inspect-body");
+      const margEl = document.getElementById("inspect-marginalia");
+
+      if (tagEl) tagEl.textContent = c.tag;
+      if (titleEl) titleEl.textContent = c.title;
+      if (bodyEl) bodyEl.textContent = c.desc;
+      if (margEl) margEl.textContent = `✏️ Marginalia Note: ${c.title} verified against village records.`;
+
+      const backTitleEl = document.getElementById("inspect-back-title");
+      const backBodyEl = document.getElementById("inspect-back-body");
+      const backMargEl = document.getElementById("inspect-back-marginalia");
+
+      if (backTitleEl) backTitleEl.textContent = backData.backTitle;
+      if (backBodyEl) backBodyEl.textContent = backData.backBody;
+      if (backMargEl) backMargEl.textContent = backData.marginalia;
+
+      card3d.classList.remove("is-flipped");
+      modal.style.display = "flex";
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+
+      const closeInspection = () => {
+        modal.style.display = "none";
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+      };
+
+      const closeBtnFront = document.getElementById("inspect-close-btn");
+      const closeBtnBack = document.getElementById("inspect-close-btn-back");
+      const backdrop = document.getElementById("modal-backdrop-vignette");
+
+      if (closeBtnFront) closeBtnFront.onclick = closeInspection;
+      if (closeBtnBack) closeBtnBack.onclick = closeInspection;
+      if (backdrop) backdrop.onclick = closeInspection;
+
+      const flipBtnFront = document.getElementById("inspect-flip-btn");
+      const flipBtnBack = document.getElementById("inspect-flip-back-btn");
+
+      if (flipBtnFront) {
+        flipBtnFront.onclick = () => {
+          card3d.classList.add("is-flipped");
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+        };
+      }
+      if (flipBtnBack) {
+        flipBtnBack.onclick = () => {
+          card3d.classList.remove("is-flipped");
+          if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+        };
+      }
+    };
+
         const handlePointerEnd = (e) => {
           if (!isPointerDown) return;
           isPointerDown = false;
@@ -1575,19 +1668,8 @@ class Game {
             if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
             redrawAssemblyThreads();
           } else {
-            // Pure click without dragging -> Return document to dossier deck
-            placedClues = placedClues.filter(p => p.id !== c.id);
-            assemblyThreads = assemblyThreads.filter(t => t.fromId !== c.id && t.toId !== c.id);
-            delete c.posX;
-            delete c.posY;
-            if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-            const elderFeedbackText = document.getElementById("elder-feedback-text");
-            if (elderFeedbackText) {
-              elderFeedbackText.textContent = '"Place your collected evidence upon the assembly table to prove the contractor\'s monopoly."';
-            }
-            renderTable();
-            renderFolder();
-            redrawAssemblyThreads();
+            // Pure click without dragging -> Open Physical Lamp Document Inspection Overlay!
+            openDocumentInspectionModal(c);
           }
         };
 

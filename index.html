@@ -871,6 +871,12 @@
         <span class="elder-feedback-text font-type" id="elder-feedback-text">"Place your collected evidence upon the assembly table to prove the contractor's monopoly."</span>
       </div>
 
+      <!-- CASE RECONSTRUCTION HUD PROGRESS INDICATOR -->
+      <div class="case-reconstruction-hud font-type" id="case-reconstruction-hud">
+        <span class="hud-title font-type">CASE RECONSTRUCTION</span>
+        <span class="hud-count font-type" id="hud-verified-count">0 / 3 Connections Verified</span>
+      </div>
+
       <!-- MAIN TABLE DROP ZONE (SINGLE CONTINUOUS TEAKWOOD SURFACE) -->
       <div class="table-drop-zone" id="table-drop-zone"></div>
 
@@ -919,6 +925,37 @@
           <span class="note-action-tag font-type">Click to Pin Recommendation 🖈</span>
         </button>
 
+      </div>
+    </div>
+
+    <!-- PHYSICAL LAMP DOCUMENT INSPECTION MODAL OVERLAY -->
+    <div class="document-inspection-modal" id="document-inspection-modal" style="display: none;">
+      <div class="modal-lamp-vignette" id="modal-backdrop-vignette"></div>
+      <div class="modal-card-flipper-container" id="modal-card-flipper">
+        <div class="inspection-card-3d" id="inspection-card-3d">
+          <!-- FRONT SIDE -->
+          <div class="card-face card-face-front font-type" id="inspect-face-front">
+            <div class="face-header-strip">
+              <span class="face-tag font-type" id="inspect-tag">RECEIPT #1402</span>
+              <button class="face-close-btn font-type" id="inspect-close-btn">RETURN TO DESK 🖈</button>
+            </div>
+            <h3 class="face-title font-type" id="inspect-title">Contractor Receipt</h3>
+            <p class="face-body font-type" id="inspect-body"></p>
+            <div class="face-marginalia font-type" id="inspect-marginalia"></div>
+            <button class="face-flip-btn font-type" id="inspect-flip-btn">TURN OVER 🗘</button>
+          </div>
+          <!-- BACK SIDE -->
+          <div class="card-face card-face-back font-type" id="inspect-face-back">
+            <div class="face-header-strip">
+              <span class="face-tag font-type">ARCHIVAL REVERSE SIDE</span>
+              <button class="face-close-btn font-type" id="inspect-close-btn-back">RETURN TO DESK 🖈</button>
+            </div>
+            <h3 class="face-title font-type" id="inspect-back-title">1946 Historical Context</h3>
+            <p class="face-body font-type" id="inspect-back-body"></p>
+            <div class="face-marginalia font-type" id="inspect-back-marginalia"></div>
+            <button class="face-flip-btn font-type" id="inspect-flip-back-btn">FLIP TO FRONT 🗘</button>
+          </div>
+        </div>
       </div>
     </div>
 
