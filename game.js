@@ -1527,6 +1527,16 @@ class Game {
       });
     };
 
+    // Case Reconstruction HUD click handler (allows inspecting Case Theory anytime)
+    const hudBox = document.getElementById("case-reconstruction-hud");
+    if (hudBox) {
+      hudBox.style.cursor = "pointer";
+      hudBox.onclick = (e) => {
+        e.stopPropagation();
+        triggerInvestigatorCaseTheoryModal();
+      };
+    }
+
     // Trigger Investigator's Case Theory Note & Archival Verification Sequence
     const triggerInvestigatorCaseTheoryModal = () => {
       const theoryNote = document.getElementById("investigator-case-theory-note");
