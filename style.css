@@ -3455,6 +3455,11 @@ button{
   animation: splashCursorBlink 0.75s infinite;
 }
 
+.splash-cursor.is-hidden {
+  display: none !important;
+  animation: none !important;
+}
+
 @keyframes splashCursorBlink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }

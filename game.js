@@ -265,9 +265,9 @@ class Game {
 
     if (!textEl) return;
 
-    // Initial State: Almost complete darkness (0.0s - 1.0s)
+    // 0.0s – 1.0s: Almost total darkness. Cursor hidden initially
     textEl.textContent = "";
-    if (cursorEl) cursorEl.style.opacity = "0";
+    if (cursorEl) cursorEl.classList.add("is-hidden");
     if (redWrapEl) redWrapEl.classList.remove("is-visible");
     if (redPathEl) redPathEl.classList.remove("draw-line");
 
@@ -289,7 +289,7 @@ class Game {
     // 1.0s: Typewriter cursor appears
     timeouts.push(setTimeout(() => {
       if (isEnded) return;
-      if (cursorEl) cursorEl.style.opacity = "1";
+      if (cursorEl) cursorEl.classList.remove("is-hidden");
     }, 1000));
 
     // 1.5s: Typewriter keystrokes begin with human, non-uniform pauses
@@ -303,7 +303,7 @@ class Game {
       const t = setTimeout(() => {
         if (isEnded) return;
         textEl.textContent += letter;
-        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("type");
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
       }, cumulativeTime);
       timeouts.push(t);
     });
@@ -312,7 +312,7 @@ class Game {
     cumulativeTime += 300;
     timeouts.push(setTimeout(() => {
       if (isEnded) return;
-      if (cursorEl) cursorEl.style.opacity = "0";
+      if (cursorEl) cursorEl.classList.add("is-hidden");
     }, cumulativeTime));
 
     // 4.5s: After 0.8s pause in complete silence, draw ONE thin archival red pencil line
