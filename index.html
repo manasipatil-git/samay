@@ -466,11 +466,88 @@
     <div class="grain"></div>
   </div>
 
-  <!-- ============ SCENE: SPLASH ============ -->
+  <!-- ============ SCENE: MYSTERIOUS HISTORICAL WORKSPACE (SAMAY OPENING) ============ -->
   <section id="scene-splash" class="scene is-active">
-    <div class="splash-room">
-      <h1 id="splash-title" class="splash-title"></h1>
-      <p id="splash-tagline" class="splash-tagline"></p>
+    <div class="workspace-vignette-backdrop"></div>
+    
+    <!-- Warm Archival Desk Spotlight Lamp Canvas -->
+    <div class="archival-desk-workspace" id="archival-desk-workspace">
+      
+      <!-- STAGE 1: DESK LAMP ILLUMINATION CONE -->
+      <div class="desk-lamp-light-cone"></div>
+
+      <!-- STAGE 2: DESK PROPS & ENVIRONMENTAL STORYTELLING (ORGANICALLY OVERLAPPING) -->
+      <div class="workspace-prop prop-spectacles" title="Investigator Spectacles">👓</div>
+      <div class="workspace-prop prop-pen" title="Fountain Pen & Ink Well">✒️</div>
+      <div class="workspace-prop prop-magnifier" title="Magnifying Glass">🔍</div>
+      <div class="workspace-prop prop-paperclips" title="Metal Clips">📎</div>
+      <div class="workspace-prop prop-stamp" title="Archival Rubber Stamp">🟥</div>
+
+      <!-- THE FIRST MYSTERY (ENVIRONMENTAL STORYTELLING DOCUMENT) -->
+      <div class="crooked-evidence-sheet first-mystery-document">
+        <div class="stamp-case-closed-red font-type">CASE CLOSED</div>
+        <div class="red-pencil-overwrite font-type">NO.</div>
+        <p class="mystery-clue-quote font-type">"Look at the receipts."</p>
+      </div>
+
+      <!-- STAGE 3: THE SAMAY ARCHIVE REGISTER (ESTABLISHES MULTIPLE CASES) -->
+      <div class="samay-archive-register-book font-type">
+        <div class="register-header">
+          <span class="register-kicker font-type">NATIONAL ARCHIVES OF INDIA</span>
+          <h3 class="register-title font-type">ARCHIVE REGISTER</h3>
+        </div>
+        <div class="register-cases-list">
+          <div class="register-row active-row">
+            <span class="reg-id font-type">01</span>
+            <span class="reg-name font-type">KAIRA DISTRICT — 1946</span>
+            <span class="reg-status status-open font-type">OPEN</span>
+          </div>
+          <div class="register-row locked-row">
+            <span class="reg-id font-type">02</span>
+            <span class="reg-name font-type">SEALED / CLASSIFIED</span>
+            <span class="reg-status status-sealed font-type">LOCKED</span>
+          </div>
+          <div class="register-row locked-row">
+            <span class="reg-id font-type">03</span>
+            <span class="reg-name font-type">SEALED / CLASSIFIED</span>
+            <span class="reg-status status-sealed font-type">LOCKED</span>
+          </div>
+          <div class="register-row locked-row">
+            <span class="reg-id font-type">04</span>
+            <span class="reg-name font-type">SEALED / CLASSIFIED</span>
+            <span class="reg-status status-sealed font-type">LOCKED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 4: THE CASE 01 INTERACTIVE DISCOVERY DOSSIER FOLDER -->
+      <div class="interactive-case01-folder" id="interactive-case01-folder">
+        <div class="case01-folder-tab font-type">CASE 01</div>
+        <div class="case01-folder-content">
+          <span class="case01-kicker font-type">SAMAY · HISTORICAL INVESTIGATION ARCHIVE</span>
+          <h2 class="case01-main-title font-type">CASE 01 — KAIRA DISTRICT</h2>
+          <span class="case01-year font-type">1946</span>
+          <div class="case01-open-badge font-type">STATUS: OPEN</div>
+          <p class="case01-hover-hint font-type">Click to retrieve confidential case dossier 🗂️</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FULLSCREEN CASE 01 OPENING DOSSIER MODAL TRANSITION -->
+    <div class="case01-opening-dossier-modal" id="case01-opening-dossier-modal" style="display: none;">
+      <div class="case01-modal-backdrop"></div>
+      <div class="case01-dossier-sheet font-type">
+        <span class="dossier-archive-header font-type">NATIONAL ARCHIVES OF INDIA // CONFIDENTIAL DISPATCH</span>
+        <h1 class="dossier-case-title font-type">KAIRA DISTRICT — 1946</h1>
+        <div class="dossier-red-line"></div>
+        <p class="dossier-investigator-note font-type">
+          "The official record does not tell the whole story."
+        </p>
+        <button class="btn-begin-case-investigation font-type" id="btn-begin-case-investigation">
+          <span>🔍 BEGIN HISTORICAL INVESTIGATION</span>
+        </button>
+      </div>
     </div>
   </section>
 
