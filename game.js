@@ -47,7 +47,8 @@ class Game {
 
     this._bindGlobalUI();
 
-    if (this._loadSave()) {
+    const hasSave = this._loadSave();
+    if (hasSave && (this.state.visited.length > 0 || this.state.scene === "ending")) {
       this._resumeFromSave();
     } else {
       this._playSplash();

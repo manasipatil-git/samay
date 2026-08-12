@@ -3391,40 +3391,378 @@ button{
 }
 
 /* ============================================================
-   SPLASH SCENE
-============================================================ */
-#scene-splash.is-active {
+   MYSTERIOUS HISTORICAL INVESTIGATION WORKSPACE (OPENING SCENE)
+   ============================================================ */
+#scene-splash {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #050201;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000;
-  color: var(--paper);
+  overflow: hidden;
+  position: relative;
   z-index: 100;
 }
-.splash-room {
-  text-align: center;
-  max-width: 600px;
-  padding: 20px;
+
+#scene-splash.is-active {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #050201 !important;
+  z-index: 100 !important;
 }
-.splash-title {
-  font-family: var(--font-display);
-  font-size: 4.5rem;
-  letter-spacing: 12px;
-  color: var(--paper);
-  margin-bottom: 24px;
-  text-shadow: 0 0 40px rgba(221,147,73,0.18);
-  font-weight: normal;
+
+.workspace-vignette-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 0.4) 0%, rgba(5, 2, 1, 0.98) 80%);
+  pointer-events: none;
+  z-index: 1;
 }
-.splash-tagline {
-  font-family: var(--font-type);
-  font-size: 1.15rem;
+
+.archival-desk-workspace {
+  position: relative;
+  width: 100%;
+  max-width: 1050px;
+  height: 600px;
+  background: radial-gradient(ellipse at 50% 40%, #3a2314 0%, #1a0f07 65%, #0c0603 100%);
+  border: 5px solid #201007;
+  border-radius: 8px;
+  box-shadow: 0 35px 90px rgba(0,0,0,0.95), inset 0 0 60px rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.desk-lamp-light-cone {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 750px;
+  height: 600px;
+  background: radial-gradient(ellipse at 50% 10%, rgba(255, 235, 185, 0.16) 0%, rgba(255, 215, 140, 0.05) 50%, transparent 80%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.workspace-prop {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.8));
   opacity: 0.85;
-  letter-spacing: 1px;
+  z-index: 4;
+}
+
+.prop-spectacles { top: 30px; right: 80px; font-size: 2.2rem; transform: rotate(-22deg); }
+.prop-pen { bottom: 40px; right: 50px; font-size: 2.5rem; transform: rotate(38deg); }
+.prop-magnifier { top: 40px; left: 60px; font-size: 2.4rem; transform: rotate(15deg); }
+.prop-paperclips { bottom: 35px; left: 70px; font-size: 1.6rem; transform: rotate(-10deg); }
+.prop-stamp { top: 25px; left: 45%; font-size: 1.8rem; transform: rotate(5deg); }
+
+/* THE FIRST MYSTERY (ENVIRONMENTAL STORYTELLING) */
+.crooked-evidence-sheet.first-mystery-document {
+  position: absolute;
+  top: 65px;
+  left: 80px;
+  width: 220px;
+  background: linear-gradient(135deg, #f7ebd3 0%, #ebd7b5 100%);
+  border: 1px solid #c8b490;
+  border-radius: 3px;
+  padding: 16px 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  transform: rotate(-7deg);
+  z-index: 5;
+}
+
+.stamp-case-closed-red {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #8b0000;
+  letter-spacing: 0.15em;
+  opacity: 0.85;
+}
+
+.red-pencil-overwrite {
+  font-family: 'Courier Prime', Courier, monospace;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #d32f2f;
+  margin-top: 2px;
+  transform: rotate(-12deg);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.15);
+}
+
+.mystery-clue-quote {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.78rem;
+  font-weight: bold;
+  color: #1a0f08;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* THE SAMAY ARCHIVE REGISTER */
+.samay-archive-register-book {
+  position: absolute;
+  bottom: 50px;
+  left: 60px;
+  width: 280px;
+  background: linear-gradient(135deg, #2b180d 0%, #150a04 100%);
+  border: 2px solid #aa7c11;
+  border-radius: 4px;
+  padding: 16px;
+  box-shadow: 0 14px 35px rgba(0,0,0,0.75);
+  transform: rotate(3deg);
+  z-index: 6;
+}
+
+.register-header {
+  border-bottom: 1.5px solid #aa7c11;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+.register-kicker {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #aa7c11;
+}
+
+.register-title {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #fffdf8;
+  margin: 2px 0 0;
+  letter-spacing: 0.08em;
+}
+
+.register-cases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.register-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 0.68rem;
+}
+
+.register-row.active-row {
+  background: rgba(170, 124, 17, 0.2);
+  border: 1px solid #aa7c11;
+}
+
+.register-row.locked-row {
+  opacity: 0.45;
+}
+
+.reg-id {
+  font-weight: bold;
+  color: #aa7c11;
+}
+
+.reg-name {
+  color: #eee2cd;
+  font-weight: bold;
+}
+
+.reg-status.status-open {
+  color: #4caf50;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.reg-status.status-sealed {
+  color: #aa7c11;
+  font-size: 0.6rem;
+}
+
+/* CASE 01 INTERACTIVE DISCOVERY FOLDER */
+.interactive-case01-folder {
+  position: absolute;
+  right: 90px;
+  top: 100px;
+  width: 380px;
+  background: linear-gradient(135deg, #d8c29d 0%, #bca175 100%);
+  border: 2px solid #8c734b;
+  border-radius: 6px;
+  padding: 24px 28px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.85);
+  transform: rotate(-3deg);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
+}
+
+.interactive-case01-folder:hover {
+  transform: rotate(-1deg) translateY(-6px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.95), 0 0 20px rgba(247, 200, 115, 0.2);
+}
+
+.case01-folder-tab {
+  position: absolute;
+  top: -24px;
+  left: 20px;
+  background: #aa7c11;
+  color: #fffdf8;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.72rem;
+  font-weight: bold;
+  padding: 4px 14px;
+  border-radius: 4px 4px 0 0;
+  border: 1.5px solid #8c734b;
+  border-bottom: none;
+  letter-spacing: 0.1em;
+}
+
+.case01-kicker {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #6d4e13;
+  display: block;
+}
+
+.case01-main-title {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1a0f08;
+  margin: 4px 0;
+}
+
+.case01-year {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.88rem;
+  font-weight: bold;
+  color: #8b0000;
+  display: block;
+}
+
+.case01-open-badge {
+  display: inline-block;
+  background: #8b0000;
+  color: #fffdf8;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin-top: 10px;
+}
+
+.case01-hover-hint {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #4a3414;
+  margin: 12px 0 0;
+  font-style: italic;
+}
+
+/* FULLSCREEN CASE 01 MODAL DISPATCH */
+.case01-opening-dossier-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.case01-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 2, 1, 0.92);
+  backdrop-filter: blur(4px);
+}
+
+.case01-dossier-sheet {
+  position: relative;
+  width: 90%;
+  max-width: 540px;
+  background: linear-gradient(135deg, #FAF4E6 0%, #EFE2C8 100%);
+  border: 3px solid #aa7c11;
+  border-radius: 6px;
+  padding: 35px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.95);
+  z-index: 2;
+  animation: modalSheetPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes modalSheetPop {
+  from { transform: scale(0.85) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.dossier-archive-header {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #8b0000;
+  display: block;
+}
+
+.dossier-case-title {
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #1a0f08;
+  margin: 8px 0;
+}
+
+.dossier-red-line {
+  width: 60px;
+  height: 3px;
+  background: #8b0000;
+  margin: 12px auto;
+}
+
+.dossier-investigator-note {
+  font-family: 'Courier Prime', Courier, monospace;
+  font-size: 0.98rem;
+  font-weight: bold;
+  font-style: italic;
+  color: #1b2a4a;
+  margin: 16px 0 24px;
+}
+
+.btn-begin-case-investigation {
+  background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%) !important;
+  color: #fffdf8 !important;
+  border: 2px solid #aa7c11 !important;
+  padding: 14px 30px !important;
+  border-radius: 6px !important;
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.9rem !important;
+  font-weight: bold !important;
+  letter-spacing: 0.08em !important;
+  cursor: pointer !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.7) !important;
+  transition: transform 0.2s ease !important;
+}
+
+.btn-begin-case-investigation:hover {
+  transform: scale(1.04) translateY(-2px) !important;
 }
 
 /* ============================================================
    ARCHIVE DUST LAYER
-============================================================ */
+   ============================================================ */
 .archive-dust-layer {
   position: absolute;
   inset: 0;
