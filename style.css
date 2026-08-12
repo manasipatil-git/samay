@@ -3442,8 +3442,8 @@ button{
   line-height: 1 !important;
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
+  display: block !important;
+  text-align: center !important;
   opacity: 0.95;
 }
 

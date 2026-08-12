@@ -46,9 +46,8 @@ class Game {
     this.selectedNode = null;
 
     this._bindGlobalUI();
-
     const hasSave = this._loadSave();
-    if (hasSave && (this.state.visited.length > 0 || this.state.scene === "ending")) {
+    if (hasSave && this.state.scene !== "splash" && (this.state.visited.length > 0 || this.state.scene === "ending")) {
       this._resumeFromSave();
     } else {
       this._playSplash();
@@ -88,15 +87,40 @@ class Game {
     } else if (this.state.scene === "decision") {
       this._goToScene("decision");
     } else if (this.state.scene === "meeting") {
-      this._enterMeeting();
-    } else if (this.state.scene === "detective") {
-      this._enterDetective();
-    } else if (this.state.scene === "archive") {
-      this._enterArchive();
-    } else if (this.state.scene === "splash") {
-      this._playSplash();
-    } else {
+      this._goToScene("meeting");
+    } else if (this.state.scene === "village") {
       this._goToScene("village");
+    } else {
+      this._goToScene("archive");
+    }
+  }
+
+  _togglePanel(name, force) {
+    const panel = name === "notebook" ? this.el.panelNotebook : this.el.panelInventory;
+    const shouldOpen = force !== undefined ? force : !panel.classList.contains("is-open");
+    panel.classList.toggle("is-open", shouldOpen);
+
+    // Play paper rustle sound on panel toggle
+    if (window.SAMAY_SOUND) {
+      window.SAMAY_SOUND.play("paper");
+    }
+  }
+
+  _goToScene(name) {
+    this.el.scenes.forEach(s => s.classList.remove("is-active"));
+    const targetEl = document.getElementById(`scene-${name}`);
+    if (targetEl) {
+      targetEl.classList.add("is-active");
+      this.state.scene = name;
+      this._save();
+    } else {
+      // Fallback to archive scene if saved scene name is obsolete
+      const fallbackEl = document.getElementById("scene-archive") || document.getElementById("scene-splash");
+      if (fallbackEl) {
+        fallbackEl.classList.add("is-active");
+        this.state.scene = "archive";
+        this._save();
+      }
     }
   }
 
