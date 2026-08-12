@@ -222,27 +222,13 @@ class Game {
       });
     }
 
-    // CINEMATIC GAME INTRO CAROUSEL & CASE 01 LAUNCH HANDLERS
-    const btnStartCase01 = document.getElementById("btn-start-case-01");
-    const cardCase01 = document.getElementById("card-case-01");
-    const case01Folder = document.getElementById("interactive-case01-folder");
-    const case01Modal = document.getElementById("case01-opening-dossier-modal");
-    const btnBeginCase = document.getElementById("btn-begin-case-investigation");
-
-    const launchCase01Modal = (e) => {
-      if (e) e.stopPropagation();
-      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-      if (case01Modal) case01Modal.style.display = "flex";
-    };
-
-    if (btnStartCase01) btnStartCase01.addEventListener("click", launchCase01Modal);
-    if (cardCase01) cardCase01.addEventListener("click", launchCase01Modal);
-    if (case01Folder) case01Folder.addEventListener("click", launchCase01Modal);
-
-    if (btnBeginCase) {
-      btnBeginCase.addEventListener("click", (e) => {
+    // CINEMATIC SPLASH TO ARCHIVE CABINET TRANSITION
+    const btnEnterArchives = document.getElementById("btn-enter-archives");
+    if (btnEnterArchives) {
+      btnEnterArchives.addEventListener("click", (e) => {
         e.stopPropagation();
-        this._startCase01();
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+        this._enterArchive();
       });
     }
   }

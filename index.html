@@ -458,7 +458,6 @@
      APP ROOT
 ========================================================== -->
 <div id="app">
-
   <!-- Rain + atmosphere overlay, persistent -->
   <div class="atmosphere" id="atmosphere">
     <div class="rain-layer"></div>
@@ -466,156 +465,74 @@
     <div class="grain"></div>
   </div>
 
-  <!-- ============ SCENE: CINEMATIC SAMAY GAME INTRO ============ -->
+  <!-- ============ SCENE: CINEMATIC SAMAY GAME SPLASH ============ -->
   <section id="scene-splash" class="scene is-active">
     <div class="cinematic-vignette-overlay"></div>
+    <canvas id="splash-dust-canvas" class="splash-dust-canvas"></canvas>
 
-    <div class="cinematic-intro-container">
+    <div class="cinematic-splash-container">
       
       <!-- HEROIC TITLE BRANDING -->
       <header class="samay-hero-header">
         <div class="archive-emblem-badge font-type">NATIONAL ARCHIVES OF INDIA · CLASSIFIED FILES</div>
-        <h1 class="samay-game-title font-type">SAMAY</h1>
+        <h1 class="splash-title font-type" id="splash-title">SAMAY</h1>
         <p class="samay-game-subtitle font-type">INDIAN HISTORICAL INVESTIGATION ARCHIVE</p>
-        <p class="samay-game-tagline font-type">"Reconstruct the truth buried within forgotten historical records."</p>
+        <p class="splash-tagline font-type" id="splash-tagline">"Every moment in history hides a mystery."</p>
       </header>
 
-      <!-- HISTORICAL CASE SELECTION CAROUSEL / MATRIX -->
-      <div class="case-selection-matrix">
-        <div class="matrix-header-bar font-type">
-          <span class="matrix-title">SELECT AN INVESTIGATION FILE</span>
-          <span class="matrix-status">1 OF 4 CASES UNLOCKED</span>
-        </div>
-
-        <div class="case-cards-grid">
-          
-          <!-- CASE 01: PLAYABLE KAIRA 1946 -->
-          <div class="cinematic-case-card active-case-card" id="card-case-01">
-            <div class="case-card-header">
-              <span class="case-number font-type">CASE 01</span>
-              <span class="case-badge-open font-type">OPEN FOR INVESTIGATION</span>
-            </div>
-            <h2 class="case-card-title font-type">KAIRA DISTRICT · 1946</h2>
-            <p class="case-card-desc font-type">
-              Investigate the Bombay Milk Monopoly, contractor exploitation, and the secret receipts that sparked a national cooperative movement.
-            </p>
-            <div class="case-card-footer">
-              <button class="btn-play-case-01 font-type" id="btn-start-case-01">
-                <span>🔍 LAUNCH CASE 01 (1946)</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- CASE 02: CHAMPARAN 1917 (TEASER) -->
-          <div class="cinematic-case-card locked-case-card">
-            <div class="case-card-header">
-              <span class="case-number font-type">CASE 02</span>
-              <span class="case-badge-locked font-type">🔒 CLASSIFIED</span>
-            </div>
-            <h2 class="case-card-title font-type">CHAMPARAN · 1917</h2>
-            <p class="case-card-desc font-type">
-              The Tinkathia Indigo Monopoly & British Revenue Extortion. Archival records undergoing restoration.
-            </p>
-            <div class="case-card-footer">
-              <span class="locked-label font-type">ACCESS CLEARANCE PENDING</span>
-            </div>
-          </div>
-
-          <!-- CASE 03: DANDI 1930 (TEASER) -->
-          <div class="cinematic-case-card locked-case-card">
-            <div class="case-card-header">
-              <span class="case-number font-type">CASE 03</span>
-              <span class="case-badge-locked font-type">🔒 CLASSIFIED</span>
-            </div>
-            <h2 class="case-card-title font-type">DANDI COAST · 1930</h2>
-            <p class="case-card-desc font-type">
-              The British Salt Tax Monopolies & Illegal Salt Manufacture Telegrams. Restricted clearance.
-            </p>
-            <div class="case-card-footer">
-              <span class="locked-label font-type">ACCESS CLEARANCE PENDING</span>
-            </div>
-          </div>
-
-          <!-- CASE 04: BOMBAY NAVAL MUTINY 1946 (TEASER) -->
-          <div class="cinematic-case-card locked-case-card">
-            <div class="case-card-header">
-              <span class="case-number font-type">CASE 04</span>
-              <span class="case-badge-locked font-type">🔒 CLASSIFIED</span>
-            </div>
-            <h2 class="case-card-title font-type">ROYAL INDIAN NAVY · 1946</h2>
-            <p class="case-card-desc font-type">
-              The Bombay Naval Mutiny & Suppressed Signal Dispatches. Confidential military record.
-            </p>
-            <div class="case-card-footer">
-              <span class="locked-label font-type">ACCESS CLEARANCE PENDING</span>
-            </div>
-          </div>
-
-        </div>
+      <!-- ENVIRONMENTAL STORYTELLING CLUE DOCUMENT -->
+      <div class="crooked-evidence-sheet splash-mystery-document">
+        <div class="stamp-case-closed-red font-type">CASE CLOSED</div>
+        <div class="red-pencil-overwrite font-type">NO.</div>
+        <p class="mystery-clue-quote font-type">"Look at the receipts."</p>
       </div>
 
-      <!-- DESK FOOTER STORYTELLING CLUE -->
-      <footer class="intro-desk-story-bar font-type">
-        <div class="story-clue-badge font-type">📌 ARCHIVIST NOTE</div>
-        <p class="story-clue-text font-type">"Every historical document leaves a trace. The evidence will tell you what official history omitted."</p>
-      </footer>
-
-    </div>
-
-    <!-- FULLSCREEN CASE 01 BRIEFING DISPATCH MODAL -->
-    <div class="case01-opening-dossier-modal" id="case01-opening-dossier-modal" style="display: none;">
-      <div class="case01-modal-backdrop"></div>
-      <div class="case01-dossier-sheet font-type">
-        <span class="dossier-archive-header font-type">NATIONAL ARCHIVES OF INDIA // CONFIDENTIAL DISPATCH</span>
-        <h1 class="dossier-case-title font-type">CASE 01: KAIRA DISTRICT (1946)</h1>
-        <div class="dossier-red-line"></div>
-        <p class="dossier-investigator-note font-type">
-          "The official government record states contractor rates were fair. The receipts prove otherwise."
-        </p>
-        <button class="btn-begin-case-investigation font-type" id="btn-begin-case-investigation">
-          <span>🔍 BEGIN HISTORICAL INVESTIGATION</span>
+      <!-- ENTER ARCHIVES ACTION CONTROL -->
+      <div class="splash-enter-control">
+        <button class="btn-enter-archives font-type" id="btn-enter-archives">
+          <span>📌 ENTER THE HISTORICAL ARCHIVES 🔍</span>
         </button>
+        <p class="splash-click-hint font-type">Click to unlock 1946 Bombay Presidency Case Files</p>
       </div>
+
     </div>
   </section>
 
-  <!-- ============ SCENE: ARCHIVE ============ -->
+  <!-- ============ SCENE: ARCHIVE & CASE MATRIX ============ -->
   <section id="scene-archive" class="scene">
     <canvas id="archive-dust" class="archive-dust-layer"></canvas>
     <div class="archive-room">
       <div class="archive-glow"></div>
       <header class="archive-header">
-        <span class="hud-eyebrow">National Archives · Historical Records</span>
-        <h2>Select a Confidential Case</h2>
-        <p class="archive-hint">Open a cabinet drawer to begin your investigation</p>
+        <span class="hud-eyebrow">NATIONAL ARCHIVES OF INDIA · HISTORICAL RECORD MATRIX</span>
+        <h2>SELECT AN INVESTIGATION FILE</h2>
+        <p class="archive-hint">Open a confidential cabinet drawer to begin your investigation</p>
         <button class="btn-restart-investigation" id="btn-restart" style="display:none;">
           <span>↺ Start New Investigation</span>
         </button>
       </header>
       
       <div class="cabinet">
+        <!-- DRAWER 1: PLAYABLE CASE 001 (KAIRA 1946) -->
         <div class="drawer active-drawer" id="drawer-case1">
           <div class="drawer-handle"></div>
-          <div class="drawer-label">CASE 001<br>The Milk Monopoly (1946)</div>
+          <div class="drawer-label">CASE 001 (1946)<br>KAIRA DISTRICT: THE MILK MONOPOLY</div>
           <div class="drawer-contents" id="drawer-contents-1">
-            <!-- One folder partially pulled from the drawer -->
             <div class="drawer-folders-row">
-              <!-- Brass Filing Rails running horizontally -->
               <div class="drawer-brass-rail"></div>
               
-              <!-- Non-interactive passive background folders/tabs -->
               <div class="drawer-background-details">
                 <div class="bg-folder bg-folder-1"></div>
                 <div class="bg-folder bg-folder-2"></div>
                 <div class="bg-folder bg-folder-3"></div>
-                <span class="bg-drawer-tab">DIARY STATS</span>
+                <span class="bg-drawer-tab">RECEIPTS #1402</span>
                 <span class="bg-drawer-label">KAIRA REGISTRY</span>
               </div>
 
-              <!-- The Main Archive Case Folder (Resting inside drawer on brass rails) -->
+              <!-- Main Case Folder -->
               <div class="drawer-folder-item folder-milk-monopoly" id="folder-btn-milk-monopoly">
                 <div class="folder-item-tab">CASE 001</div>
-                <div class="folder-item-title">THE MILK MONOPOLY</div>
+                <div class="folder-item-title">KAIRA DISTRICT (1946)</div>
                 <div class="folder-item-year">1946</div>
                 <div class="folder-item-confidential-stamp">CONFIDENTIAL</div>
               </div>
@@ -623,30 +540,22 @@
           </div>
         </div>
         
-        <!-- Authentic Government Archive Region Drawers -->
+        <!-- DRAWER 2: CASE 002 (CHAMPARAN 1917 - TEASER) -->
         <div class="drawer locked-drawer">
           <div class="drawer-handle"></div>
-          <div class="drawer-label">KAIRA REGION // TAX STATS<br>Revenue Folios (1940-1945)</div>
+          <div class="drawer-label">CASE 002 (1917) 🔒 CLASSIFIED<br>CHAMPARAN: INDIGO MONOPOLY</div>
         </div>
         
+        <!-- DRAWER 3: CASE 003 (DANDI 1930 - TEASER) -->
         <div class="drawer locked-drawer">
           <div class="drawer-handle"></div>
-          <div class="drawer-label">BOMBAY MILK CONTRACTS<br>Official Procurement Reports</div>
+          <div class="drawer-label">CASE 003 (1930) 🔒 CLASSIFIED<br>DANDI COAST: BRITISH SALT TAX</div>
         </div>
         
+        <!-- DRAWER 4: CASE 004 (RIN MUTINY 1946 - TEASER) -->
         <div class="drawer locked-drawer">
           <div class="drawer-handle"></div>
-          <div class="drawer-label">DISTRICT LAND SURVEYS<br>Cadastral Maps & Boundaries</div>
-        </div>
-
-        <div class="drawer locked-drawer">
-          <div class="drawer-handle"></div>
-          <div class="drawer-label">DIARY & DISPATCH ARCHIVES<br>Kaira Records Office Logbook</div>
-        </div>
-
-        <div class="drawer locked-drawer">
-          <div class="drawer-handle"></div>
-          <div class="drawer-label">POLSON LTD CORRESPONDENCE<br>Bombay Municipal Scheme (1945)</div>
+          <div class="drawer-label">CASE 004 (1946) 🔒 CLASSIFIED<br>ROYAL INDIAN NAVY MUTINY</div>
         </div>
       </div>
     </div>
