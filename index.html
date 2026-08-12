@@ -465,45 +465,21 @@
     <div class="grain"></div>
   </div>
 
-  <!-- ============ SCENE: 2D ANIMATED TITLE SEQUENCE (SAMAY OPENING) ============ -->
+  <!-- ============ SCENE: MINIMAL 2D TYPEWRITER TITLE SPLASH ============ -->
   <section id="scene-splash" class="scene is-active">
-    <!-- Cinematic 2D Canvas Layer for Ink, Paper Fragments, and Dust Grain -->
-    <canvas id="splash-canvas" class="splash-canvas"></canvas>
-
-    <!-- Layered 2D Archival Fragments (Cinematic Asymmetrical Composition) -->
-    <div class="splash-stage-container">
+    <div class="splash-minimal-bg"></div>
+    
+    <div class="splash-typewriter-container font-type">
+      <div class="splash-typewriter-word">
+        <span id="splash-typewriter-text"></span><span id="splash-cursor" class="splash-cursor">_</span>
+      </div>
       
-      <!-- Fragment 1: Torn Archival Paper Sheet -->
-      <div class="splash-fragment splash-paper-sheet">
-        <div class="splash-fragment-text splash-typewriter-1">...CONFIDENTIAL RECORD...</div>
-        <div class="splash-fragment-text splash-handwriting-1">STATEMENT OF PROCEEDINGS</div>
-        <div class="splash-red-line-svg-container">
-          <svg class="splash-red-svg" viewBox="0 0 200 8" preserveAspectRatio="none">
-            <path d="M 4,4 Q 95,2 196,5" stroke="#7a1616" stroke-width="2.5" fill="none" stroke-linecap="round" class="splash-red-path"/>
-          </svg>
-        </div>
+      <!-- Single Restrained Red Pencil Line SVG -->
+      <div class="splash-red-line-wrap" id="splash-red-line-wrap">
+        <svg class="splash-red-svg" viewBox="0 0 240 8" preserveAspectRatio="none">
+          <path d="M 4,4 Q 120,2 236,5" stroke="#7a1616" stroke-width="2.5" fill="none" stroke-linecap="round" class="splash-red-line-path" id="splash-red-line-path"/>
+        </svg>
       </div>
-
-      <!-- Fragment 2: Overlapping Margins & Abstract Ink Stamp -->
-      <div class="splash-fragment splash-paper-stamp-card">
-        <div class="splash-abstract-stamp">
-          <span class="splash-stamp-inner">ARCHIVE RECORD</span>
-        </div>
-        <div class="splash-fragment-text splash-typewriter-2">...DISTRICT DISPATCH...</div>
-      </div>
-
-      <!-- Final Title Reveal Overlay -->
-      <div class="splash-title-reveal-box" id="splash-title-reveal-box">
-        <div class="splash-archive-kicker">NATIONAL ARCHIVES</div>
-        <h1 class="splash-main-title" id="splash-title">SAMAY</h1>
-        <p class="splash-main-tagline" id="splash-tagline">"History leaves traces."</p>
-      </div>
-
-      <!-- Skip / Proceed Direct Trigger -->
-      <div class="splash-skip-trigger" id="splash-skip-trigger">
-        <span class="splash-skip-text">Click anywhere to enter the archives</span>
-      </div>
-
     </div>
   </section>
 

@@ -253,116 +253,77 @@ class Game {
     if (window.SAMAY_SOUND) {
       window.SAMAY_SOUND.startAmbient();
     }
-    this._runSplashTitleSequence();
+    this._runMinimalTypewriterSplash();
   }
 
-  _runSplashTitleSequence() {
+  _runMinimalTypewriterSplash() {
+    const textEl = document.getElementById("splash-typewriter-text");
+    const cursorEl = document.getElementById("splash-cursor");
+    const redWrapEl = document.getElementById("splash-red-line-wrap");
+    const redPathEl = document.getElementById("splash-red-line-path");
     const splashScene = document.getElementById("scene-splash");
-    const canvas = document.getElementById("splash-canvas");
-    if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
-    let animationFrameId = null;
-    let startTime = null;
-    let sequenceEnded = false;
+    if (!textEl) return;
 
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
+    // Reset state
+    textEl.textContent = "";
+    if (cursorEl) cursorEl.style.display = "inline-block";
+    if (redWrapEl) redWrapEl.classList.remove("is-visible");
+    if (redPathEl) redPathEl.classList.remove("draw-line");
 
-    // Particle dust motes & subtle paper grain
-    const particles = [];
-    for (let i = 0; i < 35; i++) {
-      particles.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        r: Math.random() * 1.5 + 0.5,
-        speed: Math.random() * 0.15 + 0.05,
-        alpha: Math.random() * 0.35 + 0.08,
-        angle: Math.random() * Math.PI * 2
-      });
-    }
+    let isEnded = false;
+    let timeouts = [];
 
-    const endSequence = () => {
-      if (sequenceEnded) return;
-      sequenceEnded = true;
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    const endSplash = () => {
+      if (isEnded) return;
+      isEnded = true;
+      timeouts.forEach(t => clearTimeout(t));
       if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
       this._enterArchive();
     };
 
     if (splashScene) {
-      splashScene.onclick = endSequence;
+      splashScene.onclick = endSplash;
     }
 
-    const render = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = (timestamp - startTime) / 1000;
+    const titleLetters = ["S", "A", "M", "A", "Y"];
+    // Non-uniform human typewriter delays: S (350ms), A (300ms), M (500ms), A (320ms), Y (400ms)
+    const letterDelays = [350, 300, 500, 320, 400];
 
-      if (this.state.scene !== "splash" || sequenceEnded) return;
+    // 0.0 - 1.2s: Darkness & Cursor emergence
+    let cumulativeTime = 1200;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    titleLetters.forEach((letter, index) => {
+      cumulativeTime += letterDelays[index];
+      const t = setTimeout(() => {
+        if (isEnded) return;
+        textEl.textContent += letter;
+        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("type");
+      }, cumulativeTime);
+      timeouts.push(t);
+    });
 
-      // Radial spotlight breathing on charcoal canvas
-      const spotX = canvas.width * 0.45;
-      const spotY = canvas.height * 0.48;
-      const gradient = ctx.createRadialGradient(spotX, spotY, 50, spotX, spotY, canvas.width * 0.65);
-      gradient.addColorStop(0, "rgba(25, 18, 12, 0.95)");
-      gradient.addColorStop(0.65, "rgba(10, 7, 5, 0.98)");
-      gradient.addColorStop(1, "#050302");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // 3.8s: Typewriter finishes typing. Hide cursor, play paper rustle
+    cumulativeTime += 600;
+    timeouts.push(setTimeout(() => {
+      if (isEnded) return;
+      if (cursorEl) cursorEl.style.display = "none";
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+    }, cumulativeTime));
 
-      // Dust motes floating in spotlight
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(222, 211, 193, ${p.alpha * Math.min(elapsed / 2, 1)})`;
-        ctx.fill();
-        p.y -= p.speed;
-        p.x += Math.sin(p.angle) * 0.15;
-        p.angle += 0.01;
-        if (p.y < 0) p.y = canvas.height;
-      });
+    // 4.3 - 5.1s: Draw single red pencil line underneath
+    cumulativeTime += 500;
+    timeouts.push(setTimeout(() => {
+      if (isEnded) return;
+      if (redWrapEl) redWrapEl.classList.add("is-visible");
+      if (redPathEl) redPathEl.classList.add("draw-line");
+    }, cumulativeTime));
 
-      // 2s - 5s: Animated ink route/boundary drawing across negative space
-      if (elapsed > 2) {
-        const lineProgress = Math.min((elapsed - 2) / 3, 1);
-        ctx.save();
-        ctx.beginPath();
-        const startX = canvas.width * 0.20;
-        const startY = canvas.height * 0.64;
-        const cp1X = canvas.width * 0.40;
-        const cp1Y = canvas.height * 0.38;
-        const endX = canvas.width * 0.75;
-        const endY = canvas.height * 0.50;
-
-        ctx.strokeStyle = "rgba(94, 84, 71, 0.45)";
-        ctx.lineWidth = 1.6;
-        ctx.setLineDash([5, 4]);
-
-        const currentX = startX + (endX - startX) * lineProgress;
-        const currentY = startY + (endY - startY) * lineProgress + Math.sin(lineProgress * Math.PI) * -45;
-
-        ctx.moveTo(startX, startY);
-        ctx.quadraticCurveTo(cp1X, cp1Y, currentX, currentY);
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      // Auto-transition to Archive Cabinet after 10.5s sequence completes
-      if (elapsed >= 10.5) {
-        endSequence();
-        return;
-      }
-
-      animationFrameId = requestAnimationFrame(render);
-    };
-
-    animationFrameId = requestAnimationFrame(render);
+    // 6.8 - 7.5s: Brief still hold, then smooth fade into game
+    cumulativeTime += 2000;
+    timeouts.push(setTimeout(() => {
+      endSplash();
+    }, cumulativeTime));
   }
 
   _togglePanel(name, force) {
