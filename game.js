@@ -222,15 +222,18 @@ class Game {
       });
     }
 
-    // CINEMATIC SPLASH TO ARCHIVE CABINET TRANSITION
+    // MINIMAL 2D SPLASH TO ARCHIVE CABINET TRANSITION
+    const splashScene = document.getElementById("scene-splash");
     const btnEnterArchives = document.getElementById("btn-enter-archives");
-    if (btnEnterArchives) {
-      btnEnterArchives.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
-        this._enterArchive();
-      });
-    }
+
+    const enterArchivesHandler = (e) => {
+      if (e) e.stopPropagation();
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+      this._enterArchive();
+    };
+
+    if (btnEnterArchives) btnEnterArchives.addEventListener("click", enterArchivesHandler);
+    if (splashScene) splashScene.addEventListener("click", enterArchivesHandler);
   }
 
   _startCase01() {

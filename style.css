@@ -3391,28 +3391,121 @@ button{
 }
 
 /* ============================================================
-   CINEMATIC SAMAY GAME SPLASH SCREEN (EPIC TITLE EXPERIENCE)
+   MINIMAL 2D SAMAY SPLASH SCREEN (CLEAN, ATMOSPHERIC, ELEGANT)
    ============================================================ */
 #scene-splash {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 40%, #20130a 0%, #0c0603 70%, #040201 100%);
+  background: #090503;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   position: relative;
   z-index: 100;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 #scene-splash.is-active {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: radial-gradient(circle at 50% 40%, #20130a 0%, #0c0603 70%, #040201 100%) !important;
+  background: #090503 !important;
   z-index: 100 !important;
+}
+
+.minimal-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(45, 27, 14, 0.35) 0%, rgba(9, 5, 3, 0.98) 75%);
+  pointer-events: none;
+}
+
+.minimal-splash-content {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  text-align: center;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.minimal-archival-emblem {
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  color: #aa7c11;
+  border-bottom: 1px solid rgba(170, 124, 17, 0.4);
+  padding-bottom: 4px;
+}
+
+.minimal-title {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 5.5rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.3em !important;
+  color: #faf4e6 !important;
+  margin: 8px 0 0 !important;
+  line-height: 1 !important;
+  text-shadow: 0 4px 30px rgba(170, 124, 17, 0.3), 0 0 60px rgba(0, 0, 0, 0.9);
+}
+
+.minimal-subtitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #d4c5a9;
+  margin: 0;
+}
+
+.minimal-divider-line {
+  width: 50px;
+  height: 2px;
+  background: #aa7c11;
+  margin: 6px 0;
+  opacity: 0.8;
+}
+
+.minimal-tagline {
+  font-family: 'Courier Prime', Courier, monospace;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: #a89476;
+  margin: 0;
+}
+
+.btn-minimal-enter {
+  background: linear-gradient(135deg, #aa7c11 0%, #6d4e13 100%) !important;
+  color: #fffdf8 !important;
+  border: 1.5px solid #f7c873 !important;
+  padding: 14px 34px !important;
+  border-radius: 4px !important;
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 0.92rem !important;
+  font-weight: bold !important;
+  letter-spacing: 0.12em !important;
+  cursor: pointer !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 25px rgba(170, 124, 17, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  margin-top: 16px !important;
+}
+
+.btn-minimal-enter:hover {
+  transform: translateY(-3px) scale(1.03) !important;
+  box-shadow: 0 14px 35px rgba(247, 200, 115, 0.4), 0 0 35px rgba(0, 0, 0, 0.9) !important;
+}
+
+.minimal-click-prompt {
+  font-size: 0.7rem;
+  color: #7a6345;
+  margin: 4px 0 0;
+  letter-spacing: 0.05em;
 }
 
 .cinematic-splash-container {
