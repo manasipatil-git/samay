@@ -265,7 +265,7 @@ class Game {
 
     if (!textEl) return;
 
-    // 0.0s – 1.0s: Almost total darkness. Cursor hidden initially
+    // Reset elements for clean start
     textEl.textContent = "";
     if (cursorEl) cursorEl.classList.add("is-hidden");
     if (redWrapEl) redWrapEl.classList.remove("is-visible");
@@ -273,49 +273,63 @@ class Game {
 
     let isEnded = false;
     let timeouts = [];
+    let allowSkip = false;
+
+    // Allow skip only after 1.2s to prevent initial focus click from cancelling animation
+    setTimeout(() => { allowSkip = true; }, 1200);
+
+    const safePlaySound = (key) => {
+      try {
+        if (window.SAMAY_SOUND && typeof window.SAMAY_SOUND.play === "function") {
+          window.SAMAY_SOUND.play(key);
+        }
+      } catch (e) { /* ignore audio context policy errors */ }
+    };
 
     const endSplash = () => {
       if (isEnded) return;
       isEnded = true;
       timeouts.forEach(t => clearTimeout(t));
-      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+      safePlaySound("paper");
       this._enterArchive();
     };
 
     if (splashScene) {
-      splashScene.onclick = endSplash;
+      splashScene.onclick = () => {
+        if (allowSkip) endSplash();
+      };
     }
 
-    // 1.0s: Typewriter cursor appears
+    // 0.8s: Typewriter cursor appears
     timeouts.push(setTimeout(() => {
       if (isEnded) return;
       if (cursorEl) cursorEl.classList.remove("is-hidden");
-    }, 1000));
+    }, 800));
 
-    // 1.5s: Typewriter keystrokes begin with human, non-uniform pauses
+    // 1.3s: Typewriter keystrokes begin with human, non-uniform pauses
     const titleLetters = ["S", "A", "M", "A", "Y"];
-    const letterDelays = [350, 300, 500, 320, 400]; // Delays after each keypress
+    const letterDelays = [320, 280, 450, 300, 380]; // Delays after each keypress
 
-    let cumulativeTime = 1500;
+    let cumulativeTime = 1300;
 
     titleLetters.forEach((letter, index) => {
       cumulativeTime += letterDelays[index];
       const t = setTimeout(() => {
         if (isEnded) return;
         textEl.textContent += letter;
-        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("clack");
+        safePlaySound("clack");
       }, cumulativeTime);
       timeouts.push(t);
     });
 
-    // 3.67s: Typing completes. Cursor stops & hides.
+    // 3.2s: Typing completes. Cursor stops & hides.
     cumulativeTime += 300;
     timeouts.push(setTimeout(() => {
       if (isEnded) return;
       if (cursorEl) cursorEl.classList.add("is-hidden");
     }, cumulativeTime));
 
-    // 4.5s: After 0.8s pause in complete silence, draw ONE thin archival red pencil line
+    // 4.0s: After 0.8s pause in complete silence, draw ONE thin archival red pencil line
     cumulativeTime += 800;
     timeouts.push(setTimeout(() => {
       if (isEnded) return;
@@ -323,8 +337,8 @@ class Game {
       if (redPathEl) redPathEl.classList.add("draw-line");
     }, cumulativeTime));
 
-    // 6.5s: Brief still hold, then smooth fade into existing game
-    cumulativeTime += 2000;
+    // 5.8s: Brief still hold, then smooth fade into existing game
+    cumulativeTime += 1800;
     timeouts.push(setTimeout(() => {
       endSplash();
     }, cumulativeTime));
