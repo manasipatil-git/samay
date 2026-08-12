@@ -242,11 +242,21 @@ class Game {
     if (btnBeginCase) {
       btnBeginCase.addEventListener("click", (e) => {
         e.stopPropagation();
-        if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
-        if (case01Modal) case01Modal.style.display = "none";
-        this._enterArchive();
+        this._startCase01();
       });
     }
+  }
+
+  _startCase01() {
+    if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("stamp");
+    const case01Modal = document.getElementById("case01-opening-dossier-modal");
+    if (case01Modal) case01Modal.style.display = "none";
+    
+    this._renderVillage();
+    this._renderHours();
+    this._renderNotebook();
+    this._renderInventory();
+    this._goToScene("village");
   }
 
   _playSplash() {
@@ -288,22 +298,11 @@ class Game {
   /* -------------------------------------------------------
      ACT 1 — SPLASH & BRIEFING
   ------------------------------------------------------- */
-  async _playSplash() {
+  _playSplash() {
     this._goToScene("splash");
     if (window.SAMAY_SOUND) {
-      window.SAMAY_SOUND.unlock();
+      window.SAMAY_SOUND.startAmbient();
     }
-    
-    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-    
-    await wait(800);
-    await this._typeTo("splash-title", "SAMAY", 180);
-    await wait(400);
-    await this._typeTo("splash-tagline", "Every moment in history hides a mystery.", 45);
-    await wait(2800);
-    
-    // Transition to Archive
-    this._enterArchive();
   }
 
   _enterArchive() {
