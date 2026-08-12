@@ -265,9 +265,9 @@ class Game {
 
     if (!textEl) return;
 
-    // Reset state
+    // Initial State: Almost complete darkness (0.0s - 1.0s)
     textEl.textContent = "";
-    if (cursorEl) cursorEl.style.display = "inline-block";
+    if (cursorEl) cursorEl.style.opacity = "0";
     if (redWrapEl) redWrapEl.classList.remove("is-visible");
     if (redPathEl) redPathEl.classList.remove("draw-line");
 
@@ -286,12 +286,17 @@ class Game {
       splashScene.onclick = endSplash;
     }
 
-    const titleLetters = ["S", "A", "M", "A", "Y"];
-    // Non-uniform human typewriter delays: S (350ms), A (300ms), M (500ms), A (320ms), Y (400ms)
-    const letterDelays = [350, 300, 500, 320, 400];
+    // 1.0s: Typewriter cursor appears
+    timeouts.push(setTimeout(() => {
+      if (isEnded) return;
+      if (cursorEl) cursorEl.style.opacity = "1";
+    }, 1000));
 
-    // 0.0 - 1.2s: Darkness & Cursor emergence
-    let cumulativeTime = 1200;
+    // 1.5s: Typewriter keystrokes begin with human, non-uniform pauses
+    const titleLetters = ["S", "A", "M", "A", "Y"];
+    const letterDelays = [350, 300, 500, 320, 400]; // Delays after each keypress
+
+    let cumulativeTime = 1500;
 
     titleLetters.forEach((letter, index) => {
       cumulativeTime += letterDelays[index];
@@ -303,23 +308,22 @@ class Game {
       timeouts.push(t);
     });
 
-    // 3.8s: Typewriter finishes typing. Hide cursor, play paper rustle
-    cumulativeTime += 600;
+    // 3.67s: Typing completes. Cursor stops & hides.
+    cumulativeTime += 300;
     timeouts.push(setTimeout(() => {
       if (isEnded) return;
-      if (cursorEl) cursorEl.style.display = "none";
-      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+      if (cursorEl) cursorEl.style.opacity = "0";
     }, cumulativeTime));
 
-    // 4.3 - 5.1s: Draw single red pencil line underneath
-    cumulativeTime += 500;
+    // 4.5s: After 0.8s pause in complete silence, draw ONE thin archival red pencil line
+    cumulativeTime += 800;
     timeouts.push(setTimeout(() => {
       if (isEnded) return;
       if (redWrapEl) redWrapEl.classList.add("is-visible");
       if (redPathEl) redPathEl.classList.add("draw-line");
     }, cumulativeTime));
 
-    // 6.8 - 7.5s: Brief still hold, then smooth fade into game
+    // 6.5s: Brief still hold, then smooth fade into existing game
     cumulativeTime += 2000;
     timeouts.push(setTimeout(() => {
       endSplash();
