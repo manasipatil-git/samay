@@ -253,13 +253,18 @@ class Game {
     if (window.SAMAY_SOUND) {
       window.SAMAY_SOUND.startAmbient();
     }
-    this._startSplashDustParticles();
+    this._runSplashTitleSequence();
   }
 
-  _startSplashDustParticles() {
-    const canvas = document.getElementById("splash-dust-canvas");
+  _runSplashTitleSequence() {
+    const splashScene = document.getElementById("scene-splash");
+    const canvas = document.getElementById("splash-canvas");
     if (!canvas) return;
+
     const ctx = canvas.getContext("2d");
+    let animationFrameId = null;
+    let startTime = null;
+    let sequenceEnded = false;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -268,40 +273,96 @@ class Game {
     resize();
     window.addEventListener("resize", resize);
 
+    // Particle dust motes & subtle paper grain
     const particles = [];
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 35; i++) {
       particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.8 + 0.5,
-        d: Math.random() * 0.25 + 0.05,
-        alpha: Math.random() * 0.5 + 0.1,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 1.5 + 0.5,
+        speed: Math.random() * 0.15 + 0.05,
+        alpha: Math.random() * 0.35 + 0.08,
         angle: Math.random() * Math.PI * 2
       });
     }
 
-    const draw = () => {
-      if (this.state.scene !== "splash") return;
+    const endSequence = () => {
+      if (sequenceEnded) return;
+      sequenceEnded = true;
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      if (window.SAMAY_SOUND) window.SAMAY_SOUND.play("paper");
+      this._enterArchive();
+    };
+
+    if (splashScene) {
+      splashScene.onclick = endSequence;
+    }
+
+    const render = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = (timestamp - startTime) / 1000;
+
+      if (this.state.scene !== "splash" || sequenceEnded) return;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Radial spotlight breathing on charcoal canvas
+      const spotX = canvas.width * 0.45;
+      const spotY = canvas.height * 0.48;
+      const gradient = ctx.createRadialGradient(spotX, spotY, 50, spotX, spotY, canvas.width * 0.65);
+      gradient.addColorStop(0, "rgba(25, 18, 12, 0.95)");
+      gradient.addColorStop(0.65, "rgba(10, 7, 5, 0.98)");
+      gradient.addColorStop(1, "#050302");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Dust motes floating in spotlight
       particles.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(247, 200, 115, ${p.alpha})`;
+        ctx.fillStyle = `rgba(222, 211, 193, ${p.alpha * Math.min(elapsed / 2, 1)})`;
         ctx.fill();
-
-        p.y -= p.d;
-        p.x += Math.sin(p.angle) * 0.2;
+        p.y -= p.speed;
+        p.x += Math.sin(p.angle) * 0.15;
         p.angle += 0.01;
-
-        if (p.y < 0) {
-          p.y = canvas.height;
-          p.x = Math.random() * canvas.width;
-        }
+        if (p.y < 0) p.y = canvas.height;
       });
-      requestAnimationFrame(draw);
+
+      // 2s - 5s: Animated ink route/boundary drawing across negative space
+      if (elapsed > 2) {
+        const lineProgress = Math.min((elapsed - 2) / 3, 1);
+        ctx.save();
+        ctx.beginPath();
+        const startX = canvas.width * 0.20;
+        const startY = canvas.height * 0.64;
+        const cp1X = canvas.width * 0.40;
+        const cp1Y = canvas.height * 0.38;
+        const endX = canvas.width * 0.75;
+        const endY = canvas.height * 0.50;
+
+        ctx.strokeStyle = "rgba(94, 84, 71, 0.45)";
+        ctx.lineWidth = 1.6;
+        ctx.setLineDash([5, 4]);
+
+        const currentX = startX + (endX - startX) * lineProgress;
+        const currentY = startY + (endY - startY) * lineProgress + Math.sin(lineProgress * Math.PI) * -45;
+
+        ctx.moveTo(startX, startY);
+        ctx.quadraticCurveTo(cp1X, cp1Y, currentX, currentY);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Auto-transition to Archive Cabinet after 10.5s sequence completes
+      if (elapsed >= 10.5) {
+        endSequence();
+        return;
+      }
+
+      animationFrameId = requestAnimationFrame(render);
     };
-    draw();
+
+    animationFrameId = requestAnimationFrame(render);
   }
 
   _togglePanel(name, force) {

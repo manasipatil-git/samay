@@ -3391,14 +3391,14 @@ button{
 }
 
 /* ============================================================
-   MINIMAL 2D SAMAY SPLASH SCREEN (CLEAN, ATMOSPHERIC, ELEGANT)
+   2D ANIMATED TITLE SEQUENCE (SAMAY OPENING)
    ============================================================ */
 #scene-splash {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  background: #090503;
+  background: #050302;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3406,14 +3406,201 @@ button{
   z-index: 100;
   overflow: hidden;
   cursor: pointer;
+  user-select: none;
 }
 
 #scene-splash.is-active {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: #090503 !important;
+  background: #050302 !important;
   z-index: 100 !important;
+}
+
+.splash-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.splash-stage-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  height: 520px;
+  margin: auto;
+  pointer-events: none;
+}
+
+/* FRAGMENT 1: TORN ARCHIVAL PAPER SHEET */
+.splash-fragment.splash-paper-sheet {
+  position: absolute;
+  top: 18%;
+  left: 12%;
+  width: 320px;
+  padding: 22px 26px;
+  background: linear-gradient(135deg, #ded3c1 0%, #cebe9e 100%);
+  border: 1px solid #a89476;
+  border-radius: 2px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+  transform: rotate(-3.5deg);
+  opacity: 0;
+  animation: splashPaperSlide 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 2.2s forwards;
+}
+
+@keyframes splashPaperSlide {
+  from { opacity: 0; transform: translateY(18px) rotate(-5deg); }
+  to { opacity: 0.92; transform: translateY(0) rotate(-3.5deg); }
+}
+
+.splash-fragment-text {
+  font-family: 'Special Elite', Courier, monospace;
+  color: #2b2219;
+}
+
+.splash-typewriter-1 {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  opacity: 0.85;
+  margin-bottom: 6px;
+}
+
+.splash-handwriting-1 {
+  font-family: 'Courier Prime', Courier, monospace;
+  font-size: 0.82rem;
+  font-weight: bold;
+  font-style: italic;
+  color: #1a120b;
+  margin-bottom: 12px;
+}
+
+.splash-red-line-svg-container {
+  width: 100%;
+  height: 8px;
+}
+
+.splash-red-path {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: splashRedStroke 1s ease 4.2s forwards;
+}
+
+@keyframes splashRedStroke {
+  to { stroke-dashoffset: 0; }
+}
+
+/* FRAGMENT 2: OVERLAPPING MARGINS & ABSTRACT STAMP */
+.splash-fragment.splash-paper-stamp-card {
+  position: absolute;
+  bottom: 22%;
+  right: 14%;
+  width: 260px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #cebe9e 0%, #b8a682 100%);
+  border: 1px solid #8c785c;
+  border-radius: 2px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
+  transform: rotate(2.5deg);
+  opacity: 0;
+  animation: splashStampCardSlide 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 5.2s forwards;
+}
+
+@keyframes splashStampCardSlide {
+  from { opacity: 0; transform: translateY(15px) rotate(4deg); }
+  to { opacity: 0.88; transform: translateY(0) rotate(2.5deg); }
+}
+
+.splash-abstract-stamp {
+  border: 2px solid #7a1616;
+  color: #7a1616;
+  padding: 4px 10px;
+  display: inline-block;
+  font-family: 'Special Elite', Courier, monospace;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  transform: rotate(-6deg);
+  opacity: 0.85;
+  margin-bottom: 6px;
+}
+
+.splash-typewriter-2 {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: #3d3023;
+}
+
+/* TITLE REVEAL BOX */
+.splash-title-reveal-box {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: 0;
+  animation: splashTitleReveal 1.6s ease 7.2s forwards;
+  z-index: 5;
+}
+
+@keyframes splashTitleReveal {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(0.97); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.splash-archive-kicker {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  color: #a89476;
+  margin-bottom: 8px;
+}
+
+.splash-main-title {
+  font-family: 'Special Elite', Courier, monospace !important;
+  font-size: 5.2rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.38em !important;
+  color: #ded3c1 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.95);
+}
+
+.splash-main-tagline {
+  font-family: 'Courier Prime', Courier, monospace;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: #8c785c;
+  margin-top: 14px;
+  letter-spacing: 0.08em;
+}
+
+/* SKIP TRIGGER */
+.splash-skip-trigger {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: splashSkipFade 1s ease 8.5s forwards;
+  z-index: 6;
+}
+
+@keyframes splashSkipFade {
+  to { opacity: 0.6; }
+}
+
+.splash-skip-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: #a89476;
+  text-transform: uppercase;
 }
 
 .splash-dust-canvas {
