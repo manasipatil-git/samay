@@ -468,18 +468,28 @@
   <!-- ============ SCENE: MINIMAL 2D SAMAY SPLASH SCREEN ============ -->
   <section id="scene-splash" class="scene is-active">
     <div class="minimal-vignette"></div>
+    <canvas id="splash-dust-canvas" class="splash-dust-canvas"></canvas>
 
     <div class="minimal-splash-content font-type">
-      <div class="minimal-archival-emblem">NATIONAL ARCHIVES OF INDIA</div>
-      <h1 class="minimal-title" id="splash-title">SAMAY</h1>
-      <p class="minimal-subtitle">INDIAN HISTORICAL INVESTIGATION ARCHIVE</p>
+      <div class="minimal-archival-emblem animate-fade-down">NATIONAL ARCHIVES OF INDIA</div>
+      <h1 class="minimal-title animate-title-glow" id="splash-title">SAMAY</h1>
+      
+      <!-- Animated Red Pencil Underline Stroke -->
+      <div class="red-pencil-underline-container">
+        <svg class="red-pencil-svg" viewBox="0 0 260 10" preserveAspectRatio="none">
+          <path d="M 5,5 Q 130,2 255,6" stroke="#8b0000" stroke-width="3.5" fill="none" stroke-linecap="round" class="red-stroke-path"/>
+        </svg>
+      </div>
+
+      <p class="minimal-subtitle animate-fade-up">INDIAN HISTORICAL INVESTIGATION ARCHIVE</p>
       
       <div class="minimal-divider-line"></div>
       
-      <p class="minimal-tagline" id="splash-tagline">"Every moment in history hides a mystery."</p>
+      <p class="minimal-tagline" id="splash-tagline">"Every moment in history hides a mystery."<span class="blinking-red-cursor">|</span></p>
 
-      <button class="btn-minimal-enter font-type" id="btn-enter-archives">
-        <span>📌 ENTER THE ARCHIVES 🔍</span>
+      <button class="btn-minimal-enter font-type animate-pulse-btn" id="btn-enter-archives">
+        <span class="btn-shine-effect"></span>
+        <span class="btn-text-content">📌 ENTER THE ARCHIVES 🔍</span>
       </button>
       
       <p class="minimal-click-prompt font-type">Click anywhere to access classified case files</p>

@@ -253,6 +253,55 @@ class Game {
     if (window.SAMAY_SOUND) {
       window.SAMAY_SOUND.startAmbient();
     }
+    this._startSplashDustParticles();
+  }
+
+  _startSplashDustParticles() {
+    const canvas = document.getElementById("splash-dust-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const particles = [];
+    for (let i = 0; i < 45; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.8 + 0.5,
+        d: Math.random() * 0.25 + 0.05,
+        alpha: Math.random() * 0.5 + 0.1,
+        angle: Math.random() * Math.PI * 2
+      });
+    }
+
+    const draw = () => {
+      if (this.state.scene !== "splash") return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(247, 200, 115, ${p.alpha})`;
+        ctx.fill();
+
+        p.y -= p.d;
+        p.x += Math.sin(p.angle) * 0.2;
+        p.angle += 0.01;
+
+        if (p.y < 0) {
+          p.y = canvas.height;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(draw);
+    };
+    draw();
   }
 
   _togglePanel(name, force) {

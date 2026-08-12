@@ -3416,23 +3416,38 @@ button{
   z-index: 100 !important;
 }
 
+.splash-dust-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .minimal-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 45%, rgba(45, 27, 14, 0.35) 0%, rgba(9, 5, 3, 0.98) 75%);
+  background: radial-gradient(circle at 50% 45%, rgba(65, 38, 18, 0.45) 0%, rgba(9, 5, 3, 0.98) 75%);
   pointer-events: none;
+  animation: vignettePulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes vignettePulse {
+  0% { opacity: 0.85; }
+  100% { opacity: 1; }
 }
 
 .minimal-splash-content {
   position: relative;
   z-index: 2;
-  max-width: 650px;
+  max-width: 680px;
   text-align: center;
   padding: 30px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .minimal-archival-emblem {
@@ -3442,6 +3457,12 @@ button{
   color: #aa7c11;
   border-bottom: 1px solid rgba(170, 124, 17, 0.4);
   padding-bottom: 4px;
+  animation: fadeDownEmblem 1s ease forwards;
+}
+
+@keyframes fadeDownEmblem {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .minimal-title {
@@ -3450,9 +3471,32 @@ button{
   font-weight: 900 !important;
   letter-spacing: 0.3em !important;
   color: #faf4e6 !important;
-  margin: 8px 0 0 !important;
+  margin: 6px 0 0 !important;
   line-height: 1 !important;
-  text-shadow: 0 4px 30px rgba(170, 124, 17, 0.3), 0 0 60px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 4px 30px rgba(170, 124, 17, 0.4), 0 0 60px rgba(0, 0, 0, 0.9);
+  animation: titleGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 4px 20px rgba(170, 124, 17, 0.3), 0 0 40px rgba(0, 0, 0, 0.9); }
+  100% { text-shadow: 0 4px 35px rgba(247, 200, 115, 0.6), 0 0 70px rgba(170, 124, 17, 0.5); }
+}
+
+/* ANIMATED RED PENCIL UNDERLINE STROKE */
+.red-pencil-underline-container {
+  width: 260px;
+  height: 10px;
+  margin: -4px 0 6px;
+}
+
+.red-stroke-path {
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  animation: drawRedPencil 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.5s forwards;
+}
+
+@keyframes drawRedPencil {
+  to { stroke-dashoffset: 0; }
 }
 
 .minimal-subtitle {
@@ -3462,13 +3506,19 @@ button{
   letter-spacing: 0.18em;
   color: #d4c5a9;
   margin: 0;
+  animation: fadeUpSubtitle 1s ease 0.4s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUpSubtitle {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .minimal-divider-line {
   width: 50px;
   height: 2px;
   background: #aa7c11;
-  margin: 6px 0;
+  margin: 4px 0;
   opacity: 0.8;
 }
 
@@ -3480,7 +3530,20 @@ button{
   margin: 0;
 }
 
+.blinking-red-cursor {
+  color: #8b0000;
+  font-weight: 900;
+  margin-left: 2px;
+  animation: blinkCursor 0.8s infinite;
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 .btn-minimal-enter {
+  position: relative !important;
   background: linear-gradient(135deg, #aa7c11 0%, #6d4e13 100%) !important;
   color: #fffdf8 !important;
   border: 1.5px solid #f7c873 !important;
@@ -3493,7 +3556,24 @@ button{
   cursor: pointer !important;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 25px rgba(170, 124, 17, 0.3) !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-  margin-top: 16px !important;
+  margin-top: 14px !important;
+  overflow: hidden !important;
+}
+
+.btn-shine-effect {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: skewX(-20deg);
+  animation: sweepShine 3.5s infinite;
+}
+
+@keyframes sweepShine {
+  0%, 70% { left: -100%; }
+  100% { left: 200%; }
 }
 
 .btn-minimal-enter:hover {
