@@ -1227,26 +1227,28 @@ button{
 /* ============================================================
    DETECTIVE INVESTIGATION WORKSPACE (3-COLUMN COMPOSED LAYOUT)
    ============================================================ */
+/* ============================================================
+   DETECTIVE INVESTIGATION WORKSPACE (3-COLUMN COMPOSED LAYOUT)
+   ============================================================ */
 #scene-detective {
   position: absolute;
   inset: 0;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 24px 28px;
   background: 
     radial-gradient(ellipse at 50% 40%, rgba(224, 149, 79, 0.12) 0%, rgba(20, 12, 6, 0.75) 60%, rgba(5, 3, 1, 0.98) 95%),
     repeating-linear-gradient(90deg, #2b1a11 0px, #2b1a11 150px, #21130a 150px, #21130a 300px);
   box-shadow: inset 0 0 120px rgba(0,0,0,0.92);
   display: flex !important;
-  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  overflow: hidden !important;
-  padding: 16px 20px;
 }
 
 #scene-detective.is-active {
   display: flex !important;
-  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
 }
@@ -1266,30 +1268,20 @@ button{
   position: relative;
   z-index: 5;
   width: 100%;
-  max-width: 1380px;
-  height: min(680px, 92vh);
+  max-width: 1400px;
+  height: calc(100vh - 48px);
   display: grid;
-  grid-template-columns: minmax(210px, 250px) minmax(580px, 1fr) minmax(210px, 240px);
+  grid-template-columns: minmax(220px, 250px) minmax(0, 1fr) minmax(220px, 250px);
   grid-template-rows: 1fr;
-  gap: 20px;
+  gap: 24px;
   align-items: center;
   margin: auto;
 }
 
 @media (max-width: 1280px) {
   .detective-workspace {
-    grid-template-columns: 210px 1fr 200px;
-    gap: 12px;
-    height: min(640px, 94vh);
-  }
-}
-
-@media (max-height: 768px) {
-  .detective-workspace {
-    height: 96vh;
-  }
-  .board {
-    height: 440px !important;
+    grid-template-columns: 220px minmax(0, 1fr) 220px;
+    gap: 16px;
   }
 }
 
@@ -1377,11 +1369,11 @@ button{
 
 /* CENTER COLUMN: Green Evidence Board & Bottom Action Button */
 .detective-center-col {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100%;
+  align-items: center;
   position: relative;
 }
 
@@ -1389,7 +1381,7 @@ button{
   position: relative;
   margin: 0 auto;
   width: 100%;
-  height: min(480px, 64vh);
+  height: min(560px, 68vh);
   background: linear-gradient(135deg, #1b382b 0%, #11261d 50%, #0d1f18 100%);
   border: 12px solid #3c2416;
   border-radius: 4px;
@@ -1400,6 +1392,7 @@ button{
 }
 
 .detective-action-wrap {
+  flex: 0 0 auto;
   margin-top: 14px;
   display: flex;
   justify-content: center;
