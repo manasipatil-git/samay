@@ -799,21 +799,43 @@
   <!-- ============ SCENE: DETECTIVE ROOM ============ -->
   <section id="scene-detective" class="scene">
     <div class="desk-glow"></div>
-    <header class="board-header">
-      <span class="hud-eyebrow">Late that night · 1946</span>
-      <h2>The Evidence Board</h2>
-      <div class="board-score" id="board-score">Insight: 0%</div>
-      <p class="board-hint" id="board-hint">Drag a clue onto another to connect what you've found.</p>
-      <button class="board-skip-btn" id="btn-auto-connect">Detective Hint 🔍</button>
-    </header>
 
-    <div class="board" id="board"></div>
+    <!-- Composed Investigation Workspace Grid (3-Column Layout + Centered Action) -->
+    <div class="detective-workspace">
+      <!-- LEFT SIDEBAR: Evidence Header, Insight %, Detective Hint -->
+      <aside class="detective-sidebar-left">
+        <div class="sidebar-paper-card">
+          <span class="hud-eyebrow">Late that night · 1946</span>
+          <h2 class="detective-board-title">The Evidence Board</h2>
+          <div class="board-score" id="board-score">Insight: 0%</div>
+          <p class="board-hint" id="board-hint">Drag a clue onto another to connect what you've found.</p>
+          <button class="board-skip-btn" id="btn-auto-connect">Detective Hint 🔍</button>
+        </div>
+      </aside>
 
-    <div class="board-deductions" id="board-deductions"></div>
+      <!-- CENTER COLUMN: Green Evidence Corkboard & Action Control -->
+      <main class="detective-center-col">
+        <div class="board" id="board"></div>
+        <div class="board-deductions" id="board-deductions"></div>
 
-    <button class="btn-proceed" id="btn-to-meeting" disabled>
-      <span>Bring it all to the village</span>
-    </button>
+        <!-- Action control positioned directly underneath green evidence board -->
+        <div class="detective-action-wrap">
+          <button class="btn-proceed" id="btn-to-meeting" disabled>
+            <span>Bring it all to the village</span>
+          </button>
+        </div>
+      </main>
+
+      <!-- RIGHT SIDEBAR: Objective & Instruction Sheet -->
+      <aside class="detective-sidebar-right">
+        <div class="objective-pinned-sheet">
+          <span class="obj-pin-tag font-type">📍 CASE OBJECTIVE</span>
+          <h3 class="obj-sheet-title font-type">Cross-Reference Evidence</h3>
+          <p class="obj-sheet-body font-type">Examine records, match figures, and connect the evidence cards on the board to prove the contractor milk monopoly.</p>
+          <span class="obj-sheet-footer font-type">Bring it all to the village once 100% Insight is reached.</span>
+        </div>
+      </aside>
+    </div>
 
     <!-- Deduction Board Sentence Reconstruction Modal -->
     <div class="deduction-prompt-overlay" id="deduction-prompt-overlay">
