@@ -101,6 +101,7 @@ button{
 }
 .scene.is-active{
   display: flex;
+  flex-direction: column;
   opacity:1;
   pointer-events:auto;
   z-index: 3;
@@ -1223,12 +1224,17 @@ button{
 /* ============================================================
    DETECTIVE BOARD
 ============================================================ */
-#scene-detective{
+#scene-detective {
   background: 
     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.75)),
     repeating-linear-gradient(90deg, #2b1a11 0px, #2b1a11 150px, #21130a 150px, #21130a 300px);
   box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
   overflow-y: auto;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding-bottom: 60px;
 }
 #btn-to-meeting {
   position: relative;
@@ -1247,16 +1253,20 @@ button{
 }
 .board-header{
   position:relative; text-align:center; padding: 30px 20px 10px; z-index: 5;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
 }
 /* Visual brass magnifying glass rim */
 .board-header::before {
   content: "";
   position: absolute;
-  left: 20%;
-  top: 50%;
-  transform: translateY(-50%) rotate(-25deg);
-  width: 48px;
-  height: 48px;
+  left: 50%;
+  top: 15px;
+  margin-left: -210px;
+  transform: rotate(-25deg);
+  width: 44px;
+  height: 44px;
   border: 4px solid #aa7c11;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.15) 100%);
@@ -1268,10 +1278,11 @@ button{
 .board-header::after {
   content: "";
   position: absolute;
-  left: 19%;
-  top: 74%;
+  left: 50%;
+  top: 48px;
+  margin-left: -222px;
   width: 8px;
-  height: 32px;
+  height: 30px;
   background: linear-gradient(90deg, #5f3a26, #3c2416);
   border: 1px solid #1c1109;
   border-radius: 2px;
