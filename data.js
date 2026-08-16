@@ -81,8 +81,8 @@ const GAME_DATA = {
       sub: "Transport & Future Generation",
       x: 70,
       y: 70,
-      speaker: "Lilavati (Young Girl) & Bhikhabhai (Farmer)",
-      portrait: "farmer",
+      speaker: "B.B. & C.I. Railway Guard & Bhikhabhai",
+      portrait: "railway",
       lines: [
         "My mother leaves before sunrise every morning to carry milk cans. We don't get to keep milk at home anymore...",
         "The contractor claims there is no rail space for Kaira milk. But look at these B.B.&C.I. Railway waybills!",
