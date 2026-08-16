@@ -1369,59 +1369,6 @@ button{
   transform: translateY(-2px) scale(1.02) !important;
 }
 
-/* RIGHT SIDEBAR: Objective Sheet */
-.detective-sidebar-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-}
-
-.objective-pinned-sheet {
-  background: linear-gradient(180deg, #fdfaf2 0%, #ede0c4 100%);
-  border: 1.5px solid #c8b998;
-  border-right: 5px solid #8b0000;
-  border-radius: 3px;
-  padding: 22px 18px;
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.65);
-  transform: rotate(1.5deg);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.obj-pin-tag {
-  font-size: 0.62rem;
-  font-weight: bold;
-  letter-spacing: 0.12em;
-  color: #8b0000;
-}
-
-.obj-sheet-title {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  color: #1a0f08;
-  margin: 0;
-  line-height: 1.25;
-}
-
-.obj-sheet-body {
-  font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.76rem;
-  line-height: 1.5;
-  color: #3c2416;
-  margin: 0;
-}
-
-.obj-sheet-footer {
-  font-family: 'Special Elite', Courier, monospace;
-  font-size: 0.7rem;
-  font-weight: bold;
-  color: #aa7c11;
-  border-top: 1.5px dashed rgba(170, 124, 17, 0.4);
-  padding-top: 8px;
-  margin-top: 4px;
-}
 /* White Chalk Scribbles & Annotations Watermark Overlay */
 .board::after {
   content: "ARCHIVE EVIDENCE // PRIVATE INVESTIGATION";
