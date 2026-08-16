@@ -273,6 +273,7 @@ class Game {
   }
 
   _playSplash() {
+    this._splashTransitioned = false;
     this._goToScene("splash");
     if (window.SAMAY_SOUND) {
       window.SAMAY_SOUND.startAmbient();
@@ -400,14 +401,9 @@ class Game {
   /* -------------------------------------------------------
      ACT 1 — SPLASH & BRIEFING
   ------------------------------------------------------- */
-  _playSplash() {
-    this._goToScene("splash");
-    if (window.SAMAY_SOUND) {
-      window.SAMAY_SOUND.startAmbient();
-    }
-  }
-
   _enterArchive() {
+    if (this._splashTransitioned) return;
+    this._splashTransitioned = true;
     this._goToScene("archive");
     this._startArchiveAmbient();
 
