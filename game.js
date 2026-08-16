@@ -278,7 +278,11 @@ class Game {
     this._splashTransitioned = false;
     this._goToScene("splash");
     if (window.SAMAY_SOUND) {
-      window.SAMAY_SOUND.startAmbient();
+      if (typeof window.SAMAY_SOUND.startAmbient === "function") {
+        window.SAMAY_SOUND.startAmbient();
+      } else if (typeof window.SAMAY_SOUND.startRain === "function") {
+        window.SAMAY_SOUND.startRain();
+      }
     }
     this._runMinimalTypewriterSplash();
   }
