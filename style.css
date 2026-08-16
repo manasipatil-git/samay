@@ -100,10 +100,10 @@ button{
   display: none;
 }
 .scene.is-active{
-  display: flex;
-  flex-direction: column;
-  opacity:1;
-  pointer-events:auto;
+  display: flex !important;
+  flex-direction: column !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
   z-index: 3;
 }
 

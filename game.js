@@ -88,6 +88,8 @@ class Game {
       this._goToScene("decision");
     } else if (this.state.scene === "meeting") {
       this._goToScene("meeting");
+    } else if (this.state.scene === "detective") {
+      this._goToScene("detective");
     } else if (this.state.scene === "village") {
       this._goToScene("village");
     } else {
